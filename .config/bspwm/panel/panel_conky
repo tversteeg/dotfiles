@@ -1,0 +1,13 @@
+background yes
+out_to_console yes
+out_to_x no
+
+short_units yes
+update_interval 1
+
+TEXT
+S\f7${exec /home/thomas/.config/bspwm/panel/panel_cmus} \
+\f8UP: \f2${uptime_short} \
+\f8CPU: \f2${cpu cpu0}% \
+\f8MEM: \f2${mem}/${memmax} \
+\f8TIME: \f4${time %I:%M %P}
