@@ -7,6 +7,7 @@ update_interval 1
 
 TEXT
 S\f7${exec /home/thomas/.config/bspwm/panel/panel_cmus} \
+\f8DROP: \f3${exec dropbox status} \
 \f8UP: \f2${uptime_short} \
 \f8CPU: \f2${cpu cpu0}% \
 \f8MEM: \f2${mem}/${memmax} \

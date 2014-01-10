@@ -4,8 +4,7 @@ hsetroot -tile ~/.themes/background.png
 
 xrdb -load ~/.Xresources
 
-compton -c -b
-
+# compton -c -b
 
 # cmus &
 
