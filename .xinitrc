@@ -7,6 +7,7 @@ xrdb -load ~/.Xresources
 # compton -c -b
 
 # cmus &
+xmms2-launcher
 
 # Launch WM
 sxhkd &
