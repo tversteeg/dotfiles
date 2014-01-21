@@ -101,7 +101,9 @@ XF86AudioPause
     xmms2 pause
 
 XF86AudioNext
+    xmms2 stop
     xmms2 next
+    xmms2 play
 
 XF86AudioPrev
     xmms2 prev
