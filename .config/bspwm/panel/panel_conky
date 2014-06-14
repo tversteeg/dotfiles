@@ -6,13 +6,13 @@ short_units yes
 update_interval 1
 
 TEXT
-S\f8XMMS: \f5${xmms2_title} - \
-${xmms2_artist} \
+S\f8XMMS \f5${xmms2_smart} \
 ${xmms2_elapsed}/${xmms2_duration} \
-\f8TODO: \f.${exec cat ~/Dropbox/todo/todo.txt | tail -n1 | cut -d@ -f1 | rev | cut -b 2- | rev} \
-\f1${exec cat ~/Dropbox/todo/todo.txt | tail -n1 | grep -o '@[A-Za-z]*'} \
-\f8DROP: \f3${exec dropbox status | tail -n1} \
-\f8VOL: \f9${exec pactl list sinks | grep "Volume: 0" | cut -d " " -f4 | tail -n1 } \
-\f8CPU: \f2${cpu cpu0}% \
-\f8MEM: \f2${mem}/${memmax} \
-\f8TIME: \f6${time %I:%M %P}
+\f8TODO \f.${exec cat ~/Dropbox/todo/todo.txt | tail -n1 | cut -d@ -f1 | rev | cut -b 2- | rev | cut -b 12-} \
+\f7${exec cat ~/Dropbox/todo/todo.txt | tail -n1 | grep -o '@[A-Za-z]*'} \
+\f8DROP \f3${exec dropbox status | tail -n1} \
+\f8VOL \f9${exec amixer | grep  -o "\[.*%\]" | head -n1 | cut -c2- | sed s/.$// } \
+\f8CPU \f2${cpu cpu0}% \
+\f8MEM \f2${mem}/${memmax} \
+\f8TIME \f6${time %I:%M %P} \
+\f8DATE \f7${time %A %d %B}

@@ -110,8 +110,11 @@ if ! shopt -oq posix; then
 fi
 
 # Panel
-export PATH=$PATH:/home/thomas/.config/bspwm/panel
+export PATH=$PATH:/home/thomas/.config/bspwm/panel:/home/thomas/Android/android-sdk-linux/tools:/home/thomas/Android/android-sdk-linux/platform-tools
+export CC=colorgcc
 
-alias m='sudo mount /dev/sdb6 /media/HDD || sudo mount /dev/sda6 /media/HDD' 
+alias m='sudo mount /dev/sdc6 /media/HDD || sudo mount /dev/sdd6 /media/HDD || sudo mount /dev/sdb6 /media/HDD || sudo mount /dev/sda6 /media/HDD' 
 alias s='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
 alias e='disown -h $1 && exit'
+
+alias gcc='colorgcc'

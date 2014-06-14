@@ -8,7 +8,10 @@ super + alt + Escape
 super + w
     bspc window -c
 
-super + t
+super + x
+	bspc window -k
+
+super + 
     bspc desktop -l next
 
 super + b
@@ -88,7 +91,7 @@ super + Return
     xterm -font -*-terminus-medium-r-normal
 
 super + space
-    dmenu_run
+    bashrun2
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -101,12 +104,10 @@ XF86AudioPause
     xmms2 pause
 
 XF86AudioNext
-    xmms2 stop
-    xmms2 next
-    xmms2 play
+    xmms2 next && xmms2 play
 
 XF86AudioPrev
-    xmms2 prev
+    xmms2 stop && xmms2 prev && xmms2 play ; xmms2 server volume 100
 
 XF86AudioStop
     xmms2 stop
