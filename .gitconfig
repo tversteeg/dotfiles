@@ -1,0 +1,11 @@
+[user]
+	name = Thomas Versteeg
+	email = thomas.versteeg@xillio.nl
+[color]
+	ui = auto
+[core]
+	autocrlf = input
+[branch]
+	mergeoptions = --no-commit --no-ff
+[credential]
+	helper = cache
