@@ -76,18 +76,13 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -110,11 +105,5 @@ if ! shopt -oq posix; then
 fi
 
 # Panel
-export PATH=$PATH:/home/thomas/.config/bspwm/panel:/home/thomas/Android/android-sdk-linux/tools:/home/thomas/Android/android-sdk-linux/platform-tools
+export PATH=$PATH:/home/thomas/.config/bspwm/panel
 export CC=colorgcc
-
-alias m='sudo mount /dev/sdc6 /media/HDD || sudo mount /dev/sdd6 /media/HDD || sudo mount /dev/sdb6 /media/HDD || sudo mount /dev/sda6 /media/HDD' 
-alias s='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
-alias e='disown -h $1 && exit'
-
-alias gcc='colorgcc'
