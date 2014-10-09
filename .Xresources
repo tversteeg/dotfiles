@@ -18,3 +18,13 @@
 *color13:   #9f79ee
 *color14:   #79cdcd
 *color15:   #e8e9ca
+
+Xft*antialias:          true
+Xft*autohint:           true
+XTerm.vt100.geometry:   120x50
+XTerm*scrollBar:        true
+XTerm*rightScrollBar:   true
+XTerm*saveLines:        10000
+XTerm*faceName:     	Inconsolata
+XTerm*faceSize:     	12
+XTerm*toolBar:      	off
