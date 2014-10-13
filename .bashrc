@@ -105,5 +105,6 @@ if ! shopt -oq posix; then
 fi
 
 # Panel
-export PATH=$PATH:/home/thomas/.config/bspwm/panel
-export CC=colorgcc
+# export PATH=$PATH:/home/thomas/.config/bspwm/panel
+
+PS1="\e[0;2m\A\e[m \u \e[30;46m#\#\e[m:\w "
