@@ -82,6 +82,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+    
+    alias gcc='colorgcc'
 fi
 
 # Alias definitions.
@@ -105,5 +107,6 @@ if ! shopt -oq posix; then
 fi
 
 # Panel
-export PATH=$PATH:/home/thomas/.config/bspwm/panel
-export CC=colorgcc
+# export PATH=$PATH:/home/thomas/.config/bspwm/panel
+
+PS1="\e[0;2m\A\e[m \u \e[30;46m#\#\e[m:\w "
