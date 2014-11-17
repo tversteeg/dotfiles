@@ -20,7 +20,7 @@ set laststatus=2
 set noshowmode
 
 set guifont=Terminus\ 8
-set guifont=Inconsolata\ 14
+#set guifont=Inconsolata\ 14
 colorscheme desert
 
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
