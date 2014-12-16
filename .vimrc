@@ -27,3 +27,9 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 
 filetype plugin indent on
 filetype off
+
+function! Gblame(num)
+  let l = a:firstline
+  exe '!git blame -L' . (l-a:num) . ',' . (l+a:num) . ' % | sed "s/[^(]*(\([^)]*\).*/\1/"'
+endfunction
+command! -nargs=? Gblame :call Gblame("<args>")
