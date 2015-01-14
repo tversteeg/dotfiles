@@ -90,3 +90,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+PS1="\#\`if [[ \j != "0" ]]; then echo ':\j' ; fi\` \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then echo '\e[32m\h\e[0m'; else echo '\e[31m\h\e[0m' ; fi\`:\w\n\$ "
