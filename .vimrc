@@ -24,6 +24,8 @@ set guifont=Terminus\ 8
 colorscheme desert
 
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
+au BufNewFile,BufRead SConstruct set filetype=python
+au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
 
 filetype plugin indent on
 filetype off
