@@ -11,3 +11,4 @@ XTerm*faceName:     		Inconsolata
 XTerm*faceSize:     		12
 XTerm*toolBar:      		true
 XTerm*metaSendsEscape: 	true
+XTerm*visualBell:       true
