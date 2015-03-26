@@ -1,14 +1,12 @@
 syntax on
 
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set foldcolumn=2
 set foldmethod=syntax
 set expandtab
 set autoindent
 set smarttab
-
-set lines=50 columns=80
 
 set directory=/tmp
 
@@ -18,6 +16,7 @@ filetype off
 set t_Co=256
 set laststatus=2
 set noshowmode
+set clipboard=unnamedplus
 
 set guifont=Terminus\ 8
 "set guifont=Inconsolata\ 14
@@ -26,6 +25,7 @@ colorscheme desert
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 au BufNewFile,BufRead SConstruct set filetype=python
 au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
+au BufRead,BufNewFile *.gradle set filetype=groovy
 
 filetype plugin indent on
 filetype off
