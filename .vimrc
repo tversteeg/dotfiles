@@ -25,7 +25,7 @@ colorscheme desert
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 au BufNewFile,BufRead SConstruct set filetype=python
 au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
-au BufRead,BufNewFile *.gradle set filetype=groovy
+au BufNewFile,BufRead *.gradle set filetype=groovy
 
 filetype plugin indent on
 filetype off
