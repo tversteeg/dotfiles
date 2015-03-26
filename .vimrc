@@ -35,3 +35,8 @@ function! Gblame(num)
   exe '!git blame -L' . (l-a:num) . ',' . (l+a:num) . ' % | sed "s/[^(]*(\([^)]*\).*/\1/"'
 endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
+
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
+augroup END
