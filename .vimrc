@@ -1,34 +1,41 @@
-syntax on
+execute pathogen#infect()
 
-set shiftwidth=2
 set tabstop=2
-set foldcolumn=2
-set foldmethod=syntax
-set expandtab
+set shiftwidth=2
+set noexpandtab
 set autoindent
-set smarttab
-
+set smartindent
 set directory=/tmp
-
 set nocompatible
-filetype off
-
+set title
 set t_Co=256
+set background=dark
 set laststatus=2
 set noshowmode
 set clipboard=unnamedplus
+set guifont=Inconsolata\ 14
 
-set guifont=Terminus\ 8
-"set guifont=Inconsolata\ 14
-colorscheme desert
-
-au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
-au BufNewFile,BufRead SConstruct set filetype=python
-au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
-au BufNewFile,BufRead *.gradle set filetype=groovy
-
+"colorscheme desert
+colorscheme torte
+syntax on
 filetype plugin indent on
-filetype off
+
+let g:EclimCompletionMethod = 'omnifunc'
+
+:nmap \d :JavaDocComment<CR>
+:nmap \h :JavaHierarchy<CR>
+:nmap \c :JavaCorrect<CR>
+:nmap \p :JavaDocPreview<CR>
+:nmap \f :%JavaFormat<CR>
+:vmap \f :JavaFormat<CR>
+:nmap \i :JavaImportOrganize<CR>
+:vmap \i :JavaImport<CR>
+:nmap \s :JavaSearch<CR>
+:vmap \s :JavaSearch<CR>
+:nmap \r :JavaSearch -x references<CR>
+:vmap \r :JavaSearch -x references<CR>
+:nmap \g :JavaGetSet<CR>
+:vmap \g :JavaGetSet<CR>
 
 function! Gblame(num)
   let l = a:firstline
@@ -36,7 +43,23 @@ function! Gblame(num)
 endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
 
+au BufRead,BufNewFile *.java :Validate
+au BufRead,BufNewFile *.gradle set filetype=groovy
+au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
+au BufNewFile,BufRead SConstruct set filetype=python
+au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
+
+" Reload vimrc when saved
 augroup myvimrc
-  au!
-  au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
+	au!
+	au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
 augroup END
+
+" Change to directory of file
+autocmd BufEnter * lcd %:p:h
+
+" Jump cursor to last known position
+autocmd BufReadPost * 
+\ if line("'\"") > 0 && line("'\"") <= line("$") | 
+\   exe "normal g`\"" | 
+\ endif 
