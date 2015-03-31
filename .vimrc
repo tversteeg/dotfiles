@@ -13,12 +13,16 @@ set background=dark
 set laststatus=2
 set noshowmode
 set clipboard=unnamedplus
-set guifont=Inconsolata\ 14
+"set guifont=Inconsolata\ 14
+set guifont=Terminus\ 9
 
 "colorscheme desert
 colorscheme torte
 syntax on
 filetype plugin indent on
+
+set foldcolumn=2
+set foldmethod=syntax
 
 let g:EclimCompletionMethod = 'omnifunc'
 
@@ -55,11 +59,15 @@ augroup myvimrc
 	au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
 augroup END
 
+" Don't unfold when editting a block
+au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
+au InsertLeave * let &l:foldmethod=w:last_fdm
+
 " Change to directory of file
-autocmd BufEnter * lcd %:p:h
+au BufEnter * lcd %:p:h
 
 " Jump cursor to last known position
-autocmd BufReadPost * 
+au BufReadPost * 
 \ if line("'\"") > 0 && line("'\"") <= line("$") | 
 \   exe "normal g`\"" | 
 \ endif 
