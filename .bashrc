@@ -86,7 +86,16 @@ fi
 
 export CC=gcc
 
-PS1="\# \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then echo '\e[32m\h\e[0m'; else echo '\e[31m\h\e[0m' ; fi\`:\w\n\$ "
+function prompt_command {                                                                                                                                                                                                                      
+  if git status > /dev/null 2>&1; then                                                                                                                                                                                                         
+    export GIT_STATUS=$(git status | grep 'On branch' | cut -b 10-)                                                                                                                                                                            
+  else                                                                                                                                                                                                                                         
+    export GIT_STATUS=""                                                                                                                                                                                                                       
+  fi                                                                                                                                                                                                                                           
+}
+PROMPT_COMMAND=prompt_command
+
+PS1="\#\e[35m\$GIT_STATUS \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then echo '\e[32m\h\e[0m'; else echo '\e[31m\h\e[0m' ; fi\`:\w\n\$ "
 
 xrdb ~/.Xresources
 
