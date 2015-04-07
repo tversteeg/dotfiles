@@ -19,24 +19,38 @@ set directory=/tmp
 set showmatch
 set matchtime=2
 
+" Show what you are typing
+set showcmd
+
 " Highlight search and search while typing
 set hlsearch
 set incsearch
 
+" Set English for spell-checking
+if version >= 700
+	set spl=en spell
+endif
+
 set title
 set t_Co=256
-set background=dark
 set laststatus=2
 set noshowmode
 set clipboard=unnamedplus
-"set guifont=Inconsolata\ 14
-set guifont=Terminus\ 9
+
+" Set gui options
+if has("gui_running")
+	set guifont=Terminus\ 9
+	set background=dark
+
+	colorscheme desert
+else
+	colorscheme torte
+endif
 
 " Set folding
 set foldcolumn=2
 set foldmethod=syntax
 
-colorscheme torte
 syntax on
 filetype plugin indent on
 
