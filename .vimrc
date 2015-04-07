@@ -38,6 +38,7 @@ set cul
 " Set English for spell-checking
 if version >= 700
 	set spl=en spell
+	set nospell
 endif
 
 set title
