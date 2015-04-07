@@ -26,6 +26,9 @@ set showcmd
 set hlsearch
 set incsearch
 
+" Clear search when enter is pressed
+nnoremap <CR> :noh<CR><CR>
+
 " Change to directory of working file
 set autochdir
 
