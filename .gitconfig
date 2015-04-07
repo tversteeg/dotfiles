@@ -10,4 +10,4 @@
 [credential]
 	helper = cache --timeout=2628000
 [alias]
-	hist = log --pretty=format:\"%Cred%h%Creset %ad%x08%x08%x08%x08%x08%x08%x08%x08%x08 %Cgreen%an%Creset %s%C(cyan)%d%Creset\" --graph --date=iso --abbrev-commit
+	hist = log --pretty=format:\"%w(80)%Cred%h %C(yellow)%ad%x08%x08%x08%x08%x08%x08%x08%x08%x08 %Cgreen%an%Creset%C(cyan)%d%n%m %s%n\" --graph --date=iso
