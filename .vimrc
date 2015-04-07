@@ -26,6 +26,12 @@ set showcmd
 set hlsearch
 set incsearch
 
+" Change to directory of working file
+set autochdir
+
+" Highlight current line
+set cul
+
 " Set English for spell-checking
 if version >= 700
 	set spl=en spell
@@ -97,9 +103,6 @@ if has("autocmd")
 	" Don't unfold when editting a block
 	au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
 	au InsertLeave * let &l:foldmethod=w:last_fdm
-
-	" Change to directory of file
-	au BufEnter * lcd %:p:h
 
 	" Jump cursor to last known position
 	au BufReadPost * 
