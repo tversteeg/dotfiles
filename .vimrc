@@ -49,8 +49,10 @@ set clipboard=unnamedplus
 
 " Set gui options
 if has("gui_running")
-	set guifont=Terminus\ 9
+	"set guifont=Terminus\ 9
 	set background=dark
+
+	set lines=50 columns=120
 
 	colorscheme desert
 else
@@ -85,8 +87,8 @@ nmap \n :NERDTreeFind<CR>
 nmap \m :NERDTreeToggle<CR>
 
 function! Gblame(num)
-  let l = a:firstline
-  exe '!git blame -L' . (l-a:num) . ',' . (l+a:num) . ' % | sed "s/[^(]*(\([^)]*\).*/\1/"'
+	let l = a:firstline
+	exe '!git blame -L' . (l-a:num) . ',' . (l+a:num) . ' % | sed "s/[^(]*(\([^)]*\).*/\1/"'
 endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
 
@@ -104,18 +106,17 @@ if has("autocmd")
 		au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
 	augroup END
 
-" Load NERDTree on startup
-au VimEnter * NERDTree
+	" Load NERDTree on startup
+	au VimEnter * NERDTree
 
-" Close NERDTree when it's the only window
-au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+	" Close NERDTree when it's the only window
+	au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" Ignore certain files in NERDTree
-let NERDTreeIgnore=['\.o$']
+	" Ignore certain files in NERDTree
+	let NERDTreeIgnore=['\.o$']
 
-" Display folders always on top followed by specified files
-let NERDTreeSortOrder=['\/$', '\.sh$', '\.h$', '\.c$']
-
+	" Display folders always on top followed by specified files
+	let NERDTreeSortOrder=['\/$', '\.sh$', '\.h$', '\.c$']
 
 	" Don't unfold when editting a block
 	au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
@@ -123,7 +124,7 @@ let NERDTreeSortOrder=['\/$', '\.sh$', '\.h$', '\.c$']
 
 	" Jump cursor to last known position
 	au BufReadPost * 
-	\ if line("'\"") > 0 && line("'\"") <= line("$") | 
-	\   exe "normal g`\"" | 
-	\ endif 
+				\ if line("'\"") > 0 && line("'\"") <= line("$") | 
+				\   exe "normal g`\"" | 
+				\ endif 
 endif
