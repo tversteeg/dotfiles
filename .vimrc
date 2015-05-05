@@ -66,6 +66,13 @@ set foldmethod=syntax
 syntax on
 filetype plugin indent on
 
+" Set relative line numbers with a gray color
+set number
+set relativenumber
+set numberwidth=3
+set cpoptions+=n
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
 let g:EclimCompletionMethod = 'omnifunc'
 
 nmap \d :JavaDocComment<CR>
@@ -128,3 +135,4 @@ if has("autocmd")
 				\   exe "normal g`\"" | 
 				\ endif 
 endif
+
