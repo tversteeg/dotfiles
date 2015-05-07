@@ -15,7 +15,7 @@ set smartindent
 " Set the directory for the ~ files
 set directory=/tmp
 
-" Jump quickly to matching brace
+" Jump to and show quickly to matching brace
 set showmatch
 set matchtime=2
 
@@ -25,6 +25,9 @@ set showcmd
 " Highlight search and search while typing
 set hlsearch
 set incsearch
+
+" Ignore the case when you search
+set ignorecase
 
 " Clear search when enter is pressed
 nnoremap <CR> :noh<CR><CR>
@@ -41,10 +44,18 @@ if version >= 700
 	set nospell
 endif
 
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Save the file as sudo
+command! W w !sudo tee % > /dev/null
+
 set title
 set t_Co=256
 set laststatus=2
 set noshowmode
+
+" Set the clipboard to the system clipboard
 set clipboard=unnamedplus
 
 " Set gui options
@@ -56,6 +67,11 @@ if has("gui_running")
 
 	colorscheme desert
 else
+	" Enable the mouse in the commandline
+	if has('mouse')
+		set mouse=a
+	endif
+
 	colorscheme torte
 endif
 
@@ -74,6 +90,12 @@ set cpoptions+=n
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
 let g:EclimCompletionMethod = 'omnifunc'
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 nmap \d :JavaDocComment<CR>
 nmap \h :JavaHierarchy<CR>
