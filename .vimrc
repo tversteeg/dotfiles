@@ -27,7 +27,7 @@ set hlsearch
 set incsearch
 
 " Ignore the case when you search
-set ignorecase
+"set ignorecase
 
 " Clear search when enter is pressed
 nnoremap <CR> :noh<CR><CR>
@@ -68,9 +68,9 @@ if has("gui_running")
 	colorscheme desert
 else
 	" Enable the mouse in the commandline
-	if has('mouse')
-		set mouse=a
-	endif
+	"if has('mouse')
+	"	set mouse=a
+	"endif
 
 	colorscheme torte
 endif
@@ -122,12 +122,16 @@ endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
 
 if has("autocmd")
-	au BufNewFile,BufRead *.java set foldlevel=1
+	"au BufNewFile,BufRead *.java set foldlevel=1
+	au BufNewFile,BufRead *.java set nofoldenable
 	au BufNewFile,BufRead *.java :Validate
 	au BufNewFile,Bufread *.gradle set filetype=groovy
 	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 	au BufNewFile,BufRead SConstruct set filetype=python
 	au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
+	au BufNewFile,BufRead *.md set filetype=markdown
+	au BufNewFile,Bufread *.sbot set filetype=javascript.awk
+	au BufNewFile,BufRead *.sbot set nofoldenable
 
 	" Reload vimrc when saved
 	augroup myvimrc
