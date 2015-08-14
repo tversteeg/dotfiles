@@ -89,8 +89,6 @@ set numberwidth=3
 set cpoptions+=n
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
-let g:EclimCompletionMethod = 'omnifunc'
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -121,6 +119,18 @@ function! Gblame(num)
 endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
 
+" Ignore certain files in NERDTree
+let NERDTreeIgnore = ['\.o$']
+
+" Display folders always on top followed by specified files
+let NERDTreeSortOrder = ['\/$', '\.sh$', '\.h$', '\.c$']
+
+" Remap the YCM invoke key
+let g:ycm_key_invoke_completion = '\y'
+
+" Remove conflicts between YCM & Eclim
+let g:EclimCompletionMethod = 'omnifunc'
+
 if has("autocmd")
 	au BufNewFile,BufRead *.java set foldlevel=1
 	au BufNewFile,BufRead *.java :Validate
@@ -140,12 +150,6 @@ if has("autocmd")
 
 	" Close NERDTree when it's the only window
 	au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-	" Ignore certain files in NERDTree
-	let NERDTreeIgnore=['\.o$']
-
-	" Display folders always on top followed by specified files
-	let NERDTreeSortOrder=['\/$', '\.sh$', '\.h$', '\.c$']
 
 	" Don't unfold when editting a block
 	au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual

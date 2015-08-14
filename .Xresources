@@ -7,8 +7,6 @@ XTerm.vt100.geometry:   120x50
 XTerm*scrollBar:    		false
 XTerm*rightScrollBar:   true
 XTerm*saveLines:    		10000
-XTerm*faceName:     		Inconsolata
-XTerm*faceSize:     		12
 XTerm*toolBar:      		true
 XTerm*metaSendsEscape: 	true
 XTerm*visualBell:       true
