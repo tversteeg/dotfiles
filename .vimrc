@@ -4,6 +4,7 @@ if &compatible
 endif
 
 execute pathogen#infect()
+execute pathogen#helptags()
 
 " Set the tabsizes and behavior
 set tabstop=2
@@ -25,6 +26,9 @@ set showcmd
 " Highlight search and search while typing
 set hlsearch
 set incsearch
+
+" Look in all parent directories for ctags files
+set tags=./tags;/
 
 " Ignore the case when you search
 "set ignorecase
@@ -132,7 +136,6 @@ let g:ycm_key_invoke_completion = '\y'
 let g:EclimCompletionMethod = 'omnifunc'
 
 if has("autocmd")
-	"au BufNewFile,BufRead *.java set foldlevel=1
 	au BufNewFile,BufRead *.java set nofoldenable
 	au BufNewFile,BufRead *.java :Validate
 	au BufNewFile,Bufread *.gradle set filetype=groovy
@@ -171,7 +174,11 @@ if has("autocmd")
 	%s/\s\+$//ge
 	exe "normal `z"
 	endfunc
-	autocmd BufWrite *.py :call DeleteTrailingWS()
-	autocmd BufWrite *.coffee :call DeleteTrailingWS()
+	au BufWrite *.py :call DeleteTrailingWS()
+	au BufWrite *.coffee :call DeleteTrailingWS()
+
+	" Refresh the ctags
+	au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+	au BufReadPost :HighlightTags
 
 endif
