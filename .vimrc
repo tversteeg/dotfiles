@@ -178,7 +178,9 @@ if has("autocmd")
 	au BufWrite *.coffee :call DeleteTrailingWS()
 
 	" Refresh the ctags
-	au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
-	au BufReadPost :HighlightTags
+	"au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+	
+	" Apply easytags highlighting, easytags handles the refreshes itself
+	au BufRead *.c,*.cpp,*h :HighlightTags
 
 endif
