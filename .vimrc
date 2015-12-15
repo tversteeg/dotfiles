@@ -64,7 +64,7 @@ set clipboard=unnamedplus
 
 " Set gui options
 if has("gui_running")
-	"set guifont=Terminus\ 9
+	set guifont=Tamsyn\ 9
 	set background=dark
 
 	set lines=50 columns=120
@@ -135,6 +135,12 @@ let g:ycm_key_invoke_completion = '\y'
 " Remove conflicts between YCM & Eclim
 let g:EclimCompletionMethod = 'omnifunc'
 
+" Automatically refresh easytags highlighting on save
+let g:easytags_events = ['BufWritePost']
+
+" Also include struct members
+let g:easytags_include_members = 1
+
 if has("autocmd")
 	au BufNewFile,BufRead *.java set nofoldenable
 	au BufNewFile,BufRead *.java :Validate
@@ -177,7 +183,7 @@ if has("autocmd")
 	au BufWrite *.py :call DeleteTrailingWS()
 	au BufWrite *.coffee :call DeleteTrailingWS()
 
-	" Refresh the ctags
+	" Refresh the ctags, not needed because of easytags
 	"au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
 	
 	" Apply easytags highlighting, easytags handles the refreshes itself

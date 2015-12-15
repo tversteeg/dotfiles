@@ -1,9 +1,12 @@
 #!/bin/sh
 
-hsetroot -tile ~/.themes/background.png
+DEFAULT_SESSION=startxfce4
 
-xrdb ~/.Xresources
-
-# Launch WM
-sxhkd &
-exec bspwm
+case $1 in
+xfce4)
+	exec startxfce4
+	;;
+*)
+	exec $DEFAULT_SESSION
+	;;
+esac
