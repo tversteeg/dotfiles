@@ -64,7 +64,7 @@ set clipboard=unnamedplus
 
 " Set gui options
 if has("gui_running")
-	set guifont=Tamsyn\ 9
+	set guifont=Tamsyn\ 11
 	set background=dark
 
 	set lines=50 columns=120
