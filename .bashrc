@@ -103,4 +103,6 @@ xrdb ~/.Xresources
 
 tmux -2 new
 
+clear
+
 fortune -a | cowsay -f /usr/share/cowsay/cows/tux.cow 
