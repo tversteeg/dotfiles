@@ -3,7 +3,7 @@
 ### APPLICATIONS ###
 sudo apt-get -y install iceweasel
 sudo sed -i 's/^Exec.*/Exec=env GTK2_RC_FILES=\/usr\/share\/themes\/Adwaita\/gtk-2.0\/gtkrc iceweasel %u/' /usr/share/applications/iceweasel.desktop
-exit 1
+exit 0
 
 ### CUSTOM FONT ###
 # Find directory of the script
