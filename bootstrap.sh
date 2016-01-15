@@ -18,7 +18,7 @@ chmod 777 ~/.local/etc
 
 # Add scripts to cron
 TEMP=$(mktemp)
-echo "1 * * * * \"~/.local/etc/batterycheck.sh\"" > ${TEMP}
+echo "* * * * * \"/home/$(users)/.local/etc/batterycheck.sh\"" > ${TEMP}
 crontab ${TEMP}
 rm -f ${TEMP}
 
