@@ -1,11 +1,5 @@
 #!/bin/bash
 
-### APPLICATIONS ###
-sudo apt-get -y install iceweasel
-sudo sed -i 's/^Exec.*/Exec=env GTK2_RC_FILES=\/usr\/share\/themes\/Adwaita\/gtk-2.0\/gtkrc iceweasel %u/' /usr/share/applications/iceweasel.desktop
-exit 0
-
-### CUSTOM FONT ###
 # Find directory of the script
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -15,10 +9,30 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+### CUSTOM SCRIPTS ###
+
+# Add battery notification
+mkdir -p ~/.local/etc
+cp $DIR/batterycheck.sh ~/.local/etc
+chmod 777 ~/.local/etc
+
+# Add scripts to cron
+TEMP=$(mktemp)
+echo "1 * * * * \"~/.local/etc/batterycheck.sh\"" > ${TEMP}
+crontab ${TEMP}
+rm -f ${TEMP}
+
+exit 0
+
+### APPLICATIONS ###
+sudo apt-get -y install iceweasel
+sudo sed -i 's/^Exec.*/Exec=env GTK2_RC_FILES=\/usr\/share\/themes\/Adwaita\/gtk-2.0\/gtkrc iceweasel %u/' /usr/share/applications/iceweasel.desktop
+
 # Link the dotfiles
 cd ~
 ln -s $DIR/.*
 
+### CUSTOM FONT ###
 # Install the tamsyn font
 cd /tmp
 wget http://www.fial.com/~scott/tamsyn-font/download/tamsyn-font-1.11.tar.gz
