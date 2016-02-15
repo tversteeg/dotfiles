@@ -14,7 +14,15 @@ read -p "Install core packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt-get -y install iceweasel
+	sudo apt-get -y install iceweasel vim-gtk
+fi
+
+# Vim addons
+read -p "Install vim addon packages? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	sudo apt-get -y install vim-pathogen vim-syntastic vim-youcompleteme
 fi
 
 # Link the dotfiles
