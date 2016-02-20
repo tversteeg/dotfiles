@@ -103,6 +103,8 @@ xrdb ~/.Xresources
 
 tmux -2 new
 
+trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
+
 clear
 
 fortune -a | cowsay -f /usr/share/cowsay/cows/tux.cow 
