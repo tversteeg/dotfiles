@@ -6,6 +6,9 @@ endif
 execute pathogen#infect()
 execute pathogen#helptags()
 
+" Load Ctrl-P
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 " Set the tabsizes and behavior
 set tabstop=2
 set shiftwidth=2
@@ -140,6 +143,10 @@ let g:easytags_events = ['BufWritePost']
 
 " Also include struct members
 let g:easytags_include_members = 1
+
+" Setup Ctrl-P
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 if has("autocmd")
 	au BufNewFile,BufRead *.java set nofoldenable

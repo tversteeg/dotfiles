@@ -103,7 +103,8 @@ xrdb ~/.Xresources
 
 tmux -2 new
 
-trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
+#trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
+PROMPT_COMMAND='echo -ne "\033]2;`dirs`\007\033]1;\007"'
 
 clear
 

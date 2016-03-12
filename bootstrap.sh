@@ -23,6 +23,8 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	sudo apt-get -y install vim-pathogen vim-syntastic vim-youcompleteme
+	cd ~/.vim
+	git clone https://github.com/ctrlpvim/ctrlp.vim.git bundle/ctrlp.vim
 fi
 
 # Link the dotfiles
@@ -52,11 +54,12 @@ then
 	rm -f ${TEMP}
 fi
 
-read -p "Apply the Adwaita theme to iceweasel? " -n 1 -r
+read -p "Apply the Adwaita theme to iceweasel/icedove? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	sudo sed -i 's/^Exec.*/Exec=env GTK2_RC_FILES=\/usr\/share\/themes\/Adwaita\/gtk-2.0\/gtkrc iceweasel %u/' /usr/share/applications/iceweasel.desktop
+	sudo sed -i 's/^Exec.*/Exec=env GTK2_RC_FILES=\/usr\/share\/themes\/Adwaita\/gtk-2.0\/gtkrc icedove %u/' /usr/share/applications/icedove.desktop
 fi
 
 ### CUSTOM FONT ###
