@@ -1,9 +1,15 @@
 #!/bin/sh
 
-hsetroot -tile ~/.themes/background.png
+# Load font location
+xset +fp /usr/local/share/fonts/bitmap/tamsyn-font-1.11/
 
-xrdb ~/.Xresources
+DEFAULT_SESSION=startxfce4
 
-# Launch WM
-sxhkd &
-exec bspwm
+case $1 in
+xfce4)
+	exec startxfce4
+	;;
+*)
+	exec $DEFAULT_SESSION
+	;;
+esac

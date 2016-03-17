@@ -4,6 +4,10 @@ if &compatible
 endif
 
 execute pathogen#infect()
+execute pathogen#helptags()
+
+" Load Ctrl-P
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Set the tabsizes and behavior
 set tabstop=2
@@ -25,6 +29,9 @@ set showcmd
 " Highlight search and search while typing
 set hlsearch
 set incsearch
+
+" Look in all parent directories for ctags files
+set tags=./tags;/
 
 " Ignore the case when you search
 "set ignorecase
@@ -60,7 +67,7 @@ set clipboard=unnamedplus
 
 " Set gui options
 if has("gui_running")
-	"set guifont=Terminus\ 9
+	set guifont=Tamsyn\ 11
 	set background=dark
 
 	set lines=50 columns=120
@@ -131,8 +138,17 @@ let g:ycm_key_invoke_completion = '\y'
 " Remove conflicts between YCM & Eclim
 let g:EclimCompletionMethod = 'omnifunc'
 
+" Automatically refresh easytags highlighting on save
+let g:easytags_events = ['BufWritePost']
+
+" Also include struct members
+let g:easytags_include_members = 1
+
+" Setup Ctrl-P
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 if has("autocmd")
-	"au BufNewFile,BufRead *.java set foldlevel=1
 	au BufNewFile,BufRead *.java set nofoldenable
 	au BufNewFile,BufRead *.java :Validate
 	au BufNewFile,Bufread *.gradle set filetype=groovy
@@ -171,7 +187,13 @@ if has("autocmd")
 	%s/\s\+$//ge
 	exe "normal `z"
 	endfunc
-	autocmd BufWrite *.py :call DeleteTrailingWS()
-	autocmd BufWrite *.coffee :call DeleteTrailingWS()
+	au BufWrite *.py :call DeleteTrailingWS()
+	au BufWrite *.coffee :call DeleteTrailingWS()
+
+	" Refresh the ctags, not needed because of easytags
+	"au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+	
+	" Apply easytags highlighting, easytags handles the refreshes itself
+	au BufRead *.c,*.cpp,*h :HighlightTags
 
 endif

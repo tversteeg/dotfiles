@@ -1,8 +1,8 @@
 Xft*antialias:          true
 Xft*autohint:           true
-XTerm*Background:				black
-XTerm*Foreground:				white
-XTerm*cursorColor:			LightBlue
+XTerm*Background:				rgb:14/14/14
+XTerm*Foreground:				rgb:88/88/88
+XTerm*cursorColor:			rgb:A5/E1/2D
 XTerm.vt100.geometry:   120x50
 XTerm*scrollBar:    		false
 XTerm*rightScrollBar:   true

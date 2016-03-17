@@ -13,8 +13,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -95,10 +95,14 @@ fi
 }
 PROMPT_COMMAND=prompt_command
 
+alias xterm='xterm -font -*-tamsyn-medium-*-*-*-13-*-*-*-*-*-* -geometry 80x40'
+
 PS1="\#\e[35m\$GIT_STATUS \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then echo '\e[32m\h\e[0m'; else echo '\e[31m\h\e[0m' ; fi\`:\w\n\$ "
 
-xrdb ~/.Xresources
+xrdb ~/.Xresources:
+#trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
+PROMPT_COMMAND='echo -ne "\033]2;`dirs`\007\033]1;\007"'
 
-#tmux -2 new
-[[ $- != *i* ]] && return
-[[ -z "$TMUX" ]] && exec tmux
+clear
+
+fortune -a | cowsay -f /usr/share/cowsay/cows/tux.cow 
