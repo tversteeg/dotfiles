@@ -99,4 +99,6 @@ PS1="\#\e[35m\$GIT_STATUS \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then e
 
 xrdb ~/.Xresources
 
-tmux -2 new
+#tmux -2 new
+[[ $- != *i* ]] && return
+[[ -z "$TMUX" ]] && exec tmux
