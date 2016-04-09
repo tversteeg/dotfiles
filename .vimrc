@@ -67,7 +67,7 @@ set clipboard=unnamedplus
 
 " Set gui options
 if has("gui_running")
-	set guifont=Tamsyn\ 11
+	set guifont=Terminus\ 9,Monospace\ 10
 	set background=dark
 
 	set lines=50 columns=120
@@ -127,7 +127,7 @@ endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
 
 " Ignore certain files in NERDTree
-let NERDTreeIgnore = ['\.o$']
+let NERDTreeIgnore = ['\.o$', '\.lo$']
 
 " Display folders always on top followed by specified files
 let NERDTreeSortOrder = ['\/$', '\.sh$', '\.h$', '\.c$']
@@ -191,9 +191,9 @@ if has("autocmd")
 	au BufWrite *.coffee :call DeleteTrailingWS()
 
 	" Refresh the ctags, not needed because of easytags
-	"au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+	au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
 	
 	" Apply easytags highlighting, easytags handles the refreshes itself
-	au BufRead *.c,*.cpp,*h :HighlightTags
+	au BufRead *.c,*.cpp,*h silent! :HighlightTags
 
 endif

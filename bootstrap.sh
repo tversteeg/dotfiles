@@ -4,7 +4,7 @@
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
 	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-	SOURCE="$(readlink "$SOURCE")"
+	SOURCE="$( readlink "$SOURCE" )"
 	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
@@ -14,7 +14,18 @@ read -p "Install core packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt-get -y install iceweasel vim-gtk
+	sudo apt -y install firefox vim-gtk xfonts-terminus ristretto
+fi
+
+read -p "Install mpd music player with gimmix & mpc? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	sudo apt -y install gimmix mpd mpc
+	mkdir -p ~/.mpd
+	cp $DIR/mpd.conf ~/.mpd
+	sed -i "s/%USERDIR%/$( echo $HOME | sed -e 's/\//\\\//g' )/g" ~/.mpd/mpd.conf
+	touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate,tag_cache}
 fi
 
 # Vim addons
@@ -22,7 +33,7 @@ read -p "Install vim addon packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt-get -y install vim-pathogen vim-syntastic vim-youcompleteme
+	sudo apt -y install vim-pathogen vim-syntastic vim-youcompleteme
 	cd ~/.vim
 	git clone https://github.com/ctrlpvim/ctrlp.vim.git bundle/ctrlp.vim
 fi
