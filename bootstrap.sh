@@ -34,8 +34,27 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	sudo apt -y install vim-pathogen vim-syntastic vim-youcompleteme
-	cd ~/.vim
-	git clone https://github.com/ctrlpvim/ctrlp.vim.git bundle/ctrlp.vim
+	mkdir -p ~/.vim/bundle
+	cd ~/.vim/bundle
+	git clone https://github.com/ctrlpvim/ctrlp.vim.git
+	git clone https://github.com/scrooloose/syntastic.git
+	git clone https://github.com/ervandew/supertab.git
+
+	# GHC stuff
+	read -p "- Install Haskell development packages & vim plugins? " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		sudo apt -y install hlint ghc-mod
+		git clone https://github.com/eagletmt/ghcmod-vim.git
+		git clone https://github.com/eagletmt/neco-ghc
+
+		# Download correct syntax highlighting
+		mkdir -p ~/.vim/syntax
+		cd ~/.vim/syntax
+		wget -nc https://raw.githubusercontent.com/sdiehl/haskell-vim-proto/master/vim/syntax/haskell.vim
+		wget -nc https://raw.githubusercontent.com/sdiehl/haskell-vim-proto/master/vim/syntax/cabal.vim
+	fi
 fi
 
 # Link the dotfiles

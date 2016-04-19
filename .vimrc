@@ -127,7 +127,7 @@ endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
 
 " Ignore certain files in NERDTree
-let NERDTreeIgnore = ['\.o$', '\.lo$']
+let NERDTreeIgnore = ['\.o$', '\.lo$', '\.swp$', '\.zip$', '\.swo$']
 
 " Display folders always on top followed by specified files
 let NERDTreeSortOrder = ['\/$', '\.sh$', '\.h$', '\.c$']
@@ -147,6 +147,18 @@ let g:easytags_include_members = 1
 " Setup Ctrl-P
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+" Setup Syntastic for Haskell
+map <Leader>s :SyntasticToggleMode<CR>
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
 if has("autocmd")
 	au BufNewFile,BufRead *.java set nofoldenable
@@ -195,5 +207,4 @@ if has("autocmd")
 	
 	" Apply easytags highlighting, easytags handles the refreshes itself
 	au BufRead *.c,*.cpp,*h silent! :HighlightTags
-
 endif
