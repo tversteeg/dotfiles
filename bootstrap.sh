@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Find directory of the script
