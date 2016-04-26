@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Find directory of the script
@@ -14,14 +15,14 @@ read -p "Install core packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt -y install firefox vim-gtk xfonts-terminus ristretto
+	sudo apt-get -y install firefox vim-gtk xfonts-terminus ristretto
 fi
 
 read -p "Install mpd music player with gimmix & mpc? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt -y install gimmix mpd mpc
+	sudo apt-get -y install gimmix mpd mpc
 	mkdir -p ~/.mpd
 	cp $DIR/mpd.conf ~/.mpd
 	sed -i "s/%USERDIR%/$( echo $HOME | sed -e 's/\//\\\//g' )/g" ~/.mpd/mpd.conf
@@ -33,19 +34,22 @@ read -p "Install vim addon packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt -y install vim-pathogen vim-syntastic vim-youcompleteme
-	mkdir -p ~/.vim/bundle
+	mkdir -p ~/.vim/autoload ~/.vim/bundle
+	cd ~/.vim/autoload
+	wget -nc https://tpo.pe/pathogen.vim
 	cd ~/.vim/bundle
 	git clone https://github.com/ctrlpvim/ctrlp.vim.git
 	git clone https://github.com/scrooloose/syntastic.git
-	git clone https://github.com/ervandew/supertab.git
+	git clone https://github.com/ervandew/supertab.git	
+
+	sudo apt-get install -y vim-youcompleteme
 
 	# GHC stuff
 	read -p "- Install Haskell development packages & vim plugins? " -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]
 	then
-		sudo apt -y install hlint ghc-mod
+		sudo apt-get -y install hlint ghc-mod
 		git clone https://github.com/eagletmt/ghcmod-vim.git
 		git clone https://github.com/eagletmt/neco-ghc
 
