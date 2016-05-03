@@ -33,6 +33,8 @@ read -p "Install vim addon packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+	sudo apt-get -y install vim-gtk
+
 	mkdir -p ~/.vim/autoload ~/.vim/bundle
 	cd ~/.vim/autoload
 	wget -nc https://tpo.pe/pathogen.vim
@@ -41,7 +43,20 @@ then
 	git clone https://github.com/scrooloose/syntastic.git
 	git clone https://github.com/ervandew/supertab.git	
 
-	sudo apt-get install -y vim-youcompleteme
+	# YouCompleteMe
+	sudo apt-get -y install build-essential cmake libclang1 python-dev python3-dev
+
+	git clone https://github.com/Valloric/YouCompleteMe.git
+	cd YouCompleteMe
+	git submodule update --init --recursive
+
+	mkdir -p /tmp/ycm_build
+	cd /tmp/ycm_build
+	cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+	cmake --build . --target ycm_core --config Release
+
+	cd ~/.vim/bundle/YouCompletMe
+	./install.py --clang-completer
 
 	# GHC stuff
 	read -p "- Install Haskell development packages & vim plugins? " -n 1 -r

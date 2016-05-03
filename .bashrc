@@ -104,5 +104,3 @@ xrdb ~/.Xresources:
 PROMPT_COMMAND='echo -ne "\033]2;`dirs`\007\033]1;\007"'
 
 clear
-
-fortune -a | cowsay -f /usr/share/cowsay/cows/tux.cow 
