@@ -1,13 +1,9 @@
+"========== GENERAL
+
 " Reset to vim-defaults
 if &compatible
 	set nocompatible
 endif
-
-execute pathogen#infect()
-execute pathogen#helptags()
-
-" Load Ctrl-P
-set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Set the tabsizes and behavior
 set tabstop=2
@@ -54,9 +50,6 @@ endif
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" Save the file as sudo
-command! W w !sudo tee % > /dev/null
-
 set title
 set t_Co=256
 set laststatus=2
@@ -70,7 +63,7 @@ if has("gui_running")
 	set guifont=Terminus\ 9,Monospace\ 10
 	set background=dark
 
-	set lines=50 columns=120
+	set lines=70 columns=130
 
 	colorscheme desert
 else
@@ -96,35 +89,67 @@ set numberwidth=3
 set cpoptions+=n
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
+"========= KEY MAPPINGS
+
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-nmap \d :JavaDocComment<CR>
-nmap \h :JavaHierarchy<CR>
-nmap \c :JavaCorrect<CR>
-nmap \p :JavaDocPreview<CR>
-nmap \f :%JavaFormat<CR>
-vmap \f :JavaFormat<CR>
-nmap \i :JavaImportOrganize<CR>
-vmap \i :JavaImport<CR>
-nmap \s :JavaSearch<CR>
-vmap \s :JavaSearch<CR>
-nmap \r :JavaSearch -x references<CR>
-vmap \r :JavaSearch -x references<CR>
-nmap \g :JavaGetSet<CR>
-vmap \g :JavaGetSet<CR>
+"========= FUNCTIONS
 
-nmap \n :NERDTreeFind<CR>
-nmap \m :NERDTreeToggle<CR>
+" Save the file as sudo
+command! W w !sudo tee % > /dev/null
 
+" Git blame function to show the last edit of the line
 function! Gblame(num)
 	let l = a:firstline
 	exe '!git blame -L' . (l-a:num) . ',' . (l+a:num) . ' % | sed "s/[^(]*(\([^)]*\).*/\1/"'
 endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
+
+" Remove trailing whitespace
+func! DeleteTrailingWS()
+	exe "normal mz"
+	%s/\s\+$//ge
+	exe "normal `z"
+endfunc
+
+if has("autocmd")
+	" Reload vimrc when saved
+	augroup myvimrc
+		au!
+		au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
+	augroup END
+
+	" Jump cursor to last known position
+	au BufReadPost * 
+				\ if line("'\"") > 0 && line("'\"") <= line("$") | 
+				\   exe "normal g`\"" | 
+				\ endif 
+
+	" Don't unfold when editting a block
+	au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
+	au InsertLeave * let &l:foldmethod=w:last_fdm
+
+	" Delete trailing white space on save, useful for Python and CoffeeScript
+	au BufWrite *.py :call DeleteTrailingWS()
+	au BufWrite *.coffee :call DeleteTrailingWS()
+endif
+
+
+if has("autocmd")
+endif
+
+
+"========== ADDONS
+
+execute pathogen#infect()
+execute pathogen#helptags()
+
+" Load Ctrl-P
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Ignore certain files in NERDTree
 let NERDTreeIgnore = ['\.o$', '\.lo$', '\.swp$', '\.zip$', '\.swo$']
@@ -148,59 +173,21 @@ let g:easytags_include_members = 1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-" Setup Syntastic for Haskell
-map <Leader>s :SyntasticToggleMode<CR>
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 if has("autocmd")
-	au BufNewFile,BufRead *.java set nofoldenable
-	au BufNewFile,BufRead *.java :Validate
-	au BufNewFile,Bufread *.gradle set filetype=groovy
 	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 	au BufNewFile,BufRead SConstruct set filetype=python
-	au BufNewFile,BufRead sxhkdrc,*.sxhkdrc set filetype=sxhkdrc
 	au BufNewFile,BufRead *.md set filetype=markdown
-	au BufNewFile,Bufread *.sbot set filetype=javascript.awk
-	au BufNewFile,BufRead *.sbot set nofoldenable
-
-	" Reload vimrc when saved
-	augroup myvimrc
-		au!
-		au BufWritePost .vimrc,_vimrc,vimrc source ~/.vimrc
-	augroup END
 
 	" Load NERDTree on startup
 	au VimEnter * NERDTree
 
 	" Close NERDTree when it's the only window
 	au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-	" Don't unfold when editting a block
-	au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
-	au InsertLeave * let &l:foldmethod=w:last_fdm
-
-	" Jump cursor to last known position
-	au BufReadPost * 
-				\ if line("'\"") > 0 && line("'\"") <= line("$") | 
-				\   exe "normal g`\"" | 
-				\ endif 
-
-	" Delete trailing white space on save, useful for Python and CoffeeScript
-	func! DeleteTrailingWS()
-	exe "normal mz"
-	%s/\s\+$//ge
-	exe "normal `z"
-	endfunc
-	au BufWrite *.py :call DeleteTrailingWS()
-	au BufWrite *.coffee :call DeleteTrailingWS()
 
 	" Refresh the ctags, not needed because of easytags
 	au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
