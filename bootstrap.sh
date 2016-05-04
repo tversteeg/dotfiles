@@ -41,7 +41,7 @@ then
 	cd ~/.vim/bundle
 	git clone https://github.com/ctrlpvim/ctrlp.vim.git
 	git clone https://github.com/scrooloose/syntastic.git
-	git clone https://github.com/ervandew/supertab.git	
+	#git clone https://github.com/ervandew/supertab.git	
 
 	# YouCompleteMe
 	sudo apt-get -y install build-essential cmake libclang1 python-dev python3-dev

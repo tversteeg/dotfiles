@@ -139,10 +139,6 @@ if has("autocmd")
 endif
 
 
-if has("autocmd")
-endif
-
-
 "========== ADDONS
 
 execute pathogen#infect()
@@ -151,17 +147,8 @@ execute pathogen#helptags()
 " Load Ctrl-P
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-" Ignore certain files in NERDTree
-let NERDTreeIgnore = ['\.o$', '\.lo$', '\.swp$', '\.zip$', '\.swo$']
-
-" Display folders always on top followed by specified files
-let NERDTreeSortOrder = ['\/$', '\.sh$', '\.h$', '\.c$']
-
 " Remap the YCM invoke key
 let g:ycm_key_invoke_completion = '\y'
-
-" Remove conflicts between YCM & Eclim
-let g:EclimCompletionMethod = 'omnifunc'
 
 " Automatically refresh easytags highlighting on save
 let g:easytags_events = ['BufWritePost']
@@ -183,15 +170,28 @@ if has("autocmd")
 	au BufNewFile,BufRead SConstruct set filetype=python
 	au BufNewFile,BufRead *.md set filetype=markdown
 
-	" Load NERDTree on startup
-	au VimEnter * NERDTree
-
-	" Close NERDTree when it's the only window
-	au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 	" Refresh the ctags, not needed because of easytags
 	au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
 	
 	" Apply easytags highlighting, easytags handles the refreshes itself
 	au BufRead *.c,*.cpp,*h silent! :HighlightTags
 endif
+
+"========== UNUSED ADDONS
+
+" Remove conflicts between YCM & Eclim
+"let g:EclimCompletionMethod = 'omnifunc'
+
+" Ignore certain files in NERDTree
+"let NERDTreeIgnore = ['\.o$', '\.lo$', '\.swp$', '\.zip$', '\.swo$']
+
+" Display folders always on top followed by specified files
+"let NERDTreeSortOrder = ['\/$', '\.sh$', '\.h$', '\.c$']
+
+"if has("autocmd")
+"	" Load NERDTree on startup
+"	"au VimEnter * NERDTree
+"
+"	" Close NERDTree when it's the only window
+"	"au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"endif
