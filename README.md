@@ -1,12 +1,27 @@
 Dotfiles
 ========
 
-# Vim tips & keys
+## Vim tips & keys
 
-## Generic
+### Generic
 
-`c-V I .. ESC` - comment out multiple lines
+Key | Description
+--- | ---
+<kbd>Ctrl+V</kbd> <kbd>I</kbd> .. <kbd>ESC</kbd> | comment out multiple lines
 
-## [Ctrl-P](https://github.com/ctrlpvim/ctrlp.vim)
+#### Splits
 
-`c-p` - invoke the Ctrl-P menu
+Key | Description
+--- | ---
+<kbd>Ctrl+w</kbd> <kbd>_,\|</kbd> | max out the width, height
+<kbd>Ctrl+w</kbd> <kbd>r,R</kbd> | swap top/bottom, left/right
+<kbd>Ctrl+w</kbd> <kbd>=</kbd> | normalize all
+
+### [Ctrl-P](https://github.com/ctrlpvim/ctrlp.vim)
+
+Key | Description
+--- | ---
+<kbd>Ctrl+p</kbd> | invoke the Ctrl-P menu
+<kbd>Ctrl+[j,k]</kbd> | navigate the menu up, down
+<kbd>Ctrl+x</kbd> | open file in new tab
+<kbd>Ctrl+[v,x]</kbd> | open file in new split
