@@ -14,6 +14,7 @@ Key | Description
 Key | Description
 --- | ---
 <kbd>Ctrl+w</kbd> <kbd>_,\|</kbd> | max out the width, height
+<kbd>Ctrl+w</kbd> <kbd>t</kbd> <kbd>Ctrl+w</kbd> <kbd>K,H</kbd> | switch vertical to horizontal, horizontal to vertical
 <kbd>Ctrl+w</kbd> <kbd>r,R</kbd> | swap top/bottom, left/right
 <kbd>Ctrl+w</kbd> <kbd>=</kbd> | normalize all
 
