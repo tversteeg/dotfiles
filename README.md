@@ -8,6 +8,8 @@ Dotfiles
 Key | Description
 --- | ---
 <kbd>Ctrl+V</kbd> <kbd>I</kbd> .. <kbd>ESC</kbd> | comment out multiple lines
+<kbd>z</kbd><kbd>R,M</kbd> | open, close all folds
+<kbd>z</kbd><kbd>r,m</kbd> | open, close all folds level by level
 
 #### Splits
 
