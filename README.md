@@ -1,6 +1,12 @@
 Dotfiles
 ========
 
+## Command line
+
+Command | Description
+--- | ---
+`find . -type f -exec sed -i 's/foo/bar/g' {} +` | replace "foo" with "bar" in all the files in the current directory and subdirectories
+
 ## Vim tips & keys
 
 ### Generic
