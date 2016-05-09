@@ -10,6 +10,10 @@ Command | Description
 ## Vim tips & keys
 
 ### Generic
+ 
+Command | Description
+--- | ---
+`:%s/foo/bar/gc` | interactively replace "foo" with "bar"
 
 Key | Description
 --- | ---
