@@ -89,6 +89,9 @@ set numberwidth=3
 set cpoptions+=n
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
+" Ignore certain file extensions (used by Ctrl-P)
+set wildignore+=*.o,*.la,*.lo,*.so
+
 "========= KEY MAPPINGS
 
 " Smart way to move between windows
@@ -147,8 +150,12 @@ execute pathogen#helptags()
 " Load Ctrl-P
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-" Remap the YCM invoke key
-let g:ycm_key_invoke_completion = '\y'
+" Set the default settings for YCM
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" Remove the confirmation window
+let g:ycm_confirm_extra_conf = 0
+" Press Ctrl+Space to get YCM completion
+let g:ycm_key_invoke_completion = '<C-Space>'
 
 " Automatically refresh easytags highlighting on save
 let g:easytags_events = ['BufWritePost']
@@ -160,9 +167,11 @@ let g:easytags_include_members = 1
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
+let g:syntastic_c_checkers=['make']
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 if has("autocmd")

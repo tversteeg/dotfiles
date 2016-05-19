@@ -60,8 +60,6 @@ if [ -x /usr/bin/dircolors ]; then
 	alias grep='grep --color=auto'
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
-
-	alias gcc='colorgcc'
 fi
 
 # Alias definitions.
@@ -84,7 +82,8 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-export CC=gcc
+# Set the path to be able to cross compile with MXE
+export PATH=/usr/lib/mxe/usr/bin:$PATH
 
 function prompt_command {
 if git status > /dev/null 2>&1; then

@@ -14,7 +14,7 @@ read -p "Install core packages? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	sudo apt-get -y install firefox vim-gtk xfonts-terminus ristretto
+	sudo apt-get -y install firefox vim-gtk xfonts-terminus ristretto htop
 fi
 
 read -p "Install mpd music player with gimmix & mpc? " -n 1 -r
@@ -57,6 +57,9 @@ then
 
 	cd ~/.vim/bundle/YouCompletMe
 	./install.py --clang-completer
+
+	cd ~/.vim/bundle
+	git clone https://github.com/rdnetto/YCM-Generator.git
 
 	# GHC stuff
 	read -p "- Install Haskell development packages & vim plugins? " -n 1 -r
