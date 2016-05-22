@@ -83,9 +83,14 @@ read -p "Create symlinks for the dotfiles? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-	ls ls -l $DIR/.[^.]* | less
+	SYMS="$(find $DIR -type f -name .\*)"
+	SYMNAMES="$(find $DIR -type f -name .\* -printf "%f ")"
+	echo "Linking: $SYMNAMES"
 	cd ~
-	ln -s $DIR/.*
+	rm -f $SYMNAMES
+	while read -r line; do
+		ln -s $line
+	done <<< "$SYMS"
 fi
 
 ### CUSTOM SCRIPTS ###
