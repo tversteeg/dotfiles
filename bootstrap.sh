@@ -40,26 +40,44 @@ then
 	wget -nc https://tpo.pe/pathogen.vim
 	cd ~/.vim/bundle
 	git clone https://github.com/ctrlpvim/ctrlp.vim.git
-	git clone https://github.com/scrooloose/syntastic.git
+	#git clone https://github.com/scrooloose/syntastic.git
+	git clone https://github.com/godlygeek/tabular.git
 	#git clone https://github.com/ervandew/supertab.git	
 
-	# YouCompleteMe
-	sudo apt-get -y install build-essential cmake libclang1 python-dev python3-dev
+	read -p "- Install markdown preview server & vim plugin? " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		sudo apt-get -y install xdg-utils curl nodejs
+		sudo npm -g install instant-markdown-d
 
-	git clone https://github.com/Valloric/YouCompleteMe.git
-	cd YouCompleteMe
-	git submodule update --init --recursive
+		cd /tmp
+		git clone https://github.com/suan/vim-instant-markdown.git
+		mkdir -p ~/.vim/after/ftplugin/markdown
+		cp vim-instant-markdown/after/ftplugin/markdown/* ~/.vim/after/ftplugin/markdown
+	fi
 
-	mkdir -p /tmp/ycm_build
-	cd /tmp/ycm_build
-	cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
-	cmake --build . --target ycm_core --config Release
+	read -p "- Build and install YouCompleteMe server & vim plugins? " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		sudo apt-get -y install build-essential cmake libclang1 python-dev python3-dev
 
-	cd ~/.vim/bundle/YouCompletMe
-	./install.py --clang-completer
+		git clone https://github.com/Valloric/YouCompleteMe.git
+		cd YouCompleteMe
+		git submodule update --init --recursive
 
-	cd ~/.vim/bundle
-	git clone https://github.com/rdnetto/YCM-Generator.git
+		mkdir -p /tmp/ycm_build
+		cd /tmp/ycm_build
+		cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+		cmake --build . --target ycm_core --config Release
+
+		cd ~/.vim/bundle/YouCompletMe
+		./install.py --clang-completer
+
+		cd ~/.vim/bundle
+		git clone https://github.com/rdnetto/YCM-Generator.git
+	fi
 
 	# GHC stuff
 	read -p "- Install Haskell development packages & vim plugins? " -n 1 -r
@@ -86,6 +104,10 @@ then
 	ls ls -l $DIR/.[^.]* | less
 	cd ~
 	ln -s $DIR/.*
+
+	mkdir -p ~/.vim/ftplugin
+	cd ~/.vim/ftplugin
+	ln -s $DIR/ftplugin/*.vim
 fi
 
 ### CUSTOM SCRIPTS ###
