@@ -113,6 +113,10 @@ then
 	mkdir -p ~/.vim/ftplugin
 	cd ~/.vim/ftplugin
 	ln -s $DIR/ftplugin/*.vim
+
+	mkdir -p ~/.vim/syntax
+	cd ~/.vim/syntax
+	ln -s $DIR/syntax/*.vim
 fi
 
 ### CUSTOM SCRIPTS ###
