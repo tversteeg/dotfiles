@@ -63,6 +63,7 @@ then
 	then
 		sudo apt-get -y install build-essential cmake libclang1 python-dev python3-dev
 
+		cd ~/.vim/bundle
 		git clone https://github.com/Valloric/YouCompleteMe.git
 		cd YouCompleteMe
 		git submodule update --init --recursive
@@ -85,8 +86,17 @@ then
 	if [[ $REPLY =~ ^[Yy]$ ]]
 	then
 		sudo apt-get -y install hlint ghc-mod
+
+		cd ~/.vim/bundle
 		git clone https://github.com/eagletmt/ghcmod-vim.git
-		git clone https://github.com/eagletmt/neco-ghc
+		git clone https://github.com/eagletmt/neco-ghc.git
+		git clone https://github.com/Shougo/vimproc.vim.git
+		cd vimproc.vim
+		make
+
+		cd /tmp
+		wget https://gist.githubusercontent.com/lcd047/7796203/raw/f3df4fd9e2f1e3818492577bac52aca61bb5fa9c/ghc-mod.sh
+		sudo cp /tmp/ghc-mod.sh /usr/bin
 
 		# Download correct syntax highlighting
 		mkdir -p ~/.vim/syntax
