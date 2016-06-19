@@ -17,17 +17,6 @@ then
 	sudo apt-get -y install firefox vim-gtk xfonts-terminus ristretto htop
 fi
 
-read -p "Install mpd music player with gimmix & mpc? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-	sudo apt-get -y install gimmix mpd mpc
-	mkdir -p ~/.mpd
-	cp $DIR/mpd.conf ~/.mpd
-	sed -i "s/%USERDIR%/$( echo $HOME | sed -e 's/\//\\\//g' )/g" ~/.mpd/mpd.conf
-	touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate,tag_cache}
-fi
-
 # Vim addons
 read -p "Install vim addon packages? " -n 1 -r
 echo
@@ -104,6 +93,26 @@ then
 		wget -nc https://raw.githubusercontent.com/sdiehl/haskell-vim-proto/master/vim/syntax/haskell.vim
 		wget -nc https://raw.githubusercontent.com/sdiehl/haskell-vim-proto/master/vim/syntax/cabal.vim
 	fi
+fi
+
+read -p "Install mpd music player with ario & mpc? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	sudo apt-get -y install ario mpd mpc
+	mkdir -p ~/.mpd
+	cp $DIR/mpd.conf ~/.mpd
+	sed -i "s/%USERDIR%/$( echo $HOME | sed -e 's/\//\\\//g' )/g" ~/.mpd/mpd.conf
+	touch ~/.mpd/{mpd.db,mpd.log,mpd.pid,mpdstate,tag_cache}
+fi
+
+read -p "Install vifm? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	sudo apt-get -y install vifm
+	mkdir -p ~/.vifm
+	cp $DIR/vifmrc ~/.vifm
 fi
 
 # Link the dotfiles
