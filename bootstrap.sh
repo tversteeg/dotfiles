@@ -7,7 +7,6 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 	SOURCE="$( readlink "$SOURCE" )"
 	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 ### APPLICATIONS ###
 read -p "Install core packages? " -n 1 -r
@@ -153,6 +152,10 @@ then
 	echo "* * * * * \"/home/$(users)/.local/etc/batterycheck.sh\"" > ${TEMP}
 	crontab ${TEMP}
 	rm -f ${TEMP}
+
+	# Remove mouse acceleration
+	cd ~/.config/autostart
+	ln -s $DIR/mousestart.desktop
 fi
 
 read -p "Apply the Adwaita theme to iceweasel/icedove? " -n 1 -r
