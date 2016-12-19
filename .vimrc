@@ -60,7 +60,9 @@ set clipboard=unnamedplus
 
 " Set gui options
 if has("gui_running")
-	set guifont=Terminus\ 9,Monospace\ 10
+	"set guifont=Terminus\ 9,Monospace\ 10
+	"set guifont=Inconsolata_for_Powerline:h12:cANSI
+	set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 	set background=dark
 
 	set lines=70 columns=130
@@ -144,24 +146,35 @@ endif
 
 "========== ADDONS
 
-execute pathogen#infect()
-execute pathogen#helptags()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#rc()
 
-" Load Ctrl-P
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+Plugin 'gmarik/vundle'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'ervandew/supertab'
+Plugin 'mbbill/undotree'
+Plugin 'tomasr/molokai'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ryanss/vim-hackernews'
+Plugin 'tpope/vim-dispatch'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'rust-lang/rust.vim'
 
-" Set the default settings for YCM
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-" Remove the confirmation window
-let g:ycm_confirm_extra_conf = 0
-" Press Ctrl+Space to get YCM completion
-let g:ycm_key_invoke_completion = '<C-Space>'
+nnoremap <F5> :UndotreeToggle<cr>
 
-" Automatically refresh easytags highlighting on save
-let g:easytags_events = ['BufWritePost']
+let g:rehash256 = 1
+colorscheme molokai
 
-" Also include struct members
-let g:easytags_include_members = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 4
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='molokai'
 
 " Setup Ctrl-P
 let g:ctrlp_map = '<c-p>'
