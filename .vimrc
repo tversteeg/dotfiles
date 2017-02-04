@@ -151,7 +151,7 @@ call vundle#rc()
 
 Plugin 'gmarik/vundle'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/syntastic'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'mbbill/undotree'
 Plugin 'tomasr/molokai'
@@ -184,8 +184,9 @@ let g:syntastic_c_checkers=['make']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
 
 if has("autocmd")
 	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
@@ -197,6 +198,9 @@ if has("autocmd")
 	
 	" Apply easytags highlighting, easytags handles the refreshes itself
 	au BufRead *.c,*.cpp,*h silent! :HighlightTags
+
+	" Set the syntastic checker for rust
+	au FileType rust let g:syntastic_rust_checkers = ['rustc']
 endif
 
 "========== UNUSED ADDONS
