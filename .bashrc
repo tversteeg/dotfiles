@@ -87,7 +87,7 @@ export PATH=/usr/lib/mxe/usr/bin:$PATH
 
 function prompt_command {
 if git status > /dev/null 2>&1; then
-	export GIT_STATUS=$(git status | grep 'On branch' | cut -b 10-)
+	export GIT_STATUS=$(git status -s -b | head -1 | cut -b 3-)
 else
 	export GIT_STATUS=""
 fi
