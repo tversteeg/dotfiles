@@ -24,3 +24,5 @@ fi
 # Load font location
 xset +fp /usr/local/share/fonts/bitmap/tamsyn-font-1.11/
 
+
+export PATH="$HOME/.cargo/bin:$PATH"

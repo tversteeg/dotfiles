@@ -83,7 +83,7 @@ if ! shopt -oq posix; then
 fi
 
 # Set the path to be able to cross compile with MXE
-export PATH=/usr/lib/mxe/usr/bin:$PATH
+export PATH=/usr/lib/mxe/usr/bin:/home/thomas/.cargo/bin:$PATH
 
 function prompt_command {
 if git status > /dev/null 2>&1; then
@@ -102,4 +102,8 @@ xrdb ~/.Xresources:
 #trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
 PROMPT_COMMAND='echo -ne "\033]2;`dirs`\007\033]1;\007"'
 
-clear
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+export GTK_IM_MODULE_FILE=/etc/gtk-2.0/gtk.immodules
+export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache

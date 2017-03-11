@@ -65,7 +65,7 @@ if has("gui_running")
 	set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 	set background=dark
 
-	set lines=70 columns=130
+	set lines=50 columns=100
 
 	colorscheme desert
 else
@@ -147,9 +147,9 @@ endif
 "========== ADDONS
 
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ervandew/supertab'
@@ -163,6 +163,9 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
+
+call vundle#end()
 
 nnoremap <F5> :UndotreeToggle<cr>
 
@@ -180,6 +183,7 @@ let g:airline_theme='molokai'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
+let g:syntastic_rust_checkers = ['cargo', 'rustc']
 let g:syntastic_c_checkers=['make']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -187,6 +191,9 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
+
+let g:racer_cmd = "~/.cargo/bin"
+let g:racer_experimental_completer = 1
 
 if has("autocmd")
 	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
@@ -200,7 +207,7 @@ if has("autocmd")
 	au BufRead *.c,*.cpp,*h silent! :HighlightTags
 
 	" Set the syntastic checker for rust
-	au FileType rust let g:syntastic_rust_checkers = ['rustc']
+	"au FileType rust let g:syntastic_rust_checkers = ['rustc']
 endif
 
 "========== UNUSED ADDONS
