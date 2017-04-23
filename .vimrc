@@ -12,6 +12,10 @@ set noexpandtab
 set autoindent
 set smartindent
 
+" Wrap long lines
+set wrap
+set textwidth=100
+
 " Set the directory for the ~ files
 set directory=/tmp
 
@@ -28,6 +32,13 @@ set incsearch
 
 " Look in all parent directories for ctags files
 set tags=./tags;/
+
+" Make text subtly red after the 80 character mark
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+" Put a colomn at the 80 character mark
+set colorcolumn=80
 
 " Ignore the case when you search
 "set ignorecase
@@ -164,6 +175,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
+Plugin 'tikhomirov/vim-glsl'
 
 call vundle#end()
 
