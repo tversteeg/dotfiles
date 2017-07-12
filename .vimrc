@@ -12,10 +12,6 @@ set noexpandtab
 set autoindent
 set smartindent
 
-" Wrap long lines
-set wrap
-set textwidth=100
-
 " Set the directory for the ~ files
 set directory=/tmp
 
@@ -32,13 +28,6 @@ set incsearch
 
 " Look in all parent directories for ctags files
 set tags=./tags;/
-
-" Make text subtly red after the 80 character mark
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-
-" Put a colomn at the 80 character mark
-set colorcolumn=80
 
 " Ignore the case when you search
 "set ignorecase
@@ -76,7 +65,7 @@ if has("gui_running")
 	set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
 	set background=dark
 
-	set lines=50 columns=100
+	set lines=70 columns=130
 
 	colorscheme desert
 else
@@ -158,11 +147,12 @@ endif
 "========== ADDONS
 
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call vundle#rc()
 
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/vundle'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'scrooloose/syntastic'
+Plugin 'valloric/youcompleteme'
 Plugin 'ervandew/supertab'
 Plugin 'mbbill/undotree'
 Plugin 'tomasr/molokai'
@@ -174,12 +164,12 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
-Plugin 'tikhomirov/vim-glsl'
-
-call vundle#end()
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'airblade/gitgutter'
+Plugin 'majutsushi/tagbar'
 
 nnoremap <F5> :UndotreeToggle<cr>
+nnoremap <F8> :TagbarToggle<cr>
 
 let g:rehash256 = 1
 colorscheme molokai
@@ -195,17 +185,12 @@ let g:airline_theme='molokai'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-let g:syntastic_rust_checkers = ['cargo', 'rustc']
 let g:syntastic_c_checkers=['make']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
-
-let g:racer_cmd = "~/.cargo/bin"
-let g:racer_experimental_completer = 1
 
 if has("autocmd")
 	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
@@ -217,9 +202,6 @@ if has("autocmd")
 	
 	" Apply easytags highlighting, easytags handles the refreshes itself
 	au BufRead *.c,*.cpp,*h silent! :HighlightTags
-
-	" Set the syntastic checker for rust
-	"au FileType rust let g:syntastic_rust_checkers = ['rustc']
 endif
 
 "========== UNUSED ADDONS
