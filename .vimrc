@@ -17,6 +17,11 @@ set noexpandtab
 set autoindent
 set smartindent
 
+" Set the column for line wrapping
+set colorcolumn=80
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.*/
+
 " Set the directory for the ~ files
 if has("win32")
 	set directory=C:\Users\thomas.versteeg\AppData\Local\Temp
@@ -191,10 +196,9 @@ endif
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'vundlevim/vundle'
+Plugin 'vundlevim/vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'ervandew/supertab'
 Plugin 'mbbill/undotree'
 Plugin 'tomasr/molokai'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -208,10 +212,10 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'Conque-GDB'
 Plugin 'tikhomirov/vim-glsl'
 Plugin 'justinmk/vim-syntax-extra'
-Plugin 'airblade/gitgutter'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'majutsushi/tagbar'
 if has("win32")
-
+	Plugin 'ervandew/supertab'
 else
 	Plugin 'valloric/youcompleteme'
 endif
