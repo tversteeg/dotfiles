@@ -115,13 +115,11 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-<<<<<<< HEAD
 " Run love in current directory
 map \l :! love .<CR>
-=======
+
 " Clear search when enter is pressed
 nnoremap <CR> :noh<CR><CR>
->>>>>>> a2076e3bf979399b0f940a0916078a8fdcbf7941
 
 "========= FUNCTIONS
 
@@ -190,10 +188,10 @@ if has("autocmd")
 endif
 
 "========== ADDONS
-set rtp+=~/vimfiles/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'vundlevim/vundle'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
@@ -209,18 +207,15 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'rust-lang/rust.vim'
 Plugin 'Conque-GDB'
 Plugin 'tikhomirov/vim-glsl'
-<<<<<<< HEAD
-Plugin 'Valloric/YouCompleteMe'
-=======
 Plugin 'justinmk/vim-syntax-extra'
 Plugin 'airblade/gitgutter'
 Plugin 'majutsushi/tagbar'
 if has("win32")
->>>>>>> a2076e3bf979399b0f940a0916078a8fdcbf7941
 
 else
 	Plugin 'valloric/youcompleteme'
 endif
+call vundle#end()
 
 " Ignore certain file extensions (used by Ctrl-P)
 set wildignore+=*.o,*.la,*.lo,*.so

@@ -11,3 +11,5 @@
 	helper = cache
 [alias]
 	hist = log --pretty=format:\"%w(80)%Cred%h %C(yellow)%ad%x08%x08%x08%x08%x08%x08%x08%x08%x08 %Cgreen%an%Creset%C(cyan)%d%n%m %s%n\" --graph --date=iso
+[merge]
+	tool = meld
