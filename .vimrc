@@ -5,19 +5,25 @@ if &compatible
 	set nocompatible
 endif
 
+" Set preview to UTF-8
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf8,prc
+
 " Set the tabsizes and behavior
-set tabstop=2
-set shiftwidth=2
+set tabstop=8
+set shiftwidth=8
 set noexpandtab
 set autoindent
 set smartindent
 
-" Wrap long lines
-set wrap
-set textwidth=100
-
 " Set the directory for the ~ files
-set directory=/tmp
+if has("win32")
+	set directory=C:\Users\thomas.versteeg\AppData\Local\Temp
+else
+	set directory=/tmp
+endif
+set backspace=2
 
 " Jump to and show quickly to matching brace
 set showmatch
@@ -33,24 +39,21 @@ set incsearch
 " Look in all parent directories for ctags files
 set tags=./tags;/
 
-" Make text subtly red after the 80 character mark
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-
-" Put a colomn at the 80 character mark
-set colorcolumn=80
-
 " Ignore the case when you search
 "set ignorecase
 
-" Clear search when enter is pressed
-nnoremap <CR> :noh<CR><CR>
+" Move the cursor down on a split
+set splitbelow
 
 " Change to directory of working file
 set autochdir
 
 " Highlight current line
 set cul
+
+" Add command line completion
+set wildmenu
+set wildmode=list:longest,full
 
 " Set English for spell-checking
 if version >= 700
@@ -67,24 +70,26 @@ set laststatus=2
 set noshowmode
 
 " Set the clipboard to the system clipboard
-set clipboard=unnamedplus
+if has("win32")
+	set clipboard=unnamed
+else
+	set clipboard=unnamedplus
+endif
 
 " Set gui options
 if has("gui_running")
-	"set guifont=Terminus\ 9,Monospace\ 10
-	"set guifont=Inconsolata_for_Powerline:h12:cANSI
-	set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+	if has("win32")
+		set guifont=Inconsolata_for_Powerline:h12:cANSI
+	else
+		set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+	endif
+
 	set background=dark
 
-	set lines=50 columns=100
+	set lines=70 columns=130
 
 	colorscheme desert
-else
-	" Enable the mouse in the commandline
-	"if has('mouse')
-	"	set mouse=a
-	"endif
-
+else	
 	colorscheme torte
 endif
 
@@ -102,9 +107,6 @@ set numberwidth=3
 set cpoptions+=n
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
-" Ignore certain file extensions (used by Ctrl-P)
-set wildignore+=*.o,*.la,*.lo,*.so
-
 "========= KEY MAPPINGS
 
 " Smart way to move between windows
@@ -113,13 +115,30 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+<<<<<<< HEAD
 " Run love in current directory
 map \l :! love .<CR>
+=======
+" Clear search when enter is pressed
+nnoremap <CR> :noh<CR><CR>
+>>>>>>> a2076e3bf979399b0f940a0916078a8fdcbf7941
 
 "========= FUNCTIONS
 
+function! PythonFormatting()
+	set expandtab
+	set tabstop=4
+	set softtabstop=4
+	set shiftwidth=4
+	set autoindent
+	set textwidth=99
+	set fileformat=unix
+endfunction
+
 " Save the file as sudo
-command! W w !sudo tee % > /dev/null
+if has("win32") == 0
+	command! W w !sudo tee % > /dev/null
+endif
 
 " Git blame function to show the last edit of the line
 function! Gblame(num)
@@ -143,29 +162,40 @@ if has("autocmd")
 	augroup END
 
 	" Jump cursor to last known position
-	au BufReadPost * 
-				\ if line("'\"") > 0 && line("'\"") <= line("$") | 
-				\   exe "normal g`\"" | 
-				\ endif 
+	au BufReadPost *
+				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+				\   exe "normal g`\"" |
+				\ endif
 
 	" Don't unfold when editting a block
 	au InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
 	au InsertLeave * let &l:foldmethod=w:last_fdm
 
 	" Delete trailing white space on save, useful for Python and CoffeeScript
-	au BufWrite *.py :call DeleteTrailingWS()
-	au BufWrite *.coffee :call DeleteTrailingWS()
+	au BufWrite *.py call DeleteTrailingWS()
+	au BufWrite *.coffee call DeleteTrailingWS()
+
+	" Set vim settings for Python
+	au BufNewFile,BufReadPost *.py call PythonFormatting()
+
+	" See XAML as XML
+	au BufEnter,BufNewFile *.xaml setf xml
+
+	au FileType xml setlocal tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+	au FileType cs setlocal tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+	au BufNewFile,BufRead *.md set filetype=markdown
+	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
+	au BufNewFile,BufRead SConstruct set filetype=python
 endif
 
-
 "========== ADDONS
+set rtp+=~/vimfiles/bundle/vundle/
+call vundle#rc()
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'gmarik/vundle'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'mbbill/undotree'
 Plugin 'tomasr/molokai'
@@ -177,14 +207,40 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
+Plugin 'Conque-GDB'
 Plugin 'tikhomirov/vim-glsl'
+<<<<<<< HEAD
 Plugin 'Valloric/YouCompleteMe'
+=======
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'airblade/gitgutter'
+Plugin 'majutsushi/tagbar'
+if has("win32")
+>>>>>>> a2076e3bf979399b0f940a0916078a8fdcbf7941
 
-call vundle#end()
+else
+	Plugin 'valloric/youcompleteme'
+endif
+
+" Ignore certain file extensions (used by Ctrl-P)
+set wildignore+=*.o,*.la,*.lo,*.so
+
+" Enable code completion (Ctrl-X Ctrl-O)
+set omnifunc=syntaxcomplete#Complete
+
+" Setup Ctrl-P
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+if has("persistent_undo")
+	set undodir=C:\Users\thomas.versteeg\AppData\Local\Temp
+	set undofile
+endif
 
 nnoremap <F5> :UndotreeToggle<cr>
+nnoremap <F8> :TagbarToggle<cr>
 
+"let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
 
@@ -195,52 +251,33 @@ let g:indent_guides_color_change_percent = 4
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 
-" Setup Ctrl-P
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:syntastic_python_pylint_post_args = '--disable=missing-docstring'
 
-let g:syntastic_rust_checkers = ['cargo', 'rustc']
-let g:syntastic_c_checkers=['make']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_aggregate_errors = 1
+let g:syntastic_lua_checkers = ["luac", "luacheck"]
+let g:syntastic_lua_luacheck_args = "--no-unused-args" 
 
-let g:racer_cmd = "~/.cargo/bin"
-let g:racer_experimental_completer = 1
+if has("win32")
+	let g:syntastic_cs_mcs_exec = 'C:\Program Files (x86)\Mono\bin\mcs'
+	let g:syntastic_cs_mcs_args = "-checked"
 
-if has("autocmd")
-	au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
-	au BufNewFile,BufRead SConstruct set filetype=python
-	au BufNewFile,BufRead *.md set filetype=markdown
-
-	" Refresh the ctags, not needed because of easytags
-	au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
-	
-	" Apply easytags highlighting, easytags handles the refreshes itself
-	au BufRead *.c,*.cpp,*h silent! :HighlightTags
-
-	" Set the syntastic checker for rust
-	"au FileType rust let g:syntastic_rust_checkers = ['rustc']
+	let g:syntastic_cs_checkers = ['mcs', 'syntax', 'semantic', 'issues']
+else
+	let g:syntastic_c_checkers=['make']
 endif
 
-"========== UNUSED ADDONS
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
-" Remove conflicts between YCM & Eclim
-"let g:EclimCompletionMethod = 'omnifunc'
+if has("autocmd")
+	au FileType xml let g:indent_guides_guide_size = 2
+	au FileType xml IndentGuidesEnable
+	if has("win32")
+		au FileType xml setlocal equalprg=C:\bin\xmllint.exe\ --format\ -
+	endif
 
-" Ignore certain files in NERDTree
-"let NERDTreeIgnore = ['\.o$', '\.lo$', '\.swp$', '\.zip$', '\.swo$']
+	au FileType python setlocal formatprg=autopep8\ -
 
-" Display folders always on top followed by specified files
-"let NERDTreeSortOrder = ['\/$', '\.sh$', '\.h$', '\.c$']
-
-"if has("autocmd")
-"	" Load NERDTree on startup
-"	"au VimEnter * NERDTree
-"
-"	" Close NERDTree when it's the only window
-"	"au BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-"endif
+	au BufRead *.c,*.cpp,*h silent! :HighlightTags
+endif
