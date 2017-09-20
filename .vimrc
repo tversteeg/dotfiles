@@ -113,6 +113,9 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Run love in current directory
+map \l :! love .<CR>
+
 "========= FUNCTIONS
 
 " Save the file as sudo
@@ -176,6 +179,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
 Plugin 'tikhomirov/vim-glsl'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
