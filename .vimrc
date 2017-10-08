@@ -17,6 +17,9 @@ set noexpandtab
 set autoindent
 set smartindent
 
+" Make the arguments in C script indent nicely
+set cino+=(0
+
 " Set the column for line wrapping
 set colorcolumn=80
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -86,7 +89,7 @@ if has("gui_running")
 	if has("win32")
 		set guifont=Inconsolata_for_Powerline:h12:cANSI
 	else
-		set guifont=Inconsolata\ for\ Powerline\ Medium\ 12
+		set guifont=Inconsolata\ for\ Powerline\ Medium\ 11
 	endif
 
 	set background=dark
