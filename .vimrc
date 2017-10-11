@@ -148,7 +148,7 @@ endif
 
 " Git blame function to show the last edit of the line
 function! Gblame(num)
-	let l = a:firstline
+	let l=a:firstline
 	exe '!git blame -L' . (l-a:num) . ',' . (l+a:num) . ' % | sed "s/[^(]*(\([^)]*\).*/\1/"'
 endfunction
 command! -nargs=? Gblame :call Gblame("<args>")
@@ -231,8 +231,8 @@ set wildignore+=*.o,*.la,*.lo,*.so
 set omnifunc=syntaxcomplete#Complete
 
 " Setup Ctrl-P
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_map='<c-p>'
+let g:ctrlp_cmd='CtrlP'
 
 if has("persistent_undo")
 	set undodir=C:\Users\thomas.versteeg\AppData\Local\Temp
@@ -243,43 +243,41 @@ nnoremap <F5> :UndotreeToggle<cr>
 nnoremap <F8> :TagbarToggle<cr>
 
 "let g:molokai_original = 1
-let g:rehash256 = 1
+let g:rehash256=1
 colorscheme molokai
 
-let g:indent_guides_start_level = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_color_change_percent = 4
+let g:indent_guides_start_level=1
+let g:indent_guides_guide_size=1
+let g:indent_guides_color_change_percent=4
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts=1
 let g:airline_theme='molokai'
 
-let g:syntastic_python_pylint_post_args = '--disable=missing-docstring'
+let g:syntastic_python_pylint_post_args='--disable=missing-docstring'
 
-let g:syntastic_lua_checkers = ["luac", "luacheck"]
-let g:syntastic_lua_luacheck_args = "--no-unused-args" 
+let g:syntastic_lua_checkers=["luac", "luacheck"]
+let g:syntastic_lua_luacheck_args="--no-unused-args" 
+
+let g:syntastic_c_checkers=['make']
 
 if has("win32")
-	let g:syntastic_cs_mcs_exec = 'C:\Program Files (x86)\Mono\bin\mcs'
-	let g:syntastic_cs_mcs_args = "-checked"
+	let g:syntastic_cs_mcs_exec='C:\Program Files (x86)\Mono\bin\mcs'
+	let g:syntastic_cs_mcs_args="-checked"
 
-	let g:syntastic_cs_checkers = ['mcs', 'syntax', 'semantic', 'issues']
-else
-	let g:syntastic_c_checkers=['make']
+	let g:syntastic_cs_checkers=['mcs', 'syntax', 'semantic', 'issues']
 endif
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
 
 if has("autocmd")
-	au FileType xml let g:indent_guides_guide_size = 2
+	au FileType xml let g:indent_guides_guide_size=2
 	au FileType xml IndentGuidesEnable
 	if has("win32")
 		au FileType xml setlocal equalprg=C:\bin\xmllint.exe\ --format\ -
 	endif
 
 	au FileType python setlocal formatprg=autopep8\ -
-
-	au BufRead *.c,*.cpp,*h silent! :HighlightTags
 endif
