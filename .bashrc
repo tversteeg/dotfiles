@@ -98,7 +98,7 @@ alias xterm='xterm -font -*-tamsyn-medium-*-*-*-13-*-*-*-*-*-* -geometry 80x40'
 
 PS1="\#\e[35m\$GIT_STATUS \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then echo '\e[32m\h\e[0m'; else echo '\e[31m\h\e[0m' ; fi\`:\w\n\$ "
 
-xrdb ~/.Xresources:
+xrdb ~/.Xresources
 #trap 'echo -ne "\033]0;$BASH_COMMAND\007"' DEBUG
 PROMPT_COMMAND='echo -ne "\033]2;`dirs`\007\033]1;\007"'
 
@@ -107,3 +107,8 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 export GTK_IM_MODULE_FILE=/etc/gtk-2.0/gtk.immodules
 export GTK_IM_MODULE_FILE=/usr/lib/gtk-3.0/3.0.0/immodules.cache
+
+# Set the text editor to neovim
+export EDITOR=/usr/bin/nvim
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
