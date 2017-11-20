@@ -7,9 +7,13 @@ Plug 'tomasr/molokai'
 " Code completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
+Plug 'sebastianmarkow/deoplete-rust'
 
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" Rust functions and formatting
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -20,26 +24,49 @@ map! <C-p> :FZF<CR>
 " Enable deoplete auto completion
 let g:deoplete#enable_at_startup=1
 
+" Set the Rust autocompletion paths
+let g:deoplete#sources#rust#racer_binary='/home/thomas/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/opt/rust-src/rust/src'
+
+" Autoformat Rust on save
+let g:rustfmt_autosave=1
+
 " Use syntax highlighting
 syntax on
 
 " Use the molokai plugin colorscheme
 colorscheme molokai
 
-" Set the tabsizes and behavior
-set tabstop=8
-set shiftwidth=8
-set noexpandtab
-set autoindent
-set smartindent
+function! CFormatting()
+	" Set the tabsizes and behavior
+	setlocal tabstop=8
+	setlocal shiftwidth=8
+	setlocal noexpandtab
+	setlocal autoindent
+	setlocal smartindent
 
-" Make the arguments in C script indent nicely
-set cino+=(0
+	" Make the arguments in C script indent nicely
+	setlocal cino+=(0
 
-" Set the column for line wrapping
-set colorcolumn=80
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.*/
+	" Set the column for line wrapping
+	setlocal colorcolumn=80
+	highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+	match OverLength /\%81v.*/
+endfunction
+
+function! RustFormatting()
+	" Set the tabsizes and behavior
+	setlocal tabstop=4
+	setlocal shiftwidth=4
+
+	setlocal scrolloff=999
+
+	" Rust files use UTF-8 encoding
+	setlocal encoding=utf-8
+endfunction
+
+autocmd Filetype c call CFormatting()
+autocmd Filetype rust call RustFormatting()
 
 " Set folding
 set foldcolumn=2
