@@ -7,13 +7,13 @@ Plug 'tomasr/molokai'
 " Code completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
-Plug 'sebastianmarkow/deoplete-rust'
 
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Rust functions and formatting
 Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
 call plug#end()
 
@@ -25,8 +25,9 @@ map! <C-p> :FZF<CR>
 let g:deoplete#enable_at_startup=1
 
 " Set the Rust autocompletion paths
-let g:deoplete#sources#rust#racer_binary='/home/thomas/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='/opt/rust-src/rust/src'
+let g:racer_cmd='/home/thomas/.cargo/bin/racer'
+" Add experimental autocompletion with functions
+let g:racer_experimental_completer = 1
 
 " Autoformat Rust on save
 let g:rustfmt_autosave=1
@@ -52,14 +53,15 @@ function! CFormatting()
 	setlocal colorcolumn=80
 	highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 	match OverLength /\%81v.*/
+
+	" Set folding
+	set foldcolumn=2
 endfunction
 
 function! RustFormatting()
 	" Set the tabsizes and behavior
 	setlocal tabstop=4
 	setlocal shiftwidth=4
-
-	setlocal scrolloff=999
 
 	" Rust files use UTF-8 encoding
 	setlocal encoding=utf-8
@@ -73,7 +75,7 @@ set foldcolumn=2
 set foldmethod=syntax
 
 " Set the neovim-qt font
-let g:GuiFont="Inconsolata:h11"
+let g:GuiFont="Inconsolata:h9"
 
 " Display the line numbers sidebar
 set number
@@ -81,3 +83,12 @@ set relativenumber
 
 " Highlight current line
 set cul
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Set the title of the window
+set title
+
+" Reload vimrc when saved
+au BufWritePost init.vim source ~/.config/nvim/init.vim
