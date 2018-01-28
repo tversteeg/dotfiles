@@ -24,10 +24,10 @@ else
 endif
 
 " Rust functions and formatting
-"if executable('rustc')
+if executable('rustc')
 	Plug 'rust-lang/rust.vim'
 	Plug 'racer-rust/vim-racer'
-"endif
+endif
 
 " Git info in the gutter
 Plug 'airblade/vim-gitgutter'
@@ -47,7 +47,7 @@ endif
 let g:deoplete#enable_at_startup=1
 
 " Set the Rust autocompletion paths
-let g:racer_cmd='racer'
+let g:racer_cmd='/home/thomas/.cargo/bin/racer'
 " Add experimental autocompletion with functions
 let g:racer_experimental_completer=1
 
@@ -65,12 +65,16 @@ let g:LanguageClient_serverCommands={
 " Always start the language server
 let g:LanguageClient_autoStart=1
 
+" Racer shortcuts
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
 " Set F2 to rename the current symbol using LanguageClient
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 " Set K to show information about current location
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-" Set gd to go to the definition of the current symbol
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 
 " Use syntax highlighting
 syntax on

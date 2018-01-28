@@ -85,6 +85,9 @@ fi
 # Add Cargo crates to the path
 export PATH=/home/thomas/.cargo/bin:$PATH
 
+# Set the src path for racer
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
 function prompt_command {
 if git status > /dev/null 2>&1; then
 	export GIT_STATUS=$(git status -s -b | head -1 | cut -b 3-)
