@@ -82,8 +82,8 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-# Set the path to be able to cross compile with MXE
-export PATH=/usr/lib/mxe/usr/bin:/home/thomas/.cargo/bin:$PATH
+# Add Cargo crates to the path
+export PATH=/home/thomas/.cargo/bin:$PATH
 
 function prompt_command {
 if git status > /dev/null 2>&1; then
@@ -93,8 +93,6 @@ else
 fi
 }
 PROMPT_COMMAND=prompt_command
-
-alias xterm='xterm -font -*-tamsyn-medium-*-*-*-13-*-*-*-*-*-* -geometry 80x40'
 
 PS1="\#\e[35m\$GIT_STATUS \[\e[1;32m\]\u\[\e[0m\]@\[\`if [[ \$? = "0" ]]; then echo '\e[32m\h\e[0m'; else echo '\e[31m\h\e[0m' ; fi\`:\w\n\$ "
 
