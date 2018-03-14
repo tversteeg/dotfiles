@@ -32,6 +32,9 @@ endif
 " Git info in the gutter
 Plug 'airblade/vim-gitgutter'
 
+" C++ highlighting
+Plug 'octol/vim-cpp-enhanced-highlight'
+
 call plug#end()
 
 " Needed for vim-racer and LanguageClient
@@ -39,8 +42,9 @@ set hidden
 
 " Map fuzzy finding to Ctrl-P in all modes
 if executable('fzf')
-	map <C-p> :FZF<CR>
-	map! <C-p> :FZF<CR>
+	" Map fuzzy finding to Ctrl-P in all modes
+	map <C-p> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '30%'})<CR>
+	map! <C-p> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '30%'})<CR>
 endif
 
 " Enable deoplete auto completion
@@ -102,6 +106,16 @@ function! CFormatting()
 	set foldcolumn=2
 endfunction
 
+function! CppFormatting()
+	" Set the tabsizes and behavior
+	setlocal tabstop=4
+	setlocal shiftwidth=4
+	setlocal expandtab
+	setlocal autoindent
+	setlocal smartindent
+	setlocal smarttab
+endfunction
+
 function! RustFormatting()
 	" Set the tabsizes and behavior
 	setlocal tabstop=4
@@ -112,6 +126,7 @@ function! RustFormatting()
 endfunction
 
 autocmd Filetype c call CFormatting()
+autocmd Filetype cpp call CppFormatting()
 autocmd Filetype rust call RustFormatting()
 
 " Set folding
@@ -139,6 +154,18 @@ set noswapfile
 
 " Reload vimrc when saved
 au BufWritePost init.vim source ~/.config/nvim/init.vim
+
+" Set the title
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
+
+" Open terminal on startup
+map <F1> :vsplit term://bash<CR>
+
+" Exit terminal mode
+tnoremap <F2> <C-\><C-n> 
+
+" Automatically enter terminal mode
+autocmd TermOpen * startinsert
 
 " Disable arrow keys
 nnoremap <right> <nop>
