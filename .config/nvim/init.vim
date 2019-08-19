@@ -18,7 +18,7 @@ Plug 'tomasr/molokai'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Fuzzy find
-Plug 'junegunn/fzf', { 'dir': 'C:/Users/thomas.versteeg/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Rust functions and formatting
