@@ -1,84 +1,85 @@
 " Load the plugins
 call plug#begin()
 
+" Snippets and auto-completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Git
+Plug 'tpope/vim-fugitive'
+
+" Fancy bottom bar with fancy icons
+Plug 'ryanoasis/vim-devicons'
+Plug 'taigacute/spaceline.vim'
+
 " Molokai color theme
 Plug 'tomasr/molokai'
 
-" Language client, mainly for Rust
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Show and remove extra whitespace
+Plug 'ntpeters/vim-better-whitespace'
 
-" Code completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Run make automatically
-Plug 'neomake/neomake', { 'for': ['rust'] }
-
-" Fuzzy find if available
-if executable('fzf')
-	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-else
-	Plug 'ctrlpvim/ctrlp.vim'
-endif
+" Fuzzy find
+Plug 'junegunn/fzf', { 'dir': 'C:/Users/thomas.versteeg/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Rust functions and formatting
-if executable('rustc')
-	Plug 'rust-lang/rust.vim'
-	Plug 'racer-rust/vim-racer'
-endif
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
-" Git info in the gutter
-Plug 'airblade/vim-gitgutter'
+" Tables
+Plug 'dhruvasagar/vim-table-mode'
 
-" C++ highlighting
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Auto change directory to root of project file
+Plug 'airblade/vim-rooter'
+
+" Auto configuration load
+Plug '~/vim-rc'
 
 call plug#end()
 
-" Needed for vim-racer and LanguageClient
-set hidden
+" Always use UTF-8
+set encoding=utf-8
 
 " Map fuzzy finding to Ctrl-P in all modes
-if executable('fzf')
-	" Map fuzzy finding to Ctrl-P in all modes
-	map <C-p> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '30%'})<CR>
-	map! <C-p> :call fzf#run({'source': 'git ls-files', 'sink': 'e', 'down': '30%'})<CR>
-endif
-
-" Enable deoplete auto completion
-let g:deoplete#enable_at_startup=1
-
-" Set the Rust autocompletion paths
-let g:racer_cmd='/home/thomas/.cargo/bin/racer'
-" Add experimental autocompletion with functions
-let g:racer_experimental_completer=1
+map <C-p> :GFiles<CR>
+map! <C-p> :GFiles<CR>
+map <C-.> :FZF<CR>
+map! <C-.> :FZF<CR>
 
 " Autoformat Rust on save
 let g:rustfmt_autosave=1
-let g:autofmt_autosave=1
 
-" Set the language server commands for each programming language
-let g:LanguageClient_serverCommands={
-    \ 'python': ['pyls'],
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'go': ['go-langserver'] }
+" Show complete function definition for Rust autocompletions
+let g:racer_experimental_completer=1
 
-" Always start the language server
-let g:LanguageClient_autoStart=1
+let g:fzf_files_options='--preview "bat {}"'
 
-" Racer shortcuts
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" Set F2 to rename the current symbol using LanguageClient
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-" Set K to show information about current location
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Use syntax highlighting
 syntax on
@@ -101,9 +102,6 @@ function! CFormatting()
 	setlocal colorcolumn=80
 	highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 	match OverLength /\%81v.*/
-
-	" Set folding
-	set foldcolumn=2
 endfunction
 
 function! CppFormatting()
@@ -114,6 +112,11 @@ function! CppFormatting()
 	setlocal autoindent
 	setlocal smartindent
 	setlocal smarttab
+
+	" Use gq to format
+	set formatprg=astyle\ -A1tSwYpxgHk1W1xbjxfxC100xt1m1M80z2\ --mode=c
+	setlocal colorcolumn=100
+	highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 endfunction
 
 function! RustFormatting()
@@ -125,16 +128,37 @@ function! RustFormatting()
 	setlocal encoding=utf-8
 endfunction
 
+function! LuaFormatting()
+	setlocal tabstop=4
+	setlocal shiftwidth=4
+
+	" Lua files use UTF-8 encoding
+	setlocal encoding=utf-8
+
+	" Use Cube-style comments
+	setlocal comments=:---
+endfunction
+
+function! MarkdownFormatting()
+	setlocal tabstop=4
+	setlocal shiftwidth=4
+
+	" Lua files use UTF-8 encoding
+	setlocal encoding=utf-8
+endfunction
+
+" Set the Lua type for Cube types
+autocmd BufRead,BufNewFile *.cproject setfiletype lua
+autocmd BufRead,BufNewFile *.ctheme setfiletype lua
+autocmd BufRead,BufNewFile *.cconfig setfiletype lua
+autocmd BufRead,BufNewFile *.cmodule setfiletype lua
+autocmd BufRead,BufNewFile *.ctest setfiletype lua
+
 autocmd Filetype c call CFormatting()
 autocmd Filetype cpp call CppFormatting()
 autocmd Filetype rust call RustFormatting()
-
-" Set folding
-set foldcolumn=2
-set foldmethod=syntax
-
-" Set the neovim-qt font
-let g:GuiFont="Inconsolata:h9"
+autocmd Filetype lua call LuaFormatting()
+autocmd Filetype markdown call MarkdownFormatting()
 
 " Display the line numbers sidebar
 set number
@@ -143,31 +167,47 @@ set relativenumber
 " Highlight current line
 set cul
 
-" Set to auto read when a file is changed from the outside
+" Set the minimal width of the window
+set winwidth=80
+
+" Reload files changed outside vim
 set autoread
 
-" Set the title of the window
-set title
-
-" Don't save swap files
+" Don't use swap files
 set noswapfile
 
-" Reload vimrc when saved
-au BufWritePost init.vim source ~/.config/nvim/init.vim
+" Automatically change the working directory to the current file
+set autochdir
+
+" Automatically hide some symbols (used by markdown)
+set conceallevel=2
+
+" Always show the sign column
+set signcolumn=yes
+
+" Don't wait 4 seconds
+set updatetime=1000
 
 " Set the title
+set title
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)\ -\ %{v:servername}
 
-" Open terminal on startup
-map <F1> :vsplit term://bash<CR>
+" Give infinite undo across sessions
+set undofile
+set undodir=~/.vim/undodir
 
-" Exit terminal mode
-tnoremap <F2> <C-\><C-n> 
+" Map commands for building projects
+set makeprg=msbuild\ /nologo\ /m\ /v:q\ /p:Configuration=Debug\ /property:GenerateFullPaths=true\ $*
+set errorformat=\ %#%f(%l):\ %m
+map <F4> :!start cmd /c "E:/Cube/cube/premake/bin/Debug/Cube.exe" E:/Cube/cube/examples/gui/widgets/widgets.cproject -- --lua-test-arg<CR><CR>
+map <F5> :!start cmd /c "E:/Cube/cube/premake/bin/Debug/Cube.exe" -r<CR><CR>
+map <silent> <F7> :make! E:/Cube/cube/premake/Cube.sln<CR>
+map <silent> <F8> :make! /t:Rebuild E:/Cube/cube/premake/Cube.sln<CR>
 
-" Automatically enter terminal mode
-autocmd TermOpen * startinsert
+" Lua Snippets
+iabbrev dbgl print(("%s: %d"):format(debug.getinfo(1).short_src, debug.getinfo(1).currentline)) -- DEBUGLINE
 
-" Disable arrow keys
+" Unmap arrow keys
 nnoremap <right> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
@@ -177,3 +217,24 @@ vnoremap <right> <nop>
 vnoremap <down> <nop>
 vnoremap <left> <nop>
 vnoremap <up> <nop>
+
+" Use jj instead of <esc>
+inoremap jj <esc>
+inoremap <esc> <nop>
+
+" Move across wrapped lines like regular lines
+" Go to the first non-blank character of a line
+noremap 0 ^
+" Just in case you need to go to the very beginning of a line
+noremap ^ 0
+
+" Use j\ to add \(\) in regex patterns quickly
+cmap j\ \(\)<left><left>
+
+" Reload vimrc when saved
+au BufWritePost init.vim source ~/.config/nvim/init.vim
+
+" Temporary hack to disable the creation of an empty buffer
+if @% == ""
+	bd
+endif
