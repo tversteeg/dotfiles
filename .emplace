@@ -1,4 +1,5 @@
 ([
 (source:Npm,name:"git-open",),
 (source:Pip,name:"git-repo",),
+(source:Pip3,name:"git-repo",),
 ])
