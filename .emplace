@@ -1,4 +1,5 @@
 ([
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
+(source:RustupComponent,name:"rustfmt",),
 ])
