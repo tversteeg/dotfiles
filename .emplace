@@ -1,5 +1,6 @@
 ([
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
+(source:Pip3User,name:"neovim",),
 (source:RustupComponent,name:"rustfmt",),
 ])
