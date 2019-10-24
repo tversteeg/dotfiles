@@ -1,4 +1,5 @@
 ([
+(source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-release",),
 (source:Cargo,name:"cargo-update",),
 (source:Npm,name:"git-open",),
