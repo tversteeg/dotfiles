@@ -1,8 +1,16 @@
 " Load the plugins
 call plug#begin()
 
-" Snippets and auto-completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Language server
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'powershell -executionpolicy bypass -File install.ps1',
+    \ }, { 'for': 'rust' }
+" Specific language server for vim
+Plug 'prabirshrestha/async.vim', { 'for': 'lua' }
+Plug 'prabirshrestha/vim-lsp'
+" Luacheck
+Plug 'vim-syntastic/syntastic', { 'for': 'lua' }
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -18,12 +26,15 @@ Plug 'tomasr/molokai'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Fuzzy find
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': 'C:/Users/thomas.versteeg/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Rust functions and formatting
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+
+" Languages
+Plug 'sheerun/vim-polyglot'
 
 " Tables
 Plug 'dhruvasagar/vim-table-mode'
@@ -31,8 +42,20 @@ Plug 'dhruvasagar/vim-table-mode'
 " Auto change directory to root of project file
 Plug 'airblade/vim-rooter'
 
-" Auto configuration load
-Plug '~/vim-rc'
+" Add 'aa' (an argument), 'ia' (inner argument) text objects (daa) and many others
+Plug 'wellle/targets.vim'
+
+" Highlight the number sidebar on specific numbers
+Plug 'IMOKURI/line-number-interval.nvim'
+
+" Snippets
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup=1
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+" Language Tool
+Plug 'rhysd/vim-grammarous'
 
 call plug#end()
 
@@ -45,47 +68,74 @@ map! <C-p> :GFiles<CR>
 map <C-.> :FZF<CR>
 map! <C-.> :FZF<CR>
 
+" Use the line number plugin
+let g:line_number_interval#enable_at_startup=1
+let g:line_number_interval=5
+
 " Autoformat Rust on save
 let g:rustfmt_autosave=1
 
 " Show complete function definition for Rust autocompletions
 let g:racer_experimental_completer=1
 
+" Show a preview in FZF
 let g:fzf_files_options='--preview "bat {}"'
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" Language server links
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ }
+if executable('lua-lsp')
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'lua-lsp',
+                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'lua-lsp']},
+                \ 'whitelist': ['lua'],
+                \ })
+endif
+" Lua syntastic
+let g:syntastic_check_on_open=1
+let g:syntastic_lua_checkers = ["luac", "luacheck"]
+let g:syntastic_lua_luacheck_args = "--no-unused-args"
 
-" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+let g:LanguageClient_autoStart=1
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Neosnippet settings
+let g:neosnippet#snippets_directory='E:\Snippets'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+" Snippets key bindings
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" Split edit vertically
+let g:UltiSnipsEditSplit="vertical"
+
+" List the snippets
+let g:UltiSnipsListSnippets="<c-l>"
+
+" Set the snippet directories
+let g:UltiSnipsSnippetsDir = 'E:\Snippets'
+let g:UltiSnipsSnippetDirectories = 'E:\Snippets'
 
 " Use syntax highlighting
 syntax on
 
 " Use the molokai plugin colorscheme
 colorscheme molokai
+
+highlight HighlightedLineNr guifg=#808080 gui=bold
+highlight DimLineNr guifg=#808080
 
 function! CFormatting()
 	" Set the tabsizes and behavior
@@ -197,12 +247,11 @@ set undofile
 set undodir=~/.vim/undodir
 
 " Map commands for building projects
-set makeprg=msbuild\ /nologo\ /m\ /v:q\ /p:Configuration=Debug\ /property:GenerateFullPaths=true\ $*
+set makeprg=msbuild\ /nologo\ /m\ /v:q\ /p:Configuration=Release\ /property:GenerateFullPaths=true\ $*
 set errorformat=\ %#%f(%l):\ %m
-map <F4> :!start cmd /c "E:/Cube/cube/premake/bin/Debug/Cube.exe" E:/Cube/cube/examples/gui/widgets/widgets.cproject -- --lua-test-arg<CR><CR>
-map <F5> :!start cmd /c "E:/Cube/cube/premake/bin/Debug/Cube.exe" -r<CR><CR>
-map <silent> <F7> :make! E:/Cube/cube/premake/Cube.sln<CR>
-map <silent> <F8> :make! /t:Rebuild E:/Cube/cube/premake/Cube.sln<CR>
+map <F5> :!start cmd /c "E:/Cube/cube/build/bin/Release/Cube.exe" E:/Cube/cube/examples/gui/widgets.lua<CR><CR>
+map <silent> <F7> :make! E:/Cube/cube/build/Cube.sln<CR>
+map <silent> <F8> :make! /t:Rebuild E:/Cube/cube/build/Cube.sln<CR>
 
 " Lua Snippets
 iabbrev dbgl print(("%s: %d"):format(debug.getinfo(1).short_src, debug.getinfo(1).currentline)) -- DEBUGLINE
@@ -230,9 +279,6 @@ noremap ^ 0
 
 " Use j\ to add \(\) in regex patterns quickly
 cmap j\ \(\)<left><left>
-
-" Reload vimrc when saved
-au BufWritePost init.vim source ~/.config/nvim/init.vim
 
 " Temporary hack to disable the creation of an empty buffer
 if @% == ""
