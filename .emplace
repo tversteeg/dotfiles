@@ -6,6 +6,7 @@
 (source:Pip3,name:"git-repo",),
 (source:Pip3User,name:"neovim",),
 (source:RustupComponent,name:"rustfmt",),
+(source:Cargo,name:"sprite",),
 (source:Apt,name:"thunar",),
 (source:Cargo,name:"topgrade",),
 ])
