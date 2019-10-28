@@ -7,4 +7,5 @@
 (source:Pip3User,name:"neovim",),
 (source:RustupComponent,name:"rustfmt",),
 (source:Apt,name:"thunar",),
+(source:Cargo,name:"topgrade",),
 ])
