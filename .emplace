@@ -2,6 +2,7 @@
 (source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-release",),
 (source:Cargo,name:"cargo-update",),
+(source:Cargo,name:"git-delta",),
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
 (source:Pip3User,name:"neovim",),
