@@ -1,4 +1,5 @@
 ([
+(source:Chocolatey,name:"aescrypt",),
 (source:Cargo,name:"bindgen",),
 (source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-geiger",),
