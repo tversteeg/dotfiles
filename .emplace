@@ -1,5 +1,6 @@
 ([
 (source:Chocolatey,name:"aescrypt",),
+(source:Apt,name:"audacity",),
 (source:Cargo,name:"bindgen",),
 (source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-geiger",),
