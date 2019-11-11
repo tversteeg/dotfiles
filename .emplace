@@ -15,6 +15,7 @@
 (source:Cargo,name:"onefetch",),
 (source:Cargo,name:"rsign2",),
 (source:RustupComponent,name:"rustfmt",),
+(source:Apt,name:"signal-desktop",),
 (source:Cargo,name:"sprite",),
 (source:Apt,name:"thunar",),
 (source:Cargo,name:"topgrade",),
