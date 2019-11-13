@@ -5,6 +5,7 @@
 (source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-geiger",),
 (source:Cargo,name:"cargo-release",),
+(source:Cargo,name:"cargo-sweep",),
 (source:Cargo,name:"cargo-update",),
 (source:Cargo,name:"git-delta",),
 (source:Npm,name:"git-open",),
