@@ -28,4 +28,5 @@
 (source:Apt,name:"thunar",),
 (source:Chocolatey,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
+(source:Cargo,name:"watchexec",),
 ])
