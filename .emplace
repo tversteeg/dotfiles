@@ -14,6 +14,7 @@
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
 (source:Chocolatey,name:"gource",),
+(source:Chocolatey,name:"greenshot",),
 (source:Apt,name:"libreoffice-writer",),
 (source:Pip3User,name:"neovim",),
 (source:Cargo,name:"nu",),
