@@ -25,5 +25,6 @@
 (source:Cargo,name:"sprite",),
 (source:Cargo,name:"starship",),
 (source:Apt,name:"thunar",),
+(source:Chocolatey,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
 ])
