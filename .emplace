@@ -15,6 +15,7 @@
 (source:Pip3User,name:"neovim",),
 (source:Cargo,name:"nu",),
 (source:Cargo,name:"onefetch",),
+(source:Chocolatey,name:"open-shell",),
 (source:Cargo,name:"rsign2",),
 (source:RustupComponent,name:"rustfmt",),
 (source:Apt,name:"signal-desktop",),
