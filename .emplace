@@ -20,6 +20,7 @@
 (source:Cargo,name:"nu",),
 (source:Cargo,name:"onefetch",),
 (source:Chocolatey,name:"open-shell",),
+(source:Pip3,name:"pynvim",),
 (source:Chocolatey,name:"python3",),
 (source:Cargo,name:"rsign2",),
 (source:RustupComponent,name:"rustfmt",),
