@@ -9,6 +9,7 @@
 (source:Cargo,name:"cargo-release",),
 (source:Cargo,name:"cargo-sweep",),
 (source:Cargo,name:"cargo-update",),
+(source:Chocolatey,name:"ecm",),
 (source:Cargo,name:"git-delta",),
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
