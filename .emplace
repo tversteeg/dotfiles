@@ -25,6 +25,7 @@
 (source:Cargo,name:"rsign2",),
 (source:RustupComponent,name:"rustfmt",),
 (source:Apt,name:"signal-desktop",),
+(source:Chocolatey,name:"slack",),
 (source:Cargo,name:"sprite",),
 (source:Cargo,name:"starship",),
 (source:Apt,name:"thunar",),
