@@ -19,6 +19,7 @@
 (source:RustupComponent,name:"rustfmt",),
 (source:Apt,name:"signal-desktop",),
 (source:Cargo,name:"sprite",),
+(source:Cargo,name:"starship",),
 (source:Apt,name:"thunar",),
 (source:Cargo,name:"topgrade",),
 ])
