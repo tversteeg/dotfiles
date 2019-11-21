@@ -27,6 +27,7 @@
 (source:Pip3,name:"pynvim",),
 (source:Chocolatey,name:"python3",),
 (source:Chocolatey,name:"rapidee",),
+(source:Cargo,name:"ripgrep",),
 (source:Cargo,name:"rsign2",),
 (source:RustupComponent,name:"rustfmt",),
 (source:Apt,name:"signal-desktop",),
