@@ -19,6 +19,7 @@
 (source:Chocolatey,name:"greenshot",),
 (source:Chocolatey,name:"jq",),
 (source:Apt,name:"libreoffice-writer",),
+(source:Chocolatey,name:"llvm",),
 (source:Pip3User,name:"neovim",),
 (source:Cargo,name:"nu",),
 (source:Cargo,name:"onefetch",),
