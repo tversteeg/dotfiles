@@ -1,6 +1,7 @@
 ([
 (source:Chocolatey,name:"7zip",),
 (source:Chocolatey,name:"aescrypt",),
+(source:Apt,name:"alsa-utils",),
 (source:Apt,name:"audacity",),
 (source:Chocolatey,name:"autohotkey",),
 (source:Cargo,name:"bindgen",),
