@@ -25,6 +25,7 @@
 (source:Apt,name:"libsdl2-dev",),
 (source:Chocolatey,name:"llvm",),
 (source:Pip3User,name:"neovim",),
+(source:Chocolatey,name:"nomacs",),
 (source:Cargo,name:"nu",),
 (source:Cargo,name:"onefetch",),
 (source:Chocolatey,name:"open-shell",),
