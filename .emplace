@@ -50,4 +50,5 @@
 (source:Cargo,name:"topgrade",),
 (source:Chocolatey,name:"visualstudio2019professional",),
 (source:Cargo,name:"watchexec",),
+(source:Scoop,name:"zulip",),
 ])
