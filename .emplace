@@ -9,6 +9,7 @@
 (source:Cargo,name:"cargo-geiger",),
 (source:Cargo,name:"cargo-release",),
 (source:Cargo,name:"cargo-sweep",),
+(source:Cargo,name:"cargo-testify",),
 (source:Cargo,name:"cargo-update",),
 (source:Cargo,name:"cargo-web",),
 (source:Chocolatey,name:"clementine",),
