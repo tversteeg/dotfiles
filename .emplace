@@ -5,6 +5,7 @@
 (source:Apt,name:"audacity",),
 (source:Chocolatey,name:"autohotkey",),
 (source:Cargo,name:"bindgen",),
+(source:Cargo,name:"cargo-add",),
 (source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-geiger",),
 (source:Cargo,name:"cargo-release",),
