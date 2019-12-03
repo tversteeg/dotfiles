@@ -11,6 +11,7 @@
 (source:Cargo,name:"cargo-sweep",),
 (source:Cargo,name:"cargo-testify",),
 (source:Cargo,name:"cargo-update",),
+(source:Cargo,name:"cargo-watch",),
 (source:Cargo,name:"cargo-web",),
 (source:Chocolatey,name:"clementine",),
 (source:Chocolatey,name:"ecm",),
