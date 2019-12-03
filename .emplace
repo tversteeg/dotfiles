@@ -34,6 +34,7 @@
 (source:Cargo,name:"onefetch",),
 (source:Chocolatey,name:"open-shell",),
 (source:Chocolatey,name:"processhacker",),
+(source:Scoop,name:"processhacker",),
 (source:Pip3,name:"pynvim",),
 (source:Chocolatey,name:"python3",),
 (source:Chocolatey,name:"rapidee",),
