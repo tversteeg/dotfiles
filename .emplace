@@ -42,6 +42,7 @@
 (source:Chocolatey,name:"python3",),
 (source:Chocolatey,name:"rapidee",),
 (source:Cargo,name:"ripgrep",),
+(source:RustupComponent,name:"rls",),
 (source:Cargo,name:"rsign2",),
 (source:Chocolatey,name:"ruby",),
 (source:RustupComponent,name:"rustfmt",),
