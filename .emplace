@@ -24,6 +24,7 @@
 (source:Pip3,name:"git-repo",),
 (source:Apt,name:"gmtp",),
 (source:Apt,name:"gnuplot",),
+(source:Scoop,name:"gnuplot",),
 (source:Chocolatey,name:"gource",),
 (source:Chocolatey,name:"greenshot",),
 (source:Chocolatey,name:"hexchat",),
