@@ -18,6 +18,7 @@
 (source:Apt,name:"dunst",),
 (source:Chocolatey,name:"ecm",),
 (source:Scoop,name:"firefox-nightly",),
+(source:Cargo,name:"flamegraph",),
 (source:Chocolatey,name:"gimp",),
 (source:Cargo,name:"git-delta",),
 (source:Npm,name:"git-open",),
