@@ -35,6 +35,7 @@
 (source:Apt,name:"libnotify-bin",),
 (source:Apt,name:"libreoffice-writer",),
 (source:Apt,name:"libsdl2-dev",),
+(source:Apt,name:"linux-perf-5",),
 (source:Chocolatey,name:"llvm",),
 (source:Pip3User,name:"neovim",),
 (source:Chocolatey,name:"nomacs",),
