@@ -19,6 +19,7 @@
 (source:Cargo,name:"flamegraph",),
 (source:Chocolatey,name:"gimp",),
 (source:Cargo,name:"git-delta",),
+(source:Cargo,name:"git-journal",),
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
 (source:Apt,name:"gmtp",),
