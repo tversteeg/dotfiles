@@ -6,6 +6,7 @@
 (source:Cargo,name:"bindgen",),
 (source:Apt,name:"calibre",),
 (source:Cargo,name:"cargo-edit",),
+(source:Cargo,name:"cargo-expand",),
 (source:Cargo,name:"cargo-fix",),
 (source:Cargo,name:"cargo-release",),
 (source:Cargo,name:"cargo-sweep",),
