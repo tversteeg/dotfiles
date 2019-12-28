@@ -3,6 +3,7 @@
 (source:Apt,name:"alsa-utils",),
 (source:Apt,name:"audacity",),
 (source:Chocolatey,name:"autohotkey",),
+(source:Cargo,name:"bat",),
 (source:Cargo,name:"bindgen",),
 (source:Apt,name:"calibre",),
 (source:Cargo,name:"cargo-edit",),
