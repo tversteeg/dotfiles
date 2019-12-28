@@ -38,6 +38,7 @@
 (source:Apt,name:"libsdl2-dev",),
 (source:Chocolatey,name:"llvm",),
 (source:Pip3User,name:"neovim",),
+(source:Apt,name:"nmap",),
 (source:Chocolatey,name:"nomacs",),
 (source:Chocolatey,name:"open-shell",),
 (source:Scoop,name:"processhacker",),
