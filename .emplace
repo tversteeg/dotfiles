@@ -36,6 +36,7 @@
 (source:Apt,name:"kdeconnect",),
 (source:Apt,name:"libasound2-dev",),
 (source:Apt,name:"libnotify-bin",),
+(source:Chocolatey,name:"libreoffice",),
 (source:Apt,name:"libreoffice-writer",),
 (source:Apt,name:"libsdl2-dev",),
 (source:Chocolatey,name:"llvm",),
