@@ -20,6 +20,7 @@
 (source:Chocolatey,name:"ecm",),
 (source:Scoop,name:"firefox-nightly",),
 (source:Cargo,name:"flamegraph",),
+(source:Apt,name:"flameshot",),
 (source:Chocolatey,name:"gimp",),
 (source:Cargo,name:"git-delta",),
 (source:Cargo,name:"git-journal",),
