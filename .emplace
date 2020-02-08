@@ -21,6 +21,7 @@
 (source:Scoop,name:"firefox-nightly",),
 (source:Cargo,name:"flamegraph",),
 (source:Apt,name:"flameshot",),
+(source:Apt,name:"gimp",),
 (source:Chocolatey,name:"gimp",),
 (source:Cargo,name:"git-delta",),
 (source:Cargo,name:"git-journal",),
