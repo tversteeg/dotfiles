@@ -5,6 +5,7 @@
 (source:Chocolatey,name:"autohotkey",),
 (source:Cargo,name:"bat",),
 (source:Cargo,name:"bindgen",),
+(source:Scoop,name:"blender",),
 (source:Apt,name:"calibre",),
 (source:Cargo,name:"cargo-edit",),
 (source:Cargo,name:"cargo-expand",),
