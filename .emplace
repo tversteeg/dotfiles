@@ -56,6 +56,7 @@
 (source:Chocolatey,name:"ruby",),
 (source:RustupComponent,name:"rustfmt",),
 (source:Chocolatey,name:"screentogif",),
+(source:Scoop,name:"screentogif",),
 (source:Apt,name:"signal-desktop",),
 (source:Chocolatey,name:"slack",),
 (source:Cargo,name:"sprite",),
