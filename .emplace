@@ -43,6 +43,7 @@
 (source:Apt,name:"libreoffice-writer",),
 (source:Apt,name:"libsdl2-dev",),
 (source:Chocolatey,name:"llvm",),
+(source:Cargo,name:"mgit",),
 (source:Pip3User,name:"neovim",),
 (source:Apt,name:"nmap",),
 (source:Chocolatey,name:"nomacs",),
