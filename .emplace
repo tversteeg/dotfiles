@@ -63,6 +63,7 @@
 (source:Cargo,name:"sprite",),
 (source:Cargo,name:"starship",),
 (source:Chocolatey,name:"sumatrapdf",),
+(source:Apt,name:"texlive",),
 (source:Apt,name:"thunar",),
 (source:Chocolatey,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
