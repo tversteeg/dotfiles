@@ -22,6 +22,7 @@
 (source:Chocolatey,name:"clementine",),
 (source:Apt,name:"dunst",),
 (source:Chocolatey,name:"ecm",),
+(source:Scoop,name:"emplace",),
 (source:Scoop,name:"firefox-nightly",),
 (source:Cargo,name:"flamegraph",),
 (source:Apt,name:"flameshot",),
