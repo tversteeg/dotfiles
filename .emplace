@@ -3,6 +3,7 @@
 (source:Cargo,name:"--git https://github.com/getzola/zola",),
 (source:Chocolatey,name:"7zip",),
 (source:Apt,name:"alsa-utils",),
+(source:Scoop,name:"aria2",),
 (source:Apt,name:"audacity",),
 (source:Chocolatey,name:"autohotkey",),
 (source:Cargo,name:"bat",),
