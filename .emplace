@@ -33,6 +33,7 @@
 (source:Cargo,name:"git-journal",),
 (source:Npm,name:"git-open",),
 (source:Pip3,name:"git-repo",),
+(source:Cargo,name:"git-trim",),
 (source:Apt,name:"gmtp",),
 (source:Apt,name:"gnuplot",),
 (source:Scoop,name:"gnuplot",),
