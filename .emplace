@@ -57,6 +57,7 @@
 (source:Scoop,name:"rapidee",),
 (source:Cargo,name:"ripgrep",),
 (source:RustupComponent,name:"rls",),
+(source:Apt,name:"rofi",),
 (source:Scoop,name:"ruby",),
 (source:RustupComponent,name:"rustfmt",),
 (source:Scoop,name:"screentogif",),
