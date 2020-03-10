@@ -68,6 +68,7 @@
 (source:Scoop,name:"sumatrapdf",),
 (source:Apt,name:"texlive",),
 (source:Apt,name:"thunar",),
+(source:Apt,name:"thunar-archive-plugin",),
 (source:Scoop,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
 (source:Cargo,name:"watchexec",),
