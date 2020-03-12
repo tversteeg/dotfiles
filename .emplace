@@ -75,5 +75,6 @@
 (source:Cargo,name:"watchexec",),
 (source:Apt,name:"weechat",),
 (source:Scoop,name:"wireshark",),
+(source:Cargo,name:"zoxide",),
 (source:Scoop,name:"zulip",),
 ])
