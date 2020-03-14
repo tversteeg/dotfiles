@@ -72,6 +72,7 @@
 (source:Apt,name:"thunar-archive-plugin",),
 (source:Scoop,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
+(source:Apt,name:"transmission-gtk",),
 (source:Cargo,name:"watchexec",),
 (source:Apt,name:"weechat",),
 (source:Scoop,name:"wireshark",),
