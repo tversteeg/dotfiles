@@ -30,6 +30,7 @@
 (source:Apt,name:"gimp",),
 (source:Scoop,name:"gimp",),
 (source:Scoop,name:"git",),
+(source:Cargo,name:"git-absorb",),
 (source:Cargo,name:"git-delta",),
 (source:Cargo,name:"git-journal",),
 (source:Npm,name:"git-open",),
