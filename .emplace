@@ -55,6 +55,7 @@
 (source:Pip3User,name:"neovim",),
 (source:Apt,name:"nmap",),
 (source:Scoop,name:"nomacs",),
+(source:Apt,name:"obs-studio",),
 (source:Apt,name:"playonlinux",),
 (source:Scoop,name:"processhacker",),
 (source:Pip3,name:"pynvim",),
