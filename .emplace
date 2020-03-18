@@ -46,6 +46,7 @@
 (source:Apt,name:"libasound2-dev",),
 (source:Apt,name:"libnotify-bin",),
 (source:Scoop,name:"libreoffice-fresh",),
+(source:Apt,name:"libreoffice-gnome",),
 (source:Apt,name:"libreoffice-writer",),
 (source:Apt,name:"libsdl2-dev",),
 (source:Apt,name:"lutris",),
