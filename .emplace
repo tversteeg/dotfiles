@@ -21,6 +21,7 @@
 (source:Cargo,name:"cargo-watch",),
 (source:Cargo,name:"cargo-web",),
 (source:Chocolatey,name:"clementine",),
+(source:Apt,name:"cups",),
 (source:Apt,name:"dunst",),
 (source:Chocolatey,name:"ecm",),
 (source:Scoop,name:"emplace",),
