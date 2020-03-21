@@ -7,6 +7,7 @@
 (source:Apt,name:"audacity",),
 (source:Cargo,name:"bat",),
 (source:Cargo,name:"bindgen",),
+(source:Apt,name:"blender",),
 (source:Scoop,name:"blender",),
 (source:Apt,name:"build-essential",),
 (source:Apt,name:"calibre",),
