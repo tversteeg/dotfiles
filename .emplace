@@ -62,6 +62,7 @@
 (source:Scoop,name:"processhacker",),
 (source:Pip3,name:"pynvim",),
 (source:Scoop,name:"python",),
+(source:Apt,name:"qutebrowser",),
 (source:Scoop,name:"rapidee",),
 (source:Cargo,name:"ripgrep",),
 (source:RustupComponent,name:"rls",),
