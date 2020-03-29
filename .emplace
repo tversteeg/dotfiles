@@ -46,6 +46,7 @@
 (source:Scoop,name:"hexchat",),
 (source:Scoop,name:"jq",),
 (source:Apt,name:"kdeconnect",),
+(source:Cargo,name:"kondo",),
 (source:Apt,name:"libasound2-dev",),
 (source:Apt,name:"libnotify-bin",),
 (source:Scoop,name:"libreoffice-fresh",),
