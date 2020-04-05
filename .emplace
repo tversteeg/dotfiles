@@ -67,6 +67,7 @@
 (source:RustupComponent,name:"rustfmt",),
 (source:Scoop,name:"screentogif",),
 (source:Apt,name:"signal-desktop",),
+(source:Apt,name:"speedtest-cli",),
 (source:Cargo,name:"sprite",),
 (source:Cargo,name:"starship",),
 (source:Scoop,name:"sumatrapdf",),
