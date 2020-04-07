@@ -76,6 +76,7 @@
 (source:Scoop,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
 (source:Apt,name:"transmission-gtk",),
+(source:Cargo,name:"wasm-pack",),
 (source:Cargo,name:"watchexec",),
 (source:Scoop,name:"wireshark",),
 (source:Cargo,name:"zoxide",),
