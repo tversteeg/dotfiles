@@ -48,6 +48,7 @@
 (source:Apt,name:"libreoffice-gnome",),
 (source:Apt,name:"libreoffice-writer",),
 (source:Apt,name:"lutris",),
+(source:Cargo,name:"mdbook",),
 (source:Cargo,name:"mgit",),
 (source:Pip3User,name:"neovim",),
 (source:Apt,name:"nmap",),
