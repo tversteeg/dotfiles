@@ -5,6 +5,7 @@
 (source:Apt,name:"alsa-utils",),
 (source:Scoop,name:"aria2",),
 (source:Apt,name:"audacity",),
+(source:Cargo,name:"basic-http-server",),
 (source:Cargo,name:"bat",),
 (source:Apt,name:"blender",),
 (source:Scoop,name:"blender",),
