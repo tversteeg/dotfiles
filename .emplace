@@ -76,6 +76,7 @@
 (source:Scoop,name:"sumatrapdf",),
 (source:Apt,name:"thunar",),
 (source:Apt,name:"thunar-archive-plugin",),
+(source:Apt,name:"thunar-vcs-plugin",),
 (source:Scoop,name:"thunderbird",),
 (source:Cargo,name:"topgrade",),
 (source:Apt,name:"transmission-gtk",),
