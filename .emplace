@@ -69,6 +69,7 @@
 (source:Apt,name:"rofi",),
 (source:Scoop,name:"ruby",),
 (source:RustupComponent,name:"rustfmt",),
+(source:Cargo,name:"sccache",),
 (source:Scoop,name:"screentogif",),
 (source:Apt,name:"signal-desktop",),
 (source:Apt,name:"speedtest-cli",),
