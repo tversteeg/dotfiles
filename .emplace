@@ -11,6 +11,7 @@
 (source:Scoop,name:"blender",),
 (source:Apt,name:"build-essential",),
 (source:Apt,name:"calibre",),
+(source:Cargo,name:"cargo-bloat",),
 (source:Cargo,name:"cargo-edit",),
 (source:Cargo,name:"cargo-expand",),
 (source:Cargo,name:"cargo-fix",),
