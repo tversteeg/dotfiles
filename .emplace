@@ -1,5 +1,6 @@
 ([
 (source:Cargo(()),name:"https://github.com/getzola/zola",flags:["--git",],),
+(source:Pip3(()),name:"neovim",flags:["--user",],),
 (source:Scoop(()),name:"7zip",flags:[],),
 (source:Apt(()),name:"alsa-utils",flags:[],),
 (source:Scoop(()),name:"aria2",flags:[],),
@@ -46,7 +47,6 @@
 (source:Apt(()),name:"lutris",flags:[],),
 (source:Cargo(()),name:"mdbook",flags:[],),
 (source:Cargo(()),name:"mgit",flags:[],),
-(source:Pip3(()),name:"neovim",flags:["--user",],),
 (source:Apt(()),name:"nmap",flags:[],),
 (source:Scoop(()),name:"nomacs",flags:[],),
 (source:Apt(()),name:"obs-studio",flags:[],),
@@ -78,6 +78,7 @@
 (source:Cargo(()),name:"wasm-pack",flags:[],),
 (source:Cargo(()),name:"watchexec",flags:[],),
 (source:Scoop(()),name:"wireshark",flags:[],),
+(source:Apt(()),name:"xclip",flags:[],),
 (source:Cargo(()),name:"zoxide",flags:[],),
 (source:Scoop(()),name:"zulip",flags:[],),
 ])
