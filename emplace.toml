@@ -1,0 +1,18 @@
+repo_directory = "/home/thomas/.local/share/emplace"
+
+[repo]
+url = "git@github.com:tversteeg/dotfiles.git"
+branch = "master"
+file = ".emplace"
+
+[[symlink]]
+source = "emplace.toml"
+destination = "~/.local/share/emplace/emplace.toml"
+
+[[symlink]]
+source = ".bashrc"
+destination = "~/.bashrc"
+
+[[symlink]]
+source = ".config/nvim/init.vim"
+destination = "~/.config/nvim/init.vim"
