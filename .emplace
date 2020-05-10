@@ -1,5 +1,6 @@
 ([
 (source:Cargo(()),name:"https://github.com/getzola/zola",flags:["--git",],),
+(source:Rustup(()),name:"clippy",flags:["--toolchain nightly",],),
 (source:Pip3(()),name:"neovim",flags:["--user",],),
 (source:Scoop(()),name:"7zip",flags:[],),
 (source:Apt(()),name:"alsa-utils",flags:[],),
