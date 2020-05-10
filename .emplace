@@ -20,6 +20,7 @@
 (source:Cargo(()),name:"cargo-update",flags:[],),
 (source:Cargo(()),name:"cargo-watch",flags:[],),
 (source:Chocolatey(()),name:"clementine",flags:[],),
+(source:Rustup(()),name:"clippy",flags:[],),
 (source:Apt(()),name:"cups",flags:[],),
 (source:Apt(()),name:"curl",flags:[],),
 (source:Apt(()),name:"dunst",flags:[],),

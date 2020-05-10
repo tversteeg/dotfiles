@@ -7,12 +7,16 @@ file = ".emplace"
 
 [[symlink]]
 source = "emplace.toml"
-destination = "~/.local/share/emplace/emplace.toml"
+destination = "~/.config/emplace.toml"
 
 [[symlink]]
-source = ".bashrc"
+source = "bashrc"
 destination = "~/.bashrc"
 
 [[symlink]]
-source = ".config/nvim/init.vim"
+source = "config.vim"
 destination = "~/.config/nvim/init.vim"
+
+[[symlink]]
+source = "config.i3"
+destination = "~/.config/i3/config"
