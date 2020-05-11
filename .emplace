@@ -45,6 +45,7 @@
 (source:Scoop(()),name:"libreoffice-fresh",flags:[],),
 (source:Apt(()),name:"libreoffice-gnome",flags:[],),
 (source:Apt(()),name:"libreoffice-writer",flags:[],),
+(source:Cargo(()),name:"lsd",flags:[],),
 (source:Apt(()),name:"luacheck",flags:[],),
 (source:Apt(()),name:"lutris",flags:[],),
 (source:Cargo(()),name:"mdbook",flags:[],),
