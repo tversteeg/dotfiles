@@ -41,6 +41,7 @@
 (source:Apt(()),name:"rofi",flags:[],),
 (source:Rustup(()),name:"rustfmt",flags:[],),
 (source:Cargo(()),name:"sccache",flags:[],),
+(source:Apt(()),name:"screenkey",flags:[],),
 (source:Apt(()),name:"signal-desktop",flags:[],),
 (source:Cargo(()),name:"starship",flags:[],),
 (source:Apt(()),name:"thunar",flags:[],),
