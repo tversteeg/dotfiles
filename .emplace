@@ -44,6 +44,7 @@
 (source:Apt(()),name:"screenkey",flags:[],),
 (source:Apt(()),name:"signal-desktop",flags:[],),
 (source:Cargo(()),name:"starship",flags:[],),
+(source:Cargo(()),name:"svgcleaner",flags:[],),
 (source:Apt(()),name:"thunar",flags:[],),
 (source:Apt(()),name:"thunar-archive-plugin",flags:[],),
 (source:Apt(()),name:"thunar-vcs-plugin",flags:[],),
