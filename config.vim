@@ -51,10 +51,20 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Color text: #FF0000
 Plug 'norcalli/nvim-colorizer.lua'
 
+" Switch between relative and absolute numbers
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+" Make vim harder
+Plug 'takac/vim-hardtime'
+
 call plug#end()
 
 " Always use UTF-8
 set encoding=utf-8
+
+" Make vim harder to use
+let g:hardtime_default_on = 1
+let g:list_of_disabled_keys = ["<PageUp>", "<PageDown>"]
 
 " Map fuzzy finding to Ctrl-P in all modes
 map <C-p> :GFiles<CR>
@@ -277,12 +287,10 @@ noremap 0 ^
 " Just in case you need to go to the very beginning of a line
 noremap ^ 0
 
-" Use <leader>\ to add \(\) in regex patterns quickly
+" Use <leader>( to add \(\) in regex patterns quickly
 cmap <leader>( \(\)<left><left>
 
 " Temporary hack to disable the creation of an empty buffer
 if @% == ""
 	bd
 endif
-
-"set guifont=Fira\ Code:h14
