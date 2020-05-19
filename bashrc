@@ -135,10 +135,9 @@ function cd() {
 source $HOME/.cargo/env
 source /usr/share/doc/fzf/examples/key-bindings.bash
 
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-eval "$(~/r/emplace/target/debug/emplace init bash)"
+eval "$(emplace init bash)"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 

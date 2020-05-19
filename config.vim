@@ -9,6 +9,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Plug 'neovim/nvim-lsp'
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
+" LSP status, TODO configure
+" Plug 'wbthomason/lsp-status.nvim'
 
 " Git
 Plug 'tpope/vim-fugitive'

@@ -49,6 +49,7 @@
 (source:Apt(()),name:"thunar-archive-plugin",flags:[],),
 (source:Apt(()),name:"thunar-vcs-plugin",flags:[],),
 (source:Cargo(()),name:"topgrade",flags:[],),
+(source:Apt(()),name:"torbrowser-launcher",flags:[],),
 (source:Apt(()),name:"transmission-gtk",flags:[],),
 (source:Cargo(()),name:"watchexec",flags:[],),
 (source:Apt(()),name:"xclip",flags:[],),
