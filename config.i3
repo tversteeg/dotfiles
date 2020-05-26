@@ -184,13 +184,13 @@ bar {
 #	status_command rofi -dmenu
 #	status_command exec mpc
 	colors {
-		separator #666666
-		background #222222
-		statusline #dddddd
-		focused_workspace #0088CC #0088CC #ffffff
-		active_workspace #333333 #333333 #ffffff
-		inactive_workspace #333333 #333333 #888888
-		urgent_workspace #2f343a #900000 #ffffff
+		separator #AAAAAA
+		background #222133
+		statusline #FFFFFF
+		focused_workspace #664477 #664477 #cccccc #282828
+		active_workspace #DCCD69 #DCCD69 #181715 #928374
+		inactive_workspace #222133 #222133 #AAAAAA #928374
+		urgent_workspace #CE4045 #CE4045 #FFFFFF #ebdbb2
 	}
 }
 
@@ -198,3 +198,7 @@ for_window [title="^Cube$"] floating enable
 for_window [title="^Noita"] floating enable
 for_window [title="^Fermi"] floating enable
 for_window [title="^replace_me"] floating enable
+client.focused #664477 #664477 #cccccc #e7d8b1
+client.focused_inactive #e7d8b1 #e7d8b1 #181715 #A074C4
+client.unfocused #222133 #222133 #AAAAAA #A074C4
+client.urgent #CE4045 #CE4045 #e7d8b1 #DCCD69

@@ -21,6 +21,8 @@ Plug 'tpope/vim-fugitive'
 
 " Molokai color theme
 Plug 'tomasr/molokai'
+" Purple color theme
+Plug 'yassinebridi/vim-purpura'
 
 " Show and remove extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
@@ -147,8 +149,9 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " Use syntax highlighting
 syntax on
 
-" Use the molokai plugin colorscheme
-colorscheme molokai
+" Use the plugin colorscheme
+"colorscheme molokai
+colorscheme purpura
 
 function! CFormatting()
 	" Set the tabsizes and behavior
