@@ -67,6 +67,7 @@ set encoding=utf-8
 " Make vim harder to use
 let g:hardtime_default_on = 1
 let g:list_of_disabled_keys = ["<PageUp>", "<PageDown>"]
+let g:hardtime_allow_different_key = 1
 
 " Map fuzzy finding to Ctrl-P in all modes
 map <C-p> :GFiles<CR>
@@ -290,7 +291,10 @@ noremap 0 ^
 noremap ^ 0
 
 " Use <leader>( to add \(\) in regex patterns quickly
-cmap <leader>( \(\)<left><left>
+"cmap <leader>( \(\)<left><left>
+" Use very magic by default
+nnoremap / /\v
+cnoremap %s/ %s/\v
 
 " Temporary hack to disable the creation of an empty buffer
 if @% == ""

@@ -41,6 +41,10 @@ bindsym $mod+Shift+q kill
 # start rofi (a program launcher)
 bindsym $mod+d exec PATH=$PATH:/home/thomas/.local/bin rofi -show run -show-icons
 
+# lock
+#bindsym Mod4+l exec i3lock -c FFC0CB -i ~/Pictures/lock.png
+bindsym Mod4+l exec .config/screenshot.sh
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
