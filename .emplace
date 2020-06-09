@@ -221,6 +221,11 @@ name: "screenkey",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "sd",
+flags: [],
+),
+(
 source: Apt(()),
 name: "signal-desktop",
 flags: [],
