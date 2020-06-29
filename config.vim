@@ -24,6 +24,15 @@ Plug 'tomasr/molokai'
 " Purple color theme
 Plug 'yassinebridi/vim-purpura'
 
+" Surround stuff with cs..
+Plug 'tpope/vim-surround'
+
+" Dot commands repeat plugin commands
+Plug 'tpope/vim-repeat'
+
+" Comment stuff out gc..
+Plug 'tpope/vim-commentary'
+
 " Show and remove extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
 
@@ -61,6 +70,15 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Make vim harder
 Plug 'takac/vim-hardtime'
 
+" Show suggestions for more efficient movements
+"Plug 'AlphaMycelium/pathfinder.vim'
+
+" Rainbow parentheses
+Plug 'luochen1990/rainbow'
+
+" Automatically balance LISP parentheses
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+
 call plug#end()
 
 " Always use UTF-8
@@ -82,12 +100,15 @@ let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
 
 " Autoformat Rust on save
 let g:rustfmt_autosave=1
-let g:rustfmt_command='/home/thomas/.cargo/bin/rustfmt'
+let g:rustfmt_command='cargo +beta fmt'
 
 " Show complete function definition for Rust autocompletions
 let g:racer_experimental_completer=1
 
 let g:fzf_files_options='--preview "bat {}"'
+
+" Enable rainbow parentheses
+let g:rainbow_active=1
 
 " Set the terminal colors and load the colorizer
 set termguicolors

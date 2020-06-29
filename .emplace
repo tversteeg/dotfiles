@@ -281,6 +281,11 @@ name: "xclip",
 flags: [],
 ),
 (
+source: Apt(()),
+name: "youtube-dl",
+flags: [],
+),
+(
 source: Cargo(()),
 name: "zoxide",
 flags: [],
