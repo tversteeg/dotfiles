@@ -250,6 +250,12 @@ autocmd Filetype markdown call MarkdownFormatting()
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
 
+" Automatically highlight yanked regions
+augroup LuaHighlight
+	autocmd!
+	autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+
 " Display the line numbers sidebar
 set number
 set relativenumber

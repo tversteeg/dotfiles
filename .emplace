@@ -132,6 +132,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "gimp-gap",
+flags: [],
+),
+(
+source: Apt(()),
 name: "git",
 flags: [],
 ),
