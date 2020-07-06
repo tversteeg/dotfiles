@@ -41,16 +41,13 @@ Plug 'dhruvasagar/vim-table-mode'
 " Auto change directory to root of project file
 Plug 'airblade/vim-rooter'
 
-Plug 'junegunn/vim-peekaboo'
+"Plug 'junegunn/vim-peekaboo'
 
 " RON syntax
 Plug 'ron-rs/ron.vim'
 
 " Highlight f & t symbols
 Plug 'unblevable/quick-scope'
-
-" Firefox plugin
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " Color text: #FF0000
 Plug 'norcalli/nvim-colorizer.lua'
@@ -60,6 +57,16 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " Make vim harder
 Plug 'takac/vim-hardtime'
+
+" Highlight yank regions
+Plug 'machakann/vim-highlightedyank'
+
+" Show suggestions on how to speedup vim
+if has('python3') && has('timers')
+  Plug 'AlphaMycelium/pathfinder.vim'
+else
+  echoerr 'pathfinder.vim is not supported on this Vim installation'
+endif
 
 call plug#end()
 
@@ -92,18 +99,6 @@ let g:fzf_files_options='--preview "bat {}"'
 " Set the terminal colors and load the colorizer
 set termguicolors
 lua require'colorizer'.setup()
-
-" Use a single nvim instance for the browser
-let g:firenvim_config={
-	\ "globalSettings": {
-		\ "server": "persistent"
-	\}
-\}
-if exists('g:started_by_firenvim')
-	" Automatically sync changes to browser buffer
-	au TextChanged * ++nested write
-	au TextChangedI * ++nested write
-endif
 
 " :lua << END
 " vim.lsp.set_log_level('info')
