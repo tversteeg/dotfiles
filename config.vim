@@ -24,6 +24,15 @@ Plug 'tomasr/molokai'
 " Purple color theme
 Plug 'yassinebridi/vim-purpura'
 
+" Surround stuff with cs..
+Plug 'tpope/vim-surround'
+
+" Dot commands repeat plugin commands
+Plug 'tpope/vim-repeat'
+
+" Comment stuff out gc..
+Plug 'tpope/vim-commentary'
+
 " Show and remove extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
 
@@ -58,15 +67,18 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Make vim harder
 Plug 'takac/vim-hardtime'
 
-" Highlight yank regions
-Plug 'machakann/vim-highlightedyank'
-
 " Show suggestions on how to speedup vim
 if has('python3') && has('timers')
   Plug 'AlphaMycelium/pathfinder.vim'
 else
   echoerr 'pathfinder.vim is not supported on this Vim installation'
 endif
+
+" Rainbow parentheses
+Plug 'luochen1990/rainbow'
+
+" Automatically balance LISP parentheses
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 
 call plug#end()
 
@@ -89,12 +101,15 @@ let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
 
 " Autoformat Rust on save
 let g:rustfmt_autosave=1
-let g:rustfmt_command='/home/thomas/.cargo/bin/rustfmt'
+let g:rustfmt_command='cargo +beta fmt'
 
 " Show complete function definition for Rust autocompletions
 let g:racer_experimental_completer=1
 
 let g:fzf_files_options='--preview "bat {}"'
+
+" Enable rainbow parentheses
+let g:rainbow_active=1
 
 " Set the terminal colors and load the colorizer
 set termguicolors
@@ -223,6 +238,12 @@ autocmd Filetype markdown call MarkdownFormatting()
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Automatically highlight yanked regions
+augroup LuaHighlight
+	autocmd!
+	autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
 
 " Display the line numbers sidebar
 set number

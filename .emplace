@@ -132,6 +132,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "gimp-gap",
+flags: [],
+),
+(
+source: Apt(()),
 name: "git",
 flags: [],
 ),
@@ -278,6 +283,11 @@ flags: [],
 (
 source: Apt(()),
 name: "xclip",
+flags: [],
+),
+(
+source: Apt(()),
+name: "youtube-dl",
 flags: [],
 ),
 (

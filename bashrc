@@ -153,3 +153,6 @@ export RUSTC_WRAPPER=sccache
 
 alias ls="lsd"
 alias cat="bat"
+
+# Scale QT applications
+export QT_SCALE_FACTOR=2
