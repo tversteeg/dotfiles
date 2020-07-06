@@ -96,6 +96,11 @@ name: "cargo-watch",
 flags: [],
 ),
 (
+source: Apt(()),
+name: "clementine",
+flags: [],
+),
+(
 source: Rustup(()),
 name: "clippy",
 flags: [],
