@@ -191,6 +191,11 @@ name: "lsd",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "navi",
+flags: [],
+),
+(
 source: Apt(()),
 name: "peek",
 flags: [],

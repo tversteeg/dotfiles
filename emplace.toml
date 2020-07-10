@@ -25,10 +25,10 @@ destination = "~/.config/i3/config"
 source = "topgrade.toml"
 destination = "~/.config/topgrade.toml"
 
-# [[symlink]]
-# source = "firefox-userchome.css"
-# destination = "~/.mozilla/firefox/*.default*/chrome/userChrome.css"
-# 
-# [[symlink]]
-# source = "firefox-vars.css"
-# destination = "~/.mozilla/firefox/*.default*/chrome/vars.css"
+[[symlink]]
+source = "firefox-userchrome.css"
+destination = "~/.mozilla/firefox/**/chrome/userChrome.css"
+
+[[symlink]]
+source = "firefox-vars.css"
+destination = "~/.mozilla/firefox/**/chrome/vars.css"
