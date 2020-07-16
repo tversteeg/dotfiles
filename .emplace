@@ -16,23 +16,8 @@ name: "neovim",
 flags: ["--user"],
 ),
 (
-source: Scoop(()),
-name: "7zip",
-flags: [],
-),
-(
 source: Apt(()),
 name: "alsa-utils",
-flags: [],
-),
-(
-source: Scoop(()),
-name: "aria2",
-flags: [],
-),
-(
-source: Apt(()),
-name: "audacity",
 flags: [],
 ),
 (
@@ -43,11 +28,6 @@ flags: [],
 (
 source: Cargo(()),
 name: "bat",
-flags: [],
-),
-(
-source: Apt(()),
-name: "blender",
 flags: [],
 ),
 (
@@ -98,11 +78,6 @@ flags: [],
 (
 source: Apt(()),
 name: "clementine",
-flags: [],
-),
-(
-source: Rustup(()),
-name: "clippy",
 flags: [],
 ),
 (
@@ -208,11 +183,6 @@ flags: [],
 (
 source: Cargo(()),
 name: "ripgrep",
-flags: [],
-),
-(
-source: Rustup(()),
-name: "rls",
 flags: [],
 ),
 (

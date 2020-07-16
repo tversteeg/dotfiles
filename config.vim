@@ -33,6 +33,9 @@ Plug 'tpope/vim-repeat'
 " Comment stuff out gc..
 Plug 'tpope/vim-commentary'
 
+" Easier motions
+Plug 'easymotion/vim-easymotion'
+
 " Show and remove extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
 
@@ -67,13 +70,6 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Make vim harder
 Plug 'takac/vim-hardtime'
 
-" Show suggestions on how to speedup vim
-if has('python3') && has('timers')
-  Plug 'AlphaMycelium/pathfinder.vim'
-else
-  echoerr 'pathfinder.vim is not supported on this Vim installation'
-endif
-
 " Rainbow parentheses
 Plug 'luochen1990/rainbow'
 
@@ -101,7 +97,7 @@ let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
 
 " Autoformat Rust on save
 let g:rustfmt_autosave=1
-let g:rustfmt_command='cargo +beta fmt'
+let g:rustfmt_command='/home/thomas/.cargo/bin/rustfmt +beta '
 
 " Show complete function definition for Rust autocompletions
 let g:racer_experimental_completer=1
@@ -110,6 +106,24 @@ let g:fzf_files_options='--preview "bat {}"'
 
 " Enable rainbow parentheses
 let g:rainbow_active=1
+
+" Disable default mappings
+let g:EasyMotion_do_mapping=0
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase=1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
 " Set the terminal colors and load the colorizer
 set termguicolors

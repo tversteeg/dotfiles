@@ -13,6 +13,7 @@ set $mod Mod1
 
 exec ~/.screenlayout/default.sh
 exec kdeconnect-indicator
+exec transmission-gtk -m
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
