@@ -2,6 +2,11 @@
 
 (
 source: Cargo(()),
+name: "https://github.com/I60R/page.git",
+flags: ["--git"],
+),
+(
+source: Cargo(()),
 name: "https://github.com/getzola/zola",
 flags: ["--git"],
 ),
