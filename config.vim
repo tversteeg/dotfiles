@@ -1,12 +1,25 @@
 " Load the plugins
 call plug#begin()
 
+" Lua check
+Plug 'vim-syntastic/syntastic'
+
 " LSP
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" Plug 'neovim/nvim-lsp'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+Plug 'neovim/nvim-lsp'
+
+" Fancy completions
+Plug 'nvim-lua/completion-nvim'
+" Use buffers as completion
+Plug 'steelsojka/completion-buffers'
+
+" Treesitter based highlighting
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/completion-treesitter'
+
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
 " LSP status, TODO configure
@@ -73,6 +86,9 @@ Plug 'takac/vim-hardtime'
 " Rainbow parentheses
 Plug 'luochen1990/rainbow'
 
+" Highlight variable names
+Plug 'jaxbot/semantic-highlight.vim'
+
 " Automatically balance LISP parentheses
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 
@@ -80,6 +96,9 @@ call plug#end()
 
 " Always use UTF-8
 set encoding=utf-8
+
+" Use luacheck
+let g:syntastic_lua_checkers = ['luacheck']
 
 " Make vim harder to use
 let g:hardtime_default_on = 1
@@ -149,26 +168,47 @@ lua require'colorizer'.setup()
 " 
 " " Load the rust-analyzer language server
 " lua require'nvim_lsp'.rust_analyzer.setup({})
-" 
-" " Language server mappings
-" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
-let g:LanguageClient_serverCommands = {
-     \ 'lua': ['/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'],
-     \ 'rust': ['rust-analyzer'],
-     \ }
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" Load the rust-analyzer language server with completion
+lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+
+" Treesitter options
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+	highlight = {
+		enable = false,
+	},
+	incremental_selection = {
+		enable = true,
+	}
+}
+EOF
+
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Language server mappings
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+" let g:LanguageClient_serverCommands = {
+"      \ 'lua': ['/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'],
+"      \ 'rust': ['rust-analyzer'],
+"      \ }
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Use syntax highlighting
 syntax on

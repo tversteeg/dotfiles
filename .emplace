@@ -1,11 +1,6 @@
 ([
 
 (
-source: Cargo(()),
-name: "https://github.com/getzola/zola",
-flags: ["--git"],
-),
-(
 source: Rustup(()),
 name: "clippy",
 flags: ["--toolchain nightly"],
@@ -37,17 +32,7 @@ flags: [],
 ),
 (
 source: Cargo(()),
-name: "cargo-bloat",
-flags: [],
-),
-(
-source: Cargo(()),
 name: "cargo-edit",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "cargo-expand",
 flags: [],
 ),
 (
@@ -191,11 +176,6 @@ name: "rofi",
 flags: [],
 ),
 (
-source: Rustup(()),
-name: "rustfmt",
-flags: [],
-),
-(
 source: Cargo(()),
 name: "sccache",
 flags: [],
@@ -218,11 +198,6 @@ flags: [],
 (
 source: Cargo(()),
 name: "starship",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "svgcleaner",
 flags: [],
 ),
 (
