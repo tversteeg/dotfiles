@@ -1,0 +1,23 @@
+[credential]
+	helper = store
+[user]
+	name = Thomas Versteeg
+	email = thomasversteeg@gmx.com
+[core]
+	pager = delta --dark
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = false
+[delta]
+	line-numbers = true
+	side-by-side = true
+	navigate = true
+[init]
+	templatedir = /home/thomas/.git-templates
+[tws]
+	secretkey = IXDtXtHbSa16ldvRncwb0OZLZfupxE
+	baseuri = https://tempo-worklog-service.twobridges.io/

@@ -142,13 +142,16 @@ eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 source <(navi widget bash)
 
+#source .config/fzf-bash-completion.sh
+#bind -x '"\t": fzf_bash_completion'
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export WASMTIME_HOME="$HOME/.wasmtime"
 
-export PATH="$WASMTIME_HOME/bin:~/.local/bin:/snap/bin/:$PATH"
+export PATH="$WASMTIME_HOME/bin:$HOME/.local/bin:/snap/bin/:$PATH"
 
 export RUSTC_WRAPPER=sccache
 

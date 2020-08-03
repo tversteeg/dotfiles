@@ -1,34 +1,46 @@
 repo_directory = "/home/thomas/.local/share/emplace"
 
+[[symlink]]
+destination = "~/.config/emplace.toml"
+source = "emplace.toml"
+
+[[symlink]]
+destination = "~/.bashrc"
+source = "bashrc"
+
+[[symlink]]
+destination = "~/.config/nvim/init.vim"
+source = "config.vim"
+
+[[symlink]]
+destination = "~/.config/i3/config"
+source = "config.i3"
+
+[[symlink]]
+destination = "~/.config/topgrade.toml"
+source = "topgrade.toml"
+
+[[symlink]]
+destination = "~/.mozilla/firefox/**/chrome/userChrome.css"
+source = "firefox-userchrome.css"
+
+[[symlink]]
+destination = "~/.mozilla/firefox/**/chrome/vars.css"
+source = "firefox-vars.css"
+
+[[symlink]]
+source = "fzf-bash-completion.sh"
+destination = "~/.config/fzf-bash-completion.sh"
+
+[[symlink]]
+source = ".gitconfig"
+destination = "~/.gitconfig"
+
+[[symlink]]
+source = "git-alter"
+destination = "~/.local/bin/git-alter"
+
 [repo]
-url = "git@github.com:tversteeg/dotfiles.git"
 branch = "master"
 file = ".emplace"
-
-[[symlink]]
-source = "emplace.toml"
-destination = "~/.config/emplace.toml"
-
-[[symlink]]
-source = "bashrc"
-destination = "~/.bashrc"
-
-[[symlink]]
-source = "config.vim"
-destination = "~/.config/nvim/init.vim"
-
-[[symlink]]
-source = "config.i3"
-destination = "~/.config/i3/config"
-
-[[symlink]]
-source = "topgrade.toml"
-destination = "~/.config/topgrade.toml"
-
-[[symlink]]
-source = "firefox-userchrome.css"
-destination = "~/.mozilla/firefox/**/chrome/userChrome.css"
-
-[[symlink]]
-source = "firefox-vars.css"
-destination = "~/.mozilla/firefox/**/chrome/vars.css"
+url = "git@github.com:tversteeg/dotfiles.git"

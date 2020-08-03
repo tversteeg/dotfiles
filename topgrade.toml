@@ -9,4 +9,4 @@ repos = [
 
 [commands]
 "Emplace" = "emplace install"
-"Music" = "youtube-dl -xi --yes-playlist --audio-quality 0 --write-thumbnail --download-archive ~/Music/.downloaded --no-post-overwrites --no-overwrites -o \"~/Music/%(title)s.%(ext)s\" --restrict-filenames --add-metadata https://www.youtube.com/playlist?list=PLFxtA9Al8REovuOzFWK1v_4Mw33d4iv6S"
+"Music" = "youtube-dl -xi --yes-playlist --audio-quality 0 --write-thumbnail --download-archive ~/Music/.downloaded --no-post-overwrites --no-overwrites -o \"~/Music/%(title)s.%(ext)s\" --restrict-filenames --add-metadata https://www.youtube.com/playlist?list=PLFxtA9Al8REovuOzFWK1v_4Mw33d4iv6S --playlist-start 1500"
