@@ -29,8 +29,16 @@ destination = "~/.mozilla/firefox/**/chrome/vars.css"
 source = "firefox-vars.css"
 
 [[symlink]]
-destination = "i3status-rust.toml"
-source = "/home/thomas/.config/i3status-rust/config.toml"
+source = "fzf-bash-completion.sh"
+destination = "~/.config/fzf-bash-completion.sh"
+
+[[symlink]]
+source = ".gitconfig"
+destination = "~/.gitconfig"
+
+[[symlink]]
+source = "git-alter"
+destination = "~/.local/bin/git-alter"
 
 [repo]
 branch = "master"

@@ -37,6 +37,9 @@ Plug 'tomasr/molokai'
 " Purple color theme
 Plug 'yassinebridi/vim-purpura'
 
+" Automatically add closing brackets when going to the next line
+Plug 'rstacruz/vim-closer'
+
 " Surround stuff with cs..
 Plug 'tpope/vim-surround'
 
