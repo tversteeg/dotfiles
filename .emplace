@@ -132,11 +132,6 @@ flags: [],
 ),
 (
 source: Cargo(()),
-name: "gurk",
-flags: [],
-),
-(
-source: Cargo(()),
 name: "i3-style",
 flags: [],
 ),
