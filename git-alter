@@ -10,7 +10,7 @@ if [ -n "$UNSTAGED" ]; then
 fi
 
 LAST_COMMIT=$(git log -1 --pretty=%B)
-if [[ $LAST_COMMIT == "Merge branch"* ]]; then
+if [[ $LAST_COMMIT == "Merge branch"* || $LAST_COMMIT == "Pull"* ]]; then
 	echo "Last commit was a merge commit, rebasing onto first non-merge commit before that:"
 	FIRST_NONE_MERGE_COMMIT=$(git log -1 --invert-grep --grep='^Merge')
 	echo "$FIRST_NONE_MERGE_COMMIT"
