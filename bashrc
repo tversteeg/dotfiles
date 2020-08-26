@@ -134,4 +134,4 @@ alias cat="bat"
 export QT_SCALE_FACTOR=2
 
 # Set the pager to page application
-export PAGER="page --"
+#export PAGER="page --"

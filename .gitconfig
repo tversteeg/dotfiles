@@ -19,5 +19,5 @@
 [init]
 	templatedir = /home/thomas/.git-templates
 [tws]
-	secretkey = IXDtXtHbSa16ldvRncwb0OZLZfupxE
+	secretkey = fHlykLd/gHgXrSW3PRj+JLOjFsCjsBezbiDx8Q+ruGM=
 	baseuri = https://tempo-worklog-service.twobridges.io/

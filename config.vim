@@ -17,8 +17,8 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'steelsojka/completion-buffers'
 
 " Treesitter based highlighting
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/completion-treesitter'
+"Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'nvim-treesitter/completion-treesitter'
 
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
@@ -27,6 +27,8 @@ Plug 'nvim-treesitter/completion-treesitter'
 
 " Git
 Plug 'tpope/vim-fugitive'
+" Show git blame info on the current line
+Plug 'APZelos/blamer.nvim'
 
 " Fancy bottom bar with fancy icons
 "Plug 'ryanoasis/vim-devicons'
@@ -99,6 +101,9 @@ call plug#end()
 
 " Always use UTF-8
 set encoding=utf-8
+
+" Enable the blamer function
+let g:blamer_enabled = 1
 
 " Use luacheck
 let g:syntastic_lua_checkers = ['luacheck']
@@ -176,16 +181,16 @@ lua require'colorizer'.setup()
 lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
 
 " Treesitter options
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-	highlight = {
-		enable = false,
-	},
-	incremental_selection = {
-		enable = true,
-	}
-}
-EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+" 	highlight = {
+" 		enable = false,
+" 	},
+" 	incremental_selection = {
+" 		enable = true,
+" 	}
+" }
+" EOF
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()
