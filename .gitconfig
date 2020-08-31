@@ -19,5 +19,7 @@
 [init]
 	templatedir = /home/thomas/.git-templates
 [tws]
-	secretkey = IXDtXtHbSa16ldvRncwb0OZLZfupxE
+	secretkey = fHlykLd/gHgXrSW3PRj+JLOjFsCjsBezbiDx8Q+ruGM=
 	baseuri = https://tempo-worklog-service.twobridges.io/
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

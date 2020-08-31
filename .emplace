@@ -1,5 +1,4 @@
 ([
-
 (
 source: Cargo(()),
 name: "https://github.com/I60R/page.git",
@@ -28,6 +27,11 @@ flags: [],
 (
 source: Cargo(()),
 name: "bat",
+flags: [],
+),
+(
+source: Cargo(()),
+name: "bottom",
 flags: [],
 ),
 (
@@ -249,4 +253,5 @@ flags: [],
 source: Cargo(()),
 name: "zoxide",
 flags: [],
-),])
+),
+])

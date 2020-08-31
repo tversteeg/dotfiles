@@ -17,8 +17,8 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'steelsojka/completion-buffers'
 
 " Treesitter based highlighting
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/completion-treesitter'
+"Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'nvim-treesitter/completion-treesitter'
 
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
@@ -176,16 +176,16 @@ lua require'colorizer'.setup()
 lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
 
 " Treesitter options
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-	highlight = {
-		enable = false,
-	},
-	incremental_selection = {
-		enable = true,
-	}
-}
-EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+" 	highlight = {
+" 		enable = false,
+" 	},
+" 	incremental_selection = {
+" 		enable = true,
+" 	}
+" }
+" EOF
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()
