@@ -27,6 +27,8 @@ Plug 'steelsojka/completion-buffers'
 
 " Git
 Plug 'tpope/vim-fugitive'
+" Show git blame info on the current line
+Plug 'APZelos/blamer.nvim'
 
 " Fancy bottom bar with fancy icons
 "Plug 'ryanoasis/vim-devicons'
@@ -99,6 +101,9 @@ call plug#end()
 
 " Always use UTF-8
 set encoding=utf-8
+
+" Enable the blamer function
+let g:blamer_enabled = 1
 
 " Use luacheck
 let g:syntastic_lua_checkers = ['luacheck']
