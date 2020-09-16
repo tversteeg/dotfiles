@@ -12,6 +12,7 @@
 set $mod Mod1
 
 exec ~/.screenlayout/default.sh
+exec dunst
 exec kdeconnect-indicator
 exec transmission-gtk -m
 

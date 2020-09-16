@@ -29,16 +29,20 @@ destination = "~/.mozilla/firefox/**/chrome/vars.css"
 source = "firefox-vars.css"
 
 [[symlink]]
-source = "fzf-bash-completion.sh"
 destination = "~/.config/fzf-bash-completion.sh"
+source = "fzf-bash-completion.sh"
 
 [[symlink]]
-source = ".gitconfig"
 destination = "~/.gitconfig"
+source = ".gitconfig"
 
 [[symlink]]
-source = "git-alter"
 destination = "~/.local/bin/git-alter"
+source = "git-alter"
+
+[[symlink]]
+destination = "/home/thomas/.config/dunst/dunstrc"
+source = "dunstrc"
 
 [repo]
 branch = "master"

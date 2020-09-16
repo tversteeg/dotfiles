@@ -5,34 +5,23 @@ call plug#begin()
 Plug 'vim-syntastic/syntastic'
 
 " LSP
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
 Plug 'neovim/nvim-lsp'
+" LSP easy configuration defaults
+Plug 'neovim/nvim-lspconfig'
+" " Check for tags exposed by the language server
+" Plug 'weilbith/nvim-lsp-smag'
+" LSP status, TODO configure
+" Plug 'wbthomason/lsp-status.nvim'
 
 " Fancy completions
 Plug 'nvim-lua/completion-nvim'
 " Use buffers as completion
 Plug 'steelsojka/completion-buffers'
 
-" Treesitter based highlighting
-"Plug 'nvim-treesitter/nvim-treesitter'
-"Plug 'nvim-treesitter/completion-treesitter'
-
-" " Check for tags exposed by the language server
-" Plug 'weilbith/nvim-lsp-smag'
-" LSP status, TODO configure
-" Plug 'wbthomason/lsp-status.nvim'
-
 " Git
 Plug 'tpope/vim-fugitive'
 " Show git blame info on the current line
 Plug 'APZelos/blamer.nvim'
-
-" Fancy bottom bar with fancy icons
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'taigacute/spaceline.vim'
 
 " Molokai color theme
 Plug 'tomasr/molokai'
@@ -70,8 +59,6 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " Auto change directory to root of project file
 Plug 'airblade/vim-rooter'
-
-"Plug 'junegunn/vim-peekaboo'
 
 " RON syntax
 Plug 'ron-rs/ron.vim'
@@ -129,6 +116,7 @@ let g:rustfmt_command='/home/thomas/.cargo/bin/rustfmt +beta '
 " Show complete function definition for Rust autocompletions
 let g:racer_experimental_completer=1
 
+" Use bat for FZF previews
 let g:fzf_files_options='--preview "bat {}"'
 
 " Enable rainbow parentheses
@@ -152,45 +140,32 @@ let g:EasyMotion_smartcase=1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
-" Set the terminal colors and load the colorizer
+" Set the terminal colors needed for the colorizer
 set termguicolors
-lua require'colorizer'.setup()
 
-" :lua << END
-" vim.lsp.set_log_level('info')
-" 
-" local nvim_lsp = require 'nvim_lsp'
-" local configs = require 'nvim_lsp/configs'
-" configs.cube = {
-" 	default_config = {
-" 		cmd = {'/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'},
-" 		filetypes = {'lua'},
-" 		root_dir = function(fname)
-" 			return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-" 		end,
-" 		settings = {},
-" 	}
-" }
-" nvim_lsp.cube.setup({})
-" END
-" 
-" " Load the rust-analyzer language server
-" lua require'nvim_lsp'.rust_analyzer.setup({})
+:lua << END
 
-" Load the rust-analyzer language server with completion
-lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+-- Setup the colors for matching text
+require'colorizer'.setup()
 
-" Treesitter options
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-" 	highlight = {
-" 		enable = false,
-" 	},
-" 	incremental_selection = {
-" 		enable = true,
-" 	}
-" }
-" EOF
+-- Load cube
+local nvim_lsp = require 'nvim_lsp'
+local configs = require 'nvim_lsp/configs'
+configs.cube = {
+	default_config = {
+		cmd = {'/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'},
+		filetypes = {'lua'},
+		root_dir = function(fname)
+			return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+		end,
+		settings = {},
+	}
+}
+nvim_lsp.cube.setup{}
+
+-- Load rust-analyzer
+nvim_lsp.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+END
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()
@@ -208,15 +183,6 @@ nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-" let g:LanguageClient_serverCommands = {
-"      \ 'lua': ['/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'],
-"      \ 'rust': ['rust-analyzer'],
-"      \ }
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Use syntax highlighting
 syntax on
@@ -347,9 +313,6 @@ set undodir=~/.vim/undodir
 " Show live preview of substitutions
 set inccommand=split
 
-" Lua Snippets
-iabbrev dbgl print(("%s: %d"):format(debug.getinfo(1).short_src, debug.getinfo(1).currentline)) -- DEBUGLINE
-
 " Unmap arrow keys
 nnoremap <right> <nop>
 nnoremap <down> <nop>
@@ -370,12 +333,6 @@ inoremap <esc> <nop>
 noremap 0 ^
 " Just in case you need to go to the very beginning of a line
 noremap ^ 0
-
-" Use <leader>( to add \(\) in regex patterns quickly
-"cmap <leader>( \(\)<left><left>
-" Use very magic by default
-nnoremap / /\v
-cnoremap %s/ %s/\v
 
 " Temporary hack to disable the creation of an empty buffer
 if @% == ""
