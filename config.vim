@@ -12,8 +12,9 @@ Plug 'neovim/nvim-lspconfig'
 " Plug 'weilbith/nvim-lsp-smag'
 " LSP status, TODO configure
 " Plug 'wbthomason/lsp-status.nvim'
-
-" Fancy completions
+" LSP diagnostics
+Plug 'nvim-lua/diagnostic-nvim'
+" Fancy completions using LSP as a source
 Plug 'nvim-lua/completion-nvim'
 " Use buffers as completion
 Plug 'steelsojka/completion-buffers'
@@ -27,6 +28,9 @@ Plug 'APZelos/blamer.nvim'
 Plug 'tomasr/molokai'
 " Purple color theme
 Plug 'yassinebridi/vim-purpura'
+
+" Minimap
+Plug 'wfxr/minimap.vim'
 
 " Automatically add closing brackets when going to the next line
 Plug 'rstacruz/vim-closer'
@@ -151,6 +155,12 @@ require'colorizer'.setup()
 -- Load cube
 local nvim_lsp = require 'nvim_lsp'
 local configs = require 'nvim_lsp/configs'
+
+local on_attach_vim = function(client)
+	require'completion'.on_attach(client)
+	require'diagnostic'.on_attach(client)
+end
+
 configs.cube = {
 	default_config = {
 		cmd = {'/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'},
@@ -161,17 +171,14 @@ configs.cube = {
 		settings = {},
 	}
 }
-nvim_lsp.cube.setup{}
+nvim_lsp.cube.setup{on_attach=on_attach_vim}
 
 -- Load rust-analyzer
-nvim_lsp.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+nvim_lsp.rust_analyzer.setup{on_attach=on_attach_vim}
 END
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
 
 " Language server mappings
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -312,6 +319,9 @@ set undodir=~/.vim/undodir
 
 " Show live preview of substitutions
 set inccommand=split
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
 " Unmap arrow keys
 nnoremap <right> <nop>
