@@ -75,6 +75,11 @@ name: "clementine",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "code-minimap",
+flags: [],
+),
+(
 source: Apt(()),
 name: "cups",
 flags: [],

@@ -5,25 +5,19 @@ call plug#begin()
 Plug 'vim-syntastic/syntastic'
 
 " LSP
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
 Plug 'neovim/nvim-lsp'
-
-" Fancy completions
-Plug 'nvim-lua/completion-nvim'
-" Use buffers as completion
-Plug 'steelsojka/completion-buffers'
-
-" Treesitter based highlighting
-"Plug 'nvim-treesitter/nvim-treesitter'
-"Plug 'nvim-treesitter/completion-treesitter'
-
+" LSP easy configuration defaults
+Plug 'neovim/nvim-lspconfig'
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
 " LSP status, TODO configure
 " Plug 'wbthomason/lsp-status.nvim'
+" LSP diagnostics
+Plug 'nvim-lua/diagnostic-nvim'
+" Fancy completions using LSP as a source
+Plug 'nvim-lua/completion-nvim'
+" Use buffers as completion
+Plug 'steelsojka/completion-buffers'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -32,14 +26,13 @@ Plug 'APZelos/blamer.nvim'
 " Nice commit message editing
 Plug 'rhysd/committia.vim'
 
-" Fancy bottom bar with fancy icons
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'taigacute/spaceline.vim'
-
 " Molokai color theme
 Plug 'tomasr/molokai'
 " Purple color theme
 Plug 'yassinebridi/vim-purpura'
+
+" Minimap
+Plug 'wfxr/minimap.vim'
 
 " Automatically add closing brackets when going to the next line
 Plug 'rstacruz/vim-closer'
@@ -72,8 +65,6 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " Auto change directory to root of project file
 Plug 'airblade/vim-rooter'
-
-"Plug 'junegunn/vim-peekaboo'
 
 " RON syntax
 Plug 'ron-rs/ron.vim'
@@ -131,6 +122,7 @@ let g:rustfmt_command='/home/thomas/.cargo/bin/rustfmt +beta '
 " Show complete function definition for Rust autocompletions
 let g:racer_experimental_completer=1
 
+" Use bat for FZF previews
 let g:fzf_files_options='--preview "bat {}"'
 
 " Enable rainbow parentheses
@@ -154,51 +146,41 @@ let g:EasyMotion_smartcase=1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
-" Set the terminal colors and load the colorizer
+" Set the terminal colors needed for the colorizer
 set termguicolors
-lua require'colorizer'.setup()
 
-" :lua << END
-" vim.lsp.set_log_level('info')
-" 
-" local nvim_lsp = require 'nvim_lsp'
-" local configs = require 'nvim_lsp/configs'
-" configs.cube = {
-" 	default_config = {
-" 		cmd = {'/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'},
-" 		filetypes = {'lua'},
-" 		root_dir = function(fname)
-" 			return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-" 		end,
-" 		settings = {},
-" 	}
-" }
-" nvim_lsp.cube.setup({})
-" END
-" 
-" " Load the rust-analyzer language server
-" lua require'nvim_lsp'.rust_analyzer.setup({})
+:lua << END
 
-" Load the rust-analyzer language server with completion
-lua require'nvim_lsp'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+-- Setup the colors for matching text
+require'colorizer'.setup()
 
-" Treesitter options
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-" 	highlight = {
-" 		enable = false,
-" 	},
-" 	incremental_selection = {
-" 		enable = true,
-" 	}
-" }
-" EOF
+-- Load cube
+local nvim_lsp = require 'nvim_lsp'
+local configs = require 'nvim_lsp/configs'
+
+local on_attach_vim = function(client)
+	require'completion'.on_attach(client)
+	require'diagnostic'.on_attach(client)
+end
+
+configs.cube = {
+	default_config = {
+		cmd = {'/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'},
+		filetypes = {'lua'},
+		root_dir = function(fname)
+			return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+		end,
+		settings = {},
+	}
+}
+nvim_lsp.cube.setup{on_attach=on_attach_vim}
+
+-- Load rust-analyzer
+nvim_lsp.rust_analyzer.setup{on_attach=on_attach_vim}
+END
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
 
 " Language server mappings
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -210,15 +192,6 @@ nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-" let g:LanguageClient_serverCommands = {
-"      \ 'lua': ['/home/thomas/c/cube-docugen/lsp/target/release/cube-lsp'],
-"      \ 'rust': ['rust-analyzer'],
-"      \ }
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " Use syntax highlighting
 syntax on
@@ -349,8 +322,8 @@ set undodir=~/.vim/undodir
 " Show live preview of substitutions
 set inccommand=split
 
-" Lua Snippets
-iabbrev dbgl print(("%s: %d"):format(debug.getinfo(1).short_src, debug.getinfo(1).currentline)) -- DEBUGLINE
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
 " Unmap arrow keys
 nnoremap <right> <nop>
@@ -372,12 +345,6 @@ inoremap <esc> <nop>
 noremap 0 ^
 " Just in case you need to go to the very beginning of a line
 noremap ^ 0
-
-" Use <leader>( to add \(\) in regex patterns quickly
-"cmap <leader>( \(\)<left><left>
-" Use very magic by default
-nnoremap / /\v
-cnoremap %s/ %s/\v
 
 " Temporary hack to disable the creation of an empty buffer
 if @% == ""
