@@ -29,6 +29,8 @@ Plug 'steelsojka/completion-buffers'
 Plug 'tpope/vim-fugitive'
 " Show git blame info on the current line
 Plug 'APZelos/blamer.nvim'
+" Nice commit message editing
+Plug 'rhysd/committia.vim'
 
 " Fancy bottom bar with fancy icons
 "Plug 'ryanoasis/vim-devicons'
