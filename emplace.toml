@@ -44,6 +44,10 @@ source = "git-alter"
 destination = "/home/thomas/.config/dunst/dunstrc"
 source = "dunstrc"
 
+[[symlink]]
+destination = "/home/thomas/.config/nu/config.toml"
+source = "config.toml"
+
 [repo]
 branch = "master"
 file = ".emplace"

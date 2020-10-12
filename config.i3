@@ -147,9 +147,12 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Media player controls
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioNext exec mpc next
-bindsym XF86AudioPrev exec mpc previous
+bindsym XF86AudioPlay exec clementine -t
+bindsym XF86AudioNext exec clementine -f
+bindsym XF86AudioPrev exec clementine -r
+
+# Screenshot
+bindsym Print exec flameshot gui
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

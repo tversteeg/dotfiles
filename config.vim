@@ -5,9 +5,9 @@ call plug#begin()
 Plug 'vim-syntastic/syntastic'
 
 " LSP
-Plug 'neovim/nvim-lsp'
-" LSP easy configuration defaults
 Plug 'neovim/nvim-lspconfig'
+" LSP extensions, type inlay hints
+Plug 'tjdevries/lsp_extensions.nvim'
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
 " LSP status, TODO configure
@@ -16,8 +16,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/diagnostic-nvim'
 " Fancy completions using LSP as a source
 Plug 'nvim-lua/completion-nvim'
-" Use buffers as completion
-Plug 'steelsojka/completion-buffers'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -77,6 +75,9 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 " Switch between relative and absolute numbers
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+" Show buffers in the tabline
+Plug 'ap/vim-buftabline'
 
 " Make vim harder
 Plug 'takac/vim-hardtime'
@@ -179,9 +180,6 @@ nvim_lsp.cube.setup{on_attach=on_attach_vim}
 nvim_lsp.rust_analyzer.setup{on_attach=on_attach_vim}
 END
 
-" Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
-
 " Language server mappings
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -191,7 +189,11 @@ nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-setlocal omnifunc=v:lua.vim.lsp.omnifunc
+nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
 
 " Use syntax highlighting
 syntax on
@@ -325,6 +327,9 @@ set inccommand=split
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 
+" Avoid showing extra messages when using completion
+set shortmess+=c
+
 " Unmap arrow keys
 nnoremap <right> <nop>
 nnoremap <down> <nop>
@@ -339,6 +344,10 @@ vnoremap <up> <nop>
 " Use jj instead of <esc>
 inoremap jj <esc>
 inoremap <esc> <nop>
+
+" Goto previous/next diagnostic warning/error
+nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
+nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
 
 " Move across wrapped lines like regular lines
 " Go to the first non-blank character of a line

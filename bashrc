@@ -113,7 +113,7 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 eval "$(emplace init bash)"
-eval "$(starship init bash)"
+# eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 source <(navi widget bash)
 
