@@ -41,12 +41,16 @@ destination = "~/.local/bin/git-alter"
 source = "git-alter"
 
 [[symlink]]
-destination = "/home/thomas/.config/dunst/dunstrc"
+destination = "~/.config/dunst/dunstrc"
 source = "dunstrc"
 
 [[symlink]]
-destination = "/home/thomas/.config/nu/config.toml"
+destination = "~/.config/nu/config.toml"
 source = "config.toml"
+
+[[symlink]]
+destination = "~/.config/dnscrypt-proxy.toml"
+source = "dnscrypt-proxy.toml"
 
 [repo]
 branch = "master"

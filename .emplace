@@ -91,6 +91,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "dnscrypt-proxy",
+flags: [],
+),
+(
+source: Apt(()),
 name: "dunst",
 flags: [],
 ),
