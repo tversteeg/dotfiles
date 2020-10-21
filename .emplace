@@ -146,6 +146,11 @@ flags: [],
 ),
 (
 source: Cargo(()),
+name: "hx",
+flags: [],
+),
+(
+source: Cargo(()),
 name: "i3-style",
 flags: [],
 ),
