@@ -195,6 +195,11 @@ name: "ripgrep",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "rm-improved",
+flags: [],
+),
+(
 source: Apt(()),
 name: "rofi",
 flags: [],
