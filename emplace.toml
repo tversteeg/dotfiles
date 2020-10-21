@@ -52,6 +52,14 @@ source = "config.toml"
 destination = "~/.config/dnscrypt-proxy.toml"
 source = "dnscrypt-proxy.toml"
 
+[[symlink]]
+destination = ".adblock.sh"
+source = "adblock.sh"
+
+[[symlink]]
+destination = "dnscrypt-proxy-extra.blacklist.toml"
+source = "dnscrypt-proxy-extra.blacklist.toml"
+
 [repo]
 branch = "master"
 file = ".emplace"

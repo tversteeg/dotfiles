@@ -95,6 +95,11 @@ name: "dnscrypt-proxy",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "du-dust",
+flags: [],
+),
+(
 source: Apt(()),
 name: "dunst",
 flags: [],
