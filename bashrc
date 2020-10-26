@@ -113,15 +113,13 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 eval "$(emplace init bash)"
-# eval "$(starship init bash)"
+eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 source <(navi widget bash)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH="$HOME/.local/bin:/snap/bin/:$PATH"
 
 # Cache Rust build artifacts
 export RUSTC_WRAPPER=sccache
@@ -133,5 +131,5 @@ alias cat="bat"
 # Scale QT applications
 export QT_SCALE_FACTOR=2
 
-# Set the pager to page application
-#export PAGER="page --"
+# Tell navi that the .cheat files are in the ~/.config directory
+alias navi="navi --path=/home/thomas/.config/navi"

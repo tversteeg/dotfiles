@@ -1,0 +1,108 @@
+% Cube
+
+# run mvp
+cd ~/c/cube \
+	&& killall cube \
+	; git checkout develop \
+	&& git pull \
+	&& CUBE_LOG=release CUBE_MODULE_PATH=~/c/cube/modules build/bin/release/cube examples/mvp/mvp.cproject \
+	; cd - > /dev/null
+
+# run example
+cd ~/c/cube \
+	&& killall cube \
+	; ./build.sh <target> \
+	&& CUBE_LOG=<target> CUBE_MODULE_PATH=~/c/cube/modules build/bin/<target>/cube <example_project> \
+	; cd - > /dev/null
+
+# run example (gdb)
+cd ~/c/cube \
+	&& killall cube \
+	; ./build.sh debug \
+	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules gdb -ex=r -- args build/bin/Debug/cube <example_project> \
+	; cd - > /dev/null
+
+# run test
+cd ~/c/cube \
+	&& killall cube \
+	; ./build.sh \
+	&& CUBE_LOG=<target> CUBE_MODULE_PATH=~/c/cube/modules build/bin/<target>/cube <test_project> \
+	; cd - > /dev/null
+
+# nvim
+cd ~/c/cube \
+	&& nvim <lua_file> \
+	; cd - > /dev/null
+
+$ target: printf "release\ndebug"
+$ example_project: cd ~/c/cube && find examples -name "*.cproject"  | awk '{ print length(), $0 | "sort -n" }' | cut -d' ' -f2- ; cd - > /dev/null
+$ test_project: cd ~/c/cube && find tests -name "*_test.lua" && cd - > /dev/null
+$ lua_file: cd ~/c/cube && find modules -name "*.lua" && find . -name "premake5*.lua" ; cd - > /dev/null
+
+% Cube, Git
+
+# pull
+cd ~/c/cube \
+	&& git pull \
+	; cd - > /dev/null
+
+# checkout develop
+cd ~/c/cube \
+	&& git checkout develop \
+	&& git pull \
+	; cd - > /dev/null
+
+# checkout
+cd ~/c/cube \
+	&& git checkout <branch> \
+	&& git pull \
+	; cd - > /dev/null
+
+# commit all
+cd ~/c/cube \
+	&& git add -A \
+	&& git commit -m "$(echo '<jira_key>' | cut -f1 -d' '): <commit_message>" \
+	&& git push \
+	|| git flow publish \
+	; cd - > /dev/null
+
+# new branch from current branch
+cd ~/c/cube \
+	&& git checkout -b feature/<feature_name> \
+	; cd - > /dev/null
+
+# new branch from develop
+cd ~/c/cube \
+	&& git checkout develop \
+	&& git pull \
+	&& git checkout -b feature/<feature_name> \
+	; cd - > /dev/null
+
+$ branch: cd ~/c/cube && git branch | awk '{print $NF}' ; cd - > /dev/null
+$ jira_key: curl -su thomas.versteeg 'https://jira.twobridges.io/rest/api/2/search?jql=project=NC%20AND%20status!=Closed%20AND%20sprint%20in%20openSprints%28%29&maxResults=1000' | jq -r '.issues[] as $issue | $issue.key + "|" + $issue.fields.summary' | sort | column -t -s '|'
+
+% Cube, Bindings
+
+# generate
+cd ~/c/cube-imgui-bindings && ./build.sh ~/c/cube && git diff ; cd - > /dev/null
+
+# nvim
+cd ~/c/cube-imgui-bindings && nvim <lua_file> ; cd - > /dev/null
+
+$ lua_file: cd ~/c/cube-imgui-bindings && find . -maxdepth 1 -not -type d ; cd - > /dev/null
+
+% Cube, Bindings, Git
+
+# pull
+cd ~/c/cube-imgui-bindings && git pull ; cd - > /dev/null
+
+# update cimgui
+cd ~/c/cube-imgui-bindings && git pull && git submodule update --remote ; cd - > /dev/null
+
+% Cube, Docugen
+
+# generate
+cd ~/c/cube-docugen && cargo run --release -- -t ~/c/cube/book -e ~/c/cube/docs ~/c/cube/modules ~/c/cube/src/modules && firefox --new-tab ~/c/cube/book/book/index.html ; cd - > /dev/null
+
+# update repositories
+cd ~/c/cube-docugen && git pull && cargo upgrade && cargo update && cargo test && cd lib && cargo upgrade && cargo test && cd ../lsp && cargo upgrade && cargo update && cargo test ; cd - > /dev/null

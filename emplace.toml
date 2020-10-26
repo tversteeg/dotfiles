@@ -60,6 +60,18 @@ source = "adblock.sh"
 destination = "dnscrypt-proxy-extra.blacklist.toml"
 source = "dnscrypt-proxy-extra.blacklist.toml"
 
+[[symlink]]
+destination = "/home/thomas/.config/navi/cube.cheat"
+source = "cube.cheat"
+
+[[symlink]]
+destination = "/home/thomas/.config/navi/dns.cheat"
+source = "dns.cheat"
+
+[[symlink]]
+destination = "/home/thomas/.config/navi/rust.cheat"
+source = "rust.cheat"
+
 [repo]
 branch = "master"
 file = ".emplace"

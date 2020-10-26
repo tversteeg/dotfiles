@@ -141,6 +141,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "gtk-chtheme",
+flags: [],
+),
+(
+source: Apt(()),
 name: "hardinfo",
 flags: [],
 ),
