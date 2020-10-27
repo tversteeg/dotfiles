@@ -16,6 +16,11 @@ flags: ["--user"],
 ),
 (
 source: Apt(()),
+name: "adwaita-qt",
+flags: [],
+),
+(
+source: Apt(()),
 name: "alsa-utils",
 flags: [],
 ),

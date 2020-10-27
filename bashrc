@@ -130,6 +130,8 @@ alias cat="bat"
 
 # Scale QT applications
 export QT_SCALE_FACTOR=2
+# Use adwait theme
+export QT_STYLE_OVERRIDE=adwaita
 
 # Tell navi that the .cheat files are in the ~/.config directory
 alias navi="navi --path=/home/thomas/.config/navi"

@@ -72,6 +72,10 @@ source = "dns.cheat"
 destination = "/home/thomas/.config/navi/rust.cheat"
 source = "rust.cheat"
 
+[[symlink]]
+destination = "/home/thomas/.config/gtk-3.0/settings.ini"
+source = "settings.ini"
+
 [repo]
 branch = "master"
 file = ".emplace"

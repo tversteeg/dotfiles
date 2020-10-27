@@ -22,6 +22,22 @@ cd ~/c/cube \
 	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules gdb -ex=r -- args build/bin/Debug/cube <example_project> \
 	; cd - > /dev/null
 
+# run example (valgrind)
+cd ~/c/cube \
+	&& killall cube \
+	; ./build.sh debug \
+	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules valgrind --tool=memcheck --leak-check=yes --track-origins=yes build/bin/Debug/cube <example_project> \
+	; cd - > /dev/null
+
+# run example (wine)
+cd ~/c/cube \
+	&& killall cube \
+	; wine ~/c/<cube_installs> \
+	&& wine 'C:/Program Files/Cube/IdGen.exe' -o 'C:/Program Files/Cube/local.cube_machine_id' \
+	&& wine ~/c/KeyGen.exe $(date +"%s" --date="next year") -o 'C:/Program Files/Cube/cube.license' -I 'C:/Program Files/Cube/local.cube_machine_id' \
+	&& CUBE_LOG=<target> CUBE_MODULE_PATH=~/c/cube/modules wine "C:/Program Files/Cube/Cube.exe" <example_project> \
+	; cd - > /dev/null
+
 # run test
 cd ~/c/cube \
 	&& killall cube \
@@ -29,15 +45,24 @@ cd ~/c/cube \
 	&& CUBE_LOG=<target> CUBE_MODULE_PATH=~/c/cube/modules build/bin/<target>/cube <test_project> \
 	; cd - > /dev/null
 
+# add lua source file
+cd ~/c/cube \
+	&& touch <lua_module_subdirs>/<lua_source_file>.lua \
+	&& git add <lua_module_subdirs>/<lua_source_file>.lua \
+	; cd - > /dev/null
+
 # nvim
 cd ~/c/cube \
 	&& nvim <lua_file> \
+	&& git status \
 	; cd - > /dev/null
 
 $ target: printf "release\ndebug"
 $ example_project: cd ~/c/cube && find examples -name "*.cproject"  | awk '{ print length(), $0 | "sort -n" }' | cut -d' ' -f2- ; cd - > /dev/null
 $ test_project: cd ~/c/cube && find tests -name "*_test.lua" && cd - > /dev/null
 $ lua_file: cd ~/c/cube && find modules -name "*.lua" && find . -name "premake5*.lua" ; cd - > /dev/null
+$ lua_module_subdirs: cd ~/c/cube && find modules -type d ; cd - > /dev/null
+$ cube_installs: cd ~/c && ls Cube*.exe ; cd - >/dev/null
 
 % Cube, Git
 
@@ -79,7 +104,7 @@ cd ~/c/cube \
 	; cd - > /dev/null
 
 $ branch: cd ~/c/cube && git branch | awk '{print $NF}' ; cd - > /dev/null
-$ jira_key: curl -su thomas.versteeg 'https://jira.twobridges.io/rest/api/2/search?jql=project=NC%20AND%20status!=Closed%20AND%20sprint%20in%20openSprints%28%29&maxResults=1000' | jq -r '.issues[] as $issue | $issue.key + "|" + $issue.fields.summary' | sort | column -t -s '|'
+$ jira_key: curl -su thomas.versteeg:$(cat ~/.config/jira-pwd) 'https://jira.twobridges.io/rest/api/2/search?jql=project=NC%20AND%20status!=Closed%20AND%20sprint%20in%20openSprints%28%29&maxResults=1000' | jq -r '.issues[] as $issue | $issue.key + "|" + $issue.fields.summary' | sort | column -t -s '|'
 
 % Cube, Bindings
 
@@ -102,7 +127,7 @@ cd ~/c/cube-imgui-bindings && git pull && git submodule update --remote ; cd - >
 % Cube, Docugen
 
 # generate
-cd ~/c/cube-docugen && cargo run --release -- -t ~/c/cube/book -e ~/c/cube/docs ~/c/cube/modules ~/c/cube/src/modules && firefox --new-tab ~/c/cube/book/book/index.html ; cd - > /dev/null
+cd ~/c/cube-docugen && cargo run --release -- -t ~/c/cube/book -e ~/c/cube/docs ~/c/cube/modules ~/c/cube/src/modules && xdg-open ~/c/cube/book/book/index.html ; cd - > /dev/null
 
 # update repositories
 cd ~/c/cube-docugen && git pull && cargo upgrade && cargo update && cargo test && cd lib && cargo upgrade && cargo test && cd ../lsp && cargo upgrade && cargo update && cargo test ; cd - > /dev/null
