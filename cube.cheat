@@ -64,6 +64,13 @@ $ lua_file: cd ~/c/cube && find modules -name "*.lua" && find . -name "premake5*
 $ lua_module_subdirs: cd ~/c/cube && find modules -type d ; cd - > /dev/null
 $ cube_installs: cd ~/c && ls Cube*.exe ; cd - >/dev/null
 
+% Cube, Jira
+
+# create issue
+jira create -p NC -i <issue_type>
+
+$ issue_type: printf "Bug\nTask\nStory"
+
 % Cube, Git
 
 # pull
@@ -86,10 +93,17 @@ cd ~/c/cube \
 # commit all
 cd ~/c/cube \
 	&& git add -A \
-	&& git commit -m "$(echo '<jira_key>' | cut -f1 -d' '): <commit_message>" \
+	&& git commit -m "$(echo '<jira_key>' | cut -f1 -d' ') <commit_message>" \
+	&& jira trans "In Progress" $(echo '<jira_key>' | cut  -f1 -d':') --noedit
+	; cd - > /dev/null
+
+# pr
+cd ~/c/cube \
 	&& git push \
 	|| git flow publish \
-	; cd - > /dev/null
+	&& jira trans "Review" $(echo '<jira_key>' | cut  -f1 -d':') --noedit
+	&& curl -su thomas.versteeg:$(cat ~/.config/jira-pwd) -X POST -H "Content-Type: application/json" --data "\"title\":\"$(echo '<pull_request_title>' | jq)\",\"state\":\"OPEN\",\"open\":true,\"closed\":false,\"fromRef\":{\"id\":\"refs/heads/$(git rev-parse --abbrev-ref HEAD)\"},\"toRef\":\"id\":\"refs/heads/develop\"},\"reviewers\":[{\"user\":{\"name\":\"maurits.lam\"}},{\"user\":\"name\":\"marino.rottier\"}}]}" https://bitbucket.twobridges.io/rest/api/latest/projects/GDCUBE/repos/cube/pull-requests
+	; cd - >/dev/null
 
 # new branch from current branch
 cd ~/c/cube \
@@ -103,8 +117,9 @@ cd ~/c/cube \
 	&& git checkout -b feature/<feature_name> \
 	; cd - > /dev/null
 
+$ pull_request_title: jira list -q "project=NC AND Sprint in openSprints() AND status != Closed"
 $ branch: cd ~/c/cube && git branch | awk '{print $NF}' ; cd - > /dev/null
-$ jira_key: curl -su thomas.versteeg:$(cat ~/.config/jira-pwd) 'https://jira.twobridges.io/rest/api/2/search?jql=project=NC%20AND%20status!=Closed%20AND%20sprint%20in%20openSprints%28%29&maxResults=1000' | jq -r '.issues[] as $issue | $issue.key + "|" + $issue.fields.summary' | sort | column -t -s '|'
+$ jira_key: echo NC-379: && jira list -q "project=NC AND Sprint in openSprints() AND status != Closed"
 
 % Cube, Bindings
 

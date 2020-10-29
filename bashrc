@@ -135,3 +135,9 @@ export QT_STYLE_OVERRIDE=adwaita
 
 # Tell navi that the .cheat files are in the ~/.config directory
 alias navi="navi --path=/home/thomas/.config/navi"
+
+# Use neovim for everything
+export EDITOR="nvim"
+
+# Add ~/.local/bin to PATH
+export PATH=~/.local/bin:$PATH

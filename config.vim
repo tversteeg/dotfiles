@@ -7,11 +7,9 @@ Plug 'vim-syntastic/syntastic'
 " LSP
 Plug 'neovim/nvim-lspconfig'
 " LSP extensions, type inlay hints
-Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
-" LSP status, TODO configure
-" Plug 'wbthomason/lsp-status.nvim'
 " LSP diagnostics
 Plug 'nvim-lua/diagnostic-nvim'
 " Fancy completions using LSP as a source
@@ -159,6 +157,7 @@ require'colorizer'.setup()
 local nvim_lsp = require 'nvim_lsp'
 local configs = require 'nvim_lsp/configs'
 
+-- Attach the plugins to the LSP
 local on_attach_vim = function(client)
 	require'completion'.on_attach(client)
 	require'diagnostic'.on_attach(client)
@@ -193,7 +192,7 @@ nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "NonText" }
 
 " Use syntax highlighting
 syntax on
