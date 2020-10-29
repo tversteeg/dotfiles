@@ -201,6 +201,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "pass-extension-otp",
+flags: [],
+),
+(
+source: Apt(()),
 name: "peek",
 flags: [],
 ),

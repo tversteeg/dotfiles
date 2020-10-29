@@ -102,7 +102,7 @@ cd ~/c/cube \
 	&& git push \
 	|| git flow publish \
 	&& jira trans "Review" $(echo '<jira_key>' | cut  -f1 -d':') --noedit
-	&& curl -su thomas.versteeg:$(cat ~/.config/jira-pwd) -X POST -H "Content-Type: application/json" --data "\"title\":\"$(echo '<pull_request_title>' | jq)\",\"state\":\"OPEN\",\"open\":true,\"closed\":false,\"fromRef\":{\"id\":\"refs/heads/$(git rev-parse --abbrev-ref HEAD)\"},\"toRef\":\"id\":\"refs/heads/develop\"},\"reviewers\":[{\"user\":{\"name\":\"maurits.lam\"}},{\"user\":\"name\":\"marino.rottier\"}}]}" https://bitbucket.twobridges.io/rest/api/latest/projects/GDCUBE/repos/cube/pull-requests
+	&& curl -su thomas.versteeg:$(pass Work/thomas.versteeg@nepgroup.com) -X POST -H "Content-Type: application/json" --data "\"title\":\"$(echo '<pull_request_title>' | jq)\",\"state\":\"OPEN\",\"open\":true,\"closed\":false,\"fromRef\":{\"id\":\"refs/heads/$(git rev-parse --abbrev-ref HEAD)\"},\"toRef\":\"id\":\"refs/heads/develop\"},\"reviewers\":[{\"user\":{\"name\":\"maurits.lam\"}},{\"user\":\"name\":\"marino.rottier\"}}]}" https://bitbucket.twobridges.io/rest/api/latest/projects/GDCUBE/repos/cube/pull-requests
 	; cd - >/dev/null
 
 # new branch from current branch
