@@ -2,7 +2,7 @@
 	helper = store
 [user]
 	name = Thomas Versteeg
-	email = thomasversteeg@gmx.com
+	email = thomas@versteeg.email
 [core]
 	pager = delta --dark
 [filter "lfs"]

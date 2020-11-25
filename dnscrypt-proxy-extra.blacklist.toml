@@ -4,7 +4,7 @@
 *ampproject*
 *gstatic*
 *apple*
-*cloudflare*
+#*cloudflare*
 *tfbnw*
 *fbcdn*
 *fburl*
@@ -19,3 +19,4 @@ t.co
 *atlassian*
 #*microsoft*
 #*office*
+*discord*

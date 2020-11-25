@@ -20,6 +20,11 @@ name: "adwaita-qt",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "alacritty",
+flags: [],
+),
+(
 source: Apt(()),
 name: "alsa-utils",
 flags: [],

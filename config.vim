@@ -154,8 +154,8 @@ set termguicolors
 require'colorizer'.setup()
 
 -- Load cube
-local nvim_lsp = require 'nvim_lsp'
-local configs = require 'nvim_lsp/configs'
+local nvim_lsp = require 'lspconfig'
+local configs = require 'lspconfig/configs'
 
 -- Attach the plugins to the LSP
 local on_attach_vim = function(client)

@@ -19,14 +19,14 @@ cd ~/c/cube \
 cd ~/c/cube \
 	&& killall cube \
 	; ./build.sh debug \
-	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules gdb -ex=r -- args build/bin/Debug/cube <example_project> \
+	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules gdb -ex=r -- args build/bin/debug/cube <example_project> \
 	; cd - > /dev/null
 
 # run example (valgrind)
 cd ~/c/cube \
 	&& killall cube \
 	; ./build.sh debug \
-	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules valgrind --tool=memcheck --leak-check=yes --track-origins=yes build/bin/Debug/cube <example_project> \
+	&& CUBE_LOG=trace CUBE_MODULE_PATH=~/c/cube/modules valgrind --tool=memcheck --leak-check=yes --track-origins=yes build/bin/debug/cube <example_project> \
 	; cd - > /dev/null
 
 # run example (wine)
@@ -45,6 +45,15 @@ cd ~/c/cube \
 	&& CUBE_LOG=<target> CUBE_MODULE_PATH=~/c/cube/modules build/bin/<target>/cube <test_project> \
 	; cd - > /dev/null
 
+# run test (throttled)
+cd ~/c/cube \
+	&& killall cube \
+	; ./build.sh \
+	&& cpulimit -P ~/c/cube/build/bin/<target>/cube -l <cpu_percentage> -b \
+	&& CUBE_LOG=<target> CUBE_MODULE_PATH=~/c/cube/modules build/bin/<target>/cube <test_project> \
+	; killall cpulimit \
+	; cd - > /dev/null
+
 # add lua source file
 cd ~/c/cube \
 	&& touch <lua_module_subdirs>/<lua_source_file>.lua \
@@ -58,7 +67,7 @@ cd ~/c/cube \
 	; cd - > /dev/null
 
 $ target: printf "release\ndebug"
-$ example_project: cd ~/c/cube && find examples -name "*.cproject"  | awk '{ print length(), $0 | "sort -n" }' | cut -d' ' -f2- ; cd - > /dev/null
+$ example_project: cd ~/c/cube && find examples -name "*.cproject" && find examples -name "*.lua"  | awk '{ print length(), $0 | "sort -n" }' | cut -d' ' -f2- ; cd - > /dev/null
 $ test_project: cd ~/c/cube && find tests -name "*_test.lua" && cd - > /dev/null
 $ lua_file: cd ~/c/cube && find modules -name "*.lua" && find . -name "premake5*.lua" ; cd - > /dev/null
 $ lua_module_subdirs: cd ~/c/cube && find modules -type d ; cd - > /dev/null
@@ -94,6 +103,8 @@ cd ~/c/cube \
 cd ~/c/cube \
 	&& git add -A \
 	&& git commit -m "$(echo '<jira_key>' | cut -f1 -d' ') <commit_message>" \
+	&& git fetch \
+	&& git merge origin/develop \
 	&& jira trans "In Progress" $(echo '<jira_key>' | cut  -f1 -d':') --noedit
 	; cd - > /dev/null
 
@@ -101,8 +112,8 @@ cd ~/c/cube \
 cd ~/c/cube \
 	&& git push \
 	|| git flow publish \
-	&& jira trans "Review" $(echo '<jira_key>' | cut  -f1 -d':') --noedit
-	&& curl -su thomas.versteeg:$(pass Work/thomas.versteeg@nepgroup.com) -X POST -H "Content-Type: application/json" --data "\"title\":\"$(echo '<pull_request_title>' | jq)\",\"state\":\"OPEN\",\"open\":true,\"closed\":false,\"fromRef\":{\"id\":\"refs/heads/$(git rev-parse --abbrev-ref HEAD)\"},\"toRef\":\"id\":\"refs/heads/develop\"},\"reviewers\":[{\"user\":{\"name\":\"maurits.lam\"}},{\"user\":\"name\":\"marino.rottier\"}}]}" https://bitbucket.twobridges.io/rest/api/latest/projects/GDCUBE/repos/cube/pull-requests
+	&& curl -su thomas.versteeg:$(pass Work/thomas.versteeg@nepgroup.com) -X POST -H "Content-Type: application/json" --data "\"title\":\"$(echo '<pull_request_title>' | jq)\",\"state\":\"OPEN\",\"open\":true,\"closed\":false,\"fromRef\":{\"id\":\"refs/heads/$(git rev-parse --abbrev-ref HEAD)\"},\"toRef\":\"id\":\"refs/heads/develop\"},\"reviewers\":[{\"user\":{\"name\":\"maurits.lam\"}},{\"user\":\"name\":\"marino.rottier\"}}]}" https://bitbucket.twobridges.io/rest/api/latest/projects/GDCUBE/repos/cube/pull-requests \
+	&& jira trans "Review" $(echo '<jira_key>' | cut  -f1 -d':') --noedit \
 	; cd - >/dev/null
 
 # new branch from current branch

@@ -11,3 +11,8 @@ sudo systemctl restart dnscrypt-proxy && sudo service networking restart
 
 # add blacklist rule
 echo "<rule>" >> ~/.config/dnscrypt-proxy-extra.blacklist.toml && cat ~/.config/dnscrypt-proxy-extra.blacklist.toml
+
+% VPN
+
+# login
+{ pass show Work/thomas.versteeg@nepgroup.com ; pass otp remote.nepworldwide.nl/totp-secret ; } | sudo openconnect --protocol=nc remote.nepworldwide.nl -u thomas.versteeg --passwd-on-stdin
