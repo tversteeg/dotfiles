@@ -5,6 +5,11 @@ name: "https://github.com/I60R/page.git",
 flags: ["--git"],
 ),
 (
+source: Cargo(()),
+name: "https://github.com/greshake/i3status-rust",
+flags: ["--git"],
+),
+(
 source: Rustup(()),
 name: "clippy",
 flags: ["--toolchain nightly"],

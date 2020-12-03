@@ -42,8 +42,11 @@ Plug 'tpope/vim-repeat'
 " Comment stuff out gc..
 Plug 'tpope/vim-commentary'
 
-" Easier motions
-Plug 'easymotion/vim-easymotion'
+" Quickly replace text with s
+Plug 'svermeulen/vim-subversive'
+
+" Cycle through pasted yanks
+Plug 'svermeulen/vim-yoink'
 
 " Show and remove extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
@@ -111,6 +114,17 @@ map! <C-p> :GFiles<CR>
 map <C-.> :FZF<CR>
 map! <C-.> :FZF<CR>
 
+" Map subsition to s
+nmap s <plug>(SubversiveSubstituteRange)
+xmap s <plug>(SubversiveSubstituteRange)
+nmap ss <plug>(SubversiveSubstituteWordRange)
+
+" Allow cycling through pastes
+"nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+"nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys=['f', 'F', 't', 'T']
 
@@ -126,24 +140,6 @@ let g:fzf_files_options='--preview "bat {}"'
 
 " Enable rainbow parentheses
 let g:rainbow_active=1
-
-" Disable default mappings
-let g:EasyMotion_do_mapping=0
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase=1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
 
 " Set the terminal colors needed for the colorizer
 set termguicolors
