@@ -140,4 +140,7 @@ alias navi="navi --path=/home/thomas/.config/navi"
 export EDITOR="nvim"
 
 # Add ~/.local/bin to PATH
-export PATH=~/.local/bin:$PATH
+export PATH=~/.local/bin:$PATH:/snap/bin
+
+# Use Android SDK from package manager
+export ANDROID_HOME=/usr/lib/android-sdk

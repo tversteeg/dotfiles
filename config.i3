@@ -184,10 +184,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #status_command i3blocks -c .config/i3blocks.conf
-        status_command /home/thomas/r/i3status-rust/target/release/i3status-rs
-#	status_command rofi -dmenu
-#	status_command exec mpc
+	font pango:DejaVu Sans Mono, FontAwesome 8
+        status_command /home/thomas/.cargo/bin/i3status-rs
 	colors {
 		separator #AAAAAA
 		background #222133
@@ -199,10 +197,11 @@ bar {
 	}
 }
 
-for_window [title="^Cube$"] floating enable
+for_window [title="^Cube -"] floating enable
 for_window [title="^Noita"] floating enable
 for_window [title="^Fermi"] floating enable
 for_window [title="^replace_me"] floating enable
+
 client.focused #664477 #664477 #cccccc #e7d8b1
 client.focused_inactive #e7d8b1 #e7d8b1 #181715 #A074C4
 client.unfocused #222133 #222133 #AAAAAA #A074C4

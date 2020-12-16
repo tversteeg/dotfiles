@@ -173,6 +173,13 @@ mkdir /tmp/license \
 	; cd - > /dev/null \
 	; rm -rf /tmp/license
 
+# generate (local)
+mkdir /tmp/license \
+	&& cd /tmp/license \
+	&& wine ~/c/keygen/<version>/Keygen.exe $(date +"%s" --date="<year_full><month_with_leading><day_with_leading>") -o cube.license -I ~/c/licenses/<license_input_file>.cube_machine_id \
+	; cd - > /dev/null \
+	; rm -rf /tmp/license
+
 $ version: ls ~/c/keygen
 $ license_input_file: ls ~/c/licenses | grep cube_machine_id | cut -f 1 -d '.'
 $ license_folder: ls ~/c/license_share

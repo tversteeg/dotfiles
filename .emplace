@@ -120,6 +120,11 @@ name: "dunst",
 flags: [],
 ),
 (
+source: Apt(()),
+name: "firefox",
+flags: [],
+),
+(
 source: Cargo(()),
 name: "flamegraph",
 flags: [],

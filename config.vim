@@ -10,8 +10,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 " " Check for tags exposed by the language server
 " Plug 'weilbith/nvim-lsp-smag'
-" LSP diagnostics
-Plug 'nvim-lua/diagnostic-nvim'
 " Fancy completions using LSP as a source
 Plug 'nvim-lua/completion-nvim'
 
@@ -67,6 +65,12 @@ Plug 'airblade/vim-rooter'
 
 " RON syntax
 Plug 'ron-rs/ron.vim'
+
+" Dart syntax
+Plug 'dart-lang/dart-vim-plugin'
+
+" Kotlin syntax
+Plug 'udalov/kotlin-vim'
 
 " Highlight f & t symbols
 Plug 'unblevable/quick-scope'
@@ -144,6 +148,10 @@ let g:rainbow_active=1
 " Set the terminal colors needed for the colorizer
 set termguicolors
 
+" Dart settings
+let g:dart_style_guide=2
+let dart_html_in_string=v:true
+
 :lua << END
 
 -- Setup the colors for matching text
@@ -156,7 +164,6 @@ local configs = require 'lspconfig/configs'
 -- Attach the plugins to the LSP
 local on_attach_vim = function(client)
 	require'completion'.on_attach(client)
-	require'diagnostic'.on_attach(client)
 end
 
 configs.cube = {
