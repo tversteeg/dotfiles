@@ -63,6 +63,9 @@ Plug 'dhruvasagar/vim-table-mode'
 " Auto change directory to root of project file
 Plug 'airblade/vim-rooter'
 
+" TOML syntax
+Plug 'cespare/vim-toml'
+
 " RON syntax
 Plug 'ron-rs/ron.vim'
 

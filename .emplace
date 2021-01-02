@@ -76,6 +76,11 @@ flags: [],
 ),
 (
 source: Cargo(()),
+name: "cargo-udeps",
+flags: [],
+),
+(
+source: Cargo(()),
 name: "cargo-update",
 flags: [],
 ),
