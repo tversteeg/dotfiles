@@ -71,11 +71,6 @@ flags: [],
 ),
 (
 source: Cargo(()),
-name: "cargo-tree",
-flags: [],
-),
-(
-source: Cargo(()),
 name: "cargo-udeps",
 flags: [],
 ),
@@ -95,11 +90,6 @@ name: "clementine",
 flags: [],
 ),
 (
-source: Cargo(()),
-name: "code-minimap",
-flags: [],
-),
-(
 source: Apt(()),
 name: "cups",
 flags: [],
@@ -112,11 +102,6 @@ flags: [],
 (
 source: Apt(()),
 name: "dnscrypt-proxy",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "du-dust",
 flags: [],
 ),
 (
@@ -146,11 +131,6 @@ flags: [],
 ),
 (
 source: Apt(()),
-name: "gimp-gap",
-flags: [],
-),
-(
-source: Apt(()),
 name: "git",
 flags: [],
 ),
@@ -167,16 +147,6 @@ flags: [],
 (
 source: Apt(()),
 name: "gtk-chtheme",
-flags: [],
-),
-(
-source: Apt(()),
-name: "hardinfo",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "hx",
 flags: [],
 ),
 (
@@ -216,16 +186,6 @@ flags: [],
 ),
 (
 source: Apt(()),
-name: "pass",
-flags: [],
-),
-(
-source: Apt(()),
-name: "pass-extension-otp",
-flags: [],
-),
-(
-source: Apt(()),
 name: "peek",
 flags: [],
 ),
@@ -237,11 +197,6 @@ flags: [],
 (
 source: Cargo(()),
 name: "ripgrep",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "rm-improved",
 flags: [],
 ),
 (
@@ -257,11 +212,6 @@ flags: [],
 (
 source: Apt(()),
 name: "screenkey",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "sd",
 flags: [],
 ),
 (
@@ -312,11 +262,6 @@ flags: [],
 (
 source: Apt(()),
 name: "xclip",
-flags: [],
-),
-(
-source: Apt(()),
-name: "youtube-dl",
 flags: [],
 ),
 (
