@@ -25,8 +25,8 @@ Plug 'tomasr/molokai'
 " Purple color theme
 Plug 'yassinebridi/vim-purpura'
 
-" Minimap
-Plug 'wfxr/minimap.vim'
+" Show code context
+Plug 'wellle/context.vim'
 
 " Automatically add closing brackets when going to the next line
 Plug 'rstacruz/vim-closer'
@@ -98,6 +98,9 @@ Plug 'jaxbot/semantic-highlight.vim'
 
 " Automatically balance LISP parentheses
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
+
+" Wakatime
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 

@@ -15,6 +15,8 @@ exec ~/.screenlayout/default.sh
 exec dunst
 exec kdeconnect-indicator
 exec transmission-gtk -m
+exec opensnitchd -rules-path ~/.rules
+exec opensnitch-ui
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

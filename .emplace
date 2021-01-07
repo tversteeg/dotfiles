@@ -196,6 +196,11 @@ flags: [],
 ),
 (
 source: Cargo(()),
+name: "rustscan",
+flags: [],
+),
+(
+source: Cargo(()),
 name: "sccache",
 flags: [],
 ),
