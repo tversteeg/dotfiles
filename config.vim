@@ -56,6 +56,8 @@ Plug 'junegunn/fzf.vim'
 " Rust functions and formatting
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
+" Rust crate versions with <c-x><c-u>
+Plug 'mhinz/vim-crates'
 
 " Tables
 Plug 'dhruvasagar/vim-table-mode'
@@ -188,6 +190,9 @@ nvim_lsp.cube.setup{on_attach=on_attach_vim}
 nvim_lsp.rust_analyzer.setup{on_attach=on_attach_vim}
 END
 
+" Temporary workaround for not working completions
+let g:completion_enable_auto_signature = 0
+
 " Language server mappings
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -202,6 +207,9 @@ nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "NonText" }
+
+" Enable Rust crate update information
+autocmd BufRead Cargo.toml call crates#toggle()
 
 " Use syntax highlighting
 syntax on

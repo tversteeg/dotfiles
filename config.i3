@@ -17,6 +17,8 @@ exec kdeconnect-indicator
 exec transmission-gtk -m
 exec opensnitchd -rules-path ~/.rules
 exec opensnitch-ui
+exec protonmail-bridge --no-window
+exec_always --no-startup-id i3-auto-layout
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

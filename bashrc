@@ -145,4 +145,12 @@ export EDITOR="nvim"
 export PATH=~/.local/bin:$PATH:/snap/bin
 
 # Use Android SDK from package manager
-export ANDROID_HOME=/usr/lib/android-sdk
+#export ANDROID_HOME=/usr/lib/android-sdk
+#export ANDROID_NDK_HOME=/usr/lib/android-ndk
+#export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+#export GRADLE_HOME=/opt/gradle/gradle-6.8
+#export PATH=${GRADLE_HOME}/bin:${PATH}
+
+# Debian information
+export DEBEMAIL="thomas@versteeg.email"
+export DEBFULLNAME="Thomas Versteeg"
