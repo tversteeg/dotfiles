@@ -15,8 +15,8 @@ exec ~/.screenlayout/default.sh
 exec dunst
 exec kdeconnect-indicator
 exec transmission-gtk -m
-exec opensnitchd -rules-path ~/.rules
-exec opensnitch-ui
+#exec opensnitchd -rules-path ~/.rules
+#exec opensnitch-ui
 exec protonmail-bridge --no-window
 exec_always --no-startup-id i3-auto-layout
 

@@ -49,6 +49,9 @@ Plug 'svermeulen/vim-yoink'
 " Show and remove extra whitespace
 Plug 'ntpeters/vim-better-whitespace'
 
+" Snippets
+Plug 'SirVer/ultisnips'
+
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -70,9 +73,6 @@ Plug 'cespare/vim-toml'
 
 " RON syntax
 Plug 'ron-rs/ron.vim'
-
-" Dart syntax
-Plug 'dart-lang/dart-vim-plugin'
 
 " Kotlin syntax
 Plug 'udalov/kotlin-vim'
@@ -111,6 +111,9 @@ set encoding=utf-8
 
 " Enable the blamer function
 let g:blamer_enabled = 1
+
+" Strip all whitespace on save, disable with :DisableStripWhitespaceOnSave
+let g:strip_whitespace_on_save = 1
 
 " Use luacheck
 let g:syntastic_lua_checkers = ['luacheck']
@@ -156,9 +159,13 @@ let g:rainbow_active=1
 " Set the terminal colors needed for the colorizer
 set termguicolors
 
-" Dart settings
-let g:dart_style_guide=2
-let dart_html_in_string=v:true
+" Snippets
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 :lua << END
 

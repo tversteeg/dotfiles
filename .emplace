@@ -61,6 +61,11 @@ flags: [],
 ),
 (
 source: Cargo(()),
+name: "cargo-ndk",
+flags: [],
+),
+(
+source: Cargo(()),
 name: "cargo-release",
 flags: [],
 ),
