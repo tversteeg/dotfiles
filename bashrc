@@ -141,12 +141,9 @@ alias navi="navi --path=/home/thomas/.config/navi"
 # Use neovim for everything
 export EDITOR="nvim"
 
-# Add ~/.local/bin to PATH
-export PATH=~/.local/bin:$PATH:/snap/bin
-
 # Use Android SDK from package manager
 #export ANDROID_HOME=/usr/lib/android-sdk
-export ANDROID_NDK_HOME=~/.android/sdk/ndk
+export ANDROID_NDK_HOME="$HOME/.android/sdk/ndk/22.0.7026061"
 #export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
 #export GRADLE_HOME=/opt/gradle/gradle-6.8
 #export PATH=${GRADLE_HOME}/bin:${PATH}
