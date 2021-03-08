@@ -175,6 +175,11 @@ name: "libreoffice-writer",
 flags: [],
 ),
 (
+source: Apt(()),
+name: "libssl-dev",
+flags: [],
+),
+(
 source: Cargo(()),
 name: "lsd",
 flags: [],
