@@ -191,6 +191,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "net-tools",
+flags: [],
+),
+(
+source: Apt(()),
 name: "peek",
 flags: [],
 ),

@@ -39,7 +39,7 @@ font pango:Fura Code 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec ~/.cargo/bin/alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -188,7 +188,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	font pango:DejaVu Sans Mono, FontAwesome 8
+	font pango:DejaVu Sans Mono, FontAwesome 10
         status_command /home/thomas/.cargo/bin/i3status-rs
 	colors {
 		separator #AAAAAA
