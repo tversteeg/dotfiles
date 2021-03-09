@@ -61,11 +61,6 @@ flags: [],
 ),
 (
 source: Cargo(()),
-name: "cargo-ndk",
-flags: [],
-),
-(
-source: Cargo(()),
 name: "cargo-release",
 flags: [],
 ),
@@ -216,22 +211,12 @@ flags: [],
 ),
 (
 source: Cargo(()),
-name: "rustscan",
-flags: [],
-),
-(
-source: Cargo(()),
 name: "sccache",
 flags: [],
 ),
 (
 source: Apt(()),
 name: "screenkey",
-flags: [],
-),
-(
-source: Apt(()),
-name: "signal-desktop",
 flags: [],
 ),
 (
