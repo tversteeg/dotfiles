@@ -39,7 +39,7 @@ font pango:Fura Code 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec ~/.cargo/bin/alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
