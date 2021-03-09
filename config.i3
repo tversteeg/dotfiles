@@ -188,8 +188,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	font pango:DejaVu Sans Mono, FontAwesome 8
-        status_command /home/thomas/.cargo/bin/i3status-rs
+	font pango:DejaVu Sans Mono, FontAwesome 9
+        status_command I3RS_GITHUB_TOKEN=$(cat /home/thomas/.config/i3status-rust/github-token) /home/thomas/.cargo/bin/i3status-rs
 	colors {
 		separator #AAAAAA
 		background #222133

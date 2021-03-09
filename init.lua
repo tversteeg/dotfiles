@@ -1,50 +1,187 @@
 --[[ Bootstrap Package Manager ]]
 do
 	-- Clone the git repository if not found
-	local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+	local install_path = vim.fn.stdpath("data") .. "/site/pack/paqs/opt/paq-nvim"
 	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-		vim.cmd("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+		-- Clone the package manager repository
+		vim.cmd("!git clone https://github.com/savq/paq-nvim " .. install_path)
 	end
 
 	-- Initialize the package manager
-	vim.cmd("packadd packer.nvim")
+	vim.cmd("packadd paq-nvim")
 end
 
 --[[ Packages ]]
-require("packer").startup(function()
-	-- Update the package manager
-	use {"wbthomason/packer.nvim", opt = true}
+do
+	-- Get the name of a package
+	local function plugin_name(path)
+		return path:gmatch(".*/(.*)")()
+	end
 
-	-- Purple color theme
-	use {
-		"yassinebridi/vim-purpura",
-		config = function()
-			vim.cmd("colorscheme purpura")
+	-- Get the full path of where the plugin should be installed
+	local function plugin_path(name, opt)
+		return ("%s/site/pack/paqs/%s/%s"):format(vim.fn.stdpath("data"), opt and "opt" or "start", plugin_name(name))
+	end
+
+	-- Whether the package is already loaded, look in both the opt and the start path
+	local function is_loaded(name)
+		-- First check the optional path
+		if vim.fn.empty(vim.fn.glob(plugin_path(name, true))) == 0 then
+			return true
+		else
+			-- Then check the start path
+			return vim.fn.empty(vim.fn.glob(plugin_path(name, false))) == 0
+		end
+	end
+
+	-- Run the installation with plugin specific configuration settings
+	local function paq(data)
+		local paq = require "paq-nvim"
+
+		-- If a single string is passed use that
+		if type(data) == "string" then
+			data = {
+				data,
+			}
+		end
+		assert(type(data[1]) == "string", vim.inspect(data))
+
+		-- If a filetype is declared to load the plugin, the package is optional
+		if data.ft then
+			data.opt = true
+		end
+
+		-- First install the dependencies
+		if data.deps then
+			local function load_dep(dep)
+				assert(type(dep) == "string", vim.inspect(data))
+				paq.paq(dep)
+			end
+
+			if type(data.deps) == "table" then
+				-- Loop over all the strings
+				for _, dep in pairs(data.deps) do
+					load_dep(dep)
+				end
+			else
+				load_dep(data.deps)
+			end
+		end
+
+		-- Register the paq package
+		paq.paq(data)
+
+		local function load()
+			-- Call the pre configuration function if set
+			if data.pre_cfg then
+				data.pre_cfg()
+			end
+
+			-- Load the package itself if it's optional
+			if data.opt then
+				vim.cmd("packadd " .. plugin_name(data[1]))
+			end
+
+			-- Call the configuration function if set
+			if data.cfg then
+				data.cfg()
+			end
+		end
+
+		-- Load the plugin
+		-- TODO: wait for autocommand for ft https://github.com/neovim/neovim/pull/12378
+		if not data.opt or data.ft then
+			-- Only load when the package is installed
+			if is_loaded(data[1]) then
+				load()
+			end
+		end
+	end
+
+	-- The package manager itself
+	paq {
+		"savq/paq-nvim",
+		opt = true,
+	}
+
+	-- Treesitter highlighting
+	paq {
+		-- With rainbow parentheses
+		"p00f/nvim-ts-rainbow",
+		deps = "nvim-treesitter/nvim-treesitter",
+		run = function()
+			vim.cmd(":TSUpdate")
+		end,
+		cfg = function()
+			local treesitter = require "nvim-treesitter.configs"
+
+			treesitter.setup({
+				ensure_installed = {"lua", "rust"},
+				-- Syntax highlighting
+				highlight = {
+					enable = true,
+				},
+				-- Better indentation
+				indent = {
+					enable = true,
+				},
+				-- Rainbow parentheses
+				rainbow = {
+					enable = true,
+				},
+			})
+		end,
+	}
+
+	-- Monokai inspired color theme
+	paq {
+		"sainnhe/sonokai",
+		pre_cfg = function()
+			-- Set the terminal colors needed for the colorizer and the theme
+			vim.o.termguicolors = true
+		end,
+		cfg = function()
+			vim.g.sonokai_style = "shusia"
+			vim.g.sonokai_enable_italic = 1
+			vim.g.sonokai_diagnostic_line_highlight = 1
+
+			vim.cmd("colorscheme sonokai")
 		end,
 	}
 
 	-- Language Server
-	use {
+	paq {
 		"neovim/nvim-lspconfig",
-		requires = {
+		deps = {
 			-- Language Server extensions, type inlay hints
 			"nvim-lua/lsp_extensions.nvim",
 			-- Language Server completions
 			"nvim-lua/completion-nvim",
+			-- Use FZF for the LSP, :LspDiagnostics
+			"ojroques/nvim-lspfuzzy",
 		},
 		ft = "rust",
-		config = function()
+		cfg = function()
 			local lsp = require "lspconfig"
-
-			-- Attach the plugins to the LSP
-			local on_attach = function(client)
-				local completion = require "completion"
-
-				completion.on_attach(client)
-			end
+			local completion = require "completion"
+			local fuzzy = require "lspfuzzy"
 
 			-- Setup rust-analyzer
-			lsp.rust_analyzer.setup({on_attach = on_attach})
+			lsp.rust_analyzer.setup({
+				on_attach = completion.on_attach,
+				["rust-analyzer"] = {
+					assist = {
+						importMergeBehavior = "last",
+						importPrefix = "by_self",
+					},
+					cargo = {
+						loadOutDirsFromCheck = true,
+					},
+					procMacro = {
+						enable = true,
+					},
+				}
+			})
 
 			-- Map the shortcuts
 			local function lsp_map(shortcut, name)
@@ -62,78 +199,67 @@ require("packer").startup(function()
 
 			-- Enable type inlay hints
 			vim.cmd("autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require\"lsp_extensions\".inlay_hints{prefix = \"\", highlight = \"NonText\"}")
+
+			-- Setup LSP
+			fuzzy.setup({})
 		end
 	}
 
 	-- Show git blame info on the current line
-	use {
+	paq {
 		"APZelos/blamer.nvim",
-		config = function()
+		cfg = function()
 			vim.g.blamer_enabled = 1
 		end,
 	}
 
 	-- Switch between relative and absolute numbers
-	use "jeffkreeftmeijer/vim-numbertoggle"
+	paq "jeffkreeftmeijer/vim-numbertoggle"
 
 	-- Show buffers in the tabline
-	use "ap/vim-buftabline"
+	paq "ap/vim-buftabline"
 
 	-- Show and remove extra whitespace
-	use {
+	paq {
 		"ntpeters/vim-better-whitespace",
-		config = function()
+		cfg = function()
 			-- Strip all whitespace on save, disable with :DisableStripWhitespaceOnSave
 			vim.g.strip_whitespace_on_save = 1
 		end,
 	}
 
-	-- Highlight f & t symbols
-	use {
-		"unblevable/quick-scope",
-		config = function()
-			-- Trigger a highlight in the appropriate direction when pressing these keys
-			vim.g.qs_highlight_on_keys = {"f", "F", "t", "T"}
-		end,
-	}
-
-	-- Set the terminal colors needed for the colorizer
-	vim.o.termguicolors = true
 	-- Highlight color text
-	use {
+	paq {
 		"norcalli/nvim-colorizer.lua",
-		config = function()
+		cfg = function()
 			local colorizer = require "colorizer"
 
 			colorizer.setup()
 		end,
 	}
 
-	-- Add rainbow parentheses
-	use {
-		"luachen1990/rainbow",
-		config = function()
-			vim.g.rainbow_active = 1
-		end,
-	}
-
 	-- Code snippets
-	use {
+	paq {
 		"SirVer/ultisnips",
-		config = function()
+		cfg = function()
 			vim.g.UltiSnipsExpandTrigger = "<c-s>"
+			vim.g.UltiSnipsListSnippets = "<c-S>"
 			vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 			vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+
 			-- Split the window
 			vim.g.UltiSnipsEditSplit = "vertical"
+
+			-- Use the snippets in the completion
+			vim.g.completion_enable_snippet = "UltiSnips"
 		end,
 	}
 
 	-- Fuzzy find
-	use {
+	paq "junegunn/fzf"
+	paq {
 		"junegunn/fzf.vim",
-		requires = {"junegunn/fzf"},
-		config = function()
+		cfg = function()
 			-- Map shortcuts
 			vim.api.nvim_set_keymap("", "<C-p>", ":GFiles<CR>", {})
 			vim.api.nvim_set_keymap("!", "<C-p>", ":GFiles<CR>", {})
@@ -145,45 +271,88 @@ require("packer").startup(function()
 		end,
 	}
 
+	-- Make vim harder
+	paq {
+		"takac/vim-hardtime",
+		cfg = function()
+			-- Always enable hardtime
+			vim.g.hardtime_default_on = 1
+
+			-- Allow combination of keys
+			vim.g.hardtime_allow_different_key = 1
+
+			-- Set the maximum repeated key presses
+			vim.g.hardtime_maxcount = 4
+		end,
+	}
+
 	-- Rust
-	use {
+	paq {
 		"rust-lang/rust.vim",
-		config = function()
+		ft = "rust",
+		cfg = function()
 			-- Autoformat Rust on save
 			vim.g.rustfmt_autosave = 1
 		end,
 	}
 
 	-- Luacheck
-	use {
+	paq {
 		"vim-syntastic/syntastic",
 		ft = "lua",
-		config = function()
+		cfg = function()
 			vim.g.syntastic_lua_checkers = {"luacheck"}
 		end,
 	}
 
 	-- TOML
-	use {
+	paq {
 		"cespare/vim-toml",
-		-- Rust crate versions
-		requires = {"mhinz/vim-crates"},
 		ft = "toml",
-		config = function()
+	}
+	-- Rust crate versions
+	paq {
+		"mhinz/vim-crates",
+		ft = "toml",
+		cfg = function()
 			-- Show outdated crates in Cargo.toml
 			vim.cmd("autocmd BufRead Cargo.toml call crates#toggle()")
 		end,
 	}
 
 	-- RON
-	use {
+	paq {
 		"ron-rs/ron.vim",
 		ft = "ron",
 	}
 
 	-- Keep track of the time spent programming with wakatime
-	use "wakatime/vim-wakatime"
-end)
+	paq "wakatime/vim-wakatime"
+
+	-- Lua scratch pad, use :Luapad, :LuaRun or :Lua
+	paq "rafcamlet/nvim-luapad"
+end
+
+--[[ Local packages ]]
+do
+	local function loc(name, dir)
+		local target_dir = ("%s/site/pack/%s/start"):format(vim.fn.stdpath("data"), name)
+
+		-- If the plugin is already linked do nothing
+		if vim.fn.empty(vim.fn.glob(target_dir)) <= 0 then
+			return
+		end
+
+		-- Create the directory
+		vim.cmd(("!mkdir -p %q"):format(target_dir))
+
+		-- Create a symbolic link for the locally developed plugins
+		vim.cmd(("!ln -s %s %s/%s"):format(dir, target_dir, name))
+	end
+
+	-- Registers plugin
+	loc("registers.nvim", "~/r/registers.nvim")
+end
 
 --[[ Global Options ]]
 do
@@ -200,13 +369,16 @@ do
 	vim.o.title = true
 
 	-- Where to store the undo files
-	vim.o.undodir = "~/.config/nvim/undo"
+	vim.o.undodir = "/home/thomas/.config/nvim/undo"
 
 	-- Show live preview of substitutions
 	vim.o.inccommand = "split"
 
 	-- Set the minimal width of the window
 	vim.o.winwidth = 80
+
+	-- Show the command in the status line
+	vim.o.showcmd = true
 end
 
 --[[ Window Options ]]
