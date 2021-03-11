@@ -39,7 +39,9 @@ font pango:Fura Code 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/.cargo/bin/alacritty
+#bindsym $mod+Return exec ~/.cargo/bin/alacritty
+bindsym $mod+Return exec kitty
+bindsym $mod+Shift+Return exec ~/.cargo/bin/alacritty -e ssh -X cems.local
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -48,8 +50,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec PATH=$PATH:/home/thomas/.local/bin rofi -show run -show-icons
 
 # lock
-#bindsym Mod4+l exec i3lock -c FFC0CB -i ~/Pictures/lock.png
-bindsym Mod4+l exec .config/screenshot.sh
+bindsym Mod4+l exec i3lock -c FFC0CB -i ~/Pictures/lock.png
 
 # change focus
 bindsym $mod+h focus left

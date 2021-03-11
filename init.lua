@@ -166,6 +166,9 @@ do
 			local completion = require "completion"
 			local fuzzy = require "lspfuzzy"
 
+			-- Fix completion not autocompleting every symbol
+			vim.o.completeopt = "menuone,noinsert,noselect"
+
 			-- Setup rust-analyzer
 			lsp.rust_analyzer.setup({
 				on_attach = completion.on_attach,

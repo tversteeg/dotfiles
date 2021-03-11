@@ -129,7 +129,7 @@ alias ls="lsd"
 alias cat="bat"
 
 # Scale QT applications
-export QT_SCALE_FACTOR=2
+export QT_SCALE_FACTOR=1
 # Use adwait theme
 export QT_STYLE_OVERRIDE=adwaita
 # Ignore the screen resolution
