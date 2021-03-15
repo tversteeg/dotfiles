@@ -149,26 +149,40 @@ do
 		end,
 	}
 
+	-- Pretty dev icons, requires a nerd font
+	paq {
+		"yamatsum/nvim-web-nonicons",
+		deps = {
+			"kyazdani42/nvim-web-devicons",
+		},
+		cfg = function()
+			local icons = require "nvim-web-devicons"
+
+			icons.setup()
+		end,
+	}
+
 	-- Language Server
 	paq {
 		"neovim/nvim-lspconfig",
 		deps = {
 			-- Language Server extensions, type inlay hints
 			"nvim-lua/lsp_extensions.nvim",
-			-- Language Server completions
-			"nvim-lua/completion-nvim",
 			-- Use FZF for the LSP, :LspDiagnostics
 			"ojroques/nvim-lspfuzzy",
 		},
 		ft = "rust",
 		cfg = function()
 			local lsp = require "lspconfig"
-			local completion = require "completion"
 			local fuzzy = require "lspfuzzy"
+
+			-- Add LSP snippets to autocompletion
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 			-- Setup rust-analyzer
 			lsp.rust_analyzer.setup({
-				on_attach = completion.on_attach,
+				capabilities = capabilities,
 				["rust-analyzer"] = {
 					assist = {
 						importMergeBehavior = "last",
@@ -203,6 +217,37 @@ do
 			-- Setup LSP
 			fuzzy.setup({})
 		end
+	}
+
+	-- Auto completion
+	paq {
+		"hrsh7th/nvim-compe",
+		cfg = function()
+			local compe = require "compe"
+
+			-- Fix neovim completion options
+			vim.o.completeopt = "menuone,noinsert,noselect"
+
+			-- Enable different autocompletion targets
+			compe.setup({
+				enabled = true,
+				source = {
+					path = true,
+					buffer = true,
+					calc = true,
+					nvim_lsp = true,
+					nvim_lua = true,
+					spell = true,
+					tags = true,
+					treesitter = true,
+					snippets_nvim = true,
+				},
+			})
+
+			-- Map autocompletion key
+			vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", {noremap = true, expr = true, silent = true})
+			vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
+		end,
 	}
 
 	-- Show git blame info on the current line
@@ -240,34 +285,32 @@ do
 
 	-- Code snippets
 	paq {
-		"SirVer/ultisnips",
+		"norcalli/snippets.nvim",
 		cfg = function()
-			vim.g.UltiSnipsExpandTrigger = "<c-s>"
-			vim.g.UltiSnipsListSnippets = "<c-S>"
-			vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
-			vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
+			local snippets = require "snippets"
 
-			-- Split the window
-			vim.g.UltiSnipsEditSplit = "vertical"
+			snippets.use_suggested_mappings()
 
-			-- Use the snippets in the completion
-			vim.g.completion_enable_snippet = "UltiSnips"
+			vim.api.nvim_set_keymap("i", "<c-s>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>", {noremap = true})
+			vim.api.nvim_set_keymap("i", "<c-b>", "<cmd>lua return require'snippets'.expand_or_advance(-1)<CR>", {noremap = true})
 		end,
 	}
 
-	-- Fuzzy find
-	paq "junegunn/fzf"
+	-- Fuzzy find popup windows
 	paq {
-		"junegunn/fzf.vim",
+		"nvim-telescope/telescope.nvim",
+		deps = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+		},
 		cfg = function()
 			-- Map shortcuts
-			vim.api.nvim_set_keymap("", "<C-p>", ":GFiles<CR>", {})
-			vim.api.nvim_set_keymap("!", "<C-p>", ":GFiles<CR>", {})
-			vim.api.nvim_set_keymap("", "<C-.>", ":FZF<CR>", {})
-			vim.api.nvim_set_keymap("!", "<C-.>", ":FZF<CR>", {})
+			vim.api.nvim_set_keymap("", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
+			vim.api.nvim_set_keymap("!", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
 
-			-- Use bat for FZF previews
-			vim.g.fzf_files_options = "--preview \"bat {}\""
+			vim.api.nvim_set_keymap("", "<leader>ff", ":lua require 'telescope.builtin'.find_files()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>fb", ":lua require 'telescope.builtin'.buffers()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>fh", ":lua require 'telescope.builtin'.help()<CR>", {})
 		end,
 	}
 
