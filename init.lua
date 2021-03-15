@@ -149,6 +149,19 @@ do
 		end,
 	}
 
+	-- Pretty dev icons, requires a nerd font
+	paq {
+		"yamatsum/nvim-web-nonicons",
+		deps = {
+			"kyazdani42/nvim-web-devicons",
+		},
+		cfg = function()
+			local icons = require "nvim-web-devicons"
+
+			icons.setup()
+		end,
+	}
+
 	-- Language Server
 	paq {
 		"neovim/nvim-lspconfig",
@@ -283,19 +296,21 @@ do
 		end,
 	}
 
-	-- Fuzzy find
-	paq "junegunn/fzf"
+	-- Fuzzy find popup windows
 	paq {
-		"junegunn/fzf.vim",
+		"nvim-telescope/telescope.nvim",
+		deps = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+		},
 		cfg = function()
 			-- Map shortcuts
-			vim.api.nvim_set_keymap("", "<C-p>", ":GFiles<CR>", {})
-			vim.api.nvim_set_keymap("!", "<C-p>", ":GFiles<CR>", {})
-			vim.api.nvim_set_keymap("", "<C-.>", ":FZF<CR>", {})
-			vim.api.nvim_set_keymap("!", "<C-.>", ":FZF<CR>", {})
+			vim.api.nvim_set_keymap("", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
+			vim.api.nvim_set_keymap("!", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
 
-			-- Use bat for FZF previews
-			vim.g.fzf_files_options = "--preview \"bat {}\""
+			vim.api.nvim_set_keymap("", "<leader>ff", ":lua require 'telescope.builtin'.find_files()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>fb", ":lua require 'telescope.builtin'.buffers()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>fh", ":lua require 'telescope.builtin'.help()<CR>", {})
 		end,
 	}
 
