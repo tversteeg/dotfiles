@@ -326,6 +326,18 @@ do
 		ft = "ron",
 	}
 
+	-- Delphi Pascal
+	paq {
+		"mattia72/vim-delphi",
+		ft = {"pas", "dfm", "fmx"},
+	}
+
+	-- Vue.js
+	paq {
+		"posva/vim-vue",
+		ft = {"javascript", "vue", "scss"},
+	}
+
 	-- Keep track of the time spent programming with wakatime
 	paq "wakatime/vim-wakatime"
 

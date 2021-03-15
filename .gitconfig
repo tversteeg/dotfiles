@@ -2,25 +2,15 @@
 	helper = store
 [user]
 	name = Thomas Versteeg
-	email = thomas@versteeg.email
+	email = t.versteeg@cemsbv.io
 [core]
 	pager = delta --dark
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [pull]
 	rebase = false
 [delta]
 	line-numbers = true
 	side-by-side = true
 	navigate = true
-[init]
-	templatedir = /home/thomas/.git-templates
-[tws]
-	secretkey = fHlykLd/gHgXrSW3PRj+JLOjFsCjsBezbiDx8Q+ruGM=
-	baseuri = https://tempo-worklog-service.twobridges.io/
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	touch = !"f() { touch $@ && git add $@; }; f"

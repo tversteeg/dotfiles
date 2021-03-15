@@ -135,7 +135,7 @@ export QT_STYLE_OVERRIDE=adwaita
 # Ignore the screen resolution
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
-# Tell navi that the .cheat files are in the ~/.config directory
+# Tell navi that the .cheat files are in the ~/.config/navi directory
 alias navi="navi --path=/home/thomas/.config/navi"
 
 # Use neovim for everything
