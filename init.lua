@@ -116,7 +116,7 @@ do
 			local treesitter = require "nvim-treesitter.configs"
 
 			treesitter.setup({
-				ensure_installed = {"lua", "rust"},
+				ensure_installed = {"lua", "rust", "typescript"},
 				-- Syntax highlighting
 				highlight = {
 					enable = true,
@@ -311,6 +311,7 @@ do
 			vim.api.nvim_set_keymap("", "<leader>ff", ":lua require 'telescope.builtin'.find_files()<CR>", {})
 			vim.api.nvim_set_keymap("", "<leader>fb", ":lua require 'telescope.builtin'.buffers()<CR>", {})
 			vim.api.nvim_set_keymap("", "<leader>fh", ":lua require 'telescope.builtin'.help()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>ft", ":lua require 'telescope.builtin'.filetypes()<CR>", {})
 		end,
 	}
 
@@ -485,6 +486,12 @@ do
 		"FileType yaml setlocal ts=2 sts=2 sw=2 expandtab",
 		"FileType yml setlocal ts=2 sts=2 sw=2 expandtab",
 	}, "yaml")
+
+	-- Type- & JavaScript indentation
+	create_augroup({
+		"FileType typescript setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
+		"FileType javascript setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
+	}, "typescript")
 
 	-- Highlight yanked regions
 	create_augroup({
