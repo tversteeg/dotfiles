@@ -96,11 +96,6 @@ flags: [],
 ),
 (
 source: Apt(()),
-name: "dnscrypt-proxy",
-flags: [],
-),
-(
-source: Apt(()),
 name: "dunst",
 flags: [],
 ),
@@ -137,16 +132,6 @@ flags: [],
 (
 source: Cargo(()),
 name: "git-trim",
-flags: [],
-),
-(
-source: Apt(()),
-name: "gtk-chtheme",
-flags: [],
-),
-(
-source: Cargo(()),
-name: "i3-style",
 flags: [],
 ),
 (
@@ -222,11 +207,6 @@ flags: [],
 (
 source: Cargo(()),
 name: "starship",
-flags: [],
-),
-(
-source: Apt(()),
-name: "test",
 flags: [],
 ),
 (
