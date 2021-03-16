@@ -201,15 +201,13 @@ do
 			local function lsp_map(shortcut, name)
 				vim.api.nvim_set_keymap("n", shortcut, "<cmd>lua vim.lsp.buf." .. name .. "()<CR>", {noremap = true, silent = true})
 			end
+
 			lsp_map("gd", "declaration")
-			lsp_map("<c-]>", "definition")
 			lsp_map("K", "hover")
 			lsp_map("gD", "implementation")
 			lsp_map("<c-k>", "signature_help")
 			lsp_map("1gD", "type_definition")
-			lsp_map("gr", "references")
-			lsp_map("g0", "document_symbol")
-			lsp_map("ga", "code_action")
+			-- The rest is mapped in the telescope nvim part
 
 			-- Enable type inlay hints
 			vim.cmd("autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require\"lsp_extensions\".inlay_hints{prefix = \"\", highlight = \"NonText\"}")
@@ -309,9 +307,18 @@ do
 			vim.api.nvim_set_keymap("!", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
 
 			vim.api.nvim_set_keymap("", "<leader>ff", ":lua require 'telescope.builtin'.find_files()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>fq", ":lua require 'telescope.builtin'.quickfix()<CR>", {})
 			vim.api.nvim_set_keymap("", "<leader>fb", ":lua require 'telescope.builtin'.buffers()<CR>", {})
-			vim.api.nvim_set_keymap("", "<leader>fh", ":lua require 'telescope.builtin'.help()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>fh", ":lua require 'telescope.builtin'.help_tags()<CR>", {})
 			vim.api.nvim_set_keymap("", "<leader>ft", ":lua require 'telescope.builtin'.filetypes()<CR>", {})
+
+			vim.api.nvim_set_keymap("", "gr", ":lua require 'telescope.builtin'.lsp_references()<CR>", {})
+			vim.api.nvim_set_keymap("", "g0", ":lua require 'telescope.builtin'.lsp_document_symbols()<CR>", {})
+			vim.api.nvim_set_keymap("", "ga", ":lua require 'telescope.builtin'.lsp_code_actions()<CR>", {})
+			vim.api.nvim_set_keymap("", "<c-]>", ":lua require 'telescope.builtin'.lsp_definitions()<CR>", {})
+
+			vim.api.nvim_set_keymap("", "<leader>ld", ":lua require 'telescope.builtin'.lsp_document_diagnostics()<CR>", {})
+			vim.api.nvim_set_keymap("", "<leader>lw", ":lua require 'telescope.builtin'.lsp_workspace_diagnostics()<CR>", {})
 		end,
 	}
 
