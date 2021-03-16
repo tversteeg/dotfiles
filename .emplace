@@ -226,6 +226,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "test",
+flags: [],
+),
+(
+source: Apt(()),
 name: "thunar",
 flags: [],
 ),
