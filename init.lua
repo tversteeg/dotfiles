@@ -197,6 +197,12 @@ do
 				}
 			})
 
+			-- Setup Vue
+			lsp.vuels.setup({})
+
+			-- Setup typescript
+			lsp.tsserver.setup({})
+
 			-- Map the shortcuts
 			local function lsp_map(shortcut, name)
 				vim.api.nvim_set_keymap("n", shortcut, "<cmd>lua vim.lsp.buf." .. name .. "()<CR>", {noremap = true, silent = true})
@@ -496,9 +502,10 @@ do
 
 	-- Type- & JavaScript indentation
 	create_augroup({
+		"FileType vue setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
 		"FileType typescript setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
 		"FileType javascript setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
-	}, "typescript")
+	}, "vue")
 
 	-- Highlight yanked regions
 	create_augroup({
