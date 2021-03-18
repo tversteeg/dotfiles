@@ -116,7 +116,7 @@ do
 			local treesitter = require "nvim-treesitter.configs"
 
 			treesitter.setup({
-				ensure_installed = {"lua", "rust", "typescript"},
+				ensure_installed = {"lua", "rust", "typescript", "python"},
 				-- Syntax highlighting
 				highlight = {
 					enable = true,
@@ -203,6 +203,9 @@ do
 			-- Setup typescript
 			lsp.tsserver.setup({})
 
+            -- Setup python
+            lsp.pyls.setup({})
+
 			-- Map the shortcuts
 			local function lsp_map(shortcut, name)
 				vim.api.nvim_set_keymap("n", shortcut, "<cmd>lua vim.lsp.buf." .. name .. "()<CR>", {noremap = true, silent = true})
@@ -216,7 +219,7 @@ do
 			-- The rest is mapped in the telescope nvim part
 
 			-- Enable type inlay hints
-			vim.cmd("autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require\"lsp_extensions\".inlay_hints{prefix = \"\", highlight = \"NonText\"}")
+            vim.cmd("autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{prefix = '', highlight = 'NonText'}")
 
 			-- Setup LSP
 			fuzzy.setup({})
@@ -384,10 +387,12 @@ do
 	}
 
 	-- Delphi Pascal
+	--[[
 	paq {
 		"mattia72/vim-delphi",
 		ft = {"pas", "dfm", "fmx"},
 	}
+	]]--
 
 	-- Vue.js
 	paq {
@@ -491,21 +496,26 @@ do
 
 	-- Lua indentation
 	create_augroup({
-		"FileType lua setlocal tabstop=4 shiftwidth=4",
+		"FileType lua setlocal tabstop=4 shiftwidth=4 expandtab autoindent",
 	}, "lua")
 
 	-- YAML indentation
 	create_augroup({
-		"FileType yaml setlocal ts=2 sts=2 sw=2 expandtab",
-		"FileType yml setlocal ts=2 sts=2 sw=2 expandtab",
+		"FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab",
+		"FileType yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab",
 	}, "yaml")
 
 	-- Type- & JavaScript indentation
 	create_augroup({
-		"FileType vue setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
-		"FileType typescript setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
-		"FileType javascript setlocal tabstop=2 sts=2 shiftwidth=2 expandtab",
+		"FileType vue setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab",
+		"FileType typescript setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab",
+		"FileType javascript setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab",
 	}, "vue")
+
+	-- Python indentation
+	create_augroup({
+		"FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix"
+	}, "python")
 
 	-- Highlight yanked regions
 	create_augroup({
