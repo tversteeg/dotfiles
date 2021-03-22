@@ -15,10 +15,7 @@ exec ~/.screenlayout/default.sh
 exec dunst
 exec kdeconnect-indicator
 exec transmission-gtk -m
-#exec opensnitchd -rules-path ~/.rules
-#exec opensnitch-ui
 exec protonmail-bridge --no-window
-exec_always --no-startup-id i3-auto-layout
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -202,10 +199,7 @@ bar {
 	}
 }
 
-for_window [title="^Cube -"] floating enable
 for_window [title="^Noita"] floating enable
-for_window [title="^Fermi"] floating enable
-for_window [title="^replace_me"] floating enable
 
 client.focused #664477 #664477 #cccccc #e7d8b1
 client.focused_inactive #e7d8b1 #e7d8b1 #181715 #A074C4

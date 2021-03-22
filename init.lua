@@ -269,7 +269,20 @@ do
 	paq "jeffkreeftmeijer/vim-numbertoggle"
 
 	-- Show buffers in the tabline
-	paq "ap/vim-buftabline"
+	paq {
+        "akinsho/nvim-bufferline.lua",
+        cfg = function()
+            local bufferline = require "bufferline"
+
+            bufferline.setup({
+                options = {
+                    diagnostics = "nvim_lsp",
+                    show_close_icon = false,
+                    show_buffer_close_icon = false,
+                },
+            })
+        end,
+    }
 
 	-- Show and remove extra whitespace
 	paq {
@@ -385,14 +398,6 @@ do
 		"ron-rs/ron.vim",
 		ft = "ron",
 	}
-
-	-- Delphi Pascal
-	--[[
-	paq {
-		"mattia72/vim-delphi",
-		ft = {"pas", "dfm", "fmx"},
-	}
-	]]--
 
 	-- Vue.js
 	paq {

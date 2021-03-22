@@ -1,0 +1,73 @@
+theme = "solarized-dark"
+icons = "awesome"
+
+[[block]]
+block = "github"
+hide_if_total_is_zero = true
+
+#[[block]]
+#block = "apt"
+#format = "{count}"
+#format_singular = "{count}"
+#format_up_to_date = ""
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "music"
+buttons = ["play", "next"]
+max_width = 15
+hide_when_empty = true
+
+[[block]]
+block = "disk_space"
+format = "{icon} {available}/{total}"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 300
+
+[[block]]
+block = "memory"
+format_mem = "{mem_used}/{mem_total}"
+format_swap = "{swap_used}/{swap_total}"
+display_type = "memory"
+icons = true
+clickable = true
+interval = 5
+warning_mem = 80
+warning_swap = 80
+critical_mem = 95
+critical_swap = 95
+
+[[block]]
+block = "cpu"
+interval = 2
+format = "{barchart} {utilization}%"
+
+[[block]]
+block = "load"
+interval = 2
+format = "{1m} {5m}"
+
+[[block]]
+block = "nvidia_gpu"
+show_utilization = false
+interval = 2
+label = ""
+
+[[block]]
+block = "net"
+device = "enp39s0"
+
+[[block]]
+block = "kdeconnect"
+format_disconnected = ""
+device_id = "70a73b2b0c97a9bb"
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"
