@@ -45,7 +45,7 @@ bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
 bindsym $mod+d exec PATH=$PATH:/home/thomas/.local/bin rofi -show run -show-icons
-bindsym $mod+p exec rofi -modi TODO:~/.local/share/emplace/rofi-todo.sh -show TODO
+bindsym $mod+p exec rofi -modi TODO:~/.dotfiles/rofi-todo.sh -show TODO
 
 # lock
 bindsym Mod4+l exec i3lock -c FFC0CB -i ~/Pictures/lock.png
