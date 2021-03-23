@@ -303,6 +303,9 @@ do
 		end,
 	}
 
+    -- Highlight words and lines on the cursor
+    paq "yamatsum/nvim-cursorline"
+
 	-- Code snippets
 	paq {
 		"norcalli/snippets.nvim",
@@ -407,9 +410,6 @@ do
 
 	-- Keep track of the time spent programming with wakatime
 	paq "wakatime/vim-wakatime"
-
-	-- Lua scratch pad, use :Luapad, :LuaRun or :Lua
-	paq "rafcamlet/nvim-luapad"
 end
 
 --[[ Local packages ]]

@@ -211,6 +211,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "stow",
+flags: [],
+),
+(
+source: Apt(()),
 name: "thunar",
 flags: [],
 ),
