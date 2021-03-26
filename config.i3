@@ -200,6 +200,7 @@ bar {
 }
 
 for_window [title="^Noita"] floating enable
+for_window [title="^LOOP"] floating enable
 
 client.focused #664477 #664477 #cccccc #e7d8b1
 client.focused_inactive #e7d8b1 #e7d8b1 #181715 #A074C4
