@@ -4,11 +4,11 @@ remote_topgrades = ["thomas@cems.local"]
 
 [git]
 repos = [
-	"~/.fzf",
+	"~/.dotfiles",
 	"~/r/*",
 ]
 
 [commands]
 "Emplace" = "emplace install"
-"Rust Analyzer" = "cd ~/r/rust-analyzer && git pull && cargo xtask install --server"
+"Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
 "Music" = "youtube-dl -xi --yes-playlist --audio-quality 0 --write-thumbnail --download-archive ~/Music/.downloaded --no-post-overwrites --no-overwrites -o \"~/Music/%(title)s.%(ext)s\" --restrict-filenames --add-metadata https://www.youtube.com/playlist?list=PLFxtA9Al8REovuOzFWK1v_4Mw33d4iv6S --playlist-start 1500"
