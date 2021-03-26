@@ -1,0 +1,29 @@
+% Rust
+
+# nvim
+cd ~/r/<project> && nvim <source_file> ; cd - > /dev/null
+
+# run
+cd ~/r/<project> && cargo watch -x "run -- <args>" ; cd - > /dev/null
+
+# test
+cd ~/r/<project> && cargo watch -x test ; cd - > /dev/null
+
+# add package
+cd ~/r/<project> && cargo add -s <package> && cargo update ; cd - > /dev/null
+
+# add source file
+cd ~/r/<project> && touch src/<file> && git add src/<file> ; cd - > /dev/null
+
+# add source directory
+cd ~/r/<project> && mkdir -p src/<dir> && touch src/<dir>/mod.rs && git add src/<dir> ; cd - > /dev/null
+
+$ project: cd ~/r/ && ls ; cd - > /dev/null
+$ source_file: cd ~/r/<project> && find . -name "*.rs" -o -name "*.toml" ; cd - > /dev/null
+
+% Rust, Git
+
+# commit all
+cd ~/r/<project> && cargo test && cargo clippy --fix -Z unstable-options --allow-dirty --allow-staged && cargo clippy --all-targets --all-features -- -D clippy::all && git add -A && git commit -am "<commit_message>" && git push ; cd - > /dev/null
+
+$ project: cd ~/r/ && ls ; cd - > /dev/null

@@ -1,0 +1,18 @@
+% DNS
+
+# enable/update adblock list
+wget https://raw.githubusercontent.com/notracking/hosts-blocklists/master/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt -O ~/.config/dnscrypt-proxy.blacklist.toml && cat ~/.config/dnscrypt-proxy-extra.blacklist.toml >> ~/.config/dnscrypt-proxy.blacklist.toml
+
+# disable adblocking
+echo "" > ~/.config/dnscrypt-proxy.blacklist.toml
+
+# reload networking services
+sudo systemctl restart dnscrypt-proxy && sudo service networking restart
+
+# add blacklist rule
+echo "<rule>" >> ~/.config/dnscrypt-proxy-extra.blacklist.toml && cat ~/.config/dnscrypt-proxy-extra.blacklist.toml
+
+% VPN
+
+# login
+{ pass show Work/thomas.versteeg@nepgroup.com ; pass otp remote.nepworldwide.nl/totp-secret ; } | sudo openconnect --protocol=nc remote.nepworldwide.nl -u thomas.versteeg --passwd-on-stdin
