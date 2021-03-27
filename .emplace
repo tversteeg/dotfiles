@@ -145,6 +145,11 @@ name: "kdeconnect",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "kondo",
+flags: [],
+),
+(
 source: Apt(()),
 name: "libreoffice-gnome",
 flags: [],
