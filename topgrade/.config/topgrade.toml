@@ -1,7 +1,5 @@
 no_retry = true
 
-remote_topgrades = ["thomas@cems.local"]
-
 [git]
 repos = [
 	"~/.dotfiles",

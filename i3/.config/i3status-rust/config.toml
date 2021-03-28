@@ -68,6 +68,12 @@ format_disconnected = ""
 device_id = "70a73b2b0c97a9bb"
 
 [[block]]
+block = "ibus"
+[block.mappings]
+"xbd:us::eng" = "EN"
+"table:telex" = "VN"
+
+[[block]]
 block = "time"
 interval = 60
 format = "%a %d/%m %R"
