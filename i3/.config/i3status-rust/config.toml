@@ -45,7 +45,7 @@ critical_swap = 95
 [[block]]
 block = "cpu"
 interval = 2
-format = "{barchart} {utilization}%"
+format = "{barchart} {utilization}"
 
 [[block]]
 block = "load"
