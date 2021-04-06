@@ -321,6 +321,16 @@ do
     -- Highlight words and lines on the cursor
     paq "yamatsum/nvim-cursorline"
 
+    -- Peek lines when pressing :
+    paq {
+        "nacro90/numb.nvim",
+        cfg = function()
+            local numb = require "numb"
+
+            numb.setup()
+        end
+    }
+
     -- Code snippets
     paq {
         "norcalli/snippets.nvim",
@@ -401,6 +411,7 @@ do
         "cespare/vim-toml",
         ft = "toml",
     }
+
     -- Rust crate versions
     paq {
         "mhinz/vim-crates",
