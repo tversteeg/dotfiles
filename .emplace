@@ -1,6 +1,11 @@
 ([
 (
 source: Cargo(()),
+name: "https://github.com/Aurailus/Myxer.git",
+flags: ["--git"],
+),
+(
+source: Cargo(()),
 name: "https://github.com/chmln/i3-auto-layout",
 flags: ["--git"],
 ),
