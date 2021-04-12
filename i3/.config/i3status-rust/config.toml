@@ -5,12 +5,6 @@ icons = "awesome"
 block = "github"
 hide_if_total_is_zero = true
 
-#[[block]]
-#block = "apt"
-#format = "{count}"
-#format_singular = "{count}"
-#format_up_to_date = ""
-
 [[block]]
 block = "sound"
 
@@ -66,12 +60,6 @@ device = "enp39s0"
 block = "kdeconnect"
 format_disconnected = ""
 device_id = "70a73b2b0c97a9bb"
-
-[[block]]
-block = "ibus"
-[block.mappings]
-"xbd:us::eng" = "EN"
-"table:telex" = "VN"
 
 [[block]]
 block = "time"

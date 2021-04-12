@@ -11,6 +11,27 @@ do
     vim.cmd("packadd paq-nvim")
 end
 
+--[[ Local packages ]]
+do
+    local function loc(name, dir)
+        local target_dir = ("%s/site/pack/%s/start"):format(vim.fn.stdpath("data"), name)
+
+        -- If the plugin is already linked do nothing
+        if vim.fn.empty(vim.fn.glob(target_dir)) <= 0 then
+            return
+        end
+
+        -- Create the directory
+        vim.cmd(("!mkdir -p %q"):format(target_dir))
+
+        -- Create a symbolic link for the locally developed plugins
+        vim.cmd(("!ln -s %s %s/%s"):format(dir, target_dir, name))
+    end
+
+    -- Registers plugin
+    loc("registers.nvim", "~/r/registers.nvim")
+end
+
 --[[ Packages ]]
 do
     -- Get the name of a package
@@ -106,9 +127,15 @@ do
 
     -- Treesitter highlighting
     paq {
-        -- With rainbow parentheses
-        "p00f/nvim-ts-rainbow",
-        deps = "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter",
+        deps = {
+            -- Rainbow parentheses
+            "p00f/nvim-ts-rainbow",
+            -- Show treesitter symbols
+            "nvim-treesitter/playground",
+            -- Treesitter text objects & motions
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        },
         run = function()
             vim.cmd(":TSUpdate")
         end,
@@ -129,27 +156,39 @@ do
                 rainbow = {
                     enable = true,
                 },
+                -- Playground, show the treesitter symbols
+                playground = {
+                    enable = true,
+                },
+                -- Text objects
+                textobjects = {
+                    -- Selection spans
+                    select = {
+                        enable = true,
+                        keymaps = {
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
+                            ["al"] = "@conditional.outer",
+                            ["il"] = "@conditional.inner",
+                        },
+                    },
+                    -- Move parameters around in functions
+                    swap = {
+                        enable = true,
+                        swap_next = {
+                            ["<leader>a"] = "@parameter.inner",
+                        },
+                        swap_previous = {
+                            ["<leader>A"] = "@parameter.inner",
+                        },
+                    }
+                },
             })
         end,
     }
 
-    -- Monokai inspired color theme
-    --[[
-    paq {
-        "sainnhe/sonokai",
-        pre_cfg = function()
-            -- Set the terminal colors needed for the colorizer and the theme
-            vim.o.termguicolors = true
-        end,
-        cfg = function()
-            vim.g.sonokai_style = "shusia"
-            vim.g.sonokai_enable_italic = 1
-            vim.g.sonokai_diagnostic_line_highlight = 1
-
-            vim.cmd("colorscheme sonokai")
-        end,
-    }
-    ]]--
     -- Color theme
     paq {
         "sainnhe/everforest",
@@ -269,6 +308,23 @@ do
             -- Map autocompletion key
             vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", {noremap = true, expr = true, silent = true})
             vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
+        end,
+    }
+
+    -- Comments, gcc for a single line, gc with a motion
+    paq {
+        "b3nj5m1n/kommentary",
+        cfg = function()
+            local kommentary = require "kommentary.config"
+
+            kommentary.configure_language("rust", {
+                single_line_comment_strings = "//",
+                multi_line_comment_strings = {"/*", "*/"},
+            })
+            kommentary.configure_language("lua", {
+                single_line_comment_strings = "--",
+                multi_line_comment_strings = {"--[[", "]]"},
+            })
         end,
     }
 
@@ -436,27 +492,6 @@ do
 
     -- Keep track of the time spent programming with wakatime
     paq "wakatime/vim-wakatime"
-end
-
---[[ Local packages ]]
-do
-    local function loc(name, dir)
-        local target_dir = ("%s/site/pack/%s/start"):format(vim.fn.stdpath("data"), name)
-
-        -- If the plugin is already linked do nothing
-        if vim.fn.empty(vim.fn.glob(target_dir)) <= 0 then
-            return
-        end
-
-        -- Create the directory
-        vim.cmd(("!mkdir -p %q"):format(target_dir))
-
-        -- Create a symbolic link for the locally developed plugins
-        vim.cmd(("!ln -s %s %s/%s"):format(dir, target_dir, name))
-    end
-
-    -- Registers plugin
-    loc("registers.nvim", "~/r/registers.nvim")
 end
 
 --[[ Global Options ]]
