@@ -222,6 +222,8 @@ do
         deps = {
             -- Language Server extensions, type inlay hints
             "nvim-lua/lsp_extensions.nvim",
+            -- Status line information
+            "nvim-lua/lsp-status.nvim",
             -- Use FZF for the LSP, :LspDiagnostics
             "ojroques/nvim-lspfuzzy",
         },
@@ -229,6 +231,7 @@ do
         cfg = function()
             local lsp = require "lspconfig"
             local fuzzy = require "lspfuzzy"
+            local lsp_status = require "lsp-status"
 
             -- Add LSP snippets to autocompletion
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -252,13 +255,22 @@ do
             })
 
             -- Setup Vue
-            lsp.vuels.setup({})
+            lsp.vuels.setup({
+                on_attach = lsp_status.on_attach,
+                capabilities = lsp_status.capabilities,
+            })
 
             -- Setup typescript
-            lsp.tsserver.setup({})
+            lsp.tsserver.setup({
+                on_attach = lsp_status.on_attach,
+                capabilities = lsp_status.capabilities,
+            })
 
             -- Setup python
-            lsp.pyls.setup({})
+            lsp.pyls.setup({
+                on_attach = lsp_status.on_attach,
+                capabilities = lsp_status.capabilities,
+            })
 
             -- Map the shortcuts
             local function lsp_map(shortcut, name)
@@ -273,10 +285,13 @@ do
             -- The rest is mapped in the telescope nvim part
 
             -- Enable type inlay hints
-            vim.cmd("autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{prefix = '', highlight = 'NonText'}")
+            vim.cmd("autocmd FileType rust :lua require'lsp_extensions'.inlay_hints({prefix = '', highlight = 'NonText'})")
 
             -- Setup LSP
             fuzzy.setup({})
+
+            -- Setup the status line
+            lsp_status.register_progress()
         end
     }
 
@@ -328,13 +343,18 @@ do
         end,
     }
 
-    -- Show git blame info on the current line
+    -- Git information in the sidebar
     paq {
-        "APZelos/blamer.nvim",
+        "lewis6991/gitsigns.nvim",
         cfg = function()
-            vim.g.blamer_enabled = 1
+            local signs = require "gitsigns"
+
+            signs.setup()
         end,
     }
+
+    -- Git blame info on the current line
+    paq "f-person/git-blame.nvim"
 
     -- Switch between relative and absolute numbers
     paq "jeffkreeftmeijer/vim-numbertoggle"
@@ -353,6 +373,25 @@ do
                 },
             })
         end,
+    }
+
+    -- Pretty status line
+    paq {
+        "hoob3rt/lualine.nvim",
+        deps = {
+            "kyazdani42/nvim-web-devicons",
+        },
+        cfg = function()
+            local statusline = require "lualine"
+
+            statusline.setup({
+                options = {
+                    theme = "everforest",
+                    section_separators = "",
+                    component_separators = "",
+                }
+            })
+        end
     }
 
     -- Show and remove extra whitespace
@@ -376,6 +415,16 @@ do
 
     -- Highlight words and lines on the cursor
     paq "yamatsum/nvim-cursorline"
+
+    -- Dim inactive windows
+    --[[paq {
+        "sunjon/shade.nvim",
+        cfg = function()
+            local shade = require "shade"
+
+            shade.setup()
+        end
+    }]]
 
     -- Peek lines when pressing :
     paq {
@@ -490,6 +539,9 @@ do
         ft = {"javascript", "vue", "scss"},
     }
 
+    -- Delphi
+    paq "rkennedy/vim-delphi"
+
     -- Keep track of the time spent programming with wakatime
     paq "wakatime/vim-wakatime"
 end
@@ -587,6 +639,12 @@ do
     create_augroup({
         "TextYankPost * silent! lua require'vim.highlight'.on_yank()"
     }, "highlight")
+
+    -- Delphi indentation
+    create_augroup({
+        "FileType delphi setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent fileformat=unix foldmethod=indent"
+    }, "delphi")
+
 end
 
 --[[ Key Maps ]]
