@@ -145,6 +145,11 @@ name: "git-delta",
 flags: [],
 ),
 (
+source: Npm(()),
+name: "git-open",
+flags: [],
+),
+(
 source: Cargo(()),
 name: "git-trim",
 flags: [],
