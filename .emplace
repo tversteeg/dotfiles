@@ -56,6 +56,11 @@ flags: [],
 ),
 (
 source: Cargo(()),
+name: "cargo-diet",
+flags: [],
+),
+(
+source: Cargo(()),
 name: "cargo-edit",
 flags: [],
 ),
