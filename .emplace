@@ -280,6 +280,11 @@ name: "transmission-gtk",
 flags: [],
 ),
 (
+source: Cargo(()),
+name: "watchexec-cli",
+flags: [],
+),
+(
 source: Apt(()),
 name: "xclip",
 flags: [],
