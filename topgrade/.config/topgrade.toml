@@ -4,6 +4,7 @@ no_retry = true
 repos = [
 	"~/.dotfiles",
 	"~/r/*",
+	"~/w/*/*",
 ]
 
 [commands]
