@@ -1,9 +1,12 @@
-theme = "solarized-dark"
-icons = "awesome"
+[icons]
+name = "material-nf"
 
-[[block]]
-block = "github"
-hide_if_total_is_zero = true
+[theme]
+name = "space-villain"
+
+# [[block]]
+# block = "github"
+# hide_if_total_is_zero = true
 
 [[block]]
 block = "sound"
@@ -46,11 +49,11 @@ block = "load"
 interval = 2
 format = "{1m} {5m}"
 
-[[block]]
-block = "nvidia_gpu"
-show_utilization = false
-interval = 2
-label = ""
+# [[block]]
+# block = "nvidia_gpu"
+# show_utilization = false
+# interval = 2
+# label = ""
 
 [[block]]
 block = "net"

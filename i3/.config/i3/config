@@ -165,8 +165,9 @@ hide_edge_borders both
 
 # The bottom bar
 bar {
-	font pango:FuraCode Nerd Font 9
-        status_command I3RS_GITHUB_TOKEN=$(cat /home/thomas/.config/i3status-rust/github-token) /home/thomas/.cargo/bin/i3status-rs
+	font pango:FuraCode Nerd Font 10
+        #status_command I3RS_GITHUB_TOKEN=$(cat /home/thomas/.config/i3status-rust/github-token) /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
+        status_command /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
 	colors {
 		separator #AAAAAA
 		background #222133
