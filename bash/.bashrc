@@ -115,6 +115,7 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 eval "$(emplace init bash)"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+eval "$(direnv hook bash)"
 source <(navi widget bash)
 
 export NVM_DIR="$HOME/.nvm"
