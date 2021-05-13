@@ -235,6 +235,11 @@ name: "rofi",
 flags: [],
 ),
 (
+source: Apt(()),
+name: "rsync",
+flags: [],
+),
+(
 source: Cargo(()),
 name: "sccache",
 flags: [],
