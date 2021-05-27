@@ -1,0 +1,13 @@
+configuration {
+    drun-display-format: "{icon} {name}";
+    threads:             0;
+    scroll-method:       0;
+    disable-history:     false;
+    fullscreen:          false;
+    hide-scrollbar:      true;
+    run-shell-command: "alacritty -i -c '{cmd}'";
+    font: "Fira Sans 12";
+    icon-theme: "Papirus";
+}
+
+@import "~/.config/rofi/themes/colors.rasi"

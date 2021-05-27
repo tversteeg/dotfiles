@@ -1,3 +1,27 @@
+# Start flavours
+## Base16 Bright
+# Author: Chris Kempson (http://chriskempson.com)
+#
+# You can use these variables anywhere in the i3 configuration file.
+
+set $base00 #000000
+set $base01 #303030
+set $base02 #505050
+set $base03 #b0b0b0
+set $base04 #d0d0d0
+set $base05 #e0e0e0
+set $base06 #f5f5f5
+set $base07 #ffffff
+set $base08 #fb0120
+set $base09 #fc6d24
+set $base0A #fda331
+set $base0B #a1c659
+set $base0C #76c7b7
+set $base0D #6fb3d2
+set $base0E #d381c3
+set $base0F #be643c
+# End flavours
+
 set $mod Mod1
 
 exec ~/.screenlayout/default.sh
@@ -10,9 +34,8 @@ exec protonmail-bridge --no-window
 floating_modifier $mod
 
 # Start a terminal
-#bindsym $mod+Return exec ~/.cargo/bin/alacritty
-bindsym $mod+Return exec kitty
-bindsym $mod+Shift+Return exec ~/.cargo/bin/alacritty -e ssh -X cems.local
+bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+Return exec alacritty -e ssh -Y cems.local
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -115,14 +138,14 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && dunstify -i audio-volume-high -r 2593 "Volume: +5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && dunstify -i audio-volume-low -r 2593 "Volume: -5%"
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -i audio-volume-muted -r 2593 mute
 
 # Media player controls
-bindsym XF86AudioPlay exec clementine -t
-bindsym XF86AudioNext exec clementine -f
-bindsym XF86AudioPrev exec clementine -r
+bindsym XF86AudioPlay exec mpc toggle && dunstify -r 2594 -i "~/Music/$(dirname "$(mpc current --format="%file%")")/cover.jpg" "$(mpc current)"
+bindsym XF86AudioNext exec mpc next && dunstify -r 2594 -i "~/Music/$(dirname "$(mpc current --format="%file%")")/cover.jpg" "$(mpc current)"
+bindsym XF86AudioPrev exec mpc prev && dunstify -r 2594 -i "~/Music/$(dirname "$(mpc current --format="%file%")")/cover.jpg" "$(mpc current)"
 
 # Screenshot
 bindsym Print exec flameshot gui
@@ -155,7 +178,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Font for window titles
-font pango:Fura Code 6
+font pango:Fira Code 6
 
 # Thin border
 default_border pixel 2
@@ -165,24 +188,29 @@ hide_edge_borders both
 
 # The bottom bar
 bar {
-	font pango:FuraCode Nerd Font 10
-        #status_command I3RS_GITHUB_TOKEN=$(cat /home/thomas/.config/i3status-rust/github-token) /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
-        status_command /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
+	font pango:Fire Code 10
+	#status_command I3RS_GITHUB_TOKEN=$(cat /home/thomas/.config/i3status-rust/github-token) /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
+	#status_command /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
+	status_command i3status
+
 	colors {
-		separator #AAAAAA
-		background #222133
-		statusline #FFFFFF
-		focused_workspace #664477 #664477 #cccccc #282828
-		active_workspace #DCCD69 #DCCD69 #181715 #928374
-		inactive_workspace #222133 #222133 #AAAAAA #928374
-		urgent_workspace #CE4045 #CE4045 #FFFFFF #ebdbb2
+		background $base00
+		separator  $base01
+		statusline $base04
+		# State             Border  BG      Text
+		focused_workspace   $base05 $base0D $base00
+		active_workspace    $base05 $base03 $base00
+		inactive_workspace  $base03 $base01 $base05
+		urgent_workspace    $base08 $base08 $base00
+		binding_mode        $base00 $base0A $base00
 	}
 }
 
-for_window [title="^Noita"] floating enable
-for_window [title="^LOOP"] floating enable
-
-client.focused #664477 #664477 #cccccc #e7d8b1
-client.focused_inactive #e7d8b1 #e7d8b1 #181715 #A074C4
-client.unfocused #222133 #222133 #AAAAAA #A074C4
-client.urgent #CE4045 #CE4045 #e7d8b1 #DCCD69
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $base05 $base0D $base00 $base0D $base0C
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07
