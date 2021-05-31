@@ -178,7 +178,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Font for window titles
-font pango:Fira Code 6
+font pango:FiraCode Nerd Font 6
 
 # Thin border
 default_border pixel 2
@@ -188,7 +188,7 @@ hide_edge_borders both
 
 # The bottom bar
 bar {
-	font pango:Fire Code 10
+	font pango:FireCode Nerd Font 10
 	#status_command I3RS_GITHUB_TOKEN=$(cat /home/thomas/.config/i3status-rust/github-token) /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
 	#status_command /home/thomas/.cargo/bin/i3status-rs /home/thomas/.dotfiles/i3/.config/i3status-rust/config.toml
 	status_command i3status
