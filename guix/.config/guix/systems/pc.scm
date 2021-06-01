@@ -10,6 +10,7 @@
 (use-modules (gnu packages freedesktop))
 (use-modules (gnu packages gimp))
 (use-modules (gnu packages gnome))
+(use-modules (gnu packages gnome-xyz))
 (use-modules (gnu packages kde))
 (use-modules (gnu packages linux))
 (use-modules (gnu packages image))
@@ -19,12 +20,14 @@
 (use-modules (gnu packages pciutils))
 (use-modules (gnu packages pulseaudio))
 (use-modules (gnu packages rsync))
+(use-modules (gnu packages rust-apps))
 (use-modules (gnu packages terminals))
 (use-modules (gnu packages version-control))
 (use-modules (gnu packages vim))
 (use-modules (gnu packages wget))
 (use-modules (gnu packages wm))
 (use-modules (gnu packages xdisorg))
+(use-modules (gnu packages xfce))
 (use-modules (nongnu packages linux))
 (use-modules (nongnu packages mozilla))
 (use-modules (nongnu system linux-initrd))
@@ -172,6 +175,12 @@
              (type "vfat"))
 
            %base-file-systems))
+
+  ;; Block Facebook ;;
+  (hosts-file
+    (plain-file "hosts"
+                (string-append (local-host-aliases host-name)
+                               %facebook-host-aliases)))
 
   ;; Allow resolution of '.local' host names with mDNS ;;
   (name-service-switch %mdns-host-lookup-nss))
