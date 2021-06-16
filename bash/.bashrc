@@ -70,9 +70,10 @@ export EDITOR='nvim'
 
 # Use ripgrep as the FZF input
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Show a nice preview for FZF
-export FZF_DEFAULT_OPTS='--preview "bat {}"'
+export FZF_DEFAULT_OPTS='--preview-window=:hidden --preview "bat {}"'
 
 # Tell navi that the .cheat files are in the ~/.config/navi directory
 alias navi="navi --path=~/.config/navi"

@@ -125,16 +125,25 @@ do
         opt = true,
     }
 
+    -- Fuzzy find popup windows
+    paq {
+        "nvim-telescope/telescope.nvim",
+        deps = {
+            "nvim-lua/popup.nvim",
+            "nvim-lua/plenary.nvim",
+        },
+        cfg = function()
+            vim.api.nvim_set_keymap("", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
+            vim.api.nvim_set_keymap("!", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
+        end,
+    }
+
     -- Treesitter highlighting
     paq {
         "nvim-treesitter/nvim-treesitter",
         deps = {
             -- Rainbow parentheses
             "p00f/nvim-ts-rainbow",
-            -- Show treesitter symbols
-            "nvim-treesitter/playground",
-            -- Treesitter text objects & motions
-            "nvim-treesitter/nvim-treesitter-textobjects",
         },
         run = function()
             vim.cmd(":TSUpdate")
@@ -148,58 +157,11 @@ do
                 highlight = {
                     enable = true,
                 },
-                -- Better indentation
-                indent = {
-                    enable = true,
-                },
                 -- Rainbow parentheses
                 rainbow = {
                     enable = true,
                 },
-                -- Playground, show the treesitter symbols
-                playground = {
-                    enable = true,
-                },
-                -- Text objects
-                textobjects = {
-                    -- Selection spans
-                    select = {
-                        enable = true,
-                        keymaps = {
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-                            ["al"] = "@conditional.outer",
-                            ["il"] = "@conditional.inner",
-                        },
-                    },
-                    -- Move parameters around in functions
-                    swap = {
-                        enable = true,
-                        swap_next = {
-                            ["<leader>a"] = "@parameter.inner",
-                        },
-                        swap_previous = {
-                            ["<leader>A"] = "@parameter.inner",
-                        },
-                    }
-                },
             })
-        end,
-    }
-
-    -- Color theme
-    paq {
-        "sainnhe/everforest",
-        pre_cfg = function()
-            vim.o.termguicolors = true
-        end,
-        cfg = function()
-            -- "hard", "medium" or "soft"
-            vim.g.everforest_background = "hard"
-
-            vim.cmd("colorscheme everforest")
         end,
     }
 
@@ -322,77 +284,12 @@ do
 
             -- Map autocompletion key
             vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", {noremap = true, expr = true, silent = true})
-            vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
+            --vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
         end,
     }
-
-    -- Comments, gcc for a single line, gc with a motion
-    paq {
-        "b3nj5m1n/kommentary",
-        cfg = function()
-            local kommentary = require "kommentary.config"
-
-            kommentary.configure_language("rust", {
-                single_line_comment_strings = "//",
-                multi_line_comment_strings = {"/*", "*/"},
-            })
-            kommentary.configure_language("lua", {
-                single_line_comment_strings = "--",
-                multi_line_comment_strings = {"--[[", "]]"},
-            })
-        end,
-    }
-
-    -- Git information in the sidebar
-    paq {
-        "lewis6991/gitsigns.nvim",
-        cfg = function()
-            local signs = require "gitsigns"
-
-            signs.setup()
-        end,
-    }
-
-    -- Git blame info on the current line
-    paq "f-person/git-blame.nvim"
 
     -- Switch between relative and absolute numbers
     paq "jeffkreeftmeijer/vim-numbertoggle"
-
-    -- Show buffers in the tabline
-    paq {
-        "akinsho/nvim-bufferline.lua",
-        cfg = function()
-            local bufferline = require "bufferline"
-
-            bufferline.setup({
-                options = {
-                    diagnostics = "nvim_lsp",
-                    show_close_icon = false,
-                    show_buffer_close_icon = false,
-                },
-            })
-        end,
-    }
-
-    -- Pretty status line
-    paq {
-        "hoob3rt/lualine.nvim",
-        deps = {
-            "kyazdani42/nvim-web-devicons",
-        },
-        cfg = function()
-            local statusline = require "lualine"
-
-            statusline.setup({
-                options = {
-                    theme = "everforest",
-                    section_separators = "",
-                    component_separators = "",
-                }
-            })
-        end
-    }
 
     -- Show and remove extra whitespace
     paq {
@@ -403,92 +300,40 @@ do
         end,
     }
 
-    -- Highlight color text
+    -- Autoformat
     paq {
-        "norcalli/nvim-colorizer.lua",
+        "lukas-reineke/format.nvim",
         cfg = function()
-            local colorizer = require "colorizer"
+            local format = require "format"
 
-            colorizer.setup()
-        end,
-    }
+            format.setup({
+                lua = {
+                    {
+                        cmd = {
+                            function(file)
+                                return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
+                            end
+                        }
+                    }
+                },
+                javascript = {
+                    {cmd = {"prettier -w", "./node_modules/.bin/eslint --fix"}}
+                },
+                html = {
+                    {cmd = {"prettier -w"}},
+                },
+                markdown = {
+                    {cmd = {"prettier -w"}},
+                    {
+                        cmd = {"black"},
+                        start_pattern = "^```python$",
+                        end_pattern = "^```$",
+                        target = "current"
+                    }
+                }
+            })
 
-    -- Highlight words and lines on the cursor
-    paq "yamatsum/nvim-cursorline"
-
-    -- Dim inactive windows
-    --[[paq {
-        "sunjon/shade.nvim",
-        cfg = function()
-            local shade = require "shade"
-
-            shade.setup()
-        end
-    }]]
-
-    -- Peek lines when pressing :
-    paq {
-        "nacro90/numb.nvim",
-        cfg = function()
-            local numb = require "numb"
-
-            numb.setup()
-        end
-    }
-
-    -- Code snippets
-    paq {
-        "norcalli/snippets.nvim",
-        cfg = function()
-            local snippets = require "snippets"
-
-            snippets.use_suggested_mappings()
-
-            vim.api.nvim_set_keymap("i", "<c-s>", "<cmd>lua return require'snippets'.expand_or_advance(1)<CR>", {noremap = true})
-            vim.api.nvim_set_keymap("i", "<c-b>", "<cmd>lua return require'snippets'.expand_or_advance(-1)<CR>", {noremap = true})
-        end,
-    }
-
-    -- Fuzzy find popup windows
-    paq {
-        "nvim-telescope/telescope.nvim",
-        deps = {
-            "nvim-lua/popup.nvim",
-            "nvim-lua/plenary.nvim",
-        },
-        cfg = function()
-            -- Map shortcuts
-            vim.api.nvim_set_keymap("", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
-            vim.api.nvim_set_keymap("!", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
-
-            vim.api.nvim_set_keymap("", "<leader>ff", ":lua require 'telescope.builtin'.find_files()<CR>", {})
-            vim.api.nvim_set_keymap("", "<leader>fq", ":lua require 'telescope.builtin'.quickfix()<CR>", {})
-            vim.api.nvim_set_keymap("", "<leader>fb", ":lua require 'telescope.builtin'.buffers()<CR>", {})
-            vim.api.nvim_set_keymap("", "<leader>fh", ":lua require 'telescope.builtin'.help_tags()<CR>", {})
-            vim.api.nvim_set_keymap("", "<leader>ft", ":lua require 'telescope.builtin'.filetypes()<CR>", {})
-
-            vim.api.nvim_set_keymap("", "gr", ":lua require 'telescope.builtin'.lsp_references()<CR>", {})
-            vim.api.nvim_set_keymap("", "g0", ":lua require 'telescope.builtin'.lsp_document_symbols()<CR>", {})
-            vim.api.nvim_set_keymap("", "ga", ":lua require 'telescope.builtin'.lsp_code_actions()<CR>", {})
-            vim.api.nvim_set_keymap("", "<c-]>", ":lua require 'telescope.builtin'.lsp_definitions()<CR>", {})
-
-            vim.api.nvim_set_keymap("", "<leader>ld", ":lua require 'telescope.builtin'.lsp_document_diagnostics()<CR>", {})
-            vim.api.nvim_set_keymap("", "<leader>lw", ":lua require 'telescope.builtin'.lsp_workspace_diagnostics()<CR>", {})
-        end,
-    }
-
-    -- Make vim harder
-    paq {
-        "takac/vim-hardtime",
-        cfg = function()
-            -- Always enable hardtime
-            vim.g.hardtime_default_on = 1
-
-            -- Allow combination of keys
-            vim.g.hardtime_allow_different_key = 1
-
-            -- Set the maximum repeated key presses
-            vim.g.hardtime_maxcount = 4
+            vim.cmd("autocmd BufWritePost * FormatWrite")
         end,
     }
 
@@ -502,45 +347,11 @@ do
         end,
     }
 
-    -- Luacheck
-    paq {
-        "vim-syntastic/syntastic",
-        ft = "lua",
-        cfg = function()
-            vim.g.syntastic_lua_checkers = {"luacheck"}
-        end,
-    }
-
     -- TOML
     paq {
         "cespare/vim-toml",
         ft = "toml",
     }
-
-    -- Rust crate versions
-    paq {
-        "mhinz/vim-crates",
-        ft = "toml",
-        cfg = function()
-            -- Show outdated crates in Cargo.toml
-            vim.cmd("autocmd BufRead Cargo.toml call crates#toggle()")
-        end,
-    }
-
-    -- RON
-    paq {
-        "ron-rs/ron.vim",
-        ft = "ron",
-    }
-
-    -- Vue.js
-    paq {
-        "posva/vim-vue",
-        ft = {"javascript", "vue", "scss"},
-    }
-
-    -- Delphi
-    paq "rkennedy/vim-delphi"
 
     -- Keep track of the time spent programming with wakatime
     paq "wakatime/vim-wakatime"
@@ -554,23 +365,11 @@ do
     -- Automatically reload files changed outside of vim
     vim.o.autoread = true
 
-    -- Don't wait 4 seconds for a popup to show
-    vim.o.updatetime = 1000
-
-    -- Set the title in the terminal
-    vim.o.title = true
-
     -- Where to store the undo files
     vim.o.undodir = "/home/thomas/.config/nvim/undo"
 
     -- Show live preview of substitutions
     vim.o.inccommand = "split"
-
-    -- Set the minimal width of the window
-    vim.o.winwidth = 80
-
-    -- Show the command in the status line
-    vim.o.showcmd = true
 end
 
 --[[ Window Options ]]
@@ -585,9 +384,6 @@ do
 
     -- Automatically hide some symbols (mainly markdown)
     vim.wo.conceallevel = 2
-
-    -- Always show the sign column
-    vim.wo.signcolumn = "yes"
 end
 
 --[[ Buffer Options ]]
