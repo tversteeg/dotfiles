@@ -300,43 +300,6 @@ do
         end,
     }
 
-    -- Autoformat
-    paq {
-        "lukas-reineke/format.nvim",
-        cfg = function()
-            local format = require "format"
-
-            format.setup({
-                lua = {
-                    {
-                        cmd = {
-                            function(file)
-                                return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
-                            end
-                        }
-                    }
-                },
-                javascript = {
-                    {cmd = {"prettier -w", "./node_modules/.bin/eslint --fix"}}
-                },
-                html = {
-                    {cmd = {"prettier -w"}},
-                },
-                markdown = {
-                    {cmd = {"prettier -w"}},
-                    {
-                        cmd = {"black"},
-                        start_pattern = "^```python$",
-                        end_pattern = "^```$",
-                        target = "current"
-                    }
-                }
-            })
-
-            vim.cmd("autocmd BufWritePost * FormatWrite")
-        end,
-    }
-
     -- Rust
     paq {
         "rust-lang/rust.vim",

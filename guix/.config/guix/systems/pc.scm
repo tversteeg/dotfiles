@@ -5,6 +5,7 @@
 (use-modules (gnu packages admin))
 (use-modules (gnu packages certs))
 (use-modules (gnu packages compression))
+(use-modules (gnu packages cups))
 (use-modules (gnu packages curl))
 (use-modules (gnu packages dunst))
 (use-modules (gnu packages freedesktop))
@@ -33,7 +34,9 @@
 (use-modules (nongnu system linux-initrd))
 (use-modules (gnu services admin))
 (use-modules (gnu services audio))
+(use-modules (gnu services cups))
 (use-modules (gnu services desktop))
+(use-modules (gnu services mcron))
 (use-modules (gnu services networking))
 (use-modules (gnu services nfs))
 (use-modules (gnu services sound))
@@ -82,6 +85,11 @@
 
 (define graphics-packages
   (list gimp))
+
+(define beets-update-job
+  ;; Update the music library every morning at 10 AM ;;
+  #~(job "0 10 * * *"
+         "beet fetchart && beet update && beet duplicates"))
 
 (operating-system
   (locale "en_US.utf8")
@@ -141,10 +149,24 @@
                      (nfs-configuration
                        (exports
                          '(("/home/thomas/TV"
+                            "*(ro,all_squash,insecure)")
+                           ("/home/thomas/Movies"
                             "*(ro,all_squash,insecure)")))))
 
             ;; Automatically apply security updates ;;
             (service unattended-upgrade-service-type)
+
+            ;; Cron jobs ;;
+            (simple-service 'my-cron-jobs
+                            mcron-service-type
+                            (list beets-update-job))
+
+            ;; Printers ;;
+            (service cups-service-type
+                     (cups-configuration
+                       (web-interface? #t)
+                       (extensions
+                         (list cups-filters hplip-minimal))))
 
             (set-xorg-configuration
               (xorg-configuration
@@ -157,6 +179,11 @@
       (bootloader grub-efi-bootloader)
       (timeout 1)
       (target "/boot/efi")))
+
+  ;; Blacklist some kernel modules ;;
+  (kernel-arguments
+    ;; Disable HDMI audio devices ;;
+    (list "modprobe.blacklist=snd_hda_codec_hdmi"))
 
   (swap-devices
     (list (uuid "e700885b-7b72-4b87-8f9f-e72edac93812")))
@@ -171,7 +198,7 @@
 
            (file-system
              (mount-point "/boot/efi")
-             (device "/dev/nvme0n1p1") ; (device (uuid "F8EA-292C" 'fat32))
+             (device "/dev/nvme0n1p1")
              (type "vfat"))
 
            %base-file-systems))

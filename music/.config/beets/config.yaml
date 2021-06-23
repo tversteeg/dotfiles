@@ -1,0 +1,41 @@
+directory: /home/thomas/Music
+library: /home/thomas/Music/.library.db
+
+import:
+        # Write metadata
+        write: yes
+
+        # Move from source to music directory
+        move: yes
+
+        # Autotag where possible
+        autotag: yes
+        # Do not require confirmation on strong matches
+        timid: no
+
+plugins: fetchart mpdstats mpdupdate mpdqueue duplicates missing lyrics embedart echonest_tempo
+
+mpd:
+        host: localhost
+        port: 6600
+
+lyrics:
+        auto: yes
+
+echonest_tempo:
+        auto: yes
+
+fetchart:
+        auto: yes
+        maxwidth: 300
+        cautious: true
+        cover_names: cover folder
+
+embedart:
+        auto: yes
+        maxwidth: 300
+
+replaygain:
+        auto: yes
+        overwrite: yes
+        albumgain: yes
