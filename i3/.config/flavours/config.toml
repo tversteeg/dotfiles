@@ -33,11 +33,6 @@ file = "~/.config/dunst/dunstrc"
 template = "dunst"
 
 [[item]]
-file = "~/.config/hexchat/colors.conf"
-template = "hexchat"
-rewrite = true
-
-[[item]]
 file = "~/.gtkrc-2.0"
 template = "gtk2"
 subtemplate = "schemes"

@@ -65,6 +65,12 @@ export PATH="$PATH:~/.cargo/bin"
 # Expose 'z'
 eval "$(zoxide init bash)"
 
+# Use Ctrl-G for navi
+eval "$(navi widget bash)"
+
+# Use a nice prompt
+eval "$(starship init bash)"
+
 # Use neovim as the default editor
 export EDITOR='nvim'
 

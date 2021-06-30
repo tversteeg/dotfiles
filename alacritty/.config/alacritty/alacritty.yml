@@ -14,46 +14,46 @@ window:
         x: 0
         y: 0
 # Start flavours
-# Base16 Bright 256 - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Base16 Summerfruit Light 256 - alacritty color config
+# Christopher Corley (http://christop.club/)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xe0e0e0'
+    background: '0xFFFFFF'
+    foreground: '0x101010'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xe0e0e0'
+    text: '0xFFFFFF'
+    cursor: '0x101010'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xfb0120'
-    green:   '0xa1c659'
-    yellow:  '0xfda331'
-    blue:    '0x6fb3d2'
-    magenta: '0xd381c3'
-    cyan:    '0x76c7b7'
-    white:   '0xe0e0e0'
+    black:   '0xFFFFFF'
+    red:     '0xFF0086'
+    green:   '0x00C918'
+    yellow:  '0xABA800'
+    blue:    '0x3777E6'
+    magenta: '0xAD00A1'
+    cyan:    '0x1FAAAA'
+    white:   '0x101010'
 
   # Bright colors
   bright:
-    black:   '0xb0b0b0'
-    red:     '0xfb0120'
-    green:   '0xa1c659'
-    yellow:  '0xfda331'
-    blue:    '0x6fb3d2'
-    magenta: '0xd381c3'
-    cyan:    '0x76c7b7'
-    white:   '0xffffff'
+    black:   '0xB0B0B0'
+    red:     '0xFF0086'
+    green:   '0x00C918'
+    yellow:  '0xABA800'
+    blue:    '0x3777E6'
+    magenta: '0xAD00A1'
+    cyan:    '0x1FAAAA'
+    white:   '0x202020'
 
   indexed_colors:
-    - { index: 16, color: '0xfc6d24' }
-    - { index: 17, color: '0xbe643c' }
-    - { index: 18, color: '0x303030' }
-    - { index: 19, color: '0x505050' }
-    - { index: 20, color: '0xd0d0d0' }
-    - { index: 21, color: '0xf5f5f5' }
+    - { index: 16, color: '0xFD8900' }
+    - { index: 17, color: '0xCC6633' }
+    - { index: 18, color: '0xE0E0E0' }
+    - { index: 19, color: '0xD0D0D0' }
+    - { index: 20, color: '0x000000' }
+    - { index: 21, color: '0x151515' }
 # End flavours

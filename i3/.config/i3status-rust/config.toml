@@ -1,9 +1,6 @@
 [icons]
 name = "material-nf"
 
-[theme]
-name = "space-villain"
-
 # [[block]]
 # block = "github"
 # hide_if_total_is_zero = true
@@ -73,20 +70,20 @@ format = "%a %d/%m %R"
 # vi:syntax=toml
 
 # base16-i3status-rust (https://github.com/mystfox/base16-i3status-rust)
-# Bright by Chris Kempson (http://chriskempson.com)
+# Summerfruit Light by Christopher Corley (http://christop.club/)
 
 [theme]
-name = "solarized-dark"
+name = "solarized-light"
 [theme.overrides]
-idle_bg = "#000000"
-idle_fg = "#e0e0e0"
-info_bg = "#76c7b7"
-info_fg = "#000000"
-good_bg = "#a1c659"
-good_fg = "#000000"
-warning_bg = "#fda331"
-warning_fg = "#000000"
-critical_bg = "#fb0120"
-critical_fg = "#000000"
+idle_bg = "#FFFFFF"
+idle_fg = "#101010"
+info_bg = "#1FAAAA"
+info_fg = "#FFFFFF"
+good_bg = "#00C918"
+good_fg = "#FFFFFF"
+warning_bg = "#ABA800"
+warning_fg = "#FFFFFF"
+critical_bg = "#FF0086"
+critical_fg = "#FFFFFF"
 # The rest of the theme settings are left at default.
 # End flavours

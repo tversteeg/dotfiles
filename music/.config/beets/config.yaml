@@ -13,7 +13,7 @@ import:
         # Do not require confirmation on strong matches
         timid: no
 
-plugins: fetchart mpdstats mpdupdate mpdqueue duplicates missing lyrics embedart echonest_tempo
+plugins: fetchart duplicates missing lyrics embedart
 
 mpd:
         host: localhost
