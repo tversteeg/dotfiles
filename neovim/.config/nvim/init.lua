@@ -300,6 +300,19 @@ do
         end,
     }
 
+    -- Highlight TODO comments
+    paq {
+        "folke/todo-comments.nvim",
+        deps = {
+            "nvim-lua/plenary.nvim",
+        },
+        cfg = function()
+            local todo = require "todo-comments"
+
+            todo.setup({})
+        end
+    }
+
     -- Rust
     paq {
         "rust-lang/rust.vim",
