@@ -188,12 +188,15 @@ do
             "nvim-lua/lsp-status.nvim",
             -- Use FZF for the LSP, :LspDiagnostics
             "ojroques/nvim-lspfuzzy",
+            -- Dim inactive portions of the code
+            "folke/twilight.nvim",
         },
         ft = "rust",
         cfg = function()
             local lsp = require "lspconfig"
             local fuzzy = require "lspfuzzy"
             local lsp_status = require "lsp-status"
+            local twilight = require "twilight"
 
             -- Add LSP snippets to autocompletion
             local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -254,6 +257,9 @@ do
 
             -- Setup the status line
             lsp_status.register_progress()
+
+            -- Setup inactive code dimming
+            twilight.setup({})
         end
     }
 

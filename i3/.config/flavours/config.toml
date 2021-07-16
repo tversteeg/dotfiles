@@ -41,3 +41,7 @@ subtemplate = "schemes"
 file = "~/.Xresources"
 template = "xresources"
 rewrite = true
+
+[[item]]
+file = "~/.bashrc"
+template = "fzf"

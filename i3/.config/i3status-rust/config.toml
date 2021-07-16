@@ -73,7 +73,7 @@ format = "%a %d/%m %R"
 # Summerfruit Light by Christopher Corley (http://christop.club/)
 
 [theme]
-name = "solarized-light"
+name = "solarized-dark"
 [theme.overrides]
 idle_bg = "#FFFFFF"
 idle_fg = "#101010"
