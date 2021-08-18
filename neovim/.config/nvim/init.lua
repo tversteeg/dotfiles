@@ -232,7 +232,7 @@ do
             })
 
             -- Setup python
-            lsp.pyls.setup({
+            lsp.pylsp.setup({
                 on_attach = lsp_status.on_attach,
                 capabilities = lsp_status.capabilities,
             })
@@ -283,14 +283,61 @@ do
                     nvim_lua = true,
                     spell = true,
                     tags = true,
+                    emoji = true,
                     treesitter = true,
-                    snippets_nvim = true,
                 },
             })
 
             -- Map autocompletion key
             vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", {noremap = true, expr = true, silent = true})
-            --vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
+            vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
+        end,
+    }
+
+    -- Automatically format code
+    paq {
+        "lukas-reineke/format.nvim",
+        cfg = function()
+            local format = require "format"
+
+            format.setup({
+                lua = {
+                    {
+                        cmd = {
+                            function(file)
+                                return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
+                            end
+                        }
+                    }
+                },
+                python = {
+                    {
+                        cmd = {"python3 -m black ."}
+                    }
+                },
+                javascript = {
+                    {
+                        cmd = {"prettier -w"}
+                    }
+                },
+                markdown = {
+                    {
+                        cmd = {"prettier -w"}
+                    }
+                }
+            })
+
+            vim.cmd("autocmd BufWritePost * FormatWrite")
+        end,
+    }
+
+    -- Show possible keybindings
+    paq {
+        "folke/which-key.nvim",
+        cfg = function()
+            local which_key = require "which-key"
+
+            which_key.setup({})
         end,
     }
 

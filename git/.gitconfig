@@ -3,6 +3,10 @@
 [user]
 	name = Thomas Versteeg
 	email = t@versteeg.email
+[help]
+	autocorrect = 15
+[color]
+	ui = 1
 [core]
 	pager = delta
 [interactive]
@@ -19,3 +23,5 @@
 	touch = !"f() { touch $@ && git add $@; }; f"
 [init]
 	defaultBranch = main
+[trim]
+	bases = dev,develop,master,main

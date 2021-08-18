@@ -80,7 +80,7 @@ fi
 
 # Use better alternatives
 alias ls='lsd'
-alias cat='bat'
+alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 
 # Add installed cargo binaries to path
