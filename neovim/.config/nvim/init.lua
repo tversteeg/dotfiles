@@ -247,6 +247,7 @@ do
             lsp_map("gD", "implementation")
             lsp_map("<c-k>", "signature_help")
             lsp_map("1gD", "type_definition")
+            lsp_map("ga", "code_action")
             -- The rest is mapped in the telescope nvim part
 
             -- Enable type inlay hints
@@ -265,32 +266,27 @@ do
 
     -- Auto completion
     paq {
-        "hrsh7th/nvim-compe",
+        "hrsh7th/nvim-cmp",
         cfg = function()
-            local compe = require "compe"
+            local cmp = require "cmp"
 
             -- Fix neovim completion options
             vim.o.completeopt = "menuone,noinsert,noselect"
 
             -- Enable different autocompletion targets
-            compe.setup({
+            cmp.setup({
                 enabled = true,
-                source = {
-                    path = true,
-                    buffer = true,
-                    calc = true,
-                    nvim_lsp = true,
-                    nvim_lua = true,
-                    spell = true,
-                    tags = true,
-                    emoji = true,
-                    treesitter = true,
+                sources = {
+                    {name = "nvim_lsp"},
+                    {name = "buffer"},
+                    {name = "path"},
+                    {name = "nvim_lua"},
                 },
+                mapping = {
+                    ["<c-space>"] = cmp.mapping.complete(),
+                    ["<cr>"] = cmp.mapping.confirm(),
+                }
             })
-
-            -- Map autocompletion key
-            vim.api.nvim_set_keymap("i", "<c-space>", "compe#complete()", {noremap = true, expr = true, silent = true})
-            vim.api.nvim_set_keymap("i", "<cr>", "compe#confirm('<cr>')", {noremap = true, expr = true, silent = true})
         end,
     }
 
@@ -328,6 +324,24 @@ do
             })
 
             vim.cmd("autocmd BufWritePost * FormatWrite")
+        end,
+    }
+
+    -- Show whitespace
+    paq {
+        "lukas-reineke/indent-blankline.nvim",
+        cfg = function()
+            local indent = require "indent_blankline"
+
+            vim.g.indent_blankline_show_first_indent_level = true
+            vim.g.indent_blankline_show_trailing_blankline_indent = false
+            vim.g.indent_blankline_show_current_context = true
+            vim.g.indent_blankline_context_patterns = {
+                "class", "function", "method", "block", "list_literal", "selector",
+                "^if", "^table", "if_statement", "while", "for"
+            }
+
+            indent.setup({})
         end,
     }
 

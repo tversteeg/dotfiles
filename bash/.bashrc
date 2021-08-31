@@ -95,6 +95,9 @@ eval "$(navi widget bash)"
 # Use a nice prompt
 eval "$(starship init bash)"
 
+# Use conda
+source /opt/conda/etc/profile.d/conda.sh
+
 # Use neovim as the default editor
 export EDITOR='nvim'
 
