@@ -29,6 +29,7 @@ exec dunst
 exec kdeconnect-indicator
 exec transmission-gtk -m
 exec protonmail-bridge --no-window
+exec playerctld daemon
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -143,9 +144,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -i audio-volume-muted -r 2593 mute
 
 # Media player controls
-bindsym XF86AudioPlay exec mpc toggle && dunstify -r 2594 -i "~/Music/$(dirname "$(mpc current --format="%file%")")/cover.jpg" "$(mpc current)"
-bindsym XF86AudioNext exec mpc next && dunstify -r 2594 -i "~/Music/$(dirname "$(mpc current --format="%file%")")/cover.jpg" "$(mpc current)"
-bindsym XF86AudioPrev exec mpc prev && dunstify -r 2594 -i "~/Music/$(dirname "$(mpc current --format="%file%")")/cover.jpg" "$(mpc current)"
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # Screenshot
 bindsym Print exec flameshot gui
