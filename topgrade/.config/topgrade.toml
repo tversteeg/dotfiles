@@ -8,5 +8,4 @@ repos = [
 ]
 
 [commands]
-"Emplace" = "emplace install"
 "Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
