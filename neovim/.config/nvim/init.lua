@@ -129,12 +129,11 @@ do
     paq {
         "nvim-telescope/telescope.nvim",
         deps = {
-            "nvim-lua/popup.nvim",
             "nvim-lua/plenary.nvim",
         },
         cfg = function()
-            vim.api.nvim_set_keymap("", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
-            vim.api.nvim_set_keymap("!", "<C-p>", ":lua require 'telescope.builtin'.git_files()<CR>", {})
+            vim.api.nvim_set_keymap("", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
+            vim.api.nvim_set_keymap("!", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
         end,
     }
 
@@ -190,6 +189,8 @@ do
             "ojroques/nvim-lspfuzzy",
             -- Dim inactive portions of the code
             "folke/twilight.nvim",
+            -- Autocompletion
+            "hrsh7th/cmp-nvim-lsp",
         },
         ft = "rust",
         cfg = function()
@@ -197,10 +198,12 @@ do
             local fuzzy = require "lspfuzzy"
             local lsp_status = require "lsp-status"
             local twilight = require "twilight"
+            local cmp_nvim_lsp = require "cmp_nvim_lsp"
 
             -- Add LSP snippets to autocompletion
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
+            capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
             -- Setup rust-analyzer
             lsp.rust_analyzer.setup({
@@ -267,6 +270,14 @@ do
     -- Auto completion
     paq {
         "hrsh7th/nvim-cmp",
+        deps = {
+            -- Sources
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua",
+            "saecki/crates.nvim",
+        },
         cfg = function()
             local cmp = require "cmp"
 
@@ -278,13 +289,14 @@ do
                 enabled = true,
                 sources = {
                     {name = "nvim_lsp"},
+                    {name = "nvim_lua"},
                     {name = "buffer"},
                     {name = "path"},
-                    {name = "nvim_lua"},
+                    {name = "crates"},
                 },
                 mapping = {
                     ["<c-space>"] = cmp.mapping.complete(),
-                    ["<cr>"] = cmp.mapping.confirm(),
+                    ["<c-y>"] = cmp.mapping.confirm({select = true}),
                 }
             })
         end,
@@ -308,7 +320,12 @@ do
                 },
                 python = {
                     {
-                        cmd = {"python3 -m black ."}
+                        cmd = {
+                            "black --config ~/w/ci/python/pyproject.toml .",
+                            "isort --sp ~/w/ci/python/pyproject.toml .",
+                            "flake8 --config ~/w/ci/python/pyproject.toml .",
+                            "mypy --config ~/w/ci/python/mypy.ini .",
+                        }
                     }
                 },
                 javascript = {
@@ -342,6 +359,16 @@ do
             }
 
             indent.setup({})
+        end,
+    }
+
+    --- File manager integration
+    paq {
+        "luukvbaal/nnn.nvim",
+        cfg = function()
+            local nnn = require "nnn"
+
+            nnn.setup({})
         end,
     }
 
@@ -382,12 +409,29 @@ do
 
     -- Rust
     paq {
-        "rust-lang/rust.vim",
+        "iron-e/rust.vim",
         ft = "rust",
         cfg = function()
             -- Autoformat Rust on save
             vim.g.rustfmt_autosave = 1
         end,
+    }
+    paq {
+        "simrat39/rust-tools.nvim",
+        deps = {
+            "neovim/nvim-lspconfig",
+            "nvim-lua/popup.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            -- Debugging
+            "mfussenegger/nvim-dap",
+        },
+        ft = "rust",
+        cfg = function()
+            local rust = require "rust-tools"
+
+            rust.setup({})
+        end
     }
 
     -- TOML

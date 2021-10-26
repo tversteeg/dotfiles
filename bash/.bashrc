@@ -79,12 +79,13 @@ else
 fi
 
 # Use better alternatives
-alias ls='lsd'
+#alias ls='lsd'
+alias ls='nnn -de'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 
-# Add installed cargo binaries to path
-export PATH="$PATH:~/.cargo/bin"
+# Add installed cargo binaries to path, and ~/.local/bin
+export PATH="$PATH:~/.cargo/bin:~/.local/bin"
 
 # Expose 'z'
 eval "$(zoxide init bash)"
