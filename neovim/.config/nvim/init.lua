@@ -187,6 +187,8 @@ do
             "nvim-lua/lsp-status.nvim",
             -- Use FZF for the LSP, :LspDiagnostics
             "ojroques/nvim-lspfuzzy",
+            "junegunn/fzf",
+            "junegunn/fzf.vim",
             -- Dim inactive portions of the code
             "folke/twilight.nvim",
             -- Autocompletion
