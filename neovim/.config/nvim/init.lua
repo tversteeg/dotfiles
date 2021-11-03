@@ -442,6 +442,11 @@ do
         ft = "toml",
     }
 
+    -- Cranelift
+    paq {
+        "CraneStation/cranelift.vim",
+    }
+
     -- Keep track of the time spent programming with wakatime
     paq "wakatime/vim-wakatime"
 end
