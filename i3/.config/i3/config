@@ -32,6 +32,7 @@ exec protonmail-bridge --no-window
 exec playerctld daemon
 exec mpDris2
 exec syncthing -no-browser
+exec mpd ~/.config/mpd/mpd.conf
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
