@@ -85,7 +85,7 @@ alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 
 # Add installed cargo binaries to path, and ~/.local/bin
-export PATH="$PATH:~/.cargo/bin:~/.local/bin"
+export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin"
 
 # Expose 'z'
 eval "$(zoxide init bash)"
