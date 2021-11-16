@@ -15,6 +15,9 @@ max_width = 15
 hide_when_empty = true
 
 [[block]]
+block = "apt"
+
+[[block]]
 block = "disk_space"
 format = "{icon} {available}/{total}"
 path = "/"
@@ -60,6 +63,12 @@ device = "enp39s0"
 block = "kdeconnect"
 format_disconnected = ""
 device_id = "70a73b2b0c97a9bb"
+
+[[block]]
+block = "backlight"
+
+[[block]]
+block = "battery"
 
 [[block]]
 block = "time"
