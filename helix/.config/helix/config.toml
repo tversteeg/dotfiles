@@ -1,5 +1,6 @@
 theme = "ingrid"
-mouse = false
+
+[editor]
 line-number = "relative"
 
 [keys.normal]
