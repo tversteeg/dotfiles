@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# pactl list sinks short | cut -f2
+SPEAKER_DEVICE="alsa_output.pci-0000_25_00.0.analog-stereo"
+HEADPHONE_DEVICE="alsa_output.usb-FiiO_DigiHug_USB_Audio-01.analog-stereo"
+
+
+DEVICES=$(pactl list sinks short | cut -f2)
+if [[ "$DEVICES" != *"$SPEAKER_DEVICE"* ]]; then
+	dunstify -u CRITICAL "Speaker device '$SPEAKER_DEVICE' not found, please edit '$0'"
+	exit 1
+fi
+if [[ "$DEVICES" != *"$HEADPHONE_DEVICE"* ]]; then
+	dunstify -u CRITICAL "Headphone device '$HEADPHONE_DEVICE' not found, please edit '$0'"
+	exit 1
+fi
+
+CURRENT_DEVICE=$(pactl list sinks short | grep RUNNING | cut -f2)
+
+if [[ "$CURRENT_DEVICE" == "$SPEAKER_DEVICE" ]]; then
+	pactl set-default-sink $HEADPHONE_DEVICE
+else
+	pactl set-default-sink $SPEAKER_DEVICE
+fi
