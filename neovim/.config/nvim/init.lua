@@ -151,7 +151,7 @@ do
             local treesitter = require "nvim-treesitter.configs"
 
             treesitter.setup({
-                ensure_installed = {"lua", "rust", "typescript", "python"},
+                ensure_installed = {"lua", "rust", "typescript", "python", "vue"},
                 -- Syntax highlighting
                 highlight = {
                     enable = true,
@@ -225,10 +225,12 @@ do
             })
 
             -- Setup Vue
+            --[[
             lsp.vuels.setup({
                 on_attach = lsp_status.on_attach,
                 capabilities = lsp_status.capabilities,
             })
+            ]]
 
             -- Setup typescript
             lsp.tsserver.setup({
@@ -335,9 +337,29 @@ do
                         cmd = {"prettier -w"}
                     }
                 },
+                typescript = {
+                    {
+                        cmd = {"prettier -w"}
+                    }
+                },
+                vue = {
+                    {
+                        cmd = {"prettier -w"}
+                    }
+                },
                 markdown = {
                     {
                         cmd = {"prettier -w"}
+                    }
+                },
+                bash = {
+                    {
+                        cmd = {"shfmt -l -w"}
+                    }
+                },
+                sh = {
+                    {
+                        cmd = {"shfmt -l -w"}
                     }
                 }
             })
@@ -371,16 +393,6 @@ do
             local nnn = require "nnn"
 
             nnn.setup({})
-        end,
-    }
-
-    -- Show possible keybindings
-    paq {
-        "folke/which-key.nvim",
-        cfg = function()
-            local which_key = require "which-key"
-
-            which_key.setup({})
         end,
     }
 
