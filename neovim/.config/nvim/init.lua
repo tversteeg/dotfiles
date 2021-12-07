@@ -149,9 +149,10 @@ do
         end,
         cfg = function()
             local treesitter = require "nvim-treesitter.configs"
+            local parsers = require "nvim-treesitter.parsers"
 
             treesitter.setup({
-                ensure_installed = {"lua", "rust", "typescript", "python", "vue"},
+                ensure_installed = {"lua", "rust", "typescript", "python", "vue", "commonlisp"},
                 -- Syntax highlighting
                 highlight = {
                     enable = true,
@@ -161,6 +162,10 @@ do
                     enable = true,
                 },
             })
+
+            -- Parse Scheme as Commonlisp
+            local parser_config = parsers.get_parser_configs()
+            parser_config.commonlisp.used_by = "scheme"
         end,
     }
 
@@ -281,6 +286,7 @@ do
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
             "saecki/crates.nvim",
+            "PaterJason/cmp-conjure",
         },
         cfg = function()
             local cmp = require "cmp"
@@ -297,6 +303,7 @@ do
                     {name = "buffer"},
                     {name = "path"},
                     {name = "crates"},
+                    {name = "conjure"},
                 },
                 mapping = {
                     ["<c-space>"] = cmp.mapping.complete(),
@@ -445,6 +452,30 @@ do
             local rust = require "rust-tools"
 
             rust.setup({})
+        end
+    }
+
+    -- Lisps
+    -- <localleader>eb = evaluate buffer
+    -- <localleader>ee = evaluate cursor inner
+    -- <localleader>er = evaluate cursor outer
+    -- <localleader>e! = evaluate cursor and replace output in buffer
+    -- <localleader>em.. = evaluate mark
+    -- <localleader>E = evaluate visual selection
+    -- <localleader>E.. = evaluate motion (e.g. iw)
+    -- <localleader>ew = inspect variable
+    -- <localleader>ls = horizontal log
+    -- <localleader>lv = vertical log
+    paq {
+        "Olical/conjure",
+        deps = {
+            -- Only used for :ConjureSchool
+            "Olical/aniseed",
+        },
+        cfg = function()
+            -- Use Guile as the Scheme variant
+            vim.api.nvim_set_var("conjure#filetype#scheme", "conjure.client.guile.socket")
+            vim.api.nvim_set_var("conjure#client#guile#socket#pipename", "/tmp/guile-repl.socket")
         end
     }
 

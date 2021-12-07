@@ -20,7 +20,7 @@
 	syntax-theme = Monokai Extended Light
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	touch = !"f() { touch $@ && git add $@; }; f"
+	touch = !"f() { mkdir -p $(dirname $@) && touch $@ && git add $@; }; f"
 [init]
 	defaultBranch = main
 [trim]
