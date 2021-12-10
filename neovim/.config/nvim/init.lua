@@ -189,7 +189,7 @@ do
             -- Language Server extensions, type inlay hints
             "nvim-lua/lsp_extensions.nvim",
             -- Status line information
-            "nvim-lua/lsp-status.nvim",
+            --"nvim-lua/lsp-status.nvim",
             -- Use FZF for the LSP, :LspDiagnostics
             "ojroques/nvim-lspfuzzy",
             "junegunn/fzf",
@@ -203,7 +203,7 @@ do
         cfg = function()
             local lsp = require "lspconfig"
             local fuzzy = require "lspfuzzy"
-            local lsp_status = require "lsp-status"
+            --local lsp_status = require "lsp-status"
             local twilight = require "twilight"
             local cmp_nvim_lsp = require "cmp_nvim_lsp"
 
@@ -237,6 +237,7 @@ do
             })
             ]]
 
+	    --[[
             -- Setup typescript
             lsp.tsserver.setup({
                 on_attach = lsp_status.on_attach,
@@ -248,6 +249,7 @@ do
                 on_attach = lsp_status.on_attach,
                 capabilities = lsp_status.capabilities,
             })
+	    ]]
 
             -- Map the shortcuts
             local function lsp_map(shortcut, name)
@@ -269,7 +271,7 @@ do
             fuzzy.setup({})
 
             -- Setup the status line
-            lsp_status.register_progress()
+            --lsp_status.register_progress()
 
             -- Setup inactive code dimming
             twilight.setup({})
