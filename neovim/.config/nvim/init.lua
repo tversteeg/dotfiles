@@ -57,7 +57,7 @@ do
 
     -- Run the installation with plugin specific configuration settings
     local function paq(data)
-        local paq = require "paq-nvim"
+        local paq = require "paq"
 
         -- If a single string is passed use that
         if type(data) == "string" then
