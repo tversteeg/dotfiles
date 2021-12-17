@@ -96,6 +96,9 @@ eval "$(navi widget bash)"
 # Use a nice prompt
 eval "$(starship init bash)"
 
+# Add completions for glab if installed
+type "glab" >/dev/null 2>&1 && eval "$(glab completion)"
+
 # Use conda
 source /opt/conda/etc/profile.d/conda.sh
 
