@@ -445,7 +445,7 @@ do
             "neovim/nvim-lspconfig",
             "nvim-lua/popup.nvim",
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
             -- Debugging
             "mfussenegger/nvim-dap",
         },
