@@ -334,10 +334,10 @@ do
                 python = {
                     {
                         cmd = {
-                            "black --config ~/w/ci/python/pyproject.toml .",
-                            "isort --sp ~/w/ci/python/pyproject.toml .",
-                            "flake8 --config ~/w/ci/python/pyproject.toml .",
-                            "mypy --config ~/w/ci/python/mypy.ini .",
+                            "black --config ~/w/project-types/cemsdev-python/config/pyproject.toml .",
+                            "isort --sp ~/w/project-types/cemsdev-python/config/pyproject.toml .",
+                            "flake8 --config ~/w/project-types/cemsdev-python/config/pyproject.toml .",
+                            "mypy --config ~/w/project-types/cemsdev-python/config/mypy.ini .",
                         }
                     }
                 },

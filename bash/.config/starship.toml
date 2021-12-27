@@ -1,9 +1,9 @@
 format = """
+$directory\
 $username\
 $hostname\
 $shlvl\
 $singularity\
-$directory\
 $vcsh\
 $git_branch\
 $git_commit\
@@ -64,8 +64,20 @@ $status\
 $shell\
 $character"""
 
+[hostname]
+format = "[ ]($style) "
+
+[username]
+format = "[$user]($style) "
+disabled = true
+
+[package]
+symbol = " "
+version_format = "${raw}"
+
 [rust]
 format = "via [ $version]($style) "
+version_format = "${raw}"
 
 [kubernetes]
 format = 'on [ $context \($namespace\)]($style) '
@@ -75,5 +87,7 @@ disabled = false
 "gke_crux-automation_europe-west4-a_crux-production" = "prod"
 
 [gcloud]
-format = "on [  $project@$domain]($style)"
+format = "on [  $project@$domain]($style) "
 
+[conda]
+symbol = " "
