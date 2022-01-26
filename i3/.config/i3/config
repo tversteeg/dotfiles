@@ -31,8 +31,10 @@ exec transmission-gtk -m
 exec protonmail-bridge --no-window
 exec playerctld daemon
 exec mpDris2
-exec syncthing -no-browser
 exec mpd ~/.config/mpd/mpd.conf
+
+exec sleep 20 ; syncthing -no-browser
+exec sleep 20 ; service uwsgi restart searx
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -45,7 +47,7 @@ bindsym $mod+Shift+Return exec /home/thomas/.cargo/bin/alacritty -e ssh -Y cems.
 bindsym $mod+Shift+q kill
 
 # Start rofi (a program launcher)
-bindsym $mod+d exec PATH=$PATH:/home/thomas/.local/bin:/home/thomas/.cargo/bin rofi -show run -show-icons
+bindsym $mod+d exec rofi -show run -show-icons
 bindsym $mod+p exec rofi -modi TODO:~/.dotfiles/rofi-todo.sh -show TODO
 
 # Lock
