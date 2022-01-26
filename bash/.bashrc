@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 case $- in
-	*i*) ;;
-	*) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # Don't put duplicate lines or lines starting with space in the history
@@ -23,8 +23,7 @@ shopt -s checkwinsize
 # The pattern "**" used in a pathname expansion context will match all files and zero or more directories and subdirectories
 shopt -s globstar
 
-if [[ $- != *i* ]]
-then
+if [[ $- != *i* ]]; then
 	# We are being invoked from a non-interactive shell.  If this
 	# is an SSH session (as in "ssh host command"), source
 	# /etc/profile so we get PATH and other essential variables
@@ -35,14 +34,12 @@ then
 fi
 
 # Only apply the guix specific settings
-if [ -n "$GUIX_LOCPATH" ]
-then
+if [ -n "$GUIX_LOCPATH" ]; then
 	# Source the system-wide file.
 	source /etc/bashrc
 
 	# Adjust the prompt depending on whether we're in 'guix environment'
-	if [ -n "$GUIX_ENVIRONMENT" ]
-	then
+	if [ -n "$GUIX_ENVIRONMENT" ]; then
 		PS1='\u@\h \w [env]\$ '
 	else
 		PS1='\u@\h \w\$ '
@@ -98,9 +95,6 @@ eval "$(starship init bash)"
 
 # Add completions for glab if installed
 type "glab" >/dev/null 2>&1 && eval "$(glab completion)"
-
-# Use conda
-source /opt/conda/etc/profile.d/conda.sh
 
 # Use neovim as the default editor
 export EDITOR='nvim'

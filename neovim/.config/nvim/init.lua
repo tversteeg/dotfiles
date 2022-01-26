@@ -198,6 +198,12 @@ do
             "folke/twilight.nvim",
             -- Autocompletion
             "hrsh7th/cmp-nvim-lsp",
+            -- Loading progress
+            "j-hui/fidget.nvim",
+            -- Lightbulb in the gutter
+            "kosayoda/nvim-lightbulb",
+            -- Code action menu
+            "weilbith/nvim-code-action-menu",
         },
         ft = "rust",
         cfg = function()
@@ -206,10 +212,10 @@ do
             --local lsp_status = require "lsp-status"
             local twilight = require "twilight"
             local cmp_nvim_lsp = require "cmp_nvim_lsp"
+            local fidget = require "fidget"
 
             -- Add LSP snippets to autocompletion
             local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.completion.completionItem.snippetSupport = true
             capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
             -- Setup rust-analyzer
@@ -230,20 +236,12 @@ do
             })
 
             -- Setup Vue
-            --[[
-            lsp.vuels.setup({
-                on_attach = lsp_status.on_attach,
-                capabilities = lsp_status.capabilities,
+            lsp.volar.setup({
+                capabilities = capabilities,
+                filetypes = {"typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json"},
             })
-            ]]
 
 	    --[[
-            -- Setup typescript
-            lsp.tsserver.setup({
-                on_attach = lsp_status.on_attach,
-                capabilities = lsp_status.capabilities,
-            })
-
             -- Setup python
             lsp.pylsp.setup({
                 on_attach = lsp_status.on_attach,
@@ -275,6 +273,15 @@ do
 
             -- Setup inactive code dimming
             twilight.setup({})
+
+            -- Setup progress
+            fidget.setup({})
+
+            -- Automatically show a lightbulb
+            vim.cmd("autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()")
+
+            -- Show the code action menu
+            vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", {noremap = true, silent = true})
         end
     }
 
@@ -287,11 +294,15 @@ do
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-cmdline",
             "saecki/crates.nvim",
             "PaterJason/cmp-conjure",
+            "lukas-reineke/cmp-rg",
+            "petertriho/cmp-git",
         },
         cfg = function()
             local cmp = require "cmp"
+            local cmp_git = require "cmp_git"
 
             -- Fix neovim completion options
             vim.o.completeopt = "menuone,noinsert,noselect"
@@ -301,17 +312,38 @@ do
                 enabled = true,
                 sources = {
                     {name = "nvim_lsp"},
+                    {name = "rg"},
                     {name = "nvim_lua"},
                     {name = "buffer"},
                     {name = "path"},
                     {name = "crates"},
                     {name = "conjure"},
+                    {name = "cmp_git"},
                 },
                 mapping = {
-                    ["<c-space>"] = cmp.mapping.complete(),
+                    ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
                     ["<c-y>"] = cmp.mapping.confirm({select = true}),
+                    ["<CR>"] = cmp.mapping.confirm({select = true}),
                 }
             })
+
+            -- Autocompletion in / search
+            cmp.setup.cmdline("/", {
+                sources = {
+                    {name = "buffer"},
+                }
+            })
+
+            -- Autocompletion in : command
+            cmp.setup.cmdline(":", {
+                sources = cmp.config.sources({
+                    {name = "path"},
+                }, {
+                    {name = "cmdline"},
+                })
+            })
+
+            cmp_git.setup({})
         end,
     }
 
@@ -333,22 +365,25 @@ do
                 },
                 python = {
                     {
+                        --[[
                         cmd = {
                             "black --config ~/w/project-types/cemsdev-python/config/pyproject.toml .",
                             "isort --sp ~/w/project-types/cemsdev-python/config/pyproject.toml .",
                             "flake8 --config ~/w/project-types/cemsdev-python/config/pyproject.toml .",
                             "mypy --config ~/w/project-types/cemsdev-python/config/mypy.ini .",
                         }
+                        ]]
+                        cmd = {"cemsdev run format --only python"}
                     }
                 },
                 javascript = {
                     {
-                        cmd = {"prettier -w"}
+                        cmd = {"cemsdev run format --only typescript"}
                     }
                 },
                 typescript = {
                     {
-                        cmd = {"prettier -w"}
+                        cmd = {"cemsdev run format --only typescript"}
                     }
                 },
                 vue = {
@@ -358,7 +393,7 @@ do
                 },
                 markdown = {
                     {
-                        cmd = {"prettier -w"}
+                        cmd = {"cemsdev run format --only markdown"}
                     }
                 },
                 bash = {
@@ -452,8 +487,11 @@ do
         ft = "rust",
         cfg = function()
             local rust = require "rust-tools"
+            local inlay_hints = require "rust-tools.inlay_hints"
 
             rust.setup({})
+
+            inlay_hints.set_inlay_hints()
         end
     }
 

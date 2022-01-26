@@ -1,7 +1,6 @@
 format = """
 $directory\
 $username\
-$hostname\
 $shlvl\
 $singularity\
 $vcsh\
@@ -62,14 +61,18 @@ $battery\
 $time\
 $status\
 $shell\
+$hostname\
 $character"""
 
 [hostname]
-format = "[ ]($style) "
+format = "[]($style) "
 
 [username]
 format = "[$user]($style) "
 disabled = true
+
+[directory]
+repo_root_style = "underline cyan"
 
 [package]
 symbol = " "
@@ -91,3 +94,6 @@ format = "on [  $project@$domain]($style) "
 
 [conda]
 symbol = " "
+
+[python]
+symbol = " "
