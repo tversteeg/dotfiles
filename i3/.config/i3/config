@@ -150,6 +150,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause -i firefox*
+bindsym Shift+XF86AudioPlay exec mpc toggle
 bindsym XF86AudioNext exec playerctl next -i firefox*
 bindsym XF86AudioPrev exec playerctl previous -i firefox*
 

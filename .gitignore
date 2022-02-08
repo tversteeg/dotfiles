@@ -2,3 +2,4 @@
 *~
 state.pickle
 undo/
+neovim/.config/nvim/plugin

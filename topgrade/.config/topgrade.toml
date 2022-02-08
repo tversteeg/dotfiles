@@ -1,4 +1,5 @@
 no_retry = true
+remote_topgrades = ["cems.local"]
 
 [git]
 repos = [
@@ -11,3 +12,6 @@ repos = [
 [commands]
 "Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
 "Helix" = "cd ~/r/helix && cargo install --path helix-term && mkdir -p ~/.config/helix/runtime && cp -R runtime/* ~/.config/helix/runtime/"
+
+[firmware]
+upgrade = true
