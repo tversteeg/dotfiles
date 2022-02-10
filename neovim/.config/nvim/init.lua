@@ -74,12 +74,7 @@ require("packer").startup({function(use)
     }
 
     -- Dev icons, requires a nerd font
-    use {
-        "yamatsum/nvim-nonicons",
-        requires = {
-            { "kyazdani42/nvim-web-devicons" },
-        },
-    }
+    use "kyazdani42/nvim-web-devicons"
 
     -- Language server
     do
@@ -163,7 +158,9 @@ require("packer").startup({function(use)
         -- Show a lightbulb in the gutter when an action is available
         use {
             "kosayoda/nvim-lightbulb",
-            run = "autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()",
+            config = function()
+                vim.cmd("autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()")
+            end
         }
 
         -- Code action menu
@@ -181,6 +178,11 @@ require("packer").startup({function(use)
             "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
             config = function()
                 require("lsp_lines").register_lsp_virtual_lines()
+
+                -- Disable virtual text diagnostics since they are redundant
+                vim.diagnostic.config({
+                    virtual_text = false
+                })
             end,
         }
     end
@@ -241,6 +243,9 @@ require("packer").startup({function(use)
                     {name = "cmdline"},
                 })
             })
+
+            -- Disable when inside telescope
+            vim.cmd("autocmd FileType TelescopePrompt lua require('cmp').setup.buffer({ enabled = false })")
         end,
     }
 

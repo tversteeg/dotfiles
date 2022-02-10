@@ -1,0 +1,16 @@
+no_retry = true
+
+[git]
+repos = [
+	"~/.dotfiles",
+	"~/r/*",
+	"~/w/*/*",
+	"~/gh/*/*",
+]
+
+[commands]
+"Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
+"Helix" = "cd ~/r/helix && cargo install --path helix-term && mkdir -p ~/.config/helix/runtime && cp -R runtime/* ~/.config/helix/runtime/"
+
+[firmware]
+upgrade = true
