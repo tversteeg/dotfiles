@@ -379,7 +379,6 @@ require("packer").startup({function(use)
                     runnables = {
                         -- Use telescope for the selection menu
                         use_telescope = true,
-
                     },
                 },
             })

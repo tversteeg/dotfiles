@@ -149,10 +149,12 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -i audio-volume-muted -r 2593 mute
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause -i firefox*
+bindsym XF86AudioPlay exec playerctl play-pause
 bindsym Shift+XF86AudioPlay exec mpc toggle
-bindsym XF86AudioNext exec playerctl next -i firefox*
-bindsym XF86AudioPrev exec playerctl previous -i firefox*
+bindsym XF86AudioNext exec playerctl next
+bindsym Shift+XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym Shift+XF86AudioPrev exec mpc prev
 
 # Screenshot
 bindsym Print exec flameshot gui
@@ -188,14 +190,14 @@ bindsym $mod+r mode "resize"
 font pango:FiraCode Nerd Font 6
 
 # Thin border
-default_border pixel 2
+default_border pixel 1
 
 # Don't show edges when there's no adjacent window
 hide_edge_borders both
 
 # The bottom bar
 bar {
-	font pango:FiraCode Nerd Font 10
+	font pango:FiraCode Nerd Font 8
 	status_command /home/thomas/.cargo/bin/i3status-rs ~/.config/i3status-rust/config.toml
 
 	colors {

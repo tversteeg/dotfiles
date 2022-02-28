@@ -106,6 +106,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Show a nice preview for FZF
 export FZF_DEFAULT_OPTS='--preview-window=:hidden --preview "bat {}"'
 
+# Guix
+export GUIX_PROFILE="$HOME/.guix-profile"
+. "$GUIX_PROFILE/etc/profile"
+
 # Start flavours
 # Base16 Summerfruit Light
 # Author: Christopher Corley (http://christop.club/)
