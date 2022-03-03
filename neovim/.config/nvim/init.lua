@@ -56,6 +56,7 @@ require("packer").startup({function(use)
                 -- Syntax highlighting
                 highlight = {
                     enable = true,
+                    extended_mode = true,
                 },
                 -- Rainbow parentheses
                 rainbow = {
@@ -251,52 +252,68 @@ require("packer").startup({function(use)
 
     -- Automatically format code
     use {
-        "lukas-reineke/format.nvim",
+        "mhartington/formatter.nvim",
         config = function()
-            require("format").setup({
-                lua = {
-                    {
-                        cmd = {
-                            function(file)
-                                return string.format("luafmt -l %s -w replace %s", vim.bo.textwidth, file)
-                            end
-                        }
-                    }
-                },
-                python = {
-                    {
-                        cmd = {"cemsdev run format --only python"}
-                    }
-                },
-                javascript = {
-                    {
-                        cmd = {"cemsdev run format --only typescript"}
-                    }
-                },
-                typescript = {
-                    {
-                        cmd = {"cemsdev run format --only typescript"}
-                    }
-                },
-                vue = {
-                    {
-                        cmd = {"prettier -w"}
-                    }
-                },
-                markdown = {
-                    {
-                        cmd = {"cemsdev run format --only markdown"}
-                    }
-                },
-                bash = {
-                    {
-                        cmd = {"shfmt -l -w"}
-                    }
-                },
-                sh = {
-                    {
-                        cmd = {"shfmt -l -w"}
-                    }
+            require("formatter").setup({
+                filetype = {
+                    lua = {
+                        function()
+                            return {
+                                exe = "luafmt",
+                                args = {"-l", vim.bo.textwidth, "--stdin"},
+                                stdin = true
+                            }
+                        end
+                    },
+                    python = {
+                        function ()
+                            return {
+                                exe = "cemsdev",
+                                args = {"run", "format", "--only", "python"},
+                            }
+                        end
+                    },
+                    javascript = {
+                        function ()
+                            return {
+                                exe = "cemsdev",
+                                args = {"run", "format", "--only", "typescript"},
+                            }
+                        end
+                    },
+                    typescript = {
+                        function ()
+                            return {
+                                exe = "cemsdev",
+                                args = {"run", "format", "--only", "typescript"},
+                            }
+                        end
+                    },
+                    vue = {
+                        function()
+                            return {
+                                exe = "prettier",
+                                args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote"},
+                                stdin = true
+                            }
+                        end
+                    },
+                    markdown = {
+                        function ()
+                            return {
+                                exe = "cemsdev",
+                                args = {"run", "format", "--only", "markdown"},
+                            }
+                        end
+                    },
+                    sh = {
+                        function ()
+                            return {
+                                exe = "shfmt",
+                                stdin = true,
+                            }
+                        end
+                    },
                 }
             })
 
