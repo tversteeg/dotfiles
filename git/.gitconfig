@@ -26,3 +26,5 @@
 	defaultBranch = main
 [trim]
 	bases = dev,develop,master,main
+[sequence]
+	editor = "interactive-rebase-tool"
