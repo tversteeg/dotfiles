@@ -34,8 +34,25 @@ require("packer").startup({function(use)
             { "nvim-lua/plenary.nvim" },
         },
         config = function()
-            vim.api.nvim_set_keymap("", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
-            vim.api.nvim_set_keymap("!", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
+            require("telescope").load_extension("frecency")
+
+            -- Last files
+            vim.api.nvim_set_keymap("n", "<leader><leader>", ":lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
+        end,
+    }
+
+    -- Frequently visited files with <leader><leader>
+    use {
+        "nvim-telescope/telescope-frecency.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+            { "tami5/sqlite.lua" },
+        },
+        config = function()
+            require("telescope").load_extension("frecency")
+
+            -- Last files
+            vim.api.nvim_set_keymap("n", "<leader><leader>", ":lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
         end,
     }
 
@@ -399,6 +416,9 @@ require("packer").startup({function(use)
                     },
                 },
             })
+
+            -- Use telescope as the default neovim ui
+            require("telescope").load_extension("ui-select")
         end,
     }
 
