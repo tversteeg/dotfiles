@@ -36,8 +36,9 @@ require("packer").startup({function(use)
         config = function()
             require("telescope").load_extension("frecency")
 
-            -- Last files
-            vim.api.nvim_set_keymap("n", "<leader><leader>", ":lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
+            -- Git files
+            vim.api.nvim_set_keymap("", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
+            vim.api.nvim_set_keymap("!", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
         end,
     }
 
@@ -94,6 +95,17 @@ require("packer").startup({function(use)
     -- Dev icons, requires a nerd font
     use "kyazdani42/nvim-web-devicons"
 
+    -- Desktop notifications
+    use {
+        "simrat39/desktop-notify.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+        },
+        config = function()
+            require("desktop-notify").override_vim_notify()
+        end,
+    }
+
     -- Language server
     do
         use {
@@ -135,6 +147,7 @@ require("packer").startup({function(use)
                     capabilities = capabilities,
                 })
 
+                --[[
                 -- Map the shortcuts
                 local function lsp_map(shortcut, name)
                     vim.api.nvim_set_keymap("n", shortcut, "<cmd>lua vim.lsp.buf." .. name .. "()<CR>", {noremap = true, silent = true})
@@ -146,6 +159,7 @@ require("packer").startup({function(use)
                 lsp_map("<c-k>", "signature_help")
                 lsp_map("1gD", "type_definition")
                 lsp_map("ga", "code_action")
+                ]]
             end,
         }
 
@@ -419,6 +433,23 @@ require("packer").startup({function(use)
 
             -- Use telescope as the default neovim ui
             require("telescope").load_extension("ui-select")
+
+            -- Map the shortcuts
+            local function map_shortcut(shortcut, name, args)
+                vim.api.nvim_set_keymap("n", shortcut, ("<cmd>lua require'rust-tools.%s'.%s(%s)<CR>"):format(name, name, args or ""), {noremap = true, silent = true})
+            end
+
+            map_shortcut("K", "hover_actions")
+            map_shortcut("J", "join_lines")
+            map_shortcut("<leader>c", "open_cargo_toml")
+            map_shortcut("<leader>p", "parent_module")
+            map_shortcut("<leader>r", "runnables")
+            map_shortcut("<leader>e", "expand_macro")
+
+            map_shortcut("<leader>u", "move_item", "true")
+            map_shortcut("<leader>d", "move_item", "false")
+
+            vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require'rust-tools.crate_graph'.view_crate_graph()<CR>", {noremap = true, silent = true})
         end,
     }
 

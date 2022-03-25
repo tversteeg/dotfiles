@@ -77,7 +77,8 @@ fi
 
 # Use better alternatives
 #alias ls='lsd'
-alias ls='nnn -de'
+#alias ls='nnn -de'
+alias ls='xplr'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 
