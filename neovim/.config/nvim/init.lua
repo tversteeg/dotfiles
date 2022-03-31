@@ -462,6 +462,9 @@ require("packer").startup({function(use)
     -- Keep track of the time spent programming with wakatime
     use "wakatime/vim-wakatime"
 
+    -- WGSL highlighting
+    use "DingDean/wgsl.vim"
+
     -- Automatically setup the configuration after cloning packer.nvim, must be after other plugins
     if packer_bootstrap then
         require("packer").sync()
@@ -570,7 +573,6 @@ end
 do
     -- Use jj instead of <esc>
     vim.api.nvim_set_keymap("i", "jj", "<esc>", {noremap = true})
-    vim.api.nvim_set_keymap("i", "<esc>", "", {noremap = true})
 
     -- Move across wrapped lines like regular lines
     -- Go to the first non-blank character of a line

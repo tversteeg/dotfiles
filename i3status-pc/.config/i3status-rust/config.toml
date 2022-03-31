@@ -69,6 +69,14 @@ block = "time"
 interval = 60
 format = "%a %d/%m %R"
 
+[[block]]
+block = "time"
+format = "%R"
+timezone = "Asia/Ho_Chi_Minh"
+interval = 60
+[block.icons_overrides]
+time = "\uf005"
+
 # Start flavours
 # vi:syntax=toml
 
