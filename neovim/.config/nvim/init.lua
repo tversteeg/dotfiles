@@ -32,9 +32,14 @@ require("packer").startup({function(use)
         "nvim-telescope/telescope.nvim",
         requires = {
             { "nvim-lua/plenary.nvim" },
+            { "stevearc/dressing.nvim" },
         },
         config = function()
             require("telescope").load_extension("frecency")
+            -- Use telescope as the default neovim ui
+            require("telescope").load_extension("ui-select")
+
+            require("dressing").setup({})
 
             -- Git files
             vim.api.nvim_set_keymap("", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
@@ -230,9 +235,15 @@ require("packer").startup({function(use)
             { "hrsh7th/cmp-cmdline" },
             { "saecki/crates.nvim" },
             { "lukas-reineke/cmp-rg" },
+            -- Snippets
+            { "L3MON4D3/LuaSnip" },
+            { "saadparwaiz1/cmp_luasnip" },
+            -- Git
+            { "petertriho/cmp-git" },
         },
         config = function()
             local cmp = require "cmp"
+            local git = require "cmp_git"
 
             -- Fix neovim completion options
             vim.o.completeopt = "menuone,noinsert,noselect"
@@ -240,6 +251,10 @@ require("packer").startup({function(use)
             -- Enable different autocompletion targets
             cmp.setup({
                 enabled = true,
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
                 sources = {
                     {name = "nvim_lsp"},
                     {name = "rg"},
@@ -247,12 +262,14 @@ require("packer").startup({function(use)
                     {name = "buffer"},
                     {name = "path"},
                     {name = "crates"},
+                    {name = "luasnip"},
+                    {name = "git"},
                 },
-                mapping = {
-                    ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+                mapping = cmp.mapping.preset.insert({
+                    ["<leader><space>"] = cmp.mapping.complete(),
                     ["<c-y>"] = cmp.mapping.confirm({select = true}),
                     ["<CR>"] = cmp.mapping.confirm({select = true}),
-                },
+                }),
                 snippet = {
                     expand = function(args)
                         vim.fn["vsnip#anonymous"](args.body)
@@ -262,6 +279,7 @@ require("packer").startup({function(use)
 
             -- Autocompletion in / search
             cmp.setup.cmdline("/", {
+                mapping = cmp.mapping.preset.cmdline(),
                 sources = {
                     {name = "buffer"},
                 }
@@ -269,6 +287,7 @@ require("packer").startup({function(use)
 
             -- Autocompletion in : command
             cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
                     {name = "path"},
                 }, {
@@ -278,6 +297,16 @@ require("packer").startup({function(use)
 
             -- Disable when inside telescope
             vim.cmd("autocmd FileType TelescopePrompt lua require('cmp').setup.buffer({ enabled = false })")
+
+            git.setup()
+        end,
+    }
+
+    -- Find and show keybindings
+    use {
+        "mrjones2014/legendary.nvim",
+        config = function()
+            vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>lua require'legendary'.setup()<CR>", {noremap = true, silent = true})
         end,
     }
 
@@ -430,9 +459,6 @@ require("packer").startup({function(use)
                     },
                 },
             })
-
-            -- Use telescope as the default neovim ui
-            require("telescope").load_extension("ui-select")
 
             -- Map the shortcuts
             local function map_shortcut(shortcut, name, args)
