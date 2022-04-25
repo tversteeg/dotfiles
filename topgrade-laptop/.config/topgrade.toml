@@ -11,6 +11,7 @@ repos = [
 [commands]
 "Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
 "Helix" = "cd ~/r/helix && cargo install --path helix-term && mkdir -p ~/.config/helix/runtime && cp -R runtime/* ~/.config/helix/runtime/"
+"Neovim Nightly" = "cd /tmp && wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.deb && sudo dpkg -i nvim-linux64.deb"
 
 [firmware]
 upgrade = true
