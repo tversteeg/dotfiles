@@ -1,10 +1,11 @@
 --[[ Bootstrap Package Manager ]]
+local packer_bootstrap
 do
     -- Clone the git repository if not found
     local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         -- Clone the package manager repository
-        packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
     end
 
     -- Initialize the package manager
@@ -20,7 +21,7 @@ do
 end
 
 --[[ Plugins ]]
-require("packer").startup({function(use)
+require("packer").startup({ function(use)
     -- The package manager itself
     use "wbthomason/packer.nvim"
 
@@ -35,19 +36,14 @@ require("packer").startup({function(use)
             { "stevearc/dressing.nvim" },
         },
         config = function()
-            require("telescope").load_extension("frecency")
             -- Use telescope as the default neovim ui
             require("telescope").load_extension("ui-select")
 
             require("dressing").setup({})
-
-            -- Git files
-            vim.api.nvim_set_keymap("", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
-            vim.api.nvim_set_keymap("!", "<c-p>", ":lua require('telescope.builtin').git_files()<CR>", {})
         end,
     }
 
-    -- Frequently visited files with <leader><leader>
+    -- Frequently visited files with <leader>f
     use {
         "nvim-telescope/telescope-frecency.nvim",
         requires = {
@@ -56,9 +52,6 @@ require("packer").startup({function(use)
         },
         config = function()
             require("telescope").load_extension("frecency")
-
-            -- Last files
-            vim.api.nvim_set_keymap("n", "<leader><leader>", ":lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
         end,
     }
 
@@ -72,10 +65,9 @@ require("packer").startup({function(use)
         },
         config = function()
             local treesitter = require "nvim-treesitter.configs"
-            local parsers = require "nvim-treesitter.parsers"
 
             treesitter.setup({
-                ensure_installed = {"lua", "rust", "typescript", "python", "vue", "toml", "vim", "yaml", "json", "dockerfile", "bash"},
+                ensure_installed = { "lua", "rust", "typescript", "python", "vue", "toml", "vim", "yaml", "json", "dockerfile", "bash" },
                 -- Syntax highlighting
                 highlight = {
                     enable = true,
@@ -144,7 +136,7 @@ require("packer").startup({function(use)
                 -- Setup Vue
                 lsp.volar.setup({
                     capabilities = capabilities,
-                    filetypes = {"typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json"},
+                    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
                 })
 
                 -- Setup Python
@@ -152,19 +144,41 @@ require("packer").startup({function(use)
                     capabilities = capabilities,
                 })
 
-                --[[
-                -- Map the shortcuts
-                local function lsp_map(shortcut, name)
-                    vim.api.nvim_set_keymap("n", shortcut, "<cmd>lua vim.lsp.buf." .. name .. "()<CR>", {noremap = true, silent = true})
-                end
+                -- Setup Lua
+                local runtime_path = vim.split(package.path, ';')
+                table.insert(runtime_path, "lua/?.lua")
+                table.insert(runtime_path, "lua/?/init.lua")
+                lsp.sumneko_lua.setup({
+                    capabilities = capabilities,
+                    settings = {
+                        Lua = {
+                            diagnostics = {
+                                globals = { "vim" },
+                            },
+                            workspace = {
+                                -- Make the server aware of Neovim runtime files
+                                library = vim.api.nvim_get_runtime_file("", true),
+                            },
+                            telemetry = {
+                                enable = false,
+                            },
+                            format = {
+                                enable = true,
+                                defaultConfig = {
+                                    indent_style = "tab",
+                                    indent_size = "1",
+                                }
+                            }
+                        }
+                    }
+                })
 
-                lsp_map("gd", "declaration")
-                lsp_map("K", "hover")
-                lsp_map("gD", "implementation")
-                lsp_map("<c-k>", "signature_help")
-                lsp_map("1gD", "type_definition")
-                lsp_map("ga", "code_action")
-                ]]
+                -- Format using LSP on save
+                vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+                    callback = function()
+                        vim.lsp.buf.format()
+                    end,
+                })
             end,
         }
 
@@ -196,19 +210,25 @@ require("packer").startup({function(use)
         use {
             "kosayoda/nvim-lightbulb",
             config = function()
-                vim.cmd("autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()")
+                require("nvim-lightbulb").setup({
+                    float = {
+                        enabled = ""
+                    }
+                })
+
+                vim.api.nvim_create_autocmd(
+                    { "CursorHold", "CursorHoldI" },
+                    {
+                        callback = function()
+                            require("nvim-lightbulb").update_lightbulb()
+                        end
+                    })
             end
         }
 
         -- Code action menu
         -- <leader>a
-        use {
-            "weilbith/nvim-code-action-menu",
-            config = function()
-                -- Show the code action menu
-                vim.api.nvim_set_keymap("n", "<leader>a", "<cmd>CodeActionMenu<CR>", {noremap = true, silent = true})
-            end,
-        }
+        use "weilbith/nvim-code-action-menu"
 
         -- Diagnostics using virtual lines
         use {
@@ -256,19 +276,19 @@ require("packer").startup({function(use)
                     documentation = cmp.config.window.bordered(),
                 },
                 sources = {
-                    {name = "nvim_lsp"},
-                    {name = "rg"},
-                    {name = "nvim_lua"},
-                    {name = "buffer"},
-                    {name = "path"},
-                    {name = "crates"},
-                    {name = "luasnip"},
-                    {name = "git"},
+                    { name = "nvim_lsp" },
+                    { name = "rg" },
+                    { name = "nvim_lua" },
+                    { name = "buffer" },
+                    { name = "path" },
+                    { name = "crates" },
+                    { name = "luasnip" },
+                    { name = "git" },
                 },
                 mapping = cmp.mapping.preset.insert({
-                    ["<leader><space>"] = cmp.mapping.complete(),
-                    ["<c-y>"] = cmp.mapping.confirm({select = true}),
-                    ["<CR>"] = cmp.mapping.confirm({select = true}),
+                    --["<space>"] = cmp.mapping.complete(),
+                    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
                 snippet = {
                     expand = function(args)
@@ -281,7 +301,7 @@ require("packer").startup({function(use)
             cmp.setup.cmdline("/", {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
-                    {name = "buffer"},
+                    { name = "buffer" },
                 }
             })
 
@@ -289,27 +309,64 @@ require("packer").startup({function(use)
             cmp.setup.cmdline(":", {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
-                    {name = "path"},
+                    { name = "path" },
                 }, {
-                    {name = "cmdline"},
+                    { name = "cmdline" },
                 })
             })
 
-            -- Disable when inside telescope
-            vim.cmd("autocmd FileType TelescopePrompt lua require('cmp').setup.buffer({ enabled = false })")
-
             git.setup()
+
+            -- Disable when inside telescope
+            vim.api.nvim_create_autocmd(
+                { "FileType" },
+                {
+                    pattern = "TelescopePrompt",
+                    callback = function()
+                        cmp.setup_buffer({ enabled = false })
+                    end
+                })
         end,
     }
 
-    -- Find and show keybindings
+    -- Define and show keybindings
     use {
         "mrjones2014/legendary.nvim",
         config = function()
-            vim.api.nvim_set_keymap("n", "<leader>/", "<cmd>lua require'legendary'.setup()<CR>", {noremap = true, silent = true})
+            local helpers = require('legendary.helpers')
+
+            local keymaps = {
+                -- Menus
+                { "<leader><leader>", helpers.lazy_required_fn("legendary", "find", "keymaps"), description = "This menu" },
+                { "<leader>a", "<cmd>CodeActionMenu<CR>", description = "Code action menu" },
+                { "<leader>f", require("telescope").extensions.frecency.frecency, description = "Most used files" },
+                { "<c-p>", helpers.lazy_required_fn("telescope.builtin", "git_files"), description = "Git files", mode = { "n", "v", "i" } },
+
+                -- Neovim dotfiles
+                { "<leader>l", "luafile %<CR>", description = "Execute current buffer as a Lua file" },
+
+                -- LSP
+                { "K", vim.lsp.buf.hover, description = "LSP hover" },
+                { "ga", vim.lsp.buf.code_action, description = "LSP code action" },
+                { "gd", vim.lsp.buf.declaration, description = "LSP declaration" },
+                { "gD", vim.lsp.buf.implementation, description = "LSP implementation" },
+                { "gr", vim.lsp.buf.references, description = "LSP references" },
+                { "<c-k>", vim.lsp.buf.signature_help, description = "LSP signature help" },
+                { "<leader>d", vim.lsp.buf.type_definition, description = "LSP type definition" },
+                { "<leader>wa", vim.lsp.buf.add_workspace_folder, description = "LSP add workspace folder" },
+                { "<leader>wr", vim.lsp.buf.remove_workspace_folder, description = "LSP remove workspace folder" },
+                { "<leader>r", vim.lsp.buf.rename, description = "LSP rename" },
+            }
+
+            require("legendary").setup({
+                keymaps = keymaps,
+                most_recent_item_at_top = true,
+            })
+
         end,
     }
 
+    --[[
     -- Automatically format code
     use {
         "mhartington/formatter.nvim",
@@ -320,32 +377,32 @@ require("packer").startup({function(use)
                         function()
                             return {
                                 exe = "luafmt",
-                                args = {"-l", vim.bo.textwidth, "--stdin"},
+                                args = { "-l", vim.bo.textwidth, "--stdin" },
                                 stdin = true
                             }
                         end
                     },
                     python = {
-                        function ()
+                        function()
                             return {
                                 exe = "cemsdev",
-                                args = {"run", "format", "--only", "python"},
+                                args = { "run", "format", "--only", "python" },
                             }
                         end
                     },
                     javascript = {
-                        function ()
+                        function()
                             return {
                                 exe = "cemsdev",
-                                args = {"run", "format", "--only", "typescript"},
+                                args = { "run", "format", "--only", "typescript" },
                             }
                         end
                     },
                     typescript = {
-                        function ()
+                        function()
                             return {
                                 exe = "cemsdev",
-                                args = {"run", "format", "--only", "typescript"},
+                                args = { "run", "format", "--only", "typescript" },
                             }
                         end
                     },
@@ -353,21 +410,21 @@ require("packer").startup({function(use)
                         function()
                             return {
                                 exe = "prettier",
-                                args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote"},
+                                args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
                                 stdin = true
                             }
                         end
                     },
                     markdown = {
-                        function ()
+                        function()
                             return {
                                 exe = "cemsdev",
-                                args = {"run", "format", "--only", "markdown"},
+                                args = { "run", "format", "--only", "markdown" },
                             }
                         end
                     },
                     sh = {
-                        function ()
+                        function()
                             return {
                                 exe = "shfmt",
                                 stdin = true,
@@ -380,26 +437,30 @@ require("packer").startup({function(use)
             vim.cmd("autocmd BufWritePost * FormatWrite")
         end,
     }
+    ]] --
 
-    -- Show whitespace
+    -- Show indentation lines
     use {
         "lukas-reineke/indent-blankline.nvim",
         cfg = function()
-            local indent = require "indent_blankline"
+            vim.opt.list = true
+            vim.opt.listchars:append("space:⋅")
+            vim.opt.listchars:append("eol:↴")
 
-            vim.g.indent_blankline_show_first_indent_level = true
-            vim.g.indent_blankline_show_trailing_blankline_indent = false
-            vim.g.indent_blankline_show_current_context = true
-            vim.g.indent_blankline_context_patterns = {
-                "class", "function", "method", "block", "list_literal", "selector",
-                "^if", "^table", "if_statement", "while", "for"
-            }
-
-            require("indent_blankline").setup()
+            require("indent_blankline").setup({
+                space_char_blankline = " ",
+                show_trailing_blankline_indent = true,
+                show_current_context = true,
+                show_current_context_start = true,
+                context_patterns = {
+                    "class", "function", "method", "block", "list_literal", "selector",
+                    "^if", "^table", "if_statement", "while", "for"
+                },
+            })
         end,
     }
 
--- Switch between relative and absolute numbers
+    -- Switch between relative and absolute numbers
     use "jeffkreeftmeijer/vim-numbertoggle"
 
     -- Show and remove extra whitespace
@@ -462,7 +523,7 @@ require("packer").startup({function(use)
 
             -- Map the shortcuts
             local function map_shortcut(shortcut, name, args)
-                vim.api.nvim_set_keymap("n", shortcut, ("<cmd>lua require'rust-tools.%s'.%s(%s)<CR>"):format(name, name, args or ""), {noremap = true, silent = true})
+                vim.api.nvim_set_keymap("n", shortcut, ("<cmd>lua require'rust-tools.%s'.%s(%s)<CR>"):format(name, name, args or ""), { noremap = true, silent = true })
             end
 
             map_shortcut("K", "hover_actions")
@@ -475,7 +536,7 @@ require("packer").startup({function(use)
             map_shortcut("<leader>u", "move_item", "true")
             map_shortcut("<leader>d", "move_item", "false")
 
-            vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require'rust-tools.crate_graph'.view_crate_graph()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require'rust-tools.crate_graph'.view_crate_graph()<CR>", { noremap = true, silent = true })
         end,
     }
 
@@ -501,7 +562,7 @@ config = {
     display = {
         open_fn = require("packer.util").float,
     },
-}})
+} })
 
 --[[ Global Options ]]
 do
@@ -519,6 +580,9 @@ do
 
     -- Enable terminal gui colors
     vim.o.termguicolors = true
+
+    -- Set the leader key to space
+    vim.g.mapleader = " "
 end
 
 --[[ Window Options ]]
@@ -560,6 +624,12 @@ do
         vim.cmd("augroup END")
     end
 
+    -- Save the position of screen at exit
+    create_augroup({
+        "BufWinLeave *.* mkview",
+        "BufWinEnter *.* silent loadview",
+    }, "position")
+
     -- Lua indentation
     create_augroup({
         "FileType lua setlocal tabstop=4 shiftwidth=4 expandtab autoindent",
@@ -592,17 +662,13 @@ do
     create_augroup({
         "FileType delphi setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent fileformat=unix foldmethod=indent"
     }, "delphi")
-
 end
 
 --[[ Key Maps ]]
 do
-    -- Use jj instead of <esc>
-    vim.api.nvim_set_keymap("i", "jj", "<esc>", {noremap = true})
-
     -- Move across wrapped lines like regular lines
     -- Go to the first non-blank character of a line
-    vim.api.nvim_set_keymap("n", "0", "^", {noremap = true})
+    vim.api.nvim_set_keymap("n", "0", "^", { noremap = true })
     -- Just in case you need to go to the very beginning of a line
-    vim.api.nvim_set_keymap("n", "^", "0", {noremap = true})
+    vim.api.nvim_set_keymap("n", "^", "0", { noremap = true })
 end

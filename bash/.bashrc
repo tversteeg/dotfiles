@@ -82,8 +82,8 @@ alias ls='xplr'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 
-# Add installed cargo binaries to path, and ~/.local/bin
-export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin"
+# Add installed cargo binaries to path, and ~/.local/bin, and the lua language server
+export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin"
 
 # Expose 'z'
 eval "$(zoxide init bash)"
@@ -143,3 +143,5 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
 
 _gen_fzf_default_opts
 # End flavours
+
+alias luamake=/home/thomas/r/lua-language-server/3rd/luamake/luamake
