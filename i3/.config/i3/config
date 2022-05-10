@@ -30,6 +30,9 @@ exec kdeconnect-indicator
 exec transmission-gtk -m
 exec protonmail-bridge --no-window
 exec playerctld daemon
+exec syncthing serve
+exec nextcloud --background
+exec keepassxc
 exec mpDris2
 exec mpd ~/.config/mpd/mpd.conf
 

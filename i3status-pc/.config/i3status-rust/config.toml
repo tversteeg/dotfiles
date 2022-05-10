@@ -77,6 +77,11 @@ interval = 60
 [block.icons_overrides]
 time = "\uf005"
 
+[[block]]
+block = "weather"
+format = "{temp}  {humidity}  {wind_kmh}"
+service = { name = "openweathermap", api_key = "f3fae1d7eda4929ec1f10ebdf797f46a", city_id = "2754064", units = "metric" }
+
 # Start flavours
 # vi:syntax=toml
 
