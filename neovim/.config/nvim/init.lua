@@ -356,6 +356,12 @@ require("packer").startup({ function(use)
                 { "<leader>wa", vim.lsp.buf.add_workspace_folder, description = "LSP add workspace folder" },
                 { "<leader>wr", vim.lsp.buf.remove_workspace_folder, description = "LSP remove workspace folder" },
                 { "<leader>r", vim.lsp.buf.rename, description = "LSP rename" },
+
+                -- Treesitter
+                { "<c-j>", helpers.lazy_required_fn("trevj", "format_at_cursor"), description = "TS Split lines" },
+
+                -- Session
+                { "<leader>s", "<cmd>mksession<CR>", description = "Save session" },
             }
 
             require("legendary").setup({
@@ -537,6 +543,14 @@ require("packer").startup({ function(use)
             map_shortcut("<leader>d", "move_item", "false")
 
             vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require'rust-tools.crate_graph'.view_crate_graph()<CR>", { noremap = true, silent = true })
+        end,
+    }
+
+    -- Opposite of J
+    use {
+        "AckslD/nvim-trevJ.lua",
+        config = function()
+            require("trevj").setup()
         end,
     }
 

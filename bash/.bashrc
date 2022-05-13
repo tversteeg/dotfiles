@@ -75,6 +75,11 @@ else
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 
+# Start a new tmux session when opening from SSH
+if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
+	exec tmuxp load -y -2 $(tmuxp ls | fzf --layout=reverse --height=40%)
+fi
+
 # Use better alternatives
 #alias ls='lsd'
 #alias ls='nnn -de'

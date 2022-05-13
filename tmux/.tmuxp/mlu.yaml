@@ -1,0 +1,15 @@
+session_name: MLU
+start_directory: ~/w/mlu/
+environment:
+  SESSION_FILE: ~/.local/share/nvim/sessions/mlu.vim
+windows:
+  - window_name: Neovim
+    panes:
+      - shell_command:
+        - touch ${SESSION_FILE}
+        - nvim -S ${SESSION_FILE}
+  - window_name: CLI
+    layout: even-horizontal
+    panes:
+    - cemsdev run dev
+    - git fetch
