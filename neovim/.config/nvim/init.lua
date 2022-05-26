@@ -734,6 +734,11 @@ do
         return ("%%<%s/%s"):format(fpath, fname)
     end
 
+    -- Modified status
+    local function modified()
+        return "%m"
+    end
+
     -- LSP information
     local function lsp_status()
         local count = {}
@@ -770,6 +775,8 @@ do
     function StatusLine()
         return table.concat({
             filepath(),
+            " ",
+            modified(),
             " ",
             mode(),
             "%=",
