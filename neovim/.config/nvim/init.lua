@@ -226,6 +226,30 @@ require("packer").startup({ function(use)
             end
         }
 
+        -- Base 16 colorscheme
+        use {
+            "RRethy/nvim-base16",
+            config = function()
+                vim.cmd("colorscheme base16-summerfruit-light")
+            end,
+        }
+
+        -- Status line
+        use {
+            "nvim-lualine/lualine.nvim",
+            requires = {
+                { "kyazdani42/nvim-web-devicons", opt = true },
+            },
+            config = function()
+                require("lualine").setup({
+                    options = {
+                        icons_enabled = true,
+                        theme = "base16",
+                    },
+                })
+            end,
+        }
+
         -- Code action menu
         -- <leader>a
         use "weilbith/nvim-code-action-menu"
@@ -611,9 +635,6 @@ do
 
     -- Automatically hide some symbols (mainly markdown)
     vim.wo.conceallevel = 2
-
-    -- Base16 colorscheme
-    vim.cmd("colorscheme base16")
 end
 
 --[[ Buffer Options ]]
@@ -685,110 +706,4 @@ do
     vim.api.nvim_set_keymap("n", "0", "^", { noremap = true })
     -- Just in case you need to go to the very beginning of a line
     vim.api.nvim_set_keymap("n", "^", "0", { noremap = true })
-end
-
---[[ Status Line ]]
-do
-    -- Icon for the mode
-    local function mode()
-        local current_mode = vim.api.nvim_get_mode().mode
-
-        local modes = {
-            ["n"] = "",
-            ["no"] = "",
-            ["v"] = "",
-            ["V"] = "",
-            [""] = "",
-            ["s"] = "麗",
-            ["S"] = "",
-            [""] = "礪",
-            ["i"] = "﫦",
-            ["ic"] = "﫦",
-            ["R"] = "屢",
-            ["Rv"] = "﯒",
-            ["c"] = "",
-            ["cv"] = "",
-            ["ce"] = "",
-            ["r"] = "",
-            ["rm"] = "ﱟ",
-            ["r?"] = "",
-            ["!"] = "",
-            ["t"] = "",
-        }
-
-        return modes[current_mode]
-    end
-
-    -- Pretty full file path
-    local function filepath()
-        local fname = vim.fn.expand("%:t")
-
-        -- :~ reduces relative to home directory
-        -- :. reduces relative to the current directory
-        -- :h reduces relative to the head
-        local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:h")
-        if fpath == "" or fpath == "." then
-            return fname
-        end
-
-        return ("%%<%s/%s"):format(fpath, fname)
-    end
-
-    -- Modified status
-    local function modified()
-        return "%m"
-    end
-
-    -- LSP information
-    local function lsp_status()
-        local count = {}
-        local levels = {
-            errors = vim.diagnostic.severity.ERROR,
-            warnings = vim.diagnostic.severity.WARN,
-            info = vim.diagnostic.severity.INFO,
-            hints = vim.diagnostic.severity.HINT,
-        }
-
-        for k, level in pairs(levels) do
-            count[k] = vim.tbl_count(vim.diagnostic.get(0, { severity = level }))
-        end
-
-        local status = ""
-
-        if count["errors"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignError# " .. count["errors"]
-        end
-        if count["warnings"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignWarning# " .. count["warnings"]
-        end
-        if count["hints"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignHint# " .. count["hints"]
-        end
-        if count["info"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignInfo# " .. count["info"]
-        end
-
-        return status .. "%#Normal#"
-    end
-
-    -- Compose and draw the statusline
-    function StatusLine()
-        return table.concat({
-            filepath(),
-            " ",
-            modified(),
-            " ",
-            mode(),
-            "%=",
-            lsp_status(),
-        })
-    end
-
-    vim.o.statusline = "%!luaeval('StatusLine()')"
-
-    -- Highlights for the status line
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignError", { fg = "red", bold = true })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignWarning", { fg = "orange", bold = true })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignHint", { fg = "yellow", bold = true })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignInfo", { fg = "blue", bold = true })
 end
