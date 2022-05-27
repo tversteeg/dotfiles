@@ -1,25 +1,28 @@
 return {
     -- Builder method
-    s("builder_method", {
-        t "/// ",
-        i(3),
-        t({ ".", "fn " }),
-        i(1),
-        t "(self, ",
+    s("builder_method", fmt([[
+    /// {}.
+    fn (self, {}) -> Self {{
+        {}
+
+        self
+    }}
+    ]], {
         i(2),
-        t({ ") -> Self {", "\t" }),
+        i(1),
         i(0),
-        t({ "", "}" }),
-    }),
+    })),
+
     -- Rust function
-    s("fn", {
-        t "/// ",
+    s("fn", fmt([[
+    /// {}.
+    fn {}({}) -> {} {{
+        {}
+    }}
+    ]], {
         i(4),
-        t({ ".", "fn " }),
         i(1),
-        t "(",
         i(2),
-        t ") ",
         c(3, {
             t "Result<()> ",
             sn(nil, { t "Result<", i(1), t "> " }),
@@ -30,8 +33,7 @@ return {
             t "f32 ",
             t "f64 ",
         }),
-        t({ "{", "\t" }),
         i(0),
-        t({ "", "}" }),
-    })
+    }))
 }
+

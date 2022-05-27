@@ -445,7 +445,6 @@ require("packer").startup({ function(use)
                 keymaps = keymaps,
                 most_recent_item_at_top = true,
             })
-
         end,
     }
 
