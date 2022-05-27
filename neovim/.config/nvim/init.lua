@@ -89,6 +89,14 @@ require("packer").startup({ function(use)
         end,
     }
 
+    -- Base 16 colorscheme
+    use {
+        "RRethy/nvim-base16",
+        config = function()
+            vim.cmd("colorscheme base16-summerfruit-light")
+        end,
+    }
+
     -- Dev icons, requires a nerd font
     use "kyazdani42/nvim-web-devicons"
 
@@ -108,10 +116,16 @@ require("packer").startup({ function(use)
         use {
             "neovim/nvim-lspconfig",
             requires = {
+                -- Auto completions
                 { "hrsh7th/cmp-nvim-lsp" },
+                -- Install language servers
+                { "williamboman/nvim-lsp-installer" },
             },
             config = function()
                 local lsp = require "lspconfig"
+
+                -- Setup LSP installer
+                require("nvim-lsp-installer").setup({})
 
                 -- Add LSP to autocompletion
                 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -244,6 +258,23 @@ require("packer").startup({ function(use)
         }
     end
 
+    -- Snippets
+    use {
+        "L3MON4D3/LuaSnip",
+        config = function()
+            require("luasnip").config.set_config({
+                -- Keep the last snippet around so we can jump back
+                history = true,
+
+                -- Update the snippet as we type
+                updateevents = "TextChanged,TextChangedI",
+            })
+
+            -- Setup snippet loader
+            require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
+        end,
+    }
+
     -- Autocompletion
     use {
         "hrsh7th/nvim-cmp",
@@ -292,7 +323,7 @@ require("packer").startup({ function(use)
                 }),
                 snippet = {
                     expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
             })
@@ -337,13 +368,21 @@ require("packer").startup({ function(use)
 
             local keymaps = {
                 -- Menus
-                { "<leader><leader>", helpers.lazy_required_fn("legendary", "find", "keymaps"), description = "This menu" },
+                { "<leader><cr>", helpers.lazy_required_fn("legendary", "find", "keymaps"), description = "This menu" },
                 { "<leader>a", "<cmd>CodeActionMenu<CR>", description = "Code action menu" },
                 { "<leader>f", require("telescope").extensions.frecency.frecency, description = "Most used files" },
-                { "<c-p>", helpers.lazy_required_fn("telescope.builtin", "git_files"), description = "Git files", mode = { "n", "v", "i" } },
+                { "<c-p>", function()
+                    if vim.fn.getcwd() == "~" or vim.fn.getcwd() == "/home/thomas" then
+                        -- Show all files in home directory
+                        require("telescope.builtin").find_files()
+                    else
+                        require("telescope.builtin").git_files()
+                    end
+                end, description = "Git files", mode = { "n", "v", "i" } },
 
                 -- Neovim dotfiles
-                { "<leader>l", "luafile %<CR>", description = "Execute current buffer as a Lua file" },
+                { "<leader>l", "<cmd>luafile %<CR>", description = "Execute current buffer as a Lua file" },
+                { "<leader>x", "<cmd>source ~/.config/nvim/init.lua<CR>", description = "Reload configuration" },
 
                 -- LSP
                 { "K", vim.lsp.buf.hover, description = "LSP hover" },
@@ -362,6 +401,44 @@ require("packer").startup({ function(use)
 
                 -- Session
                 { "<leader>s", "<cmd>mksession<CR>", description = "Save session" },
+
+                -- Snippets
+                {
+                    "<c-k>", function()
+                        local ls = require("luasnip")
+
+                        if ls.expand_or_jumpable() then
+                            ls.expand_or_jump()
+                        end
+                    end,
+                    mode = { "s", "i" },
+                    description = "Expand current snippet or jump to the next item within it",
+                },
+                {
+                    "<c-j>", function()
+                        local ls = require("luasnip")
+
+                        if ls.jumpable(-1) then
+                            ls.jump(-1)
+                        end
+                    end,
+                    mode = { "s", "i" },
+                    description = "Move to the previous item within the snippet",
+                },
+                {
+                    "<c-l>", function()
+                        local ls = require("luasnip")
+
+                        if ls.choice_active() then
+                            ls.change_choice(1)
+                        end
+                    end,
+                    mode = { "s", "i" },
+                    description = "Select within the snippet's list of options",
+                },
+                { "<c-s>", helpers.lazy_required_fn("luasnip.extras", "select_choice"), mode = { "s", "i" }, description = "Visually select a snippet choice" },
+                { "<leader><leader>s", helpers.lazy_required_fn("luasnip.loaders.from_lua", "load", { paths = "~/.config/nvim/snippets/" }), description = "Load snippets" },
+                { "<leader><leader>e", helpers.lazy_required_fn("luasnip.loaders.from_lua", "edit_snippet_files"), description = "Edit snippets" },
             }
 
             require("legendary").setup({
