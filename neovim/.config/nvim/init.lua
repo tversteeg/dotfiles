@@ -32,6 +32,7 @@ require("packer").startup({ function(use)
     use {
         "nvim-telescope/telescope.nvim",
         requires = {
+            { "nvim-telescope/telescope-ui-select.nvim" },
             { "nvim-lua/plenary.nvim" },
             { "stevearc/dressing.nvim" },
         },
@@ -582,7 +583,6 @@ require("packer").startup({ function(use)
             { "neovim/nvim-lspconfig" },
             { "nvim-lua/popup.nvim" },
             { "nvim-lua/plenary.nvim" },
-            { "nvim-telescope/telescope-ui-select.nvim" },
             -- Debugging
             { "mfussenegger/nvim-dap" },
         },
@@ -687,9 +687,6 @@ do
 
     -- Automatically hide some symbols (mainly markdown)
     vim.wo.conceallevel = 2
-
-    -- Base16 colorscheme
-    vim.cmd("colorscheme base16")
 end
 
 --[[ Buffer Options ]]
@@ -765,49 +762,62 @@ end
 
 --[[ Status Line ]]
 do
+    -- Wrap a status line section in a nice looking field
+    local function section(text, opts)
+        opts = opts or {}
+
+        if not text or text == "" then
+            return ""
+        end
+
+        return ("%%#%s#%s%%#Normal# "):format(opts.color or "StatusLineNC", text)
+    end
+
     -- Icon for the mode
     local function mode()
         local current_mode = vim.api.nvim_get_mode().mode
 
         local modes = {
-            ["n"] = "",
-            ["no"] = "",
+            ["n"] = nil,
+            ["no"] = nil,
             ["v"] = "",
-            ["V"] = "",
-            [""] = "",
+            ["V"] = " ",
+            [""] = " ",
             ["s"] = "麗",
-            ["S"] = "",
-            [""] = "礪",
+            ["S"] = " ",
+            ["^s"] = "礪",
             ["i"] = "﫦",
             ["ic"] = "﫦",
             ["R"] = "屢",
             ["Rv"] = "﯒",
-            ["c"] = "",
+            ["c"] = " ",
             ["cv"] = "",
             ["ce"] = "",
-            ["r"] = "",
-            ["rm"] = "ﱟ",
-            ["r?"] = "",
-            ["!"] = "",
-            ["t"] = "",
+            ["r"] = " ",
+            ["rm"] = "ﱟ ",
+            ["r?"] = " ",
+            ["!"] = " ",
+            ["t"] = " ",
         }
 
         return modes[current_mode]
     end
 
     -- Pretty full file path
+    -- TODO: fix
     local function filepath()
-        local fname = vim.fn.expand("%:t")
+        -- local fname = vim.fn.expand("%:t")
 
-        -- :~ reduces relative to home directory
-        -- :. reduces relative to the current directory
-        -- :h reduces relative to the head
-        local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:h")
-        if fpath == "" or fpath == "." then
-            return fname
-        end
+        -- -- :~ reduces relative to home directory
+        -- -- :. reduces relative to the current directory
+        -- -- :h reduces relative to the head
+        -- local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:h")
+        -- if fpath == "" or fpath == "." then
+        --     return fname
+        -- end
 
-        return ("%%<%s/%s"):format(fpath, fname)
+        -- return ("%%<%s/%s"):format(fpath, fname)
+        return "%f"
     end
 
     -- Modified status
@@ -815,56 +825,36 @@ do
         return "%m"
     end
 
+    -- Modified status
+    local function file_type()
+        return "%y"
+    end
+
     -- LSP information
-    local function lsp_status()
-        local count = {}
-        local levels = {
-            errors = vim.diagnostic.severity.ERROR,
-            warnings = vim.diagnostic.severity.WARN,
-            info = vim.diagnostic.severity.INFO,
-            hints = vim.diagnostic.severity.HINT,
-        }
-
-        for k, level in pairs(levels) do
-            count[k] = vim.tbl_count(vim.diagnostic.get(0, { severity = level }))
+    local function lsp_status(symbol, severity)
+        local count = vim.tbl_count(vim.diagnostic.get(0, { severity = severity }))
+        if count == 0 then
+            return
         end
 
-        local status = ""
-
-        if count["errors"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignError# " .. count["errors"]
-        end
-        if count["warnings"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignWarning# " .. count["warnings"]
-        end
-        if count["hints"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignHint# " .. count["hints"]
-        end
-        if count["info"] ~= 0 then
-            status = status .. " %#LspDiagnosticsSignInfo# " .. count["info"]
-        end
-
-        return status .. "%#Normal#"
+        return symbol .. " " .. count
     end
 
     -- Compose and draw the statusline
     function StatusLine()
         return table.concat({
-            filepath(),
-            " ",
-            modified(),
-            " ",
-            mode(),
+
+            section(mode()),
+            section(filepath()),
+            section(modified()),
             "%=",
-            lsp_status(),
+            section(lsp_status("", vim.diagnostic.severity.ERROR)),
+            section(lsp_status("", vim.diagnostic.severity.WARN)),
+            section(lsp_status("", vim.diagnostic.severity.HINT)),
+            section(lsp_status("", vim.diagnostic.severity.INFO)),
+            section(file_type()),
         })
     end
 
     vim.o.statusline = "%!luaeval('StatusLine()')"
-
-    -- Highlights for the status line
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignError", { fg = "red", bold = true })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignWarning", { fg = "orange", bold = true })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignHint", { fg = "yellow", bold = true })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSignInfo", { fg = "blue", bold = true })
 end
