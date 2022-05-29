@@ -269,6 +269,14 @@ require("packer").startup({ function(use)
         end,
     }
 
+    -- Git sidebar
+    use {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("gitsigns").setup({})
+        end,
+    }
+
     -- Autocompletion
     use {
         "hrsh7th/nvim-cmp",
@@ -798,13 +806,24 @@ do
         return symbol .. " " .. count
     end
 
+    -- Git information
+    local function git_status()
+        return "%{get(b:,'gitsigns_status','')}"
+    end
+
+    -- Git information
+    local function git_head()
+        return "%{get(b:,'gitsigns_head','')}"
+    end
+
     -- Compose and draw the statusline
     function StatusLine()
         return table.concat({
-
             section(mode()),
             section(filepath()),
             section(modified()),
+            section(git_head()),
+            section(git_status()),
             "%=",
             section(lsp_status("", vim.diagnostic.severity.ERROR)),
             section(lsp_status("", vim.diagnostic.severity.WARN)),
