@@ -90,11 +90,20 @@ require("packer").startup({ function(use)
         end,
     }
 
-    -- Base 16 colorscheme
+    -- Colorscheme
     use {
-        "RRethy/nvim-base16",
+        "catppuccin/nvim",
         config = function()
-            vim.cmd("colorscheme base16-summerfruit-light")
+            require("catppuccin").setup({
+                transparent_background = true,
+                integrations = {
+                    gitgutter = true,
+                    ts_rainbow = true,
+                },
+            })
+
+            vim.g.catppuccin_flavour = "latte"
+            vim.cmd("colorscheme catppuccin")
         end,
     }
 
@@ -449,79 +458,6 @@ require("packer").startup({ function(use)
         end,
     }
 
-    --[[
-    -- Automatically format code
-    use {
-        "mhartington/formatter.nvim",
-        config = function()
-            require("formatter").setup({
-                filetype = {
-                    lua = {
-                        function()
-                            return {
-                                exe = "luafmt",
-                                args = { "-l", vim.bo.textwidth, "--stdin" },
-                                stdin = true
-                            }
-                        end
-                    },
-                    python = {
-                        function()
-                            return {
-                                exe = "cemsdev",
-                                args = { "run", "format", "--only", "python" },
-                            }
-                        end
-                    },
-                    javascript = {
-                        function()
-                            return {
-                                exe = "cemsdev",
-                                args = { "run", "format", "--only", "typescript" },
-                            }
-                        end
-                    },
-                    typescript = {
-                        function()
-                            return {
-                                exe = "cemsdev",
-                                args = { "run", "format", "--only", "typescript" },
-                            }
-                        end
-                    },
-                    vue = {
-                        function()
-                            return {
-                                exe = "prettier",
-                                args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
-                                stdin = true
-                            }
-                        end
-                    },
-                    markdown = {
-                        function()
-                            return {
-                                exe = "cemsdev",
-                                args = { "run", "format", "--only", "markdown" },
-                            }
-                        end
-                    },
-                    sh = {
-                        function()
-                            return {
-                                exe = "shfmt",
-                                stdin = true,
-                            }
-                        end
-                    },
-                }
-            })
-
-            vim.cmd("autocmd BufWritePost * FormatWrite")
-        end,
-    }
-    ]] --
-
     -- Show indentation lines
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -770,7 +706,7 @@ do
             return ""
         end
 
-        return ("%%#%s#%s%%#Normal# "):format(opts.color or "StatusLineNC", text)
+        return ("%%#%s#%s%%#Normal# "):format(opts.color or "StatusLine", text)
     end
 
     -- Icon for the mode

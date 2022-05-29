@@ -6,10 +6,10 @@ return {
 
     s("use", fmt([[
     -- {comment}
-    {{
-        use "{author}\\{repo}",
+    use {{
+        "{author}/{repo}",
         config = function()
-            require(\"{require}\").setup({{
+            require("{require}").setup({{
                 {setup}
             }})
         end,

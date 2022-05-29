@@ -24,20 +24,17 @@ set $base0F #CC6633
 
 set $mod Mod1
 
-exec ~/.screenlayout/default.sh
-exec dunst
-exec kdeconnect-indicator
-exec transmission-gtk -m
-exec protonmail-bridge --no-window
-exec playerctld daemon
-exec syncthing serve
-exec nextcloud --background
-exec keepassxc
-exec mpDris2
-exec mpd ~/.config/mpd/mpd.conf
+exec --no-startup-id dunst
+exec --no-startup-id kdeconnect-indicator
+exec --no-startup-id transmission-gtk -m
+exec --no-startup-id protonmail-bridge --no-window
+exec --no-startup-id playerctld daemon
+exec --no-startup-id keepassxc
+exec --no-startup-id mpDris2
+exec --no-startup-id mpd ~/.config/mpd/mpd.conf
 
-exec sleep 20 ; syncthing -no-browser
-exec sleep 20 ; service uwsgi restart searx
+exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
+exec --no-startup-id "sh -c 'sleep 60 ; service uwsgi restart searx'"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
