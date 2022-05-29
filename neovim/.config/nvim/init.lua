@@ -206,22 +206,6 @@ require("packer").startup({ function(use)
             end,
         }
 
-        -- Use FZF for the LSP
-        -- :LspDiagnostics
-        -- :LspDiagnosticsAll
-        -- :LspFuzzyLast
-        use {
-            "ojroques/nvim-lspfuzzy",
-            requires = {
-                { "junegunn/fzf" },
-                -- For the preview
-                { "junegunn/fzf.vim" },
-                config = function()
-                    require("lspfuzzy").setup()
-                end,
-            },
-        }
-
         -- LSP progress indicator
         use {
             "j-hui/fidget.nvim",
@@ -304,10 +288,35 @@ require("packer").startup({ function(use)
         },
         config = function()
             local cmp = require "cmp"
-            local git = require "cmp_git"
 
-            -- Fix neovim completion options
-            vim.o.completeopt = "menuone,noinsert,noselect"
+            -- The icons
+            local kind_icons = {
+                Text = "",
+                Method = "",
+                Function = "",
+                Constructor = "",
+                Field = "",
+                Variable = "",
+                Class = "ﴯ",
+                Interface = "",
+                Module = "",
+                Property = "ﰠ",
+                Unit = "",
+                Value = "",
+                Enum = "",
+                Keyword = "",
+                Snippet = "",
+                Color = "",
+                File = "",
+                Reference = "",
+                Folder = "",
+                EnumMember = "",
+                Constant = "",
+                Struct = "",
+                Event = "",
+                Operator = "",
+                TypeParameter = ""
+            }
 
             -- Enable different autocompletion targets
             cmp.setup({
@@ -316,24 +325,33 @@ require("packer").startup({ function(use)
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
                 },
-                sources = {
+                sources = cmp.config.sources({
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
                     { name = "rg" },
                     { name = "nvim_lua" },
-                    { name = "buffer" },
                     { name = "path" },
                     { name = "crates" },
                     { name = "luasnip" },
                     { name = "git" },
-                },
+                }, {
+                    { name = "buffer", keyword_length = 3 },
+                }),
                 mapping = cmp.mapping.preset.insert({
-                    --["<space>"] = cmp.mapping.complete(),
-                    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+                    --["<c-space>"] = cmp.mapping.complete(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
                 snippet = {
                     expand = function(args)
                         require("luasnip").lsp_expand(args.body)
+                    end,
+                },
+                formatting = {
+                    -- Show the icons
+                    format = function(_, vim_item)
+                        vim_item.kind = ("%s %s"):format(kind_icons[vim_item.kind], vim_item.kind)
+
+                        return vim_item
                     end,
                 },
             })
@@ -356,7 +374,7 @@ require("packer").startup({ function(use)
                 })
             })
 
-            git.setup()
+            require("cmp_git").setup()
 
             -- Disable when inside telescope
             vim.api.nvim_create_autocmd(
@@ -364,7 +382,7 @@ require("packer").startup({ function(use)
                 {
                     pattern = "TelescopePrompt",
                     callback = function()
-                        cmp.setup_buffer({ enabled = false })
+                        cmp.setup.buffer({ enabled = false })
                     end
                 })
         end,
@@ -537,6 +555,10 @@ require("packer").startup({ function(use)
                         use_telescope = true,
                     },
                 },
+                server = {
+                    -- Attach to nvim-cmp
+                    capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+                }
             })
 
             -- Map the shortcuts
