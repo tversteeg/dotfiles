@@ -75,9 +75,12 @@ else
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 
-# Start a new tmux session when opening from SSH
-if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
-	exec tmuxp load -y -2 $(tmuxp ls | fzf --layout=reverse --height=40%)
+# Directory for zellij layout files
+export ZELLIJ_LAYOUT_DIR=~/.config/zellij/layouts
+
+# Start a new zellij session when opening a new shell
+if [[ -z "$ZELLIJ" ]]; then
+	zellij --layout $(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%)
 fi
 
 # Use better alternatives

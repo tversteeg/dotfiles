@@ -1,0 +1,33 @@
+---
+session:
+  name: "dotfiles"
+  attach: true
+
+template:
+  direction: Horizontal
+  parts:
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:tab-bar"
+    - direction: Vertical
+      borderless: true
+      body: true
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:status-bar"
+
+tabs:
+- name: Neovim
+  parts:
+    - direction: Vertical
+      run:
+        command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && touch ~/.local/share/nvim/sessions/dotfiles.vim && nvim -S ~/.local/share/nvim/sessions/dotfiles.vim"]}
+- name: CLI

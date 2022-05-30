@@ -1,6 +1,0 @@
-session_name: Clean
-windows:
-  - window_name: Shell
-    panes:
-      - shell_command:
-        - blank

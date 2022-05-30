@@ -22,7 +22,7 @@ set $base0E #AD00A1
 set $base0F #CC6633
 # End flavours
 
-set $mod Mod1
+set $mod Mod4
 
 exec --no-startup-id dunst
 exec --no-startup-id kdeconnect-indicator
