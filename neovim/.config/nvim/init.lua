@@ -99,6 +99,7 @@ require("packer").startup({ function(use)
                 integrations = {
                     gitgutter = true,
                     ts_rainbow = true,
+                    hop = true,
                 },
             })
 
@@ -417,7 +418,7 @@ require("packer").startup({ function(use)
                 end, description = "Git files", mode = { "n", "v", "i" } },
 
                 -- Neovim dotfiles
-                { "<leader>l", "<cmd>luafile %<CR>", description = "Execute current buffer as a Lua file" },
+                { "<leader><leader>l", "<cmd>luafile %<CR>", description = "Execute current buffer as a Lua file" },
                 { "<leader>x", "<cmd>source ~/.config/nvim/init.lua<CR>", description = "Reload configuration" },
 
                 -- LSP
@@ -475,6 +476,50 @@ require("packer").startup({ function(use)
                 { "<c-s>", helpers.lazy_required_fn("luasnip.extras", "select_choice"), mode = { "s", "i" }, description = "Visually select a snippet choice" },
                 { "<leader><leader>s", helpers.lazy_required_fn("luasnip.loaders.from_lua", "load", { paths = "~/.config/nvim/snippets/" }), description = "Load snippets" },
                 { "<leader><leader>e", helpers.lazy_required_fn("luasnip.loaders.from_lua", "edit_snippet_files"), description = "Edit snippets" },
+
+                -- Hop
+                {
+                    "f",
+                    {
+                        n = {
+                            helpers.lazy_required_fn("hop", "hint_char1", { current_line_only = true }),
+                        },
+                        o = {
+                            helpers.lazy_required_fn("hop", "hint_char1", { current_line_only = true, inclusive_jump = true }),
+                        },
+                    },
+                    description = "Jump before character after cursor in line",
+                },
+                {
+                    "F",
+                    helpers.lazy_required_fn("hop", "hint_char1", { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true }),
+                    mode = { "n", "o" },
+                    description = "Jump before character before cursor in line",
+                },
+                {
+                    "t",
+                    helpers.lazy_required_fn("hop", "hint_char1", { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true }),
+                    mode = { "n", "o" },
+                    description = "Jump to character after cursor in line",
+                },
+                {
+                    "T",
+                    helpers.lazy_required_fn("hop", "hint_char1", { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true }),
+                    mode = { "n", "o" },
+                    description = "Jump to character before cursor in line",
+                },
+                {
+                    "<leader>e",
+                    helpers.lazy_required_fn("hop", "hint_words"),
+                    mode = { "n", "o", "v" },
+                    description = "Jump to word on page",
+                },
+                {
+                    "<leader>l",
+                    helpers.lazy_required_fn("hop", "hint_lines_skip_whitespace"),
+                    mode = { "n", "o", "v" },
+                    description = "Jump to word on page",
+                },
             }
 
             require("legendary").setup({
@@ -502,6 +547,14 @@ require("packer").startup({ function(use)
                     "^if", "^table", "if_statement", "while", "for"
                 },
             })
+        end,
+    }
+
+    -- Quick jump
+    use {
+        "phaazon/hop.nvim",
+        config = function()
+            require("hop").setup({})
         end,
     }
 
@@ -822,6 +875,7 @@ do
             section(mode()),
             section(filepath()),
             section(modified()),
+            "%=",
             section(git_head()),
             section(git_status()),
             "%=",
