@@ -495,7 +495,7 @@ plugins:
 
 # Choose the path to the default shell that zellij will use for opening new panes
 # Default: $SHELL
-# default_shell: fish
+default_shell: bash
 
 # Toggle between having pane frames around the panes
 # Options:
@@ -503,14 +503,28 @@ plugins:
 #   - false
 #pane_frames: true
 
+themes:
+  default:
+    fg: [76,79,105]
+    bg: [239, 241, 245]
+    black: [76,79,105]
+    red: [210, 15, 57]
+    green: [64, 160, 43]
+    yellow: [223, 142, 29]
+    blue: [30, 102, 245]
+    magenta: [234, 118, 203]
+    cyan: [4, 165, 229]
+    white: [239, 241, 245]
+    orange: [254, 100, 11]
+
 # Choose the theme that is specified in the themes section.
 # For some examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
 # Default: default
-theme: molokai
+#theme: tokyo-night-light
 
 # Choose the mode that zellij uses when starting up.
 # Default: normal
-#default_mode: locked
+default_mode: locked
 
 # Toggle enabling the mouse mode.
 # On certain configurations, or terminals this could

@@ -75,14 +75,6 @@ else
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 
-# Directory for zellij layout files
-export ZELLIJ_LAYOUT_DIR=~/.config/zellij/layouts
-
-# Start a new zellij session when opening a new shell
-if [[ -z "$ZELLIJ" ]]; then
-	zellij --layout $(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%)
-fi
-
 # Use better alternatives
 #alias ls='lsd'
 #alias ls='nnn -de'
@@ -118,6 +110,14 @@ export FZF_DEFAULT_OPTS='--preview-window=:hidden --preview "bat {}"'
 # Guix
 export GUIX_PROFILE="$HOME/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
+
+# Directory for zellij layout files
+export ZELLIJ_LAYOUT_DIR=~/.config/zellij/layouts
+
+# Start a new zellij session when opening a new shell
+if [[ -z "$ZELLIJ" ]]; then
+	zellij --layout $(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%)
+fi
 
 # Start flavours
 # Base16 Summerfruit Light
