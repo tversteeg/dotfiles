@@ -9,6 +9,8 @@ font:
   bold:
     family: monospace
     style: Bold
+env:
+  TERM: alacritty
 window:
     padding:
         x: 0
