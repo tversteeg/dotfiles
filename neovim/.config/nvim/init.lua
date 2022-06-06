@@ -251,6 +251,14 @@ require("packer").startup({ function(use)
                 })
             end,
         }
+
+        -- Preview rename
+        use {
+            "smjonas/inc-rename.nvim",
+            config = function()
+                require("inc_rename").setup({})
+            end,
+        }
     end
 
     -- Snippets
@@ -431,13 +439,18 @@ require("packer").startup({ function(use)
                 { "<leader>d", vim.lsp.buf.type_definition, description = "LSP type definition" },
                 { "<leader>wa", vim.lsp.buf.add_workspace_folder, description = "LSP add workspace folder" },
                 { "<leader>wr", vim.lsp.buf.remove_workspace_folder, description = "LSP remove workspace folder" },
-                { "<leader>r", vim.lsp.buf.rename, description = "LSP rename" },
+                { "<leader>r", ":IncRename ", description = "LSP rename" },
+
+                -- Rust
+                --{ "J", helpers.lazy_required_fn("rust-tools.join_lines", "join_lines"), description = "Join lines" },
+                { "<leader>c", helpers.lazy_required_fn("rust-tools.open_cargo_toml", "open_cargo_toml"), description = "Open Cargo.toml" },
+                { "<leader>p", helpers.lazy_required_fn("rust-tools.parent_module", "parent_module"), description = "Open parent module" },
+                { "<leader>e", helpers.lazy_required_fn("rust-tools.expand_macro", "expand_macro"), description = "Expand macro" },
+                { "<leader>t", helpers.lazy_required_fn("rust-tools.runnables", "runnables"), description = "Rust runnables" },
+                { "<leader>g", helpers.lazy_required_fn("rust-tools.crate_graph", "view_crate_graph"), description = "View crate graph" },
 
                 -- Treesitter
-                { "<c-j>", helpers.lazy_required_fn("trevj", "format_at_cursor"), description = "TS Split lines" },
-
-                -- Session
-                { "<leader>s", "<cmd>mksession<CR>", description = "Save session" },
+                { "<leader>j", helpers.lazy_required_fn("trevj", "format_at_cursor"), description = "TS Split lines" },
 
                 -- Snippets
                 {
@@ -621,23 +634,6 @@ require("packer").startup({ function(use)
                     capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
                 }
             })
-
-            -- Map the shortcuts
-            local function map_shortcut(shortcut, name, args)
-                vim.api.nvim_set_keymap("n", shortcut, ("<cmd>lua require'rust-tools.%s'.%s(%s)<CR>"):format(name, name, args or ""), { noremap = true, silent = true })
-            end
-
-            map_shortcut("K", "hover_actions")
-            map_shortcut("J", "join_lines")
-            map_shortcut("<leader>c", "open_cargo_toml")
-            map_shortcut("<leader>p", "parent_module")
-            map_shortcut("<leader>r", "runnables")
-            map_shortcut("<leader>e", "expand_macro")
-
-            map_shortcut("<leader>u", "move_item", "true")
-            map_shortcut("<leader>d", "move_item", "false")
-
-            vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua require'rust-tools.crate_graph'.view_crate_graph()<CR>", { noremap = true, silent = true })
         end,
     }
 
