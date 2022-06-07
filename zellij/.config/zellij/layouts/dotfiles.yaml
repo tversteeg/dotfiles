@@ -25,13 +25,13 @@ template:
           location: "zellij:status-bar"
 
 tabs:
-- name: Neovim
-  parts:
-    - direction: Vertical
-      run:
-        command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && touch ~/.local/share/nvim/sessions/dotfiles.vim && nvim -S ~/.local/share/nvim/sessions/dotfiles.vim"]}
-- name: CLI
-  parts:
-    - direction: Vertical
-      run:
-        command: {cmd: bash, args: ["-c", "cd ~/w/.dotfiles && exec bash"]}
+  - direction: Vertical
+    name: Neovim
+    run:
+      command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && touch ~/.local/share/nvim/sessions/dotfiles.vim && nvim -S ~/.local/share/nvim/sessions/dotfiles.vim"]}
+    borderless: true
+  - direction: Vertical
+    name: CLI
+    run:
+      command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && exec bash"]}
+    borderless: true

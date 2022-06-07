@@ -1,0 +1,48 @@
+---
+session:
+  name: "grouper-web"
+  attach: true
+
+template:
+  direction: Horizontal
+  parts:
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:tab-bar"
+    - direction: Vertical
+      borderless: true
+      body: true
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:status-bar"
+
+tabs:
+  - direction: Vertical
+    name: Neovim
+    run:
+      command: {cmd: bash, args: ["-c", "cd ~/w/grouper-web && touch ~/.local/share/nvim/sessions/grouper-web.vim && nvim -S ~/.local/share/nvim/sessions/grouper-web.vim"]}
+    borderless: true
+  - direction: Vertical
+    name: CLI
+    parts:
+      - direction: Horizontal
+        pane_name: "cemsdev run dev"
+        split_size:
+          percent: 50
+        run:
+          command: {cmd: bash, args: ["-c", "cd ~/w/grouper-web && cemsdev run dev"]}
+      - direction: Horizontal
+        pane_name: "cli"
+        split_size:
+          percent: 50
+        run:
+          command: {cmd: bash, args: ["-c", "cd ~/w/grouper-web && exec bash"]}
+    borderless: true
