@@ -131,18 +131,28 @@ require("packer").startup({ function(use)
                 { "hrsh7th/cmp-nvim-lsp" },
                 -- Install language servers
                 { "williamboman/nvim-lsp-installer" },
+                -- Signature hints while typing
+                { "ray-x/lsp_signature.nvim" },
             },
             config = function()
                 local lsp = require "lspconfig"
 
                 -- Setup LSP installer
                 require("nvim-lsp-installer").setup({})
+                -- Setup LSP signature hints
+                require("lsp_signature").setup({})
 
                 -- Add LSP to autocompletion
                 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+                local on_attach = function()
+                    -- Show LSP signature hints while typing
+                    require("lsp_signature").on_attach()
+                end
+
                 -- Setup Rust
                 lsp.rust_analyzer.setup({
+                    on_attach = on_attach,
                     capabilities = capabilities,
                     ["rust-analyzer"] = {
                         assist = {
@@ -160,12 +170,14 @@ require("packer").startup({ function(use)
 
                 -- Setup Vue
                 lsp.volar.setup({
+                    on_attach = on_attach,
                     capabilities = capabilities,
                     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
                 })
 
                 -- Setup Python
                 lsp.pylsp.setup({
+                    on_attach = on_attach,
                     capabilities = capabilities,
                 })
 
@@ -174,6 +186,7 @@ require("packer").startup({ function(use)
                 table.insert(runtime_path, "lua/?.lua")
                 table.insert(runtime_path, "lua/?/init.lua")
                 lsp.sumneko_lua.setup({
+                    on_attach = on_attach,
                     capabilities = capabilities,
                     settings = {
                         Lua = {
@@ -412,6 +425,18 @@ require("packer").startup({ function(use)
             local helpers = require('legendary.helpers')
 
             local keymaps = {
+                -- Splits
+                { "<a-h>", "<c-w>h", mode = { "n", "i", "v" }, description = "Move to left split" },
+                { "<a-l>", "<c-w>l", mode = { "n", "i", "v" }, description = "Move to right split" },
+                { "<a-j>", "<c-w>j", mode = { "n", "i", "v" }, description = "Move to bottom split" },
+                { "<a-k>", "<c-w>k", mode = { "n", "i", "v" }, description = "Move to top split" },
+                { "b", "<nop>", description = "Unlearn key in favor of F/T" },
+                { "w", "<nop>", description = "Unlearn key in favor of f/t" },
+                { "h", "<nop>", description = "Unlearn key in favor of F/T" },
+                { "l", "<nop>", description = "Unlearn key in favor of f/t" },
+                { "k", "<nop>", description = "Unlearn key in favor of <leader>l" },
+                { "j", "<nop>", description = "Unlearn key in favor of <leader>l" },
+
                 -- Menus
                 { "<leader><cr>", helpers.lazy_required_fn("legendary", "find", "keymaps"), description = "This menu" },
                 { "<leader>a", "<cmd>CodeActionMenu<CR>", description = "Code action menu" },
@@ -495,17 +520,29 @@ require("packer").startup({ function(use)
                     "f",
                     {
                         n = {
-                            helpers.lazy_required_fn("hop", "hint_char1", { current_line_only = true }),
+                            helpers.lazy_required_fn("hop", "hint_char1", {
+                                current_line_only = true,
+                                case_insensitive = false,
+                            }),
                         },
                         o = {
-                            helpers.lazy_required_fn("hop", "hint_char1", { current_line_only = true, inclusive_jump = true }),
+                            helpers.lazy_required_fn("hop", "hint_char1", {
+                                current_line_only = true,
+                                inclusive_jump = true,
+                                case_insensitive = false,
+                            }),
                         },
                     },
                     description = "Jump before character after cursor in line",
                 },
                 {
                     "F",
-                    helpers.lazy_required_fn("hop", "hint_char1", { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true }),
+                    helpers.lazy_required_fn("hop", "hint_char1", {
+                        direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
+                        current_line_only = true,
+                        inclusive_jump = true,
+                        case_insensitive = true,
+                    }),
                     mode = { "n", "o" },
                     description = "Jump before character before cursor in line",
                 },
@@ -533,6 +570,13 @@ require("packer").startup({ function(use)
                     mode = { "n", "o", "v" },
                     description = "Jump to word on page",
                 },
+                {
+                    "<leader>/",
+                    helpers.lazy_required_fn("hop", "hint_patterns"),
+                    mode = { "n", "o", "v" },
+                    description = "/ but with matches to jump to",
+                },
+
             }
 
             require("legendary").setup({
@@ -855,6 +899,17 @@ do
         return symbol .. " " .. count
     end
 
+    -- LSP signature
+    local function lsp_signature()
+        if not pcall(require, "lsp_signature") then
+            return
+        end
+
+        local sig = require("lsp_signature").status_line()
+
+        return sig.hint
+    end
+
     -- Git information
     local function git_status()
         return "%{get(b:,'gitsigns_status','')}"
@@ -875,6 +930,7 @@ do
             section(git_head()),
             section(git_status()),
             "%=",
+            section(lsp_signature()),
             section(lsp_status("", vim.diagnostic.severity.ERROR)),
             section(lsp_status("", vim.diagnostic.severity.WARN)),
             section(lsp_status("", vim.diagnostic.severity.HINT)),
