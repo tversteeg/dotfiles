@@ -51,7 +51,7 @@ bindsym $mod+d exec rofi -show run -show-icons
 bindsym $mod+p exec rofi -modi TODO:~/.dotfiles/rofi-todo.sh -show TODO
 
 # Lock
-#bindsym Mod4+l exec i3lock -c FFC0CB -i ~/Pictures/lock.png
+bindsym $mod+Escape exec i3lock -c FFC0CB -i ~/Pictures/lock.png
 
 # Change focus
 bindsym $mod+h focus left
