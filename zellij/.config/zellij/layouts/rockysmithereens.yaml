@@ -1,0 +1,48 @@
+---
+session:
+  name: "rockysmithereens"
+  attach: true
+
+template:
+  direction: Horizontal
+  parts:
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:tab-bar"
+    - direction: Vertical
+      borderless: true
+      body: true
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:status-bar"
+
+tabs:
+  - direction: Vertical
+    name: Neovim
+    run:
+      command: {cmd: bash, args: ["-c", "cd ~/r/rockysmithereens && touch ~/.local/share/nvim/sessions/rockysmithereens.vim && nvim -S ~/.local/share/nvim/sessions/rockysmithereens.vim"]}
+    borderless: true
+  - direction: Vertical
+    name: CLI
+    parts:
+      - direction: Horizontal
+        pane_name: "run"
+        split_size:
+          percent: 50
+        run:
+          command: {cmd: bash, args: ["-c", "cd ~/r/rockysmithereens/ && cargo watch -x run"]}
+      - direction: Horizontal
+        pane_name: "cli"
+        split_size:
+          percent: 50
+        run:
+          command: {cmd: bash, args: ["-c", "cd ~/r/rockysmithereens/ && exec bash"]}
+    borderless: true

@@ -34,6 +34,23 @@ return {
             t "f64 ",
         }),
         i(0),
+    })),
+
+    -- Nom parser function
+    s("nom", fmt([[
+    /// Parse {}.
+    fn parse_{}<'a>(i: &'a [u8]) -> IResult<&'a [u8], {}, VerboseError<&'a [u8]>> {{
+        let (i, {}) = context("{}", {})(i)?;
+
+        Ok((i, {}))
+    }}
+    ]], {
+        i(4),
+        i(1),
+        i(2),
+        i(5),
+        i(3),
+        i(6),
+        i(0),
     }))
 }
-

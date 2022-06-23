@@ -1,0 +1,18 @@
+---
+session:
+  name: "topgrade"
+  attach: true
+
+template:
+  direction: Horizontal
+  parts:
+    - direction: Vertical
+      borderless: true
+      body: true
+
+tabs:
+  - direction: Vertical
+    name: Topgrade
+    run:
+      command: {cmd: topgrade}
+    borderless: true

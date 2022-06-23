@@ -5,7 +5,8 @@ do
     local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
     if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         -- Clone the package manager repository
-        packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+        packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+            install_path })
     end
 
     -- Initialize the package manager
@@ -68,7 +69,8 @@ require("packer").startup({ function(use)
             local treesitter = require "nvim-treesitter.configs"
 
             treesitter.setup({
-                ensure_installed = { "lua", "rust", "typescript", "python", "vue", "toml", "vim", "yaml", "json", "dockerfile", "bash" },
+                ensure_installed = { "lua", "rust", "typescript", "python", "vue", "toml", "vim", "yaml", "json",
+                    "dockerfile", "bash" },
                 -- Syntax highlighting
                 highlight = {
                     enable = true,
@@ -209,6 +211,12 @@ require("packer").startup({ function(use)
                             }
                         }
                     }
+                })
+
+                -- Setup Bash
+                lsp.bashls.setup({
+                    on_attach = on_attach,
+                    capabilities = capabilities,
                 })
 
                 -- Format using LSP on save
@@ -468,11 +476,16 @@ require("packer").startup({ function(use)
 
                 -- Rust
                 --{ "J", helpers.lazy_required_fn("rust-tools.join_lines", "join_lines"), description = "Join lines" },
-                { "<leader>c", helpers.lazy_required_fn("rust-tools.open_cargo_toml", "open_cargo_toml"), description = "Open Cargo.toml" },
-                { "<leader>p", helpers.lazy_required_fn("rust-tools.parent_module", "parent_module"), description = "Open parent module" },
-                { "<leader>e", helpers.lazy_required_fn("rust-tools.expand_macro", "expand_macro"), description = "Expand macro" },
-                { "<leader>t", helpers.lazy_required_fn("rust-tools.runnables", "runnables"), description = "Rust runnables" },
-                { "<leader>g", helpers.lazy_required_fn("rust-tools.crate_graph", "view_crate_graph"), description = "View crate graph" },
+                { "<leader>c", helpers.lazy_required_fn("rust-tools.open_cargo_toml", "open_cargo_toml"),
+                    description = "Open Cargo.toml" },
+                { "<leader>p", helpers.lazy_required_fn("rust-tools.parent_module", "parent_module"),
+                    description = "Open parent module" },
+                { "<leader>e", helpers.lazy_required_fn("rust-tools.expand_macro", "expand_macro"),
+                    description = "Expand macro" },
+                { "<leader>t", helpers.lazy_required_fn("rust-tools.runnables", "runnables"),
+                    description = "Rust runnables" },
+                { "<leader>g", helpers.lazy_required_fn("rust-tools.crate_graph", "view_crate_graph"),
+                    description = "View crate graph" },
 
                 -- Treesitter
                 { "<leader>j", helpers.lazy_required_fn("trevj", "format_at_cursor"), description = "TS Split lines" },
@@ -511,9 +524,13 @@ require("packer").startup({ function(use)
                     mode = { "s", "i" },
                     description = "Select within the snippet's list of options",
                 },
-                { "<c-s>", helpers.lazy_required_fn("luasnip.extras", "select_choice"), mode = { "s", "i" }, description = "Visually select a snippet choice" },
-                { "<leader><leader>s", helpers.lazy_required_fn("luasnip.loaders.from_lua", "load", { paths = "~/.config/nvim/snippets/" }), description = "Load snippets" },
-                { "<leader><leader>e", helpers.lazy_required_fn("luasnip.loaders.from_lua", "edit_snippet_files"), description = "Edit snippets" },
+                { "<c-s>", helpers.lazy_required_fn("luasnip.extras", "select_choice"), mode = { "s", "i" },
+                    description = "Visually select a snippet choice" },
+                { "<leader><leader>s",
+                    helpers.lazy_required_fn("luasnip.loaders.from_lua", "load", { paths = "~/.config/nvim/snippets/" }),
+                    description = "Load snippets" },
+                { "<leader><leader>e", helpers.lazy_required_fn("luasnip.loaders.from_lua", "edit_snippet_files"),
+                    description = "Edit snippets" },
 
                 -- Hop
                 {
@@ -548,13 +565,15 @@ require("packer").startup({ function(use)
                 },
                 {
                     "t",
-                    helpers.lazy_required_fn("hop", "hint_char1", { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true }),
+                    helpers.lazy_required_fn("hop", "hint_char1",
+                        { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true }),
                     mode = { "n", "o" },
                     description = "Jump to character after cursor in line",
                 },
                 {
                     "T",
-                    helpers.lazy_required_fn("hop", "hint_char1", { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true }),
+                    helpers.lazy_required_fn("hop", "hint_char1",
+                        { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true }),
                     mode = { "n", "o" },
                     description = "Jump to character before cursor in line",
                 },
@@ -582,6 +601,7 @@ require("packer").startup({ function(use)
             require("legendary").setup({
                 keymaps = keymaps,
                 most_recent_item_at_top = true,
+                which_key = nil,
             })
         end,
     }
@@ -706,12 +726,12 @@ require("packer").startup({ function(use)
         require("packer").sync()
     end
 end,
--- Use a floating window for packer
-config = {
-    display = {
-        open_fn = require("packer.util").float,
-    },
-} })
+    -- Use a floating window for packer
+    config = {
+        display = {
+            open_fn = require("packer.util").float,
+        },
+    } })
 
 --[[ Global Options ]]
 do

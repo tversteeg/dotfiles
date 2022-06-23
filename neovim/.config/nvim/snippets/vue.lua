@@ -12,13 +12,13 @@ return {
     try {{
         {body}
     }} catch (error) {{
-        $q.dialog({
+        $q.dialog({{
           title: 'Error',
           message: (error as Error).message,
-          ok: {
+          ok: {{
             label: 'Ok',
-          },
-        });
+          }},
+        }});
     }}
     ]], {
         body = i(0),
