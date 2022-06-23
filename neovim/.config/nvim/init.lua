@@ -555,13 +555,11 @@ require("packer").startup({ function(use)
                 {
                     "F",
                     helpers.lazy_required_fn("hop", "hint_char1", {
-                        direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-                        current_line_only = true,
-                        inclusive_jump = true,
-                        case_insensitive = true,
+                        current_line_only = false,
+                        case_insensitive = false,
                     }),
                     mode = { "n", "o" },
-                    description = "Jump before character before cursor in line",
+                    description = "Jump before character in whole view",
                 },
                 {
                     "t",
@@ -572,25 +570,28 @@ require("packer").startup({ function(use)
                 },
                 {
                     "T",
-                    helpers.lazy_required_fn("hop", "hint_char1",
-                        { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true }),
+                    helpers.lazy_required_fn("hop", "hint_char1", {
+                        inclusive_jump = false,
+                        current_line_only = false,
+                        case_insensitive = false,
+                    }),
                     mode = { "n", "o" },
-                    description = "Jump to character before cursor in line",
+                    description = "Jump before character in whole view",
                 },
                 {
-                    "<leader>e",
+                    "ge",
                     helpers.lazy_required_fn("hop", "hint_words"),
                     mode = { "n", "o", "v" },
                     description = "Jump to word on page",
                 },
                 {
-                    "<leader>l",
+                    "gl",
                     helpers.lazy_required_fn("hop", "hint_lines_skip_whitespace"),
                     mode = { "n", "o", "v" },
                     description = "Jump to word on page",
                 },
                 {
-                    "<leader>/",
+                    "g/",
                     helpers.lazy_required_fn("hop", "hint_patterns"),
                     mode = { "n", "o", "v" },
                     description = "/ but with matches to jump to",
@@ -631,7 +632,7 @@ require("packer").startup({ function(use)
     use {
         "phaazon/hop.nvim",
         config = function()
-            require("hop").setup({ keys = "uhetonaspg.c,rkmjwqv" })
+            require("hop").setup({ keys = "uhetonaspg.c,rkmjwv" })
         end,
     }
 
@@ -726,12 +727,12 @@ require("packer").startup({ function(use)
         require("packer").sync()
     end
 end,
-    -- Use a floating window for packer
-    config = {
-        display = {
-            open_fn = require("packer.util").float,
-        },
-    } })
+-- Use a floating window for packer
+config = {
+    display = {
+        open_fn = require("packer.util").float,
+    },
+} })
 
 --[[ Global Options ]]
 do
