@@ -632,7 +632,9 @@ require("packer").startup({ function(use)
     use {
         "phaazon/hop.nvim",
         config = function()
-            require("hop").setup({ keys = "uhetonaspg.c,rkmjwv" })
+            require("hop").setup({
+                --keys = "uhetonaspg.c,rkmjwv",
+            })
         end,
     }
 
