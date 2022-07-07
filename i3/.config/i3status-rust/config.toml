@@ -10,58 +10,33 @@ block = "sound"
 
 [[block]]
 block = "music"
-buttons = ["play", "next"]
-max_width = 15
+format = "$combo.rot-str(15) $play $next|"
 hide_when_empty = true
 
 [[block]]
-block = "apt"
-
-[[block]]
 block = "disk_space"
-format = "{icon} {available}/{total}"
-path = "/"
-alias = "/"
-info_type = "available"
-unit = "GB"
-interval = 300
 
 [[block]]
 block = "memory"
-format_mem = "{mem_used}/{mem_total}"
-format_swap = "{swap_used}/{swap_total}"
-display_type = "memory"
-icons = true
-clickable = true
-interval = 5
-warning_mem = 80
-warning_swap = 80
-critical_mem = 95
-critical_swap = 95
 
 [[block]]
 block = "cpu"
-interval = 2
-format = "{barchart} {utilization}"
-
-[[block]]
-block = "load"
-interval = 2
-format = "{1m} {5m}"
+format = "$barchart.str() $utilization.eng()"
 
 # [[block]]
 # block = "nvidia_gpu"
 # show_utilization = false
-# interval = 2
 # label = ""
 
 [[block]]
 block = "net"
-device = "enp39s0"
+#device = "enp39s0"
+hide_inactive = true
+hide_missing = true
 
 [[block]]
 block = "kdeconnect"
-format_disconnected = ""
+hide_disconnected = true
 device_id = "70a73b2b0c97a9bb"
 
 [[block]]
@@ -69,11 +44,24 @@ block = "backlight"
 
 [[block]]
 block = "battery"
+hide_missing = true
+hide_full = true
 
 [[block]]
 block = "time"
-interval = 60
 format = "%a %d/%m %R"
+
+[[block]]
+block = "time"
+format = "%R"
+timezone = "Asia/Ho_Chi_Minh"
+[block.icons_overrides]
+time = "\uf005"
+
+[[block]]
+block = "weather"
+format = "$temp  $humidity  $wind_kmh"
+service = { name = "openweathermap", api_key = "f3fae1d7eda4929ec1f10ebdf797f46a", city_id = "2754064", units = "metric" }
 
 # Start flavours
 # vi:syntax=toml

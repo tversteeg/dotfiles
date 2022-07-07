@@ -365,7 +365,6 @@ require("packer").startup({ function(use)
                 },
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
-                    { name = "nvim_lsp_signature_help" },
                     { name = "rg" },
                     { name = "nvim_lua" },
                     { name = "path" },
@@ -385,9 +384,11 @@ require("packer").startup({ function(use)
                     end,
                 },
                 formatting = {
+                    fields = { "kind", "abbr", "menu" },
                     -- Show the icons
                     format = function(_, vim_item)
-                        vim_item.kind = ("%s %s"):format(kind_icons[vim_item.kind], vim_item.kind)
+                        vim_item.menu = (" (%s)"):format(vim_item.kind)
+                        vim_item.kind = ("%s "):format(kind_icons[vim_item.kind])
 
                         return vim_item
                     end,
