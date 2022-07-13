@@ -52,5 +52,20 @@ return {
         i(3),
         i(6),
         i(0),
-    }))
+    })),
+
+    -- Test module
+    s("test", fmt([[
+    #[cfg(test)]
+    mod tests {{
+        #[test]
+        fn {}() {{
+            {}
+        }}
+    }}
+    ]], {
+
+        i(1),
+        i(0)
+    })),
 }

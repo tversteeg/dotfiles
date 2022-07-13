@@ -734,12 +734,12 @@ require("packer").startup({ function(use)
         require("packer").sync()
     end
 end,
--- Use a floating window for packer
-config = {
-    display = {
-        open_fn = require("packer.util").float,
-    },
-} })
+    -- Use a floating window for packer
+    config = {
+        display = {
+            open_fn = require("packer.util").float,
+        },
+    } })
 
 --[[ Global Options ]]
 do

@@ -1,0 +1,18 @@
+---
+session:
+  name: "searx"
+  attach: true
+
+template:
+  direction: Horizontal
+  parts:
+    - direction: Vertical
+      borderless: true
+      body: true
+
+tabs:
+  - direction: Vertical
+    name: Topgrade
+    run:
+      command: {cmd: sudo, args: ["-H", "service", "uwsgi", "restart", "searx"]}
+    borderless: true
