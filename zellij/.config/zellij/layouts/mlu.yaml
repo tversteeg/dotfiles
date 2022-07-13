@@ -26,23 +26,17 @@ template:
 
 tabs:
   - direction: Vertical
-    name: Neovim
-    run:
-      command: {cmd: bash, args: ["-c", "cd ~/w/mlu && touch ~/.local/share/nvim/sessions/mlu.vim && nvim -S ~/.local/share/nvim/sessions/mlu.vim"]}
-    borderless: true
-  - direction: Vertical
     name: CLI
     parts:
-      - direction: Horizontal
-        pane_name: "cemsdev run dev"
-        split_size:
-          percent: 50
+      - direction: Vertical
+        pane_name: Neovim
         run:
-          command: {cmd: bash, args: ["-c", "cd ~/w/mlu && cemsdev run dev"]}
+          command: {cmd: bash, args: ["-c", "cd ~/w/mlu && touch ~/.local/share/nvim/sessions/mlu.vim && nvim -S ~/.local/share/nvim/sessions/mlu.vim"]}
+        borderless: true
       - direction: Horizontal
         pane_name: "cli"
+        borderless: true
         split_size:
-          percent: 50
+          Percent: 30
         run:
           command: {cmd: bash, args: ["-c", "cd ~/w/mlu && exec bash"]}
-    borderless: true

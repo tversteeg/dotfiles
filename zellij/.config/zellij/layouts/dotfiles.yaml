@@ -26,12 +26,17 @@ template:
 
 tabs:
   - direction: Vertical
-    name: Neovim
-    run:
-      command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && touch ~/.local/share/nvim/sessions/dotfiles.vim && nvim -S ~/.local/share/nvim/sessions/dotfiles.vim"]}
-    borderless: true
-  - direction: Vertical
-    name: CLI
-    run:
-      command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && exec bash"]}
-    borderless: true
+    name: Dotfiles
+    parts:
+      - direction: Vertical
+        pane_name: Neovim
+        run:
+          command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && touch ~/.local/share/nvim/sessions/dotfiles.vim && nvim -S ~/.local/share/nvim/sessions/dotfiles.vim"]}
+        borderless: true
+      - direction: Vertical
+        pane_name: CLI
+        borderless: true
+        split_size:
+          Percent: 30
+        run:
+          command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && exec bash"]}

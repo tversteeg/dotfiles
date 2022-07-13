@@ -102,6 +102,10 @@ require("packer").startup({ function(use)
                     gitgutter = true,
                     ts_rainbow = true,
                     hop = true,
+                    indent_blankline = {
+                        enabled = true,
+                        -- colored_indent_levels = true,
+                    },
                 },
             })
 
