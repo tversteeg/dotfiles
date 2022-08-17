@@ -139,6 +139,8 @@ require("packer").startup({ function(use)
                 { "williamboman/nvim-lsp-installer" },
                 -- Signature hints while typing
                 { "ray-x/lsp_signature.nvim" },
+                -- Prettier
+                { "jose-elias-alvarez/null-ls.nvim" },
             },
             config = function()
                 local lsp = require "lspconfig"
@@ -174,11 +176,25 @@ require("packer").startup({ function(use)
                     }
                 })
 
-                -- Setup Vue
+                -- Setup Vue without formatting
                 lsp.volar.setup({
+                    init_options = {
+                        documentFeatures = {
+                            documentColor = true,
+                            documentFormatting = false,
+                        },
+                    },
                     on_attach = on_attach,
                     capabilities = capabilities,
                     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+                })
+
+                -- Use eslint for formatting
+                local null_ls = require("null-ls")
+                null_ls.setup({
+                    sources = {
+                        null_ls.builtins.formatting.eslint_d
+                    },
                 })
 
                 -- Setup Python
@@ -431,6 +447,25 @@ require("packer").startup({ function(use)
         end,
     }
 
+    -- Number increase/decrease
+    use {
+        "monaqa/dial.nvim",
+        config = function()
+            local augend = require("dial.augend")
+            require("dial.config").augends:register_group({
+                default = {
+                    augend.integer.alias.decimal,
+                    augend.integer.alias.hex,
+                    augend.hexcolor.new({
+                        case = "upper",
+                    }),
+                    augend.semver,
+                    augend.date.alias["%Y/%m/%d"],
+                },
+            })
+        end,
+    }
+
     -- Define and show keybindings
     use {
         "mrjones2014/legendary.nvim",
@@ -602,6 +637,13 @@ require("packer").startup({ function(use)
                     description = "/ but with matches to jump to",
                 },
 
+                -- Dial
+                {
+                    "<c-a>", "<Plug>(dial-increment)", description = "Increase next item under cursor or available",
+                },
+                {
+                    "<c-x>", "<Plug>(dial-decrement)", description = "Decrease next item under cursor or available",
+                },
             }
 
             require("legendary").setup({
