@@ -34,10 +34,10 @@ block = "net"
 hide_inactive = true
 hide_missing = true
 
-[[block]]
-block = "kdeconnect"
-hide_disconnected = true
-device_id = "70a73b2b0c97a9bb"
+# [[block]]
+# block = "kdeconnect"
+# hide_disconnected = true
+# device_id = "70a73b2b0c97a9bb"
 
 [[block]]
 block = "backlight"
