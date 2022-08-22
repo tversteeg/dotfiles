@@ -189,11 +189,11 @@ require("packer").startup({ function(use)
                     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
                 })
 
-                -- Use eslint for formatting
+                -- Use prettier for formatting
                 local null_ls = require("null-ls")
                 null_ls.setup({
                     sources = {
-                        null_ls.builtins.formatting.eslint_d
+                        null_ls.builtins.formatting.prettier
                     },
                 })
 
@@ -284,7 +284,7 @@ require("packer").startup({ function(use)
         use {
             "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
             config = function()
-                require("lsp_lines").register_lsp_virtual_lines()
+                require("lsp_lines").setup()
 
                 -- Disable virtual text diagnostics since they are redundant
                 vim.diagnostic.config({
@@ -498,8 +498,24 @@ require("packer").startup({ function(use)
                     end
                 end, description = "Git files", mode = { "n", "v", "i" } },
 
+                -- Custom scripts
+                { "<leader><leader>n", "<cmd>vsplit /tmp/nvim-tmp-buf.lua<CR>", description = "Open or create a temporary Lua file that we can execute on a buffer with <leader><leader>l" },
+                { "<leader><leader>e", "<cmd>luafile /tmp/nvim-tmp-buf.lua<CR>", description = "Execute tmp Lua buffer" },
+                { "<leader><leader>c", function()
+                    local last_command = vim.api.nvim_call_function("getreg", { ":", 1 })
+
+                    local file = io.open("/tmp/nvim-tmp-buf.lua", "a")
+                    if file then
+                        file:write(("vim.api.nvim_command([[%s]])\n"):format(last_command))
+                    else
+                        error("Could not open file /tmp/nvim-tmp-buf.lua, please create it first with <leader><leader>c")
+                    end
+                    io.close(file)
+
+                    vim.api.nvim_command("checktime")
+                end, description = "Append the last executed command to the temporary neovim buffer file" },
+
                 -- Neovim dotfiles
-                { "<leader><leader>l", "<cmd>luafile %<CR>", description = "Execute current buffer as a Lua file" },
                 { "<leader>x", "<cmd>source ~/.config/nvim/init.lua<CR>", description = "Reload configuration" },
 
                 -- LSP
@@ -569,7 +585,7 @@ require("packer").startup({ function(use)
                 { "<leader><leader>s",
                     helpers.lazy_required_fn("luasnip.loaders.from_lua", "load", { paths = "~/.config/nvim/snippets/" }),
                     description = "Load snippets" },
-                { "<leader><leader>e", helpers.lazy_required_fn("luasnip.loaders.from_lua", "edit_snippet_files"),
+                { "<leader><leader>r", helpers.lazy_required_fn("luasnip.loaders.from_lua", "edit_snippet_files"),
                     description = "Edit snippets" },
 
                 -- Hop
@@ -604,17 +620,14 @@ require("packer").startup({ function(use)
                 {
                     "t",
                     helpers.lazy_required_fn("hop", "hint_char1",
-                        { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true }),
+                        { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }),
                     mode = { "n", "o" },
                     description = "Jump to character after cursor in line",
                 },
                 {
                     "T",
-                    helpers.lazy_required_fn("hop", "hint_char1", {
-                        inclusive_jump = false,
-                        current_line_only = false,
-                        case_insensitive = false,
-                    }),
+                    helpers.lazy_required_fn("hop", "hint_char1",
+                        { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }),
                     mode = { "n", "o" },
                     description = "Jump before character in whole view",
                 },
@@ -776,12 +789,12 @@ require("packer").startup({ function(use)
         require("packer").sync()
     end
 end,
-    -- Use a floating window for packer
-    config = {
-        display = {
-            open_fn = require("packer.util").float,
-        },
-    } })
+-- Use a floating window for packer
+config = {
+    display = {
+        open_fn = require("packer.util").float,
+    },
+} })
 
 --[[ Global Options ]]
 do
