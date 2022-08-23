@@ -1,6 +1,6 @@
 ---
 session:
-  name: "searx"
+  name: "startup"
   attach: true
 
 template:
@@ -12,7 +12,7 @@ template:
 
 tabs:
   - direction: Vertical
-    name: Topgrade
+    name: Startup
     run:
-      command: {cmd: sudo, args: ["-H", "service", "uwsgi", "restart", "searx"]}
+      command: {cmd: bash, args: ["-c", "sudo -H service uwsgi restart searx && topgrade"]}
     borderless: true
