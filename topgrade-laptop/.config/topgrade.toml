@@ -10,7 +10,7 @@ repos = [
 
 [commands]
 "Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
-"Neovim Nightly" = "cd /tmp && wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.deb && sudo dpkg -i nvim-linux64.deb"
+"Neovim Nightly" = "cd /tmp && wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.deb && sudo dpkg -i nvim-linux64.deb ; rm nvim-linux64.deb"
 "i3status" = "cd ~/r/i3status-rust/ && cargo install --path . --locked && ./install.sh"
 
 [firmware]

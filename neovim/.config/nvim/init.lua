@@ -27,7 +27,12 @@ require("packer").startup({ function(use)
     use "wbthomason/packer.nvim"
 
     -- Registers plugin
-    use "~/r/registers.nvim"
+    use {
+        "~/r/registers.nvim",
+        config = function()
+            require("registers").setup({})
+        end
+    }
 
     -- Fuzzy find popup windows
     use {
@@ -658,6 +663,18 @@ require("packer").startup({ function(use)
                     "<c-x>", "<Plug>(dial-decrement)", description = "Decrease next item under cursor or available",
                 },
             }
+
+            -- Quickly access different register modes for testing
+            --[[
+            for key, mode in pairs({ i = "insert", w = "paste", m = "motion" }) do
+                keymaps[#keymaps + 1] = {
+                    "<C-" .. key .. ">",
+                    helpers.lazy_required_fn("registers", "show", mode),
+                    mode = { "n", "v", "i" },
+                    description = "Registers test function " .. mode,
+                }
+            end
+            ]]
 
             require("legendary").setup({
                 keymaps = keymaps,
