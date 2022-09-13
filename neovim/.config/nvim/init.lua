@@ -504,7 +504,8 @@ require("packer").startup({ function(use)
                 end, description = "Git files", mode = { "n", "v", "i" } },
 
                 -- Custom scripts
-                { "<leader><leader>n", "<cmd>vsplit /tmp/nvim-tmp-buf.lua<CR>", description = "Open or create a temporary Lua file that we can execute on a buffer with <leader><leader>l" },
+                { "<leader><leader>n", "<cmd>vsplit /tmp/nvim-tmp-buf.lua<CR>",
+                    description = "Open or create a temporary Lua file that we can execute on a buffer with <leader><leader>l" },
                 { "<leader><leader>e", "<cmd>luafile /tmp/nvim-tmp-buf.lua<CR>", description = "Execute tmp Lua buffer" },
                 { "<leader><leader>c", function()
                     local last_command = vim.api.nvim_call_function("getreg", { ":", 1 })
@@ -625,14 +626,16 @@ require("packer").startup({ function(use)
                 {
                     "t",
                     helpers.lazy_required_fn("hop", "hint_char1",
-                        { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }),
+                        { direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true,
+                            hint_offset = -1 }),
                     mode = { "n", "o" },
                     description = "Jump to character after cursor in line",
                 },
                 {
                     "T",
                     helpers.lazy_required_fn("hop", "hint_char1",
-                        { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }),
+                        { direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true,
+                            hint_offset = 1 }),
                     mode = { "n", "o" },
                     description = "Jump before character in whole view",
                 },
@@ -806,12 +809,12 @@ require("packer").startup({ function(use)
         require("packer").sync()
     end
 end,
--- Use a floating window for packer
-config = {
-    display = {
-        open_fn = require("packer.util").float,
-    },
-} })
+    -- Use a floating window for packer
+    config = {
+        display = {
+            open_fn = require("packer.util").float,
+        },
+    } })
 
 --[[ Global Options ]]
 do
@@ -832,6 +835,9 @@ do
 
     -- Set the leader key to space
     vim.g.mapleader = " "
+
+    -- Disable mouse
+    vim.cmd("set mouse=")
 end
 
 --[[ Window Options ]]

@@ -82,8 +82,8 @@ alias ls='xplr'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 
-# Add installed cargo binaries to path, and ~/.local/bin, and the lua language server
-export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin"
+# Add installed cargo binaries to path, and ~/.local/bin, and the lua language server, and neovim
+export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin:/home/thomas/.local/share/neovim/bin"
 
 # Expose 'z'
 eval "$(zoxide init bash)"
