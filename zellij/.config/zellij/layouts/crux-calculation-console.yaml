@@ -1,6 +1,6 @@
 ---
 session:
-  name: "mlu"
+  name: "crux-calculation-console"
   attach: true
 
 template:
@@ -37,14 +37,18 @@ tabs:
               args:
                 [
                   "-c",
-                  "cd ~/w/mlu && touch ~/.local/share/nvim/sessions/mlu.vim && nvim -S ~/.local/share/nvim/sessions/mlu.vim",
+                  "cd ~/w/crux-calculation-console && touch ~/.local/share/nvim/sessions/ccc.vim && nvim -S ~/.local/share/nvim/sessions/ccc.vim",
                 ],
             }
         borderless: true
       - direction: Horizontal
-        pane_name: "cli"
+        pane_name: CLI
         borderless: true
         split_size:
-          Percent: 30
+          Percent: 40
         run:
-          command: { cmd: bash, args: ["-c", "cd ~/w/mlu && exec bash"] }
+          command:
+            {
+              cmd: bash,
+              args: ["-c", "cd ~/w/crux-calculation-console && exec bash"],
+            }
