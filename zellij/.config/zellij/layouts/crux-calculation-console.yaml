@@ -34,11 +34,7 @@ tabs:
           command:
             {
               cmd: bash,
-              args:
-                [
-                  "-c",
-                  "cd ~/w/crux-calculation-console && touch ~/.local/share/nvim/sessions/ccc.vim && nvim -S ~/.local/share/nvim/sessions/ccc.vim",
-                ],
+              args: ["-c", "cd ~/w/crux-calculation-console && nvim"],
             }
         borderless: true
       - direction: Horizontal

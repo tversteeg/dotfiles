@@ -31,7 +31,7 @@ tabs:
       - direction: Vertical
         pane_name: Neovim
         run:
-          command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && touch ~/.local/share/nvim/sessions/dotfiles.vim && nvim -S ~/.local/share/nvim/sessions/dotfiles.vim"]}
+          command: { cmd: bash, args: ["-c", "cd ~/.dotfiles && nvim"] }
         borderless: true
       - direction: Vertical
         pane_name: CLI
@@ -39,4 +39,4 @@ tabs:
         split_size:
           Percent: 30
         run:
-          command: {cmd: bash, args: ["-c", "cd ~/.dotfiles && exec bash"]}
+          command: { cmd: bash, args: ["-c", "cd ~/.dotfiles && exec bash"] }

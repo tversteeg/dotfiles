@@ -31,15 +31,7 @@ tabs:
       - direction: Vertical
         pane_name: Neovim
         run:
-          command:
-            {
-              cmd: bash,
-              args:
-                [
-                  "-c",
-                  "cd ~/w/mlu && touch ~/.local/share/nvim/sessions/mlu.vim && nvim -S ~/.local/share/nvim/sessions/mlu.vim",
-                ],
-            }
+          command: { cmd: bash, args: ["-c", "cd ~/w/mlu && nvim"] }
         borderless: true
       - direction: Horizontal
         pane_name: "cli"

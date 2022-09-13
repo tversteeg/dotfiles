@@ -28,10 +28,10 @@ tabs:
   - direction: Vertical
     name: Neovim
     run:
-      command: {cmd: bash, args: ["-c", "cd ~/w/ci && touch ~/.local/share/nvim/sessions/ci.vim && nvim -S ~/.local/share/nvim/sessions/ci.vim"]}
+      command: { cmd: bash, args: ["-c", "cd ~/w/ci && nvim"] }
     borderless: true
   - direction: Vertical
     name: CLI
     run:
-      command: {cmd: bash, args: ["-c", "cd ~/w/ci && exec bash"]}
+      command: { cmd: bash, args: ["-c", "cd ~/w/ci && exec bash"] }
     borderless: true
