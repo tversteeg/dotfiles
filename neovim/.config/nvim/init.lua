@@ -718,6 +718,9 @@ require("packer").startup({ function(use)
         end,
     }
 
+    -- Sudo, :SudaWrite
+    use "lambdalisue/suda.vim"
+
     -- Switch between relative and absolute numbers
     use "jeffkreeftmeijer/vim-numbertoggle"
 
