@@ -1,0 +1,42 @@
+---
+session:
+  name: "nuclei-web"
+  attach: true
+
+template:
+  direction: Horizontal
+  parts:
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:tab-bar"
+    - direction: Vertical
+      borderless: true
+      body: true
+    - direction: Vertical
+      borderless: true
+      split_size:
+        Fixed: 1
+      run:
+        plugin:
+          location: "zellij:status-bar"
+
+tabs:
+  - direction: Vertical
+    name: CLI
+    parts:
+      - direction: Vertical
+        pane_name: Neovim
+        run:
+          command: { cmd: bash, args: ["-c", "cd ~/w/nuclei-web && nvim"] }
+        borderless: true
+      - direction: Horizontal
+        pane_name: CLI
+        borderless: true
+        split_size:
+          Percent: 40
+        run:
+          command: { cmd: bash, args: ["-c", "cd ~/w/nuclei-web && exec bash"] }
