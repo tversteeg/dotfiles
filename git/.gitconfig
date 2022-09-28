@@ -11,6 +11,8 @@
 	pager = delta
 [interactive]
 	diffFilter = delta --color-only
+[push]
+	autoSetupRemote = true
 [pull]
 	rebase = true
 [diff]
