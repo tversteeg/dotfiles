@@ -116,7 +116,7 @@ export ZELLIJ_LAYOUT_DIR=~/.config/zellij/layouts
 
 # Start a new zellij session when opening a new shell
 if [[ -z "$ZELLIJ" ]]; then
-	zellij --layout $(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%)
+	zellij --layout $(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%) && exit
 fi
 
 # Start flavours

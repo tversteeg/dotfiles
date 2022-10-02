@@ -28,7 +28,7 @@ require("packer").startup({ function(use)
 
     -- Registers plugin
     use {
-        "~/r/registers.nvim",
+        "~/r/registers.nvim/",
         config = function()
             require("registers").setup({})
         end
@@ -74,8 +74,19 @@ require("packer").startup({ function(use)
             local treesitter = require "nvim-treesitter.configs"
 
             treesitter.setup({
-                ensure_installed = { "lua", "rust", "typescript", "python", "vue", "toml", "vim", "yaml", "json",
-                    "dockerfile", "bash" },
+                ensure_installed = {
+                    "lua",
+                    "rust",
+                    "python",
+                    "typescript",
+                    "vue",
+                    "toml",
+                    "yaml",
+                    "json",
+                    "dockerfile",
+                    "bash",
+                    "vim",
+                },
                 -- Syntax highlighting
                 highlight = {
                     enable = true,
@@ -84,14 +95,6 @@ require("packer").startup({ function(use)
                 -- Rainbow parentheses
                 rainbow = {
                     enable = true,
-                },
-                -- Key bindings
-                keymaps = {
-                    -- Incremental selection based on the named nodes
-                    init_selection = "gnn",
-                    node_incremental = "grn",
-                    scope_incremental = "grc",
-                    node_decremental = "grm",
                 },
             })
         end,
@@ -104,13 +107,21 @@ require("packer").startup({ function(use)
             require("catppuccin").setup({
                 transparent_background = true,
                 integrations = {
+                    treesitter = true,
                     gitgutter = true,
                     ts_rainbow = true,
                     hop = true,
+                    cmp = true,
+                    telescope = true,
+                    fidget = true,
                     indent_blankline = {
                         enabled = true,
                         -- colored_indent_levels = true,
                     },
+                },
+                dim_inactive = {
+                    enabled = true,
+                    percentage = 0.1,
                 },
             })
 
@@ -257,7 +268,11 @@ require("packer").startup({ function(use)
         use {
             "j-hui/fidget.nvim",
             config = function()
-                require("fidget").setup()
+                require("fidget").setup({
+                    window = {
+                        blend = 0,
+                    }
+                })
             end,
         }
 
