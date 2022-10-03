@@ -26,6 +26,34 @@ template:
 
 tabs:
   - direction: Vertical
+    name: Server
+    run:
+      command: { cmd: bash, args: ["-c", "cd ~/w/nuclei-web-back && ./run.sh"] }
+    borderless: true
+  - direction: Vertical
+    name: nuclei-lib
+    parts:
+      - direction: Vertical
+        pane_name: Neovim
+        run:
+          command: { cmd: bash, args: ["-c", "cd ~/w/nuclei-lib && nvim"] }
+        borderless: true
+      - direction: Horizontal
+        pane_name: CLI
+        borderless: true
+        split_size:
+          Percent: 40
+        run:
+          command:
+            {
+              cmd: bash,
+              args:
+                [
+                  "-c",
+                  "cd ~/w/nuclei-lib && watchexec -w src -- cemsdev run build",
+                ],
+            }
+  - direction: Vertical
     name: CLI
     parts:
       - direction: Vertical
