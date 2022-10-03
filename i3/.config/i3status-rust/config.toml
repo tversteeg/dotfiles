@@ -1,16 +1,12 @@
 [icons]
 icons = "material-nf"
 
-# [[block]]
-# block = "github"
-# hide_if_total_is_zero = true
-
 [[block]]
 block = "sound"
 
 [[block]]
 block = "music"
-format = "$combo.rot-str(15) $play $next|"
+format = " $icon $cur.eng(1)/$avail.eng(1) {$combo.rot-str(15) $play $next |}"
 hide_when_empty = true
 
 [[block]]
@@ -23,42 +19,45 @@ block = "memory"
 block = "cpu"
 format = "$barchart.str() $utilization.eng()"
 
-# [[block]]
-# block = "nvidia_gpu"
-# show_utilization = false
-# label = ""
+[[block]]
+block = "nvidia_gpu"
+if_command = "hostname | grep -q pc"
 
 [[block]]
 block = "net"
-#device = "enp39s0"
-hide_inactive = true
-hide_missing = true
 
 [[block]]
 block = "kdeconnect"
-hide_disconnected = true
-#device_id = "70a73b2b0c97a9bb"
 
 [[block]]
 block = "backlight"
+if_command = "hostname | grep -q cems"
 
 [[block]]
 block = "battery"
+if_command = "hostname | grep -q cems"
 hide_missing = true
 hide_full = true
 
 [[block]]
 block = "time"
-format = "%a %d/%m %R"
+format = " $icon %a %d/%m %R "
+[[block.click]]
+button = "left"
+cmd = "thunderbird -calendar"
 
 [[block]]
 block = "time"
-format = "%R"
+if_command = "hostname | grep -q pc"
+format = " $icon %R "
 timezone = "Asia/Ho_Chi_Minh"
 [block.icons_overrides]
 time = "\uf005"
 
 [[block]]
 block = "weather"
-format = "$temp  $humidity  $wind_kmh"
+format = " $icon $temp  $humidity  $wind_kmh.eng(1)"
 service = { name = "openweathermap", api_key = "f3fae1d7eda4929ec1f10ebdf797f46a", city_id = "2754064", units = "metric" }
+[[block.click]]
+button = "left"
+cmd = "xdg-open https://www.buienradar.nl/weer/hilversum/nl/2754064/5daagse"
