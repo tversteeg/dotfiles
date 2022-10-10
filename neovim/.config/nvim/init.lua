@@ -114,6 +114,7 @@ require("packer").startup({ function(use)
                     cmp = true,
                     telescope = true,
                     fidget = true,
+                    notify = true,
                     indent_blankline = {
                         enabled = true,
                         -- colored_indent_levels = true,
@@ -133,14 +134,11 @@ require("packer").startup({ function(use)
     -- Dev icons, requires a nerd font
     use "kyazdani42/nvim-web-devicons"
 
-    -- Desktop notifications
+    -- Pretty notifications
     use {
-        "simrat39/desktop-notify.nvim",
-        requires = {
-            { "nvim-lua/plenary.nvim" },
-        },
+        "rcarriga/nvim-notify",
         config = function()
-            require("desktop-notify").override_vim_notify()
+            vim.notify = require("notify")
         end,
     }
 
@@ -151,27 +149,52 @@ require("packer").startup({ function(use)
             requires = {
                 -- Auto completions
                 { "hrsh7th/cmp-nvim-lsp" },
+                -- Install tools
+                { "williamboman/mason.nvim" },
                 -- Install language servers
-                { "williamboman/nvim-lsp-installer" },
+                { "williamboman/mason-lspconfig.nvim" },
+                -- Install null-ls tools
+                { "jayp0521/mason-null-ls.nvim" },
                 -- Signature hints while typing
                 { "ray-x/lsp_signature.nvim" },
-                -- Prettier
+                -- Expose tools as a language server
                 { "jose-elias-alvarez/null-ls.nvim" },
+                -- Code context for statusline
+                { "SmiteshP/nvim-navic" },
             },
             config = function()
+                -- Setup automatic tool installer
+                require("mason").setup()
+                require("mason-lspconfig").setup({
+                    ensure_installed = {
+                        "sumneko_lua",
+                        "rust_analyzer",
+                        "volar",
+                        "pylsp",
+                        "bashls",
+                    }
+                })
+                require("mason-null-ls").setup({
+                    ensure_installed = {
+                        "eslint_d",
+                    }
+                })
+
                 local lsp = require "lspconfig"
 
-                -- Setup LSP installer
-                require("nvim-lsp-installer").setup({})
                 -- Setup LSP signature hints
                 require("lsp_signature").setup({})
 
                 -- Add LSP to autocompletion
                 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-                local on_attach = function()
+                local on_attach = function(client, bufnr)
+                    if client.server_capabilities.documentSymbolProvider then
+                        require("nvim-navic").attach(client, bufnr)
+                    end
+
                     -- Show LSP signature hints while typing
-                    require("lsp_signature").on_attach()
+                    require("lsp_signature").on_attach(nil, bufnr)
                 end
 
                 -- Setup Rust
@@ -209,7 +232,9 @@ require("packer").startup({ function(use)
                 local null_ls = require("null-ls")
                 null_ls.setup({
                     sources = {
-                        null_ls.builtins.formatting.prettier
+                        null_ls.builtins.code_actions.eslint_d,
+                        null_ls.builtins.diagnostics.eslint_d,
+                        null_ls.builtins.formatting.eslint_d,
                     },
                 })
 
@@ -728,7 +753,7 @@ require("packer").startup({ function(use)
         "phaazon/hop.nvim",
         config = function()
             require("hop").setup({
-                --keys = "uhetonaspg.c,rkmjwv",
+                keys = "uhetonaspg.c,rkmjwv",
             })
         end,
     }
@@ -1034,6 +1059,11 @@ do
         return sig.hint
     end
 
+    -- Lsp path
+    local function lsp_path()
+        return "%{%v:lua.require('nvim-navic').get_location()%}"
+    end
+
     -- Git information
     local function git_status()
         return "%{get(b:,'gitsigns_status','')}"
@@ -1054,6 +1084,7 @@ do
             section(git_head()),
             section(git_status()),
             "%=",
+            section(lsp_path()),
             section(lsp_signature()),
             section(lsp_status("", vim.diagnostic.severity.ERROR)),
             section(lsp_status("", vim.diagnostic.severity.WARN)),
