@@ -186,7 +186,7 @@ require("packer").startup({ function(use)
                 require("lsp_signature").setup({})
 
                 -- Add LSP to autocompletion
-                local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+                local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
                 local on_attach = function(client, bufnr)
                     if client.server_capabilities.documentSymbolProvider then
@@ -791,39 +791,6 @@ require("packer").startup({ function(use)
         config = function()
             -- Autoformat Rust on save
             vim.g.rustfmt_autosave = 1
-        end,
-    }
-
-    -- More Rust
-    use {
-        "simrat39/rust-tools.nvim",
-        requires = {
-            { "neovim/nvim-lspconfig" },
-            { "nvim-lua/popup.nvim" },
-            { "nvim-lua/plenary.nvim" },
-            -- Debugging
-            { "mfussenegger/nvim-dap" },
-        },
-        ft = "rust",
-        config = function()
-            require("rust-tools").setup({
-                tools = {
-                    -- Automatically set inlay hints
-                    autoSetHints = true,
-
-                    -- Show actions when hovering
-                    hover_with_actions = true,
-
-                    runnables = {
-                        -- Use telescope for the selection menu
-                        use_telescope = true,
-                    },
-                },
-                server = {
-                    -- Attach to nvim-cmp
-                    capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-                }
-            })
         end,
     }
 
