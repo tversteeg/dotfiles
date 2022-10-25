@@ -81,6 +81,7 @@ fi
 alias ls='xplr'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
+alias c='cemsdev run'
 
 # Add installed cargo binaries to path, and ~/.local/bin, and the lua language server, and neovim
 export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin:/home/thomas/.local/share/neovim/bin:/home/thomas/.yarn/bin"
@@ -116,7 +117,7 @@ export ZELLIJ_LAYOUT_DIR=~/.config/zellij/layouts
 
 # Start a new zellij session when opening a new shell
 if [[ -z "$ZELLIJ" ]]; then
-	zellij --layout $(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%) && exit
+	zellij --layout $ZELLIJ_LAYOUT_DIR/$(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%).kdl && exit
 fi
 
 # Use gcloud for kubectl

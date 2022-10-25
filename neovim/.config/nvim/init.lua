@@ -105,7 +105,8 @@ require("packer").startup({ function(use)
         "catppuccin/nvim",
         config = function()
             require("catppuccin").setup({
-                transparent_background = true,
+                flavour = "latte",
+                --transparent_background = true,
                 integrations = {
                     treesitter = true,
                     gitgutter = true,
@@ -126,7 +127,6 @@ require("packer").startup({ function(use)
                 },
             })
 
-            vim.g.catppuccin_flavour = "latte"
             vim.cmd("colorscheme catppuccin")
         end,
     }

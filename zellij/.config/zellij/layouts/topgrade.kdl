@@ -1,0 +1,5 @@
+layout {
+    pane borderless=true
+}
+session_name "topgrade"
+attach_to_session true
