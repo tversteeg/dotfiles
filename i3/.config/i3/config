@@ -150,6 +150,10 @@ bindsym Shift+XF86AudioPrev exec mpc prev
 # Screenshot
 bindsym Print exec flameshot gui
 
+# Move clients to proper workspace
+assign [class="thunderbird"] mail
+assign [class="firefox"] dev
+
 # Resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -178,7 +182,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Font for window titles
-font pango:FiraCode Nerd Font Mono 6
+font pango:FiraCode Nerd Font Mono 0
 
 # Thin border
 default_border pixel 1
