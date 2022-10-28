@@ -504,7 +504,7 @@ require("packer").startup({ function(use)
                     augend.hexcolor.new({
                         case = "upper",
                     }),
-                    augend.semver,
+                    augend.semver.alias.semver,
                     augend.date.alias["%Y/%m/%d"],
                 },
             })
@@ -700,10 +700,14 @@ require("packer").startup({ function(use)
 
                 -- Dial
                 {
-                    "<c-a>", "<Plug>(dial-increment)", description = "Increase next item under cursor or available",
+                    "<c-a>", require("dial.map").inc_normal(),
+                    mode = { "n", "o" },
+                    description = "Increase next item under cursor or available",
                 },
                 {
-                    "<c-x>", "<Plug>(dial-decrement)", description = "Decrease next item under cursor or available",
+                    "<c-x>", require("dial.map").dec_normal(),
+                    mode = { "n", "o" },
+                    description = "Decrease next item under cursor or available",
                 },
             }
 
