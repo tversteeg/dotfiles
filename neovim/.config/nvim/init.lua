@@ -30,7 +30,10 @@ require("packer").startup({ function(use)
     use {
         "~/r/registers.nvim/",
         config = function()
-            require("registers").setup({})
+            require("registers").setup({
+                show = "+*\"-/_=#%.0123456789abcdefghijklmnopqrstuvwxyz:",
+                system_clipboard = false,
+            })
         end
     }
 
@@ -751,6 +754,9 @@ require("packer").startup({ function(use)
             })
         end,
     }
+
+    -- Unlearn bad patterns
+    use "ja-ford/delaytrain.nvim"
 
     -- Quick jump
     use {
