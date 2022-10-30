@@ -1,0 +1,5 @@
+# Wallpaper
+exec nitrogen --set-scaled /home/thomas/Pictures/wall.jpg
+
+# Open MPV waiting for jellyfin to send files to it
+exec mpv --input-ipc-server=/tmp/jellyfin-mpv --force-window=yes --idle=yes --config-dir=/home/thomas/.config/jellyfin-mpv-shim/

@@ -35,6 +35,10 @@ exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
 exec --no-startup-id "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
 exec --no-startup-id pkexec service uwsgi restart searx
 
+# Start jellyfin on another display
+exec --no-startup-id env DISPLAY=:0.1 ratpoison
+exec --no-startup-id flatpak --filesystem=/tmp/ --filesystem=/home/thomas run com.github.iwalton3.jellyfin-mpv-shim --confi /home/thomas/.config/jellyfin-mpv-shim/
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -101,7 +105,6 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
 
 # Switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -113,7 +116,6 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -125,7 +127,6 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload

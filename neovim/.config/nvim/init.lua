@@ -34,6 +34,8 @@ require("packer").startup({ function(use)
                 show = "+*\"-/_=#%.0123456789abcdefghijklmnopqrstuvwxyz:",
                 system_clipboard = false,
             })
+
+            vim.cmd("iabbrev regtest <C-R>=2*3<CR>")
         end
     }
 
