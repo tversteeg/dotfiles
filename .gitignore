@@ -3,3 +3,4 @@
 state.pickle
 undo/
 neovim/.config/nvim/plugin
+cred.json

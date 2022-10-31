@@ -35,10 +35,6 @@ exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
 exec --no-startup-id "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
 exec --no-startup-id pkexec service uwsgi restart searx
 
-# Start jellyfin on another display
-exec --no-startup-id env DISPLAY=:0.1 ratpoison
-exec --no-startup-id flatpak --filesystem=/tmp/ --filesystem=/home/thomas run com.github.iwalton3.jellyfin-mpv-shim --confi /home/thomas/.config/jellyfin-mpv-shim/
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [[ $# -ne 1 ]]; then
+	echo 'Too many/few arguments, expecting "start" or "stop"' >&2
+	exit 1
+fi
+
+case $1 in
+	start)
+		# Start the WM on the display
+		DISPLAY=:0.1 mpv --input-ipc-server=/tmp/jellyfin-mpv --force-window --idle --fs --config-dir=/home/thomas/.config/jellyfin-mpv-shim/ &
+		echo "$!" > /tmp/tv-mpv.pid
+
+		sleep 3
+
+		# Start jellyfin
+		flatpak --filesystem=/tmp --filesystem=/home/thomas run com.github.iwalton3.jellyfin-mpv-shim --config /home/thomas/.config/jellyfin-mpv-shim/ &
+		echo "$!" > /tmp/tv-mpv-shim.pid
+
+		disown -h "$(cat /tmp/tv-mpv.pid)"
+		disown -h "$(cat /tmp/tv-mpv-shim.pid)"
+
+		;;
+	stop)
+		# Kill the WM
+		kill -15 "$(cat /tmp/tv-mpv.pid)" &
+		kill -15 "$(cat /tmp/tv-mpv-shim.pid)" &
+
+		sleep 30
+
+		kill -9 "$(cat /tmp/tv-mpv.pid)"
+		kill -9 "$(cat /tmp/tv-mpv-shim.pid)"
+		;;
+	*)
+		echo 'Expected "start" or "stop"' >&2
+		exit 1
+esac
