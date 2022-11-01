@@ -11,7 +11,7 @@ case $1 in
 		DISPLAY=:0.1 mpv --input-ipc-server=/tmp/jellyfin-mpv --force-window --idle --fs --config-dir=/home/thomas/.config/jellyfin-mpv-shim/ &
 		echo "$!" > /tmp/tv-mpv.pid
 
-		sleep 3
+		sleep 5
 
 		# Start jellyfin
 		flatpak --filesystem=/tmp --filesystem=/home/thomas run com.github.iwalton3.jellyfin-mpv-shim --config /home/thomas/.config/jellyfin-mpv-shim/ &
@@ -26,10 +26,10 @@ case $1 in
 		kill -15 "$(cat /tmp/tv-mpv.pid)" &
 		kill -15 "$(cat /tmp/tv-mpv-shim.pid)" &
 
-		sleep 30
+		sleep 3
 
-		kill -9 "$(cat /tmp/tv-mpv.pid)"
-		kill -9 "$(cat /tmp/tv-mpv-shim.pid)"
+		killall mpv
+		killall jellyfin-mpv-shim
 		;;
 	*)
 		echo 'Expected "start" or "stop"' >&2
