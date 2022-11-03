@@ -8,7 +8,6 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-    tab borderless=true
     tab split_direction="Vertical" {
         pane split_direction="Vertical" {
             pane command="bash" name="Neovim" borderless=true {

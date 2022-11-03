@@ -826,6 +826,9 @@ require("packer").startup({ function(use)
     -- WGSL highlighting
     use "DingDean/wgsl.vim"
 
+    -- KDL highlighting
+    use "imsnif/kdl.vim"
+
     -- Automatically setup the configuration after cloning packer.nvim, must be after other plugins
     if packer_bootstrap then
         require("packer").sync()
