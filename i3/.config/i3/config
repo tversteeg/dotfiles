@@ -41,6 +41,7 @@ floating_modifier $mod
 # Start a terminal
 bindsym $mod+Return exec /home/thomas/.cargo/bin/alacritty
 bindsym $mod+Shift+Return exec /home/thomas/.cargo/bin/alacritty -e ssh -t -Y cems.local
+bindsym $mod+Ctrl+Return exec /home/thomas/.cargo/bin/alacritty -e ssh -t -Y serv.local
 
 # Kill focused window
 bindsym $mod+Shift+q kill
