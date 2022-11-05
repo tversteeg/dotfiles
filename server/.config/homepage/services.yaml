@@ -1,0 +1,6 @@
+- Search:
+        - SearX:
+                icon: searxmetasearchengine.png
+                description: Search engine
+                server: searx
+                container: searx

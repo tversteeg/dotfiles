@@ -60,9 +60,9 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Use better alternatives
-#alias ls='lsd'
+alias ls='lsd'
 #alias ls='nnn -de'
-alias ls='xplr'
+#alias ls='xplr'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 alias c='cemsdev run'
