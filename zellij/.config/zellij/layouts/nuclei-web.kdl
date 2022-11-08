@@ -1,33 +1,34 @@
 layout {
-    default_tab_template {
+	cwd "~/w/"
+
+	default_tab_template {
         pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
         }
-        children
+
+        pane split_direction="Vertical" {
+			children
+
+            pane command="bash" name="CLI" size="40%" borderless=true {
+                args "-c" "cemsdev run dev"
+            }
+        }
+
         pane size=1 borderless=true {
             plugin location="zellij:status-bar"
         }
-    }
-    tab split_direction="Vertical" {
-        pane split_direction="Vertical" {
-            pane command="bash" name="Neovim" borderless=true {
-                args "-c" "cd ~/w/nuclei-lib && nvim"
-            }
-            pane command="bash" name="CLI" size="40%" borderless=true {
-                args "-c" "cd ~/w/nuclei-lib && watchexec -w src -- cemsdev run build"
-            }
-        }
-    }
-    tab split_direction="Vertical" {
-        pane split_direction="Vertical" {
-            pane command="bash" name="Neovim" borderless=true {
-                args "-c" "cd ~/w/nuclei-web && nvim"
-            }
-            pane command="bash" name="CLI" size="40%" borderless=true {
-                args "-c" "cd ~/w/nuclei-web && exec bash"
-            }
-        }
-    }
+	}
+
+	tab cwd="nuclei-web" name="Web" focus=true {
+		pane command="nvim" focus=true
+	}
+	tab cwd="nuclei-lib" name="Lib" {
+		pane command="nvim" focus=true
+	}
+	tab cwd="nuclei-web-back" name="Back" {
+		pane command="nvim" focus=true
+	}
 }
+
 session_name "nuclei-web"
 attach_to_session true

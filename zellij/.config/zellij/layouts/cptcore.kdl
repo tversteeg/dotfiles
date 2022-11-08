@@ -8,10 +8,10 @@ layout {
     tab split_direction="Vertical" borderless=true {
         pane split_direction="Vertical" {
             pane command="bash" name="cemsdev run dev" size="50%" borderless=true{
-                args "-c" "cd ~/w/cptcore-web && cemsdev run dev ; exec bash"
+                args "-c" "cd ~/w/cpt-map-web && cemsdev run dev ; exec bash"
             }
             pane command="bash" name="cli" size="50%" borderless=true {
-                args "-c" "cd ~/w/cptcore-web && exec bash"
+                args "-c" "cd ~/w/cpt-map-web && exec bash"
             }
         }
     }
