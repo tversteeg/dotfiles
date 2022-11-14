@@ -5,31 +5,67 @@ if [[ $# -ne 1 ]]; then
 	exit 1
 fi
 
+function kill_mpv() {
+	kill -15 "$(cat /tmp/tv-mpv-shim.pid)" &
+
+	sleep 1
+
+	for _ in {1..10}; do
+		sleep 1
+
+		echo 'show-text "Killing shim"' | socat - /tmp/jellyfin-mpv
+
+		if kill -s 0 "$(cat /tmp/tv-mpv-shim.pid)"; then
+			killall jellyfin-mpv-shim
+		else
+			break
+		fi
+	done
+
+	kill -15 "$(cat /tmp/tv-mpv.pid)"
+
+	rm /tmp/tv-mpv-shim.pid /tmp/tv-mpv.pid
+
+	kdeconnect-cli --ring -n 1+6;
+
+	exit 1
+}
+
 case $1 in
 	start)
 		# Start the WM on the display
 		DISPLAY=:0.1 mpv --input-ipc-server=/tmp/jellyfin-mpv --force-window --idle --fs --config-dir=/home/thomas/.config/jellyfin-mpv-shim/ &
 		echo "$!" > /tmp/tv-mpv.pid
 
-		sleep 5
+		sleep 1
 
 		# Start jellyfin
 		flatpak --filesystem=/tmp --filesystem=/home/thomas run com.github.iwalton3.jellyfin-mpv-shim --config /home/thomas/.config/jellyfin-mpv-shim/ &
 		echo "$!" > /tmp/tv-mpv-shim.pid
 
-		disown -h "$(cat /tmp/tv-mpv.pid)"
-		disown -h "$(cat /tmp/tv-mpv-shim.pid)"
+		sleep 1
 
+		for _ in {1..10}; do
+			sleep 1
+
+			if kill -s 0 "$(cat /tmp/tv-mpv-shim.pid)"; then
+				echo 'show-text "Verifying state"' | socat - /tmp/jellyfin-mpv
+			else
+				echo 'show-text "Shim failed to start"' | socat - /tmp/jellyfin-mpv
+
+				break
+			fi
+		done
+
+		if kill -s 0 "$(cat /tmp/tv-mpv-shim.pid)"; then
+			disown -h "$(cat /tmp/tv-mpv.pid)"
+			disown -h "$(cat /tmp/tv-mpv-shim.pid)"
+		else
+			kill_mpv
+		fi
 		;;
 	stop)
-		# Kill the WM
-		kill -15 "$(cat /tmp/tv-mpv.pid)" &
-		kill -15 "$(cat /tmp/tv-mpv-shim.pid)" &
-
-		sleep 3
-
-		killall mpv
-		killall jellyfin-mpv-shim
+		kill_mpv
 		;;
 	*)
 		echo 'Expected "start" or "stop"' >&2
