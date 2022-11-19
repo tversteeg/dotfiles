@@ -36,8 +36,6 @@ if_command = "hostname | grep -q cems"
 [[block]]
 block = "battery"
 if_command = "hostname | grep -q cems"
-hide_missing = true
-hide_full = true
 
 [[block]]
 block = "time"
