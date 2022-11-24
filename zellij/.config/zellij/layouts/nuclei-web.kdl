@@ -20,13 +20,19 @@ layout {
 	}
 
 	tab cwd="nuclei-web" name="Web" focus=true {
-		pane command="nvim" focus=true
+		pane command="bash" focus=true {
+			args "-c" "cd ~/w/nuclei-web && nvim"
+		}
 	}
 	tab cwd="nuclei-lib" name="Lib" {
-		pane command="nvim" focus=true
+		pane command="bash" focus=true {
+			args "-c" "cd ~/w/nuclei-lib && nvim"
+		}
 	}
 	tab cwd="nuclei-web-back" name="Back" {
-		pane command="nvim" focus=true
+		pane command="bash" focus=true {
+			args "-c" "cd ~/w/nuclei-web-back && nvim"
+		}
 	}
 }
 
