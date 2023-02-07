@@ -1,79 +1,109 @@
 --[[ Bootstrap Package Manager ]]
-local packer_bootstrap
-do
-    -- Clone the git repository if not found
-    local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-        -- Clone the package manager repository
-        packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-            install_path })
-    end
-
-    -- Initialize the package manager
-    vim.cmd("packadd packer.nvim")
-
-    -- Autocompile when this file is saved
-    vim.cmd([[
-    augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost init.lua source <afile> | PackerCompile
-    augroup end
-    ]])
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        -- latest stable release
+        "--branch=stable",
+        lazypath,
+    })
 end
+vim.opt.rtp:prepend(lazypath)
 
 --[[ Plugins ]]
-require("packer").startup({ function(use)
-    -- The package manager itself
-    use "wbthomason/packer.nvim"
-
-    -- Registers plugin
-    use {
-        "~/r/registers.nvim/",
+require("lazy").setup({
+    -- Colorscheme
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        lazy = false,
+        priority = 1000,
         config = function()
-            require("registers").setup({
-                show = "+*\"-/_=#%.0123456789abcdefghijklmnopqrstuvwxyz:",
-                system_clipboard = false,
+            require("catppuccin").setup({
+                flavour = "latte",
+                --transparent_background = true,
+                integrations = {
+                    treesitter = true,
+                    gitgutter = true,
+                    ts_rainbow = true,
+                    hop = true,
+                    cmp = true,
+                    telescope = true,
+                    fidget = true,
+                    notify = true,
+                    indent_blankline = {
+                        enabled = true,
+                        -- colored_indent_levels = true,
+                    },
+                },
+                dim_inactive = {
+                    enabled = true,
+                    percentage = 0.1,
+                },
             })
 
+            vim.cmd("colorscheme catppuccin")
+        end,
+    },
+
+    -- Registers plugin
+    {
+        dir = "~/r/registers.nvim/",
+        name = "registers",
+        opts = {
+            show = "+*\"-/_=#%.0123456789abcdefghijklmnopqrstuvwxyz:",
+            system_clipboard = false,
+        },
+        keys = { "\"", "<C-R>" },
+        cmd = "Registers",
+        init = function()
             vim.cmd("iabbrev regtest <C-R>=2*3<CR>")
-        end
-    }
+        end,
+    },
 
     -- Fuzzy find popup windows
-    use {
+    {
         "nvim-telescope/telescope.nvim",
-        requires = {
-            { "nvim-telescope/telescope-ui-select.nvim" },
-            { "nvim-lua/plenary.nvim" },
-            { "stevearc/dressing.nvim" },
+        dependencies = {
+            "nvim-telescope/telescope-ui-select.nvim",
+            "nvim-lua/plenary.nvim",
         },
         config = function()
             -- Use telescope as the default neovim ui
             require("telescope").load_extension("ui-select")
-
-            require("dressing").setup({})
         end,
-    }
+    },
+
+    -- Pretty telescope
+    {
+        "stevearc/dressing.nvim",
+        event = "VeryLazy",
+        config = true,
+    },
 
     -- Frequently visited files with <leader>f
-    use {
+    {
         "nvim-telescope/telescope-frecency.nvim",
-        requires = {
-            { "nvim-lua/plenary.nvim" },
-            { "tami5/sqlite.lua" },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "tami5/sqlite.lua",
         },
         config = function()
             require("telescope").load_extension("frecency")
         end,
-    }
+        keys = "<leader>f",
+    },
 
     -- Treesitter highlighting
-    use {
+    {
         "nvim-treesitter/nvim-treesitter",
-        run = ':TSUpdate',
-        requires = {
+        build = ':TSUpdate',
+        dependencies = {
             -- Rainbow parentheses
-            { "p00f/nvim-ts-rainbow" },
+            "p00f/nvim-ts-rainbow",
         },
         config = function()
             local treesitter = require "nvim-treesitter.configs"
@@ -103,257 +133,227 @@ require("packer").startup({ function(use)
                 },
             })
         end,
-    }
-
-    -- Colorscheme
-    use {
-        "catppuccin/nvim",
-        config = function()
-            require("catppuccin").setup({
-                flavour = "latte",
-                --transparent_background = true,
-                integrations = {
-                    treesitter = true,
-                    gitgutter = true,
-                    ts_rainbow = true,
-                    hop = true,
-                    cmp = true,
-                    telescope = true,
-                    fidget = true,
-                    notify = true,
-                    indent_blankline = {
-                        enabled = true,
-                        -- colored_indent_levels = true,
-                    },
-                },
-                dim_inactive = {
-                    enabled = true,
-                    percentage = 0.1,
-                },
-            })
-
-            vim.cmd("colorscheme catppuccin")
-        end,
-    }
+    },
 
     -- Dev icons, requires a nerd font
-    use "kyazdani42/nvim-web-devicons"
+    "kyazdani42/nvim-web-devicons",
 
     -- Pretty notifications
-    use {
+    {
         "rcarriga/nvim-notify",
         config = function()
             vim.notify = require("notify")
         end,
-    }
+    },
 
     -- Language server
-    do
-        use {
-            "neovim/nvim-lspconfig",
-            requires = {
-                -- Auto completions
-                { "hrsh7th/cmp-nvim-lsp" },
-                -- Install tools
-                { "williamboman/mason.nvim" },
-                -- Install language servers
-                { "williamboman/mason-lspconfig.nvim" },
-                -- Install null-ls tools
-                { "jayp0521/mason-null-ls.nvim" },
-                -- Signature hints while typing
-                { "ray-x/lsp_signature.nvim" },
-                -- Expose tools as a language server
-                { "jose-elias-alvarez/null-ls.nvim" },
-                -- Code context for statusline
-                { "SmiteshP/nvim-navic" },
-            },
-            config = function()
-                -- Setup automatic tool installer
-                require("mason").setup()
-                require("mason-lspconfig").setup({
-                    ensure_installed = {
-                        "sumneko_lua",
-                        "rust_analyzer",
-                        "volar",
-                        "pylsp",
-                        "bashls",
-                    }
-                })
-                require("mason-null-ls").setup({
-                    ensure_installed = {
-                        "eslint_d",
-                    }
-                })
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            -- Auto completions
+            "hrsh7th/cmp-nvim-lsp",
+            -- Install tools
+            "williamboman/mason.nvim",
+            -- Install language servers
+            "williamboman/mason-lspconfig.nvim",
+            -- Install null-ls tools
+            "jayp0521/mason-null-ls.nvim",
+            -- Signature hints while typing
+            "ray-x/lsp_signature.nvim",
+            -- Expose tools as a language server
+            "jose-elias-alvarez/null-ls.nvim",
+            -- Code context for statusline
+            "SmiteshP/nvim-navic",
+        },
+        config = function()
+            -- Setup automatic tool installer
+            require("mason").setup()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "sumneko_lua",
+                    "rust_analyzer",
+                    "volar",
+                    "pylsp",
+                    "bashls",
+                }
+            })
+            require("mason-null-ls").setup({
+                ensure_installed = {
+                    "eslint_d",
+                }
+            })
 
-                local lsp = require "lspconfig"
+            local lsp = require "lspconfig"
 
-                -- Setup LSP signature hints
-                require("lsp_signature").setup({})
+            -- Setup LSP signature hints
+            require("lsp_signature").setup({})
 
-                -- Add LSP to autocompletion
-                local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            -- Add LSP to autocompletion
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-                local on_attach = function(client, bufnr)
-                    if client.server_capabilities.documentSymbolProvider then
-                        require("nvim-navic").attach(client, bufnr)
-                    end
-
-                    -- Show LSP signature hints while typing
-                    require("lsp_signature").on_attach(nil, bufnr)
+            local on_attach = function(client, bufnr)
+                if client.server_capabilities.documentSymbolProvider then
+                    require("nvim-navic").attach(client, bufnr)
                 end
 
-                -- Setup Rust
-                lsp.rust_analyzer.setup({
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                    ["rust-analyzer"] = {
-                        assist = {
-                            importMergeBehavior = "last",
-                            importPrefix = "by_self",
+                -- Show LSP signature hints while typing
+                require("lsp_signature").on_attach(nil, bufnr)
+            end
+
+            -- Setup Rust
+            lsp.rust_analyzer.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                ["rust-analyzer"] = {
+                    assist = {
+                        importMergeBehavior = "last",
+                        importPrefix = "by_self",
+                    },
+                    cargo = {
+                        loadOutDirsFromCheck = true,
+                    },
+                    procMacro = {
+                        enable = true,
+                    },
+                }
+            })
+
+            -- Setup Vue without formatting
+            lsp.volar.setup({
+                init_options = {
+                    documentFeatures = {
+                        documentColor = true,
+                        documentFormatting = false,
+                    },
+                },
+                on_attach = on_attach,
+                capabilities = capabilities,
+                filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+            })
+
+            -- Use prettier for formatting
+            local null_ls = require("null-ls")
+            null_ls.setup({
+                sources = {
+                    null_ls.builtins.code_actions.eslint_d,
+                    null_ls.builtins.diagnostics.eslint_d,
+                    null_ls.builtins.formatting.eslint_d,
+                },
+            })
+
+            -- Setup Python
+            lsp.pylsp.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+
+            -- Setup Lua
+            local runtime_path = vim.split(package.path, ';')
+            table.insert(runtime_path, "lua/?.lua")
+            table.insert(runtime_path, "lua/?/init.lua")
+            lsp.sumneko_lua.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" },
                         },
-                        cargo = {
-                            loadOutDirsFromCheck = true,
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
                         },
-                        procMacro = {
+                        telemetry = {
+                            enable = false,
+                        },
+                        format = {
                             enable = true,
-                        },
-                    }
-                })
-
-                -- Setup Vue without formatting
-                lsp.volar.setup({
-                    init_options = {
-                        documentFeatures = {
-                            documentColor = true,
-                            documentFormatting = false,
-                        },
-                    },
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-                })
-
-                -- Use prettier for formatting
-                local null_ls = require("null-ls")
-                null_ls.setup({
-                    sources = {
-                        null_ls.builtins.code_actions.eslint_d,
-                        null_ls.builtins.diagnostics.eslint_d,
-                        null_ls.builtins.formatting.eslint_d,
-                    },
-                })
-
-                -- Setup Python
-                lsp.pylsp.setup({
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                })
-
-                -- Setup Lua
-                local runtime_path = vim.split(package.path, ';')
-                table.insert(runtime_path, "lua/?.lua")
-                table.insert(runtime_path, "lua/?/init.lua")
-                lsp.sumneko_lua.setup({
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { "vim" },
-                            },
-                            workspace = {
-                                -- Make the server aware of Neovim runtime files
-                                library = vim.api.nvim_get_runtime_file("", true),
-                            },
-                            telemetry = {
-                                enable = false,
-                            },
-                            format = {
-                                enable = true,
-                                defaultConfig = {
-                                    indent_style = "tab",
-                                    indent_size = "1",
-                                }
+                            defaultConfig = {
+                                indent_style = "tab",
+                                indent_size = "1",
                             }
                         }
                     }
-                })
+                }
+            })
 
-                -- Setup Bash
-                lsp.bashls.setup({
-                    on_attach = on_attach,
-                    capabilities = capabilities,
-                })
+            -- Setup Bash
+            lsp.bashls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
 
-                -- Format using LSP on save
-                vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            -- Format using LSP on save
+            vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+                callback = function()
+                    vim.lsp.buf.format()
+                end,
+            })
+        end,
+    },
+
+    -- LSP progress indicator
+    {
+        "j-hui/fidget.nvim",
+        opts = {
+            window = {
+                blend = 0,
+            }
+        },
+        event = "VeryLazy",
+    },
+
+    -- Show a lightbulb in the gutter when an action is available
+    {
+        "kosayoda/nvim-lightbulb",
+        config = function()
+            require("nvim-lightbulb").setup({
+                float = {
+                    enabled = ""
+                }
+            })
+
+            vim.api.nvim_create_autocmd(
+                { "CursorHold", "CursorHoldI" },
+                {
                     callback = function()
-                        vim.lsp.buf.format()
-                    end,
+                        require("nvim-lightbulb").update_lightbulb()
+                    end
                 })
-            end,
-        }
+        end,
+        event = { "CursorHold", "CursorHoldI" },
+    },
 
-        -- LSP progress indicator
-        use {
-            "j-hui/fidget.nvim",
-            config = function()
-                require("fidget").setup({
-                    window = {
-                        blend = 0,
-                    }
-                })
-            end,
-        }
+    -- Code action menu
+    -- <leader>a
+    {
+        "weilbith/nvim-code-action-menu",
+        cmd = "CodeActionMenu",
+    },
 
-        -- Show a lightbulb in the gutter when an action is available
-        use {
-            "kosayoda/nvim-lightbulb",
-            config = function()
-                require("nvim-lightbulb").setup({
-                    float = {
-                        enabled = ""
-                    }
-                })
+    -- Diagnostics using virtual lines
+    {
+        url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").setup()
 
-                vim.api.nvim_create_autocmd(
-                    { "CursorHold", "CursorHoldI" },
-                    {
-                        callback = function()
-                            require("nvim-lightbulb").update_lightbulb()
-                        end
-                    })
-            end
-        }
+            -- Disable virtual text diagnostics since they are redundant
+            vim.diagnostic.config({
+                virtual_text = false
+            })
+        end,
+        event = "VeryLazy",
+    },
 
-        -- Code action menu
-        -- <leader>a
-        use "weilbith/nvim-code-action-menu"
-
-        -- Diagnostics using virtual lines
-        use {
-            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-            config = function()
-                require("lsp_lines").setup()
-
-                -- Disable virtual text diagnostics since they are redundant
-                vim.diagnostic.config({
-                    virtual_text = false
-                })
-            end,
-        }
-
-        -- Preview rename
-        use {
-            "smjonas/inc-rename.nvim",
-            config = function()
-                require("inc_rename").setup({})
-            end,
-        }
-    end
+    -- Preview rename
+    {
+        "smjonas/inc-rename.nvim",
+        config = true,
+        event = "VeryLazy",
+    },
 
     -- Snippets
-    use {
+    {
         "L3MON4D3/LuaSnip",
         config = function()
             require("luasnip").config.set_config({
@@ -367,32 +367,32 @@ require("packer").startup({ function(use)
             -- Setup snippet loader
             require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
         end,
-    }
+        event = "VeryLazy",
+    },
 
     -- Git sidebar
-    use {
+    {
         "lewis6991/gitsigns.nvim",
-        config = function()
-            require("gitsigns").setup({})
-        end,
-    }
+        config = true,
+        event = "VeryLazy",
+    },
 
     -- Autocompletion
-    use {
+    {
         "hrsh7th/nvim-cmp",
-        requires = {
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-path" },
-            { "hrsh7th/cmp-nvim-lua" },
-            { "hrsh7th/cmp-cmdline" },
-            { "saecki/crates.nvim" },
-            { "lukas-reineke/cmp-rg" },
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-cmdline",
+            "saecki/crates.nvim",
+            "lukas-reineke/cmp-rg",
             -- Snippets
-            { "L3MON4D3/LuaSnip" },
-            { "saadparwaiz1/cmp_luasnip" },
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
             -- Git
-            { "petertriho/cmp-git" },
+            "petertriho/cmp-git",
         },
         config = function()
             local cmp = require "cmp"
@@ -495,10 +495,11 @@ require("packer").startup({ function(use)
                     end
                 })
         end,
-    }
+        event = "VeryLazy",
+    },
 
     -- Number increase/decrease
-    use {
+    {
         "monaqa/dial.nvim",
         config = function()
             local augend = require("dial.augend")
@@ -514,13 +515,19 @@ require("packer").startup({ function(use)
                 },
             })
         end,
-    }
+        lazy = true,
+    },
 
     -- Define and show keybindings
-    use {
+    {
         "mrjones2014/legendary.nvim",
+        init = function()
+            -- Set the leader key to space
+            vim.g.mapleader = " "
+            vim.g.maplocalleader = " "
+        end,
         config = function()
-            local helpers = require('legendary.helpers')
+            local helpers = require('legendary.toolbox')
 
             local keymaps = {
                 -- Splits
@@ -734,112 +741,111 @@ require("packer").startup({ function(use)
                 which_key = nil,
             })
         end,
-    }
+    },
 
     -- Show indentation lines
-    use {
+    {
         "lukas-reineke/indent-blankline.nvim",
-        cfg = function()
+        init = function()
             vim.opt.list = true
             vim.opt.listchars:append("space:⋅")
             vim.opt.listchars:append("eol:↴")
-
-            require("indent_blankline").setup({
-                space_char_blankline = " ",
-                show_trailing_blankline_indent = true,
-                show_current_context = true,
-                show_current_context_start = true,
-                context_patterns = {
-                    "class", "function", "method", "block", "list_literal", "selector",
-                    "^if", "^table", "if_statement", "while", "for"
-                },
-            })
         end,
-    }
+        opts = {
+            space_char_blankline = " ",
+            show_trailing_blankline_indent = true,
+            show_current_context = true,
+            show_current_context_start = true,
+            context_patterns = {
+                "class", "function", "method", "block", "list_literal", "selector",
+                "^if", "^table", "if_statement", "while", "for"
+            },
+        },
+        event = "VeryLazy",
+    },
 
     -- Unlearn bad patterns
-    use "ja-ford/delaytrain.nvim"
+    "ja-ford/delaytrain.nvim",
 
     -- Quick jump
-    use {
+    {
         "phaazon/hop.nvim",
-        config = function()
-            require("hop").setup({
-                keys = "uhetonaspg.c,rkmjwv",
-            })
-        end,
-    }
+        opts =
+        {
+            keys = "uhetonaspg.c,rkmjwv",
+        },
+        lazy = true,
+    },
 
     -- Sudo, :SudaWrite
-    use "lambdalisue/suda.vim"
+    { "lambdalisue/suda.vim", cmd = "SudaWrite" },
 
     -- Switch between relative and absolute numbers
-    use "jeffkreeftmeijer/vim-numbertoggle"
+    "jeffkreeftmeijer/vim-numbertoggle",
 
     -- Show and remove extra whitespace
-    use {
+    {
         "ntpeters/vim-better-whitespace",
         config = function()
             -- Strip all whitespace on save, disable with :DisableStripWhitespaceOnSave
             vim.g.strip_whitespace_on_save = 1
         end,
-    }
+        event = "VeryLazy",
+    },
 
     -- Highlight TODO comments
-    use {
+    {
         "folke/todo-comments.nvim",
-        requires = {
+        dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        config = function()
-            require("todo-comments").setup()
-        end,
-    }
+        config = true,
+        event = "VeryLazy",
+    },
 
     -- Rust
-    use {
+    {
         "iron-e/rust.vim",
         ft = "rust",
         config = function()
             -- Autoformat Rust on save
             vim.g.rustfmt_autosave = 1
         end,
-    }
+    },
 
     -- Opposite of J
-    use {
+    {
         "AckslD/nvim-trevJ.lua",
-        config = function()
-            require("trevj").setup()
-        end,
-    }
+        config = true,
+        keys = "<leader>j",
+    },
 
     -- TOML
-    use {
+    {
         "cespare/vim-toml",
         ft = "toml",
-    }
+    },
 
     -- Keep track of the time spent programming with wakatime
-    use "wakatime/vim-wakatime"
+    {
+        "wakatime/vim-wakatime",
+        event = "VeryLazy",
+    },
 
     -- WGSL highlighting
-    use "DingDean/wgsl.vim"
+    "DingDean/wgsl.vim",
 
     -- KDL highlighting
-    use "imsnif/kdl.vim"
-
-    -- Automatically setup the configuration after cloning packer.nvim, must be after other plugins
-    if packer_bootstrap then
-        require("packer").sync()
-    end
-end,
-    -- Use a floating window for packer
-    config = {
-        display = {
-            open_fn = require("packer.util").float,
-        },
-    } })
+    "imsnif/kdl.vim",
+}, {
+    ui = {
+        border = "single",
+    },
+    checker = {
+        enabled = true,
+        concurrency = 1,
+    },
+})
 
 --[[ Global Options ]]
 do
@@ -857,9 +863,6 @@ do
 
     -- Enable terminal gui colors
     vim.o.termguicolors = true
-
-    -- Set the leader key to space
-    vim.g.mapleader = " "
 
     -- Disable mouse
     vim.cmd("set mouse=")
