@@ -826,6 +826,14 @@ require("lazy").setup({
         ft = "toml",
     },
 
+    -- package.json updates
+    {
+        "vuki656/package-info.nvim",
+        dependencies = "MunifTanjim/nui.nvim",
+        config = true,
+        ft = "json",
+    },
+
     -- Keep track of the time spent programming with wakatime
     {
         "wakatime/vim-wakatime",
