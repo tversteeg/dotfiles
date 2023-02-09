@@ -1,5 +1,5 @@
 layout {
-    pane borderless=true
+	pane name="Topgrade" command="topgrade"
 }
 session_name "topgrade"
 attach_to_session true
