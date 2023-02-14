@@ -2,5 +2,16 @@
         - SearX:
                 icon: searxmetasearchengine.png
                 description: Search engine
-                server: searx
+                server: local-docker
                 container: searx
+
+- Hosting:
+        - PhotoPrism:
+                icon: photoprism.png
+                description: Image hosting
+                server: local-docker
+                container: photoprism
+                href: http://serv.local:3002
+                widget:
+                        type: photoprism
+                        url: http://serv.local:3002

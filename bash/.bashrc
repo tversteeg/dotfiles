@@ -50,7 +50,7 @@ if ! shopt -oq posix; then
 fi
 
 # Cache Rust build artifacts
-export RUSTC_WRAPPER=sccache
+#export RUSTC_WRAPPER=sccache
 
 # Setup rust
 source "$HOME/.cargo/env"

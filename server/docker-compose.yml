@@ -9,6 +9,7 @@ services:
                 volumes:
                         - /home/thomas/.config/homepage/:/app/config
                         - /var/run/docker.sock:/var/run/docker.sock 
+                restart: always
 
         searx:
                 image: searx/searx
@@ -21,6 +22,111 @@ services:
                         - /home/thomas/searx:/etc/searx
                 environment:
                         - BASE_URL=http://serv.local:3001/
+                restart: always
+
+        nginx:
+                image: nginx:1.23
+                volumes:
+                        - /home/thomas/.config/nginx:/etc/nginx/conf.d
+                        - /home/thomas/.config/certbot:/etc/letsencrypt
+                        - /home/thomas/.certbot/www:/var/www/certbot
+                ports:
+                        - 2000:80
+                        - 2001:443
+                restart: always
+
+        certbot:
+                image: certbot/certbot
+                volumes:
+                        - /home/thomas/.config/certbot:/etc/letsencrypt
+                        - /home/thomas/.certbot/www:/var/www/certbot
+                restart: always
+
+        immich-server:
+                container_name: immich_server
+                image: altran1502/immich-server:release
+                entrypoint: ["/bin/sh", "./start-server.sh"]
+                volumes:
+                        - ${UPLOAD_LOCATION}:/usr/src/app/upload
+                env_file:
+                        - .env
+                environment:
+                        - NODE_ENV=production
+                depends_on:
+                        - redis
+                        - database
+                restart: always
+
+        immich-microservices:
+                container_name: immich_microservices
+                image: altran1502/immich-server:release
+                entrypoint: ["/bin/sh", "./start-microservices.sh"]
+                volumes:
+                        - ${UPLOAD_LOCATION}:/usr/src/app/upload
+                env_file:
+                        - .env
+                environment:
+                        - NODE_ENV=production
+                depends_on:
+                        - redis
+                        - database
+                restart: always
+
+        immich-machine-learning:
+                container_name: immich_machine_learning
+                image: altran1502/immich-machine-learning:release
+                entrypoint: ["/bin/sh", "./entrypoint.sh"]
+                volumes:
+                        - ${UPLOAD_LOCATION}:/usr/src/app/upload
+                env_file:
+                        - .env
+                environment:
+                        - NODE_ENV=production
+                depends_on:
+                        - database
+                restart: always
+
+        immich-web:
+                container_name: immich_web
+                image: altran1502/immich-web:release
+                entrypoint: ["/bin/sh", "./entrypoint.sh"]
+                env_file:
+                        - .env
+                restart: always
+
+        redis:
+                container_name: immich_redis
+                image: redis:6.2
+                restart: always
+
+        database:
+                container_name: immich_postgres
+                image: postgres:14
+                env_file:
+                        - .env
+                environment:
+                        POSTGRES_PASSWORD: ${DB_PASSWORD}
+                        POSTGRES_USER: ${DB_USERNAME}
+                        POSTGRES_DB: ${DB_DATABASE_NAME}
+                        PG_DATA: /var/lib/postgresql/data
+                volumes:
+                        - pgdata:/var/lib/postgresql/data
+                restart: always
+
+        immich-proxy:
+                container_name: immich_proxy
+                image: altran1502/immich-proxy:release
+                ports:
+                        - 3002:8080
+                logging:
+                        driver: none
+                depends_on:
+                        - immich-server
+                restart: always
+
+volumes:
+        pgdata:
+
 
 networks:
         searx:
