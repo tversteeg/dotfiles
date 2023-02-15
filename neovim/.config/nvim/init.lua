@@ -170,11 +170,15 @@ require("lazy").setup({
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "sumneko_lua",
+                    "lua_ls",
                     "rust_analyzer",
                     "volar",
                     "pylsp",
                     "bashls",
+                    "yamlls",
+                    "taplo",
+                    "marksman",
+                    "dockerls",
                 }
             })
             require("mason-null-ls").setup({
@@ -240,6 +244,8 @@ require("lazy").setup({
                     null_ls.builtins.formatting.eslint_d,
                 },
             })
+            -- Decrease timeout, prettier is slow
+            vim.lsp.buf.format({ timeout_ms = 5000 })
 
             -- Setup Python
             lsp.pylsp.setup({
@@ -251,7 +257,7 @@ require("lazy").setup({
             local runtime_path = vim.split(package.path, ';')
             table.insert(runtime_path, "lua/?.lua")
             table.insert(runtime_path, "lua/?/init.lua")
-            lsp.sumneko_lua.setup({
+            lsp.lua_ls.setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
                 settings = {
@@ -279,6 +285,30 @@ require("lazy").setup({
 
             -- Setup Bash
             lsp.bashls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+
+            -- Setup YAML
+            lsp.yamlls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+
+            -- Setup TOML
+            lsp.taplo.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+
+            -- Setup Markdown
+            lsp.marksman.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+            })
+
+            -- Setup Docker
+            lsp.dockerls.setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
             })
@@ -359,7 +389,6 @@ require("lazy").setup({
             require("luasnip").config.set_config({
                 -- Keep the last snippet around so we can jump back
                 history = true,
-
                 -- Update the snippet as we type
                 updateevents = "TextChanged,TextChangedI",
             })
@@ -531,21 +560,21 @@ require("lazy").setup({
 
             local keymaps = {
                 -- Splits
-                { "<a-h>", "<c-w>h", mode = { "n", "i", "v" }, description = "Move to left split" },
-                { "<a-l>", "<c-w>l", mode = { "n", "i", "v" }, description = "Move to right split" },
-                { "<a-j>", "<c-w>j", mode = { "n", "i", "v" }, description = "Move to bottom split" },
-                { "<a-k>", "<c-w>k", mode = { "n", "i", "v" }, description = "Move to top split" },
-                { "b", "<nop>", description = "Unlearn key in favor of F/T" },
-                { "w", "<nop>", description = "Unlearn key in favor of f/t" },
-                { "h", "<nop>", description = "Unlearn key in favor of F/T" },
-                { "l", "<nop>", description = "Unlearn key in favor of f/t" },
-                { "k", "<nop>", description = "Unlearn key in favor of <leader>l" },
-                { "j", "<nop>", description = "Unlearn key in favor of <leader>l" },
+                { "<a-h>",        "<c-w>h",                                                 mode = { "n", "i", "v" },                         description = "Move to left split" },
+                { "<a-l>",        "<c-w>l",                                                 mode = { "n", "i", "v" },                         description = "Move to right split" },
+                { "<a-j>",        "<c-w>j",                                                 mode = { "n", "i", "v" },                         description = "Move to bottom split" },
+                { "<a-k>",        "<c-w>k",                                                 mode = { "n", "i", "v" },                         description = "Move to top split" },
+                { "b",            "<nop>",                                                  description = "Unlearn key in favor of F/T" },
+                { "w",            "<nop>",                                                  description = "Unlearn key in favor of f/t" },
+                { "h",            "<nop>",                                                  description = "Unlearn key in favor of F/T" },
+                { "l",            "<nop>",                                                  description = "Unlearn key in favor of f/t" },
+                { "k",            "<nop>",                                                  description = "Unlearn key in favor of <leader>l" },
+                { "j",            "<nop>",                                                  description = "Unlearn key in favor of <leader>l" },
 
                 -- Menus
                 { "<leader><cr>", helpers.lazy_required_fn("legendary", "find", "keymaps"), description = "This menu" },
-                { "<leader>a", "<cmd>CodeActionMenu<CR>", description = "Code action menu" },
-                { "<leader>f", require("telescope").extensions.frecency.frecency, description = "Most used files" },
+                { "<leader>a",    "<cmd>CodeActionMenu<CR>",                                description = "Code action menu" },
+                { "<leader>f",    require("telescope").extensions.frecency.frecency,        description = "Most used files" },
                 { "<c-p>", function()
                     if vim.fn.getcwd() == "~" or vim.fn.getcwd() == "/home/thomas" then
                         -- Show all files in home directory
@@ -558,7 +587,7 @@ require("lazy").setup({
                 -- Custom scripts
                 { "<leader><leader>n", "<cmd>vsplit /tmp/nvim-tmp-buf.lua<CR>",
                     description = "Open or create a temporary Lua file that we can execute on a buffer with <leader><leader>l" },
-                { "<leader><leader>e", "<cmd>luafile /tmp/nvim-tmp-buf.lua<CR>", description = "Execute tmp Lua buffer" },
+                { "<leader><leader>e", "<cmd>luafile /tmp/nvim-tmp-buf.lua<CR>",  description = "Execute tmp Lua buffer" },
                 { "<leader><leader>c", function()
                     local last_command = vim.api.nvim_call_function("getreg", { ":", 1 })
 
@@ -574,19 +603,19 @@ require("lazy").setup({
                 end, description = "Append the last executed command to the temporary neovim buffer file" },
 
                 -- Neovim dotfiles
-                { "<leader>x", "<cmd>source ~/.config/nvim/init.lua<CR>", description = "Reload configuration" },
+                { "<leader>x",         "<cmd>source ~/.config/nvim/init.lua<CR>", description = "Reload configuration" },
 
                 -- LSP
-                { "K", vim.lsp.buf.hover, description = "LSP hover" },
-                { "ga", vim.lsp.buf.code_action, description = "LSP code action" },
-                { "gd", vim.lsp.buf.declaration, description = "LSP declaration" },
-                { "gD", vim.lsp.buf.implementation, description = "LSP implementation" },
-                { "gr", vim.lsp.buf.references, description = "LSP references" },
-                { "<c-k>", vim.lsp.buf.signature_help, description = "LSP signature help" },
-                { "<leader>d", vim.lsp.buf.type_definition, description = "LSP type definition" },
-                { "<leader>wa", vim.lsp.buf.add_workspace_folder, description = "LSP add workspace folder" },
-                { "<leader>wr", vim.lsp.buf.remove_workspace_folder, description = "LSP remove workspace folder" },
-                { "<leader>r", ":IncRename ", description = "LSP rename" },
+                { "K",                 vim.lsp.buf.hover,                         description = "LSP hover" },
+                { "ga",                vim.lsp.buf.code_action,                   description = "LSP code action" },
+                { "gd",                vim.lsp.buf.declaration,                   description = "LSP declaration" },
+                { "gD",                vim.lsp.buf.implementation,                description = "LSP implementation" },
+                { "gr",                vim.lsp.buf.references,                    description = "LSP references" },
+                { "<c-k>",             vim.lsp.buf.signature_help,                description = "LSP signature help" },
+                { "<leader>d",         vim.lsp.buf.type_definition,               description = "LSP type definition" },
+                { "<leader>wa",        vim.lsp.buf.add_workspace_folder,          description = "LSP add workspace folder" },
+                { "<leader>wr",        vim.lsp.buf.remove_workspace_folder,       description = "LSP remove workspace folder" },
+                { "<leader>r",         ":IncRename ",                             description = "LSP rename" },
 
                 -- Rust
                 --{ "J", helpers.lazy_required_fn("rust-tools.join_lines", "join_lines"), description = "Join lines" },
@@ -607,34 +636,34 @@ require("lazy").setup({
                 -- Snippets
                 {
                     "<c-k>", function()
-                        local ls = require("luasnip")
+                    local ls = require("luasnip")
 
-                        if ls.expand_or_jumpable() then
-                            ls.expand_or_jump()
-                        end
-                    end,
+                    if ls.expand_or_jumpable() then
+                        ls.expand_or_jump()
+                    end
+                end,
                     mode = { "s", "i" },
                     description = "Expand current snippet or jump to the next item within it",
                 },
                 {
                     "<c-j>", function()
-                        local ls = require("luasnip")
+                    local ls = require("luasnip")
 
-                        if ls.jumpable(-1) then
-                            ls.jump(-1)
-                        end
-                    end,
+                    if ls.jumpable( -1) then
+                        ls.jump( -1)
+                    end
+                end,
                     mode = { "s", "i" },
                     description = "Move to the previous item within the snippet",
                 },
                 {
                     "<c-l>", function()
-                        local ls = require("luasnip")
+                    local ls = require("luasnip")
 
-                        if ls.choice_active() then
-                            ls.change_choice(1)
-                        end
-                    end,
+                    if ls.choice_active() then
+                        ls.change_choice(1)
+                    end
+                end,
                     mode = { "s", "i" },
                     description = "Select within the snippet's list of options",
                 },
@@ -734,7 +763,6 @@ require("lazy").setup({
                 }
             end
             ]]
-
             require("legendary").setup({
                 keymaps = keymaps,
                 most_recent_item_at_top = true,
