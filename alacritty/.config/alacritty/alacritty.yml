@@ -1,13 +1,13 @@
 font:
-  size: 10.0
+  size: 12.0
   normal:
-    family: monospace
+    family: FiraCode Nerd Font
     style: Regular
   italic:
-    family: monospace
-    style: Italic
+    family: FiraCode Nerd Font
+    style: Light
   bold:
-    family: monospace
+    family: FiraCode Nerd Font
     style: Bold
 env:
   TERM: alacritty

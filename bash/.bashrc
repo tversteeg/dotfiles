@@ -94,7 +94,7 @@ export ZELLIJ_LAYOUT_DIR=~/.config/zellij/layouts
 
 # Start a new zellij session when opening a new shell
 if [[ -z "$ZELLIJ" ]]; then
-	zellij --layout $ZELLIJ_LAYOUT_DIR/$(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%).kdl && exit
+	[ "$(tty)" != "/dev/tty1" ] && zellij --layout $ZELLIJ_LAYOUT_DIR/$(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | fzf --layout=reverse --height=40%).kdl && exit
 fi
 
 # Use gcloud for kubectl

@@ -7,11 +7,15 @@ fi
 
 case $1 in
 	start)
-		DISPLAY=:0.1 chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --window-position=0,0 --window-size=1925,1080 &
+		swaymsg output HDMI-A-2 enable
+		swaymsg focus output HDMI-A-2
+		chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
 		echo "$!" > /tmp/jellyfin-chromium.pid
 		;;
 	stop)
-		kill -15 "$(cat /tmp/jellyfin-chromium.pid)" &
+		kill -15 "$(cat /tmp/jellyfin-chromium.pid)"
+		killall chromium
+		swaymsg output HDMI-A-2 disable
 		;;
 	*)
 		echo 'Expected "start" or "stop"' >&2
