@@ -19,10 +19,6 @@ block = "cpu"
 format = "$barchart.str() $utilization.eng()"
 
 [[block]]
-block = "nvidia_gpu"
-if_command = "hostname | grep -q pc"
-
-[[block]]
 block = "net"
 
 [[block]]
@@ -38,7 +34,7 @@ if_command = "hostname | grep -q cems"
 
 [[block]]
 block = "time"
-format = " $icon %a %d/%m %R "
+format = " $icon $timestamp.datetime(f:'%a %d/%m %R') "
 [[block.click]]
 button = "left"
 cmd = "thunderbird -calendar"
@@ -46,7 +42,7 @@ cmd = "thunderbird -calendar"
 [[block]]
 block = "time"
 if_command = "hostname | grep -q pc"
-format = " $icon %R "
+format = " $icon $timestamp.datetime(f:%R) "
 timezone = "Asia/Ho_Chi_Minh"
 [block.icons_overrides]
 time = "\uf005"

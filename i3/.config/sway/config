@@ -38,7 +38,6 @@ exec --no-startup-id "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
 exec wl-paste -t text --watch clipman store --no-persist
 
 # DBus
-exec dbus-launch --sh-syntax --exit-with-session sway
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -204,7 +203,7 @@ output HDMI-A-1 scale 1
 output HDMI-A-2 disable
 
 # Disable X11
-xwayland disable
+#xwayland disable
 
 # The bottom bar
 bar {

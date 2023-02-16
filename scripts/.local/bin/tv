@@ -17,6 +17,16 @@ case $1 in
 		killall chromium
 		swaymsg output HDMI-A-2 disable
 		;;
+	steam-start)
+		swaymsg output HDMI-A-2 enable
+		swaymsg focus output HDMI-A-2
+		steam -bigpicture
+
+		;;
+	steam-stop)
+		killall steam
+		swaymsg output HDMI-A-2 disable
+		;;
 	*)
 		echo 'Expected "start" or "stop"' >&2
 		exit 1
