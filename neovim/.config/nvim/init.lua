@@ -57,7 +57,10 @@ require("lazy").setup({
             show = "+*\"-/_=#%.0123456789abcdefghijklmnopqrstuvwxyz:",
             system_clipboard = false,
         },
-        keys = { "\"", "<C-R>" },
+        keys = {
+            { "\"",    mode = { "n", "v" } },
+            { "<C-R>", mode = "i" }
+        },
         cmd = "Registers",
         init = function()
             vim.cmd("iabbrev regtest <C-R>=2*3<CR>")

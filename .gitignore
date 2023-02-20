@@ -5,3 +5,4 @@ undo/
 neovim/.config/nvim/plugin
 cred.json
 *lock.json
+.luarc.json
