@@ -1,0 +1,33 @@
+#!/bin/bash
+
+repo_dir_marker='~/r/..'
+work_dir_marker='~/w/..'
+fzf_opts='--layout=reverse'
+
+# Find all predefined zellij layout files expect default.kdl
+zellij_layout_files=$(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default)
+
+# Prepend our special cases
+sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n")
+
+selected_session=$(echo "$sessions" | fzf $fzf_opts)
+
+if [ "$selected_session" == "$repo_dir_marker" ]
+then
+	# Create a new session for any folder inside the ~/r directory
+	subdir="$(ls ~/r | fzf $fzf_opts)"
+	cd ~/r/$subdir
+	# Attach to the session if it exists or otherwise create a new one
+	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
+elif [ "$selected_session" == "$work_dir_marker" ]
+then
+	# Create a new session for any folder inside the ~/w directory
+	subdir="$(ls ~/w | fzf $fzf_opts)"
+	cd ~/w/$subdir
+	# Attach to the session if it exists or otherwise create a new one
+	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
+else
+	# Load a defined layout
+	zellij --layout $ZELLIJ_LAYOUT_DIR/$selected_session.kdl && exit
+fi
+

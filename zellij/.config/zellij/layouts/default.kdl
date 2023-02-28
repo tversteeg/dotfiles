@@ -1,0 +1,21 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+    tab name="Code" split_direction="Vertical" {
+        pane split_direction="Vertical" {
+            pane command="bash" name="Neovim" borderless=true {
+                args "-c" "nvim"
+            }
+            pane command="bash" name="cli" size="30%" borderless=true {
+            }
+        }
+    }
+}
+attach_to_session true

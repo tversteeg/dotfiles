@@ -187,6 +187,7 @@ require("lazy").setup({
             require("mason-null-ls").setup({
                 ensure_installed = {
                     "eslint_d",
+                    "prettierd",
                 }
             })
 
@@ -244,11 +245,11 @@ require("lazy").setup({
                 sources = {
                     null_ls.builtins.code_actions.eslint_d,
                     null_ls.builtins.diagnostics.eslint_d,
-                    null_ls.builtins.formatting.eslint_d,
+                    null_ls.builtins.formatting.prettierd,
                 },
             })
             -- Decrease timeout, prettier is slow
-            vim.lsp.buf.format({ timeout_ms = 5000 })
+            vim.lsp.buf.format({ timeout_ms = 10000 })
 
             -- Setup Python
             lsp.pylsp.setup({
@@ -622,7 +623,7 @@ require("lazy").setup({
 
                 -- Rust
                 --{ "J", helpers.lazy_required_fn("rust-tools.join_lines", "join_lines"), description = "Join lines" },
-                { "<leader>c", helpers.lazy_required_fn("rust-tools.open_cargo_toml", "open_cargo_toml"),
+                { "<leader>rc", helpers.lazy_required_fn("rust-tools.open_cargo_toml", "open_cargo_toml"),
                     description = "Open Cargo.toml" },
                 { "<leader>p", helpers.lazy_required_fn("rust-tools.parent_module", "parent_module"),
                     description = "Open parent module" },
@@ -744,14 +745,21 @@ require("lazy").setup({
 
                 -- Dial
                 {
-                    "<c-a>", require("dial.map").inc_normal(),
+                    "<c-a>", helpers.lazy_required_fn("dial.map", "inc_normal"),
                     mode = { "n", "o" },
                     description = "Increase next item under cursor or available",
                 },
                 {
-                    "<c-x>", require("dial.map").dec_normal(),
+                    "<c-a>", helpers.lazy_required_fn("dial.map", "dec_normal"),
                     mode = { "n", "o" },
                     description = "Decrease next item under cursor or available",
+                },
+
+                -- Clipboard
+                {
+                    "<leader>c", helpers.lazy_required_fn("osc52", "copy_operator"),
+                    mode = { "n", "o" },
+                    description = "Copy to terminal using OSC52 standard"
                 },
             }
 
@@ -801,11 +809,15 @@ require("lazy").setup({
     -- Quick jump
     {
         "phaazon/hop.nvim",
-        opts =
-        {
-            keys = "uhetonaspg.c,rkmjwv",
-        },
+        opts = { keys = "uhetonaspg.c,rkmjwv" },
         lazy = true,
+    },
+
+    -- Clipboard manager using OSC52
+    {
+        "ojroques/nvim-osc52",
+        config = true,
+        keys = "<leader>c",
     },
 
     -- Sudo, :SudaWrite
@@ -861,7 +873,9 @@ require("lazy").setup({
     {
         "vuki656/package-info.nvim",
         dependencies = "MunifTanjim/nui.nvim",
-        config = true,
+        opts = {
+            hide_up_to_date = true,
+        },
         ft = "json",
     },
 
