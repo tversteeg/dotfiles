@@ -36,6 +36,8 @@ exec --no-startup-id "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
 
 # Clipboard sharing
 exec wl-paste -t text --watch clipman store --no-persist
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
+bindsym $mod+u exec clipman pick
 
 # DBus
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
