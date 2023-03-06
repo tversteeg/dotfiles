@@ -419,13 +419,10 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-cmdline",
-            "saecki/crates.nvim",
             "lukas-reineke/cmp-rg",
             -- Snippets
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
-            -- Git
-            "petertriho/cmp-git",
         },
         config = function()
             local cmp = require "cmp"
@@ -471,14 +468,18 @@ require("lazy").setup({
                     { name = "rg" },
                     { name = "nvim_lua" },
                     { name = "path" },
-                    { name = "crates" },
                     { name = "luasnip" },
                     { name = "git" },
                 }, {
                     { name = "buffer", keyword_length = 3 },
                 }),
                 mapping = cmp.mapping.preset.insert({
-                    --["<c-space>"] = cmp.mapping.complete(),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(),
+                    ["<C-n>"] = cmp.mapping.select_next_item(),
+                    ["<C-b>"] = cmp.mapping.scroll_docs( -4),
+                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-e>"] = cmp.mapping.close(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
                 snippet = {
@@ -499,7 +500,7 @@ require("lazy").setup({
             })
 
             -- Autocompletion in / search
-            cmp.setup.cmdline("/", {
+            cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = {
                     { name = "buffer" },
@@ -516,8 +517,6 @@ require("lazy").setup({
                 })
             })
 
-            require("cmp_git").setup()
-
             -- Disable when inside telescope
             vim.api.nvim_create_autocmd(
                 { "FileType" },
@@ -527,8 +526,26 @@ require("lazy").setup({
                         cmp.setup.buffer({ enabled = false })
                     end
                 })
+
+            -- Better completion experience
+            -- menuone: Popup even when there's only one match, do not insert text until a selection is
+            -- noinstert: Do not insert text until a selection is made
+            -- noselect: Do not auto-select, nvim-cmp will do this
+            vim.o.completeopt = "menuone,noinsert,noselect"
         end,
         event = "VeryLazy",
+    },
+
+    -- Git autocompletion
+    {
+        "petertriho/cmp-git",
+        ft = { "gitcommit", "octo" },
+        config = function()
+            require("cmp_git").setup()
+
+            -- Add to nvim-cmp
+            require("cmp").setup.buffer({ sources = { { name = "git" } } })
+        end,
     },
 
     -- Number increase/decrease
@@ -853,6 +870,18 @@ require("lazy").setup({
         config = function()
             -- Autoformat Rust on save
             vim.g.rustfmt_autosave = 1
+        end,
+    },
+
+    -- Crates
+    {
+        "saecki/crates.nvim",
+        event = "BufEnter Cargo.toml",
+        config = function()
+            require("crates").setup()
+
+            -- Add to nvim-cmp
+            require("cmp").setup.buffer({ sources = { { name = "crates" } } })
         end,
     },
 
