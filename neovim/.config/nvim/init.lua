@@ -36,7 +36,7 @@ require("lazy").setup({
                     notify = true,
                     indent_blankline = {
                         enabled = true,
-                        -- colored_indent_levels = true,
+                        colored_indent_levels = true,
                     },
                 },
                 dim_inactive = {
@@ -78,13 +78,14 @@ require("lazy").setup({
             -- Use telescope as the default neovim ui
             require("telescope").load_extension("ui-select")
         end,
+        keys = { "<C-p>", "<leader>f" },
     },
 
     -- Pretty telescope
     {
         "stevearc/dressing.nvim",
-        event = "VeryLazy",
         config = true,
+        event = "VeryLazy",
     },
 
     -- Frequently visited files with <leader>f
@@ -542,13 +543,13 @@ require("lazy").setup({
     -- Git autocompletion
     {
         "petertriho/cmp-git",
-        ft = { "gitcommit", "octo" },
         config = function()
             require("cmp_git").setup()
 
             -- Add to nvim-cmp
             require("cmp").setup.buffer({ sources = { { name = "git" } } })
         end,
+        ft = { "gitcommit", "octo" },
     },
 
     -- Number increase/decrease
@@ -568,7 +569,7 @@ require("lazy").setup({
                 },
             })
         end,
-        lazy = true,
+        keys = { "<C-a>", "<C-x>" },
     },
 
     -- Define and show keybindings
@@ -824,7 +825,10 @@ require("lazy").setup({
     },
 
     -- Unlearn bad patterns
-    "ja-ford/delaytrain.nvim",
+    {
+        "ja-ford/delaytrain.nvim",
+        event = "VeryLazy",
+    },
 
     -- Quick jump
     {
@@ -844,7 +848,10 @@ require("lazy").setup({
     { "lambdalisue/suda.vim", cmd = "SudaWrite" },
 
     -- Switch between relative and absolute numbers
-    "jeffkreeftmeijer/vim-numbertoggle",
+    {
+        "jeffkreeftmeijer/vim-numbertoggle",
+        event = "VeryLazy",
+    },
 
     -- Show and remove extra whitespace
     {
@@ -869,23 +876,23 @@ require("lazy").setup({
     -- Rust
     {
         "iron-e/rust.vim",
-        ft = "rust",
         config = function()
             -- Autoformat Rust on save
             vim.g.rustfmt_autosave = 1
         end,
+        ft = "rust",
     },
 
     -- Crates
     {
         "saecki/crates.nvim",
-        event = "BufEnter Cargo.toml",
         config = function()
             require("crates").setup()
 
             -- Add to nvim-cmp
             require("cmp").setup.buffer({ sources = { { name = "crates" } } })
         end,
+        event = "BufEnter Cargo.toml",
     },
 
     -- Opposite of J
@@ -918,10 +925,16 @@ require("lazy").setup({
     },
 
     -- WGSL highlighting
-    "DingDean/wgsl.vim",
+    {
+        "DingDean/wgsl.vim",
+        event = "BufEnter *.wgsl",
+    },
 
     -- KDL highlighting
-    "imsnif/kdl.vim",
+    {
+        "imsnif/kdl.vim",
+        event = "BufEnter *.kdl",
+    },
 }, {
     ui = {
         border = "single",
