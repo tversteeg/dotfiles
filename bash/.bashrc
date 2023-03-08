@@ -94,7 +94,7 @@ export ZELLIJ_LAYOUT_DIR=~/.dotfiles/zellij/.config/zellij/layouts
 
 # Start a new zellij session when opening a new shell
 if [[ -z "$ZELLIJ" ]]; then
-	[ "$(tty)" != "/dev/tty1" ] && ~/.local/bin/start_zellij_session
+	[ "$(tty)" != "/dev/tty1" ] && ~/.local/bin/start_zellij_session ; exit
 fi
 
 # Use gcloud for kubectl
