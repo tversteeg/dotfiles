@@ -2,15 +2,9 @@ no_retry = true
 skip_notify = true
 
 [git]
-repos = [
-	"~/.dotfiles",
-	"~/r/*",
-	"~/w/*/*",
-	"~/gh/*/*",
-]
+repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
 
 [commands]
-"Rust Analyzer" = "cd ~/r/rust-analyzer && cargo xtask install --server"
 "Neovim Nightly" = "bob install nightly"
 "i3status" = "cd ~/r/i3status-rust/ && cargo install --path . --locked && ./install.sh"
 
