@@ -92,6 +92,14 @@ require("lazy").setup({
                 mode = { "n", "v", "i" },
                 desc = "Git files or all files when in ~",
             },
+            {
+                "<C-l>",
+                function()
+                    require("telescope.builtin").diagnostics()
+                end,
+                mode = { "n", "v", "i" },
+                desc = "Diagnostics list",
+            },
         },
     },
 
@@ -460,6 +468,12 @@ require("lazy").setup({
         "smjonas/inc-rename.nvim",
         config = true,
         keys = "<leader>r",
+    },
+
+    -- Quickfix
+    {
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
     },
 
     -- Snippets
