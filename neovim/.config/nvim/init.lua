@@ -658,7 +658,32 @@ require("lazy").setup({
                 },
             })
         end,
-        keys = { "<C-a>", "<C-x>" },
+        keys = { 
+            {
+                "<C-a>", 
+                require("dial.map").inc_normal(),
+                mode = { "n" },
+                desc = "Increase next item under cursor or available",
+            },
+            {
+                "<C-a>", 
+                require("dial.map").inc_visual(),
+                mode = { "v" },
+                desc = "Increase next item under cursor or available",
+            },
+            {
+                "<C-x>", 
+                require("dial.map").dec_normal(),
+                mode = { "n" },
+                desc = "Decrease next item under cursor or available",
+            },
+            {
+                "<C-x>", 
+                require("dial.map").dec_visual(),
+                mode = { "v" },
+                desc = "Decrease next item under cursor or available",
+            },
+        },
     },
 
     -- Define and show keybindings
@@ -968,20 +993,6 @@ require("lazy").setup({
                     helpers.lazy_required_fn("hop", "hint_patterns"),
                     mode = { "n", "o", "v" },
                     description = "/ but with matches to jump to",
-                },
-
-                -- Dial
-                {
-                    "<c-a>",
-                    helpers.lazy_required_fn("dial.map", "inc_normal"),
-                    mode = { "n", "o" },
-                    description = "Increase next item under cursor or available",
-                },
-                {
-                    "<c-a>",
-                    helpers.lazy_required_fn("dial.map", "dec_normal"),
-                    mode = { "n", "o" },
-                    description = "Decrease next item under cursor or available",
                 },
 
                 -- Clipboard
