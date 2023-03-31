@@ -1070,6 +1070,19 @@ require("lazy").setup({
         cmd = "SudaWrite"
     },
 
+    -- Create a beautiful screenshot of the code
+    {
+        "krivahtoo/silicon.nvim",
+        run = "./install.sh build",
+        opts = {
+            font = "FiraCode Nerd Font=20",
+            output = {
+                path = "/home/thomas/Pictures/Screenshot",
+            },
+        },
+        cmd = "Silicon",
+    },
+
     -- Switch between relative and absolute numbers
     {
         "jeffkreeftmeijer/vim-numbertoggle",

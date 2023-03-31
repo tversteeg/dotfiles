@@ -61,12 +61,12 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # Use better alternatives
 alias ls='lsd'
-#alias ls='nnn -de'
-#alias ls='xplr'
+alias tree='et'
 alias cat='bat --theme=base16-256'
 alias grep='grep --color=auto'
 alias c='cemsdev run'
 alias ga='git add -A'
+alias gc='git commit -am'
 
 # Add installed cargo binaries to path, and ~/.local/bin, and the lua language server, and neovim
 export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin:/home/thomas/.local/share/neovim/bin:/home/thomas/.yarn/bin"
