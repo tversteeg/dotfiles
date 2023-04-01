@@ -1,0 +1,21 @@
+theme = "catppuccin_latte"
+
+[editor]
+line-number = "relative"
+mouse = false
+cursorline = true
+true-color = true
+indent-guides = { render = true }
+
+[editor.lsp]
+display-inlay-hints = true
+display-messages = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.whitespace.render]
+tab = "all"
+newline = "all"

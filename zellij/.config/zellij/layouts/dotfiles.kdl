@@ -10,8 +10,8 @@ layout {
     }
     tab split_direction="Vertical" {
         pane split_direction="Vertical" {
-            pane command="bash" name="Neovim" borderless=true {
-                args "-c" "cd ~/.dotfiles && nvim"
+            pane command="bash" name="Helix" borderless=true {
+                args "-c" "cd ~/.dotfiles && hx"
             }
             pane command="bash" name="CLI" size="30%" borderless=true {
                 args "-c" "cd ~/.dotfiles && exec bash"

@@ -11,7 +11,7 @@ layout {
     tab name="Code" split_direction="Vertical" {
         pane split_direction="Vertical" {
             pane command="bash" name="Neovim" borderless=true {
-                args "-c" "nvim"
+                args "-c" "hx"
             }
             pane command="bash" name="cli" size="30%" borderless=true {
             }
