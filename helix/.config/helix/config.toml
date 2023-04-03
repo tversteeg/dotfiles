@@ -1,21 +1,31 @@
 theme = "catppuccin_latte"
 
 [editor]
+# Show relative line numbers
 line-number = "relative"
+# Disable the mouse
 mouse = false
+# Highlight the line the cursor is on
 cursorline = true
+# Proper colors in the terminal
 true-color = true
+# Show indentation guides
 indent-guides = { render = true }
+# Show files starting with `.` in the file pickers
+file-picker = { hidden = false }
 
 [editor.lsp]
+# Enable inlay hints
 display-inlay-hints = true
+# Show LSP messages in the bottom bar
 display-messages = true
 
+# Cursors for different modes
 [editor.cursor-shape]
 normal = "block"
 insert = "bar"
 select = "underline"
 
+# Show tabs & newline characters
 [editor.whitespace.render]
 tab = "all"
-newline = "all"
