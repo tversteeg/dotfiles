@@ -10,7 +10,7 @@ layout {
     }
     tab name="Code" split_direction="Vertical" {
         pane split_direction="Vertical" {
-            pane command="bash" name="Neovim" borderless=true {
+            pane command="bash" name="Helix" borderless=true {
                 args "-c" "hx"
             }
             pane command="bash" name="cli" size="30%" borderless=true {

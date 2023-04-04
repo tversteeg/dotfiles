@@ -19,17 +19,17 @@ layout {
 
 	tab cwd="/home/thomas/w/nuclei-web" name="Web" focus=true {
 		pane command="bash" focus=true {
-			args "-c" "cd /home/thomas/w/nuclei-web && nvim"
+			args "-c" "cd /home/thomas/w/nuclei-web && hx"
 		}
 	}
 	tab cwd="/home/thomas/w/nuclei-lib" name="Lib" {
 		pane command="bash" focus=true {
-			args "-c" "cd /home/thomas/w/nuclei-lib && nvim"
+			args "-c" "cd /home/thomas/w/nuclei-lib && hx"
 		}
 	}
 	tab cwd="/home/thomas/w/nuclei-web-back" name="Back" {
 		pane command="bash" focus=true {
-			args "-c" "cd /home/thomas/w/nuclei-web-back && nvim"
+			args "-c" "cd /home/thomas/w/nuclei-web-back && hx"
 		}
 	}
 }

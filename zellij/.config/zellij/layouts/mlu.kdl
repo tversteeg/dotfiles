@@ -10,8 +10,8 @@ layout {
     }
     tab name="MLU" split_direction="Vertical" {
         pane split_direction="Vertical" {
-            pane command="bash" name="Neovim" borderless=true {
-                args "-c" "cd ~/w/mlu && nvim"
+            pane command="bash" name="Helix" borderless=true {
+                args "-c" "cd ~/w/mlu && hx"
             }
             pane command="bash" name="cli" size="30%" borderless=true {
                 args "-c" "cd ~/w/mlu && exec bash"
@@ -20,8 +20,8 @@ layout {
     }
     tab name="MLU core" split_direction="Vertical" {
         pane split_direction="Vertical" {
-            pane command="bash" name="Neovim" borderless=true {
-                args "-c" "cd ~/w/mlu-core && nvim"
+            pane command="bash" name="Helix" borderless=true {
+                args "-c" "cd ~/w/mlu-core && hx"
             }
             pane command="bash" name="cli" size="30%" borderless=true {
                 args "-c" "cd ~/w/mlu-core && exec bash"
