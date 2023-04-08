@@ -29,3 +29,8 @@ select = "underline"
 # Show tabs & newline characters
 [editor.whitespace.render]
 tab = "all"
+
+# Remap some keys
+[keys.normal]
+# Jump to the next split
+space = { space = "rotate_view" }

@@ -17,15 +17,15 @@ case $1 in
 		killall chromium
 		swaymsg output HDMI-A-2 disable
 		;;
-	steam-start)
-		swaymsg output HDMI-A-2 enable
-		swaymsg focus output HDMI-A-2
-		steam -bigpicture
-
-		;;
-	steam-stop)
-		killall steam
-		swaymsg output HDMI-A-2 disable
+	aseprite)
+		swaymsg create_output HEADLESS-1
+		swaymsg output HEADLESS-1 resolution 2000x1200
+		swaymsg output HEADLESS-1 enable
+		swaymsg focus output HEADLESS-1
+		swaymsg workspace steam output HEADLESS-1
+		swaymsg 'workspace steam; for_window [class="Aseprite"] fullscreen enable; exec ~/.steam/steam/steamapps/common/Aseprite/aseprite'
+		wayvnc -v -C /home/thomas/.config/wayvnc/config -o HEADLESS-1 0.0.0.0
+		swaymsg output HEADLESS-1 disable 
 		;;
 	*)
 		echo 'Expected "start" or "stop"' >&2
