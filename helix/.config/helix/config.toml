@@ -30,6 +30,10 @@ select = "underline"
 [editor.whitespace.render]
 tab = "all"
 
+# Enable wrapping text
+[editor.soft-wrap]
+enable = true
+
 # Remap some keys
 [keys.normal]
 # Jump to the next split
