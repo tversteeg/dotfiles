@@ -2,8 +2,8 @@
 
 repo_dir_marker='~/r/..'
 work_dir_marker='~/w/..'
-clone_r_marker='clone ~/r/'
-clone_w_marker='clone ~/w/'
+clone_r_marker='clone GitHub repo into ~/r/'
+clone_w_marker='clone any repo into ~/w/'
 fzf_opts='--layout=reverse'
 
 # Find all predefined zellij layout files expect default.kdl
@@ -27,7 +27,6 @@ function clone {
 		    repo=${BASH_REMATCH[5]}
 
 				git clone "git@${hostname}:${user}/${repo}.git"
-				exit
 		else
 			print "Failed parsing URL ${url}"
 			exit 1
@@ -55,7 +54,8 @@ then
 elif [ "$selected_session" == "$clone_w_marker" ]
 then
 	cd ~/w/
-	clone
+	echo "Enter repo SSH URL:"
+	git clone "$(read)"
 else
 	# Load a defined layout
 	zellij --layout $ZELLIJ_LAYOUT_DIR/$selected_session.kdl && exit
