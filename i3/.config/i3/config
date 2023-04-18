@@ -151,6 +151,7 @@ bindsym Print exec flameshot gui
 # Move clients to proper workspace
 assign [class="thunderbird"] mail
 assign [class="firefox"] dev
+for_window [class="wine"] floating enable
 
 # Plasma
 for_window [title="Desktop — Plasma"] kill, floating enable, border none
