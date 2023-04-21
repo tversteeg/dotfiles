@@ -94,8 +94,9 @@ export FZF_DEFAULT_OPTS='--preview-window=:hidden --preview "bat {}"'
 export ZELLIJ_LAYOUT_DIR=~/.dotfiles/zellij/.config/zellij/layouts
 
 # Start a new zellij session when opening a new shell
-if [[ -z "$ZELLIJ" ]]; then
-	[ "$(tty)" != "/dev/tty1" ] && (~/.local/bin/start_zellij_session ; exit)
+if [[ -z "$ZELLIJ" ]] && [ "$(tty)" != "/dev/tty1" ]; then
+	 ~/.local/bin/start_zellij_session
+	exit
 fi
 
 # Use gcloud for kubectl
@@ -133,11 +134,3 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
 
 _gen_fzf_default_opts
 # End flavours
-
-alias luamake=/home/thomas/r/lua-language-server/3rd/luamake/luamake
-
-PATH="/home/thomas/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/thomas/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/thomas/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/thomas/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/thomas/perl5"; export PERL_MM_OPT;
