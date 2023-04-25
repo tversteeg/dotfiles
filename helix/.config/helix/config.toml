@@ -38,3 +38,8 @@ enable = true
 [keys.normal]
 # Jump to the next split
 space = { space = "rotate_view" }
+
+# Jump settings
+[editor.jump-mode]
+dim-during-jump = false
+jump-keys = "uhetonaspg.c,rkmjwv"
