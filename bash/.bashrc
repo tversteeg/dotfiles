@@ -81,7 +81,7 @@ eval "$(starship init bash)"
 type "glab" >/dev/null 2>&1 && eval "$(glab completion)"
 
 # Use neovim as the default editor
-export EDITOR='nvim'
+export EDITOR='hx'
 
 # Use ripgrep as the FZF input
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs'

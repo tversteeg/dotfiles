@@ -35,9 +35,11 @@ tab = "all"
 enable = true
 
 # Remap some keys
-[keys.normal]
+[keys.normal.space]
 # Jump to the next split
-space = { space = "rotate_view" }
+space = "rotate_view"
+# Toggle inlay hints
+i = ":toggle lsp.display-inlay-hints"
 
 # Jump settings
 [editor.jump-mode]

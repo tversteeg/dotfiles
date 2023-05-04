@@ -4,13 +4,15 @@ repo_dir_marker='~/r/..'
 work_dir_marker='~/w/..'
 clone_r_marker='clone GitHub repo into ~/r/'
 clone_w_marker='clone any repo into ~/w/'
+port_forward_marker='forward k8 port'
+
 fzf_opts='--layout=reverse'
 
 # Find all predefined zellij layout files expect default.kdl
 zellij_layout_files=$(find "$ZELLIJ_LAYOUT_DIR" -type f | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default)
 
 # Prepend our special cases
-sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n")
+sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$port_forward_marker\n")
 
 selected_session=$(echo "$sessions" | fzf $fzf_opts)
 
@@ -51,11 +53,20 @@ elif [ "$selected_session" == "$clone_r_marker" ]
 then
 	cd ~/r/
 	clone
+	sleep 3
 elif [ "$selected_session" == "$clone_w_marker" ]
 then
 	cd ~/w/
 	echo "Enter repo SSH URL:"
 	git clone "$(read)"
+	sleep 3
+elif [ "$selected_session" == "$port_forward_marker" ]
+then
+	pod="$(kubectl get pods -o name | fzf)"
+	read -p "Enter port for '$pod': " port
+	echo $port
+	kubectl port-forward "$pod" "$port:$port"
+	sleep 3
 else
 	# Load a defined layout
 	zellij --layout $ZELLIJ_LAYOUT_DIR/$selected_session.kdl && exit
