@@ -57,8 +57,8 @@ then
 elif [ "$selected_session" == "$clone_w_marker" ]
 then
 	cd ~/w/
-	echo "Enter repo SSH URL:"
-	git clone "$(read)"
+	read -p "Enter repo SSH URL: " url
+	git clone "$url"
 	sleep 3
 elif [ "$selected_session" == "$port_forward_marker" ]
 then
