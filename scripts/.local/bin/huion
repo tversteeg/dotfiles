@@ -1,11 +1,12 @@
 #!/bin/bash
 
+OUTPUT="DP-2"
 TABLET="HUION Huion Tablet_GS1331 Pad pad"
 TOUCH="HUION Huion Tablet_GS1331 Touch Strip pad"
 PEN="HUION Huion Tablet_GS1331 Pen stylus"
 
-xsetwacom set "$PEN" MapToOutput DP-2
-xsetwacom set "$TABLET" MapToOutput DP-2
+xsetwacom set "$PEN" MapToOutput "$OUTPUT"
+xsetwacom set "$TABLET" MapToOutput "$OUTPUT"
 
 xsetwacom set "$TABLET" button "1" key "+Control_L +z"
 xsetwacom set "$TABLET" button "2" key "+Control_L +Shift +z"

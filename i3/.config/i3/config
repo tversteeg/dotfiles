@@ -152,6 +152,7 @@ bindsym Print exec flameshot gui
 assign [class="thunderbird"] mail
 assign [class="firefox"] dev
 for_window [class="wine"] floating enable
+for_window [class="vlc"] floating enable
 
 # Plasma
 for_window [title="Desktop — Plasma"] kill, floating enable, border none
