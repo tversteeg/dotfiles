@@ -200,9 +200,14 @@ default_border pixel 1
 # Don't show edges when there's no adjacent window
 hide_edge_borders both
 
+set $main-display "Goldstar Company Ltd LG HDR 4K 0x000067AC"
+set $tablet-display "Unknown Kamvas 13 "
+
 # Displays
-output HDMI-A-1 scale 1
-output HDMI-A-2 disable
+output $main-display scale 1
+# output $tablet-display disable
+input type:tablet_pad map_to_output $tablet-display
+input type:tablet_tool map_to_output $tablet-display
 
 # Disable X11
 #xwayland disable

@@ -42,6 +42,6 @@ space = "rotate_view"
 i = ":toggle lsp.display-inlay-hints"
 
 # Jump settings
-[editor.jump-mode]
-dim-during-jump = false
-jump-keys = "uhetonaspg.c,rkmjwv"
+#[editor.jump-mode]
+#dim-during-jump = false
+#jump-keys = "uhetonaspg.c,rkmjwv"

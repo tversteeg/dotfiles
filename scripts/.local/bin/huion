@@ -1,9 +1,11 @@
 #!/bin/bash
 
-OUTPUT="DP-2"
+OUTPUT="HDMI-A-2"
 TABLET="HUION Huion Tablet_GS1331 Pad pad"
 TOUCH="HUION Huion Tablet_GS1331 Touch Strip pad"
 PEN="HUION Huion Tablet_GS1331 Pen stylus"
+
+swaymsg output "$OUTPUT" enable
 
 xsetwacom set "$PEN" MapToOutput "$OUTPUT"
 xsetwacom set "$TABLET" MapToOutput "$OUTPUT"
