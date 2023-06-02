@@ -28,7 +28,8 @@ exec --no-startup-id dunst
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id transmission-gtk -m
 exec --no-startup-id playerctld daemon
-exec --no-startup-id keepassxc
+# Start KeePass with auto-type support
+exec --no-startup-id keepassxc -platform xcb
 exec --no-startup-id element-desktop-nightly --hidden
 
 exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
@@ -205,7 +206,7 @@ set $tablet-display "Unknown Kamvas 13 "
 
 # Displays
 output $main-display scale 1
-# output $tablet-display disable
+output $tablet-display disable
 input type:tablet_pad map_to_output $tablet-display
 input type:tablet_tool map_to_output $tablet-display
 

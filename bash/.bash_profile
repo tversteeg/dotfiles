@@ -9,6 +9,9 @@ export PATH=$PATH:~/.local/bin
 # Load Rust
 source /home/thomas/.cargo/env
 
+# Set SSH agent socket
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # Run sway
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
