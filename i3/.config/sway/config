@@ -28,10 +28,12 @@ exec --no-startup-id dunst
 exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id transmission-gtk -m
 exec --no-startup-id playerctld daemon
+# Polkit for application authentication
+exec --no-startup-id mate-polkit
 # Start KeePass with auto-type support
 exec --no-startup-id keepassxc -platform xcb
-exec --no-startup-id element-desktop-nightly --hidden
 
+exec --no-startup-id "sh -c 'sleep 60 ; element-desktop-nightly --hidden'"
 exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
 exec --no-startup-id "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
 
@@ -155,6 +157,9 @@ bindsym Shift+XF86AudioNext exec mpc next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym Shift+XF86AudioPrev exec mpc prev
 
+# Huion buttons
+#bindsym --whole-window BTN_TOOL_PAD exec notify-send "bla"
+
 # Screenshot
 bindsym Print exec flameshot gui
 
@@ -203,10 +208,17 @@ hide_edge_borders both
 
 set $main-display "Goldstar Company Ltd LG HDR 4K 0x000067AC"
 set $tablet-display "Unknown Kamvas 13 "
+set $tv-display "Sony SONY TV 0x00000101"
 
-# Displays
+# Main display
 output $main-display scale 1
-output $tablet-display disable
+
+# TV
+output $tv-display disable
+
+# Tablet
+output $tablet-display enable
+output $tablet-display scale 1 pos 0 2160
 input type:tablet_pad map_to_output $tablet-display
 input type:tablet_tool map_to_output $tablet-display
 
@@ -217,6 +229,9 @@ input type:tablet_tool map_to_output $tablet-display
 bar {
 	font pango:FiraCode Nerd Font Mono 12
 	status_command /home/thomas/.cargo/bin/i3status-rs ~/.dotfiles/i3/.config/i3status-rust/config.toml
+
+	# Only show the bar on the main screen
+	output $main-display
 
 	colors {
 		background $base00

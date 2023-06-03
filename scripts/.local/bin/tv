@@ -5,17 +5,19 @@ if [[ $# -ne 1 ]]; then
 	exit 1
 fi
 
+TV=$(swaymsg -t get_outputs -r | jq '.[]|select(.make | startswith("Sony"))|.name' -r)
+
 case $1 in
 	start)
-		swaymsg output HDMI-A-2 enable
-		swaymsg focus output HDMI-A-2
+		swaymsg output "$TV" enable
+		swaymsg focus output "$TV"
 		chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
 		echo "$!" > /tmp/jellyfin-chromium.pid
 		;;
 	stop)
 		kill -15 "$(cat /tmp/jellyfin-chromium.pid)"
 		killall chromium
-		swaymsg output HDMI-A-2 disable
+		swaymsg output "$TV" disable
 		;;
 	aseprite)
 		swaymsg create_output HEADLESS-1
