@@ -9,14 +9,17 @@ TV=$(swaymsg -t get_outputs -r | jq '.[]|select(.make | startswith("Sony"))|.nam
 
 case $1 in
 	start)
+		swaymsg workspace "tv" output "$TV"
 		swaymsg output "$TV" enable
 		swaymsg focus output "$TV"
-		chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
-		echo "$!" > /tmp/jellyfin-chromium.pid
+		swaymsg 'assign [app_id="org.jellyfin.jellyfinmediaplayer"] workspace tv'
+		#chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
+		#echo "$!" > /tmp/jellyfin-chromium.pid
+		jellyfinmediaplayer --tv --windowed
 		;;
 	stop)
-		kill -15 "$(cat /tmp/jellyfin-chromium.pid)"
-		killall chromium
+		#kill -15 "$(cat /tmp/jellyfin-chromium.pid)"
+		killall jellyfinmediaplayer
 		swaymsg output "$TV" disable
 		;;
 	aseprite)
