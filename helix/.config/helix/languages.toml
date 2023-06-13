@@ -1,7 +1,9 @@
 [[language]]
 name = "rust"
-# Use rustup for rust-analyzer
-language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"] }
+#language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"] }
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
 
 [[language]]
 name = "vue"
