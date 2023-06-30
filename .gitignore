@@ -6,3 +6,6 @@ neovim/.config/nvim/plugin
 cred.json
 *lock.json
 .luarc.json
+.dotter/local.toml
+.dotter/cache.toml
+.dotter/cache/

@@ -95,7 +95,7 @@ export ZELLIJ_LAYOUT_DIR=~/.dotfiles/zellij/.config/zellij/layouts
 
 # Start a new zellij session when opening a new shell
 if [[ -z "$ZELLIJ" ]] && [ "$(tty)" != "/dev/tty1" ]; then
-	 ~/.local/bin/start_zellij_session
+	 ~/.local/bin/start-zellij-session
 	exit
 fi
 

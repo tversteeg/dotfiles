@@ -1,6 +1,0 @@
----
-# For configuration options and examples, please see:
-# https://github.com/benphelps/homepage/wiki/Docker-Integration
-
-local-docker:
-   socket: /var/run/docker.sock
