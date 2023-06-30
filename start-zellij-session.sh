@@ -8,8 +8,10 @@ port_forward_marker='forward k8 port'
 
 fzf_opts='--layout=reverse'
 
+ZELLIJ_LAYOUT_DIR="/home/thomas/.dotfiles/zellij-layouts"
+
 # Find all predefined zellij layout files expect default.kdl
-zellij_layout_files=$(ls "/home/thomas/.dotfiles/zellij-layouts" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default)
+zellij_layout_files=$(ls "$ZELLIJ_LAYOUT_DIR" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default)
 
 # Prepend our special cases
 sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$port_forward_marker\n")

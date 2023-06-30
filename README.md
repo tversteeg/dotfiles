@@ -3,7 +3,16 @@
 ### Usage
 
 ```bash
-git clone git@github.com:tversteeg/dotfiles.git .dotfiles
+cargo install dotter
+
+git clone git@github.com:tversteeg/dotfiles.git ~/.dotfiles
+
 cd ~/.dotfiles
-stow neovim bash navi i3 dunst topgrade git
+dotter
+```
+
+### Applying new udev rules
+
+```bash
+dotter && sudo udevadm control --reload-rules && sudo udevadm trigger
 ```

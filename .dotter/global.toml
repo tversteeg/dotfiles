@@ -1,15 +1,19 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet"]
 
 [scripts.files]
 "tv.sh" = "~/.local/bin/tv"
-"huion.sh" = "~/.local/bin/huion"
 "k8.sh" = "~/.local/bin/k8"
 "list-fftabs.sh" = "~/.local/bin/list-fftabs"
 "forward-localhost-port.sh" = "~/.local/bin/forward-localhost-port"
 "start-zellij-session.sh" = "~/.local/bin/start-zellij-session"
+
+[scripts.files."huion.sh"]
+target = "/usr/local/bin/huion"
+type = "symbolic"
+owner = "root"
 
 [bash.files]
 bashrc = "~/.bashrc"
@@ -63,3 +67,13 @@ wireplumber = "~/.config/wireplumber"
 [zellij.files]
 "zellij.kdl" = "~/.config/zellij/config.kdl"
 zellij-layouts = "~/.config/zellij/layouts"
+
+[udev.files."udev-huion.rules"]
+target = "/etc/udev/rules.d/99-huion.rules"
+type = "symbolic"
+owner = "root"
+
+[tablet.files]
+"input-remapper-config.json" = "~/.config/input-remapper/config.json"
+  
+"input-remapper-tablet.json" = "~/.config/input-remapper/presets/HUION Huion Tablet_GS1331/Tablet.json"
