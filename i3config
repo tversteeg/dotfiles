@@ -207,7 +207,7 @@ hide_edge_borders both
 # The bottom bar
 bar {
 	font pango:FiraCode Nerd Font Mono 8
-	status_command /home/thomas/.cargo/bin/i3status-rs ~/.dotfiles/i3/.config/i3status-rust/config.toml
+	status_command /home/thomas/.cargo/bin/i3status-rs
 
 	colors {
 		background $base00
