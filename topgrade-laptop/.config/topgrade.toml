@@ -1,3 +1,4 @@
+[misc]
 no_retry = true
 skip_notify = true
 
