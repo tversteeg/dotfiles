@@ -2,5 +2,25 @@
 name = "rust"
 #language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"] }
 
+[[language]]
+name = "gdscript"
+language-servers = ["godot"] 
+
+[language.debugger]
+name = "godot"
+transport = "stdio"
+command = "nc"
+args = [ "127.0.0.1", "6006"]
+
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+completion = [ { name = "binary", completion = "filename" } ]
+args = { mode = "exec", program = "{0}" }
+
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+
+[language-server.godot]
+command = "nc"
+args = [ "127.0.0.1", "6005"]

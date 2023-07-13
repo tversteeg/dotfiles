@@ -43,7 +43,7 @@ dunstrc = "~/.config/dunst/dunstrc"
 
 [helix.files]
 "helix-config.toml" = "~/.config/helix/config.toml"
-"helix-languages.toml" = "~/.config/helix/helix-languages.toml"
+"helix-languages.toml" = "~/.config/helix/languages.toml"
 
 [i3.files]
 i3config = "~/.config/i3/config"
