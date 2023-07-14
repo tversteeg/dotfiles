@@ -2,18 +2,5 @@
     "version": "1.5.0",
     "autoload": {
         "HUION Huion Tablet_GS1331": "Tablet"
-    },
-    "macros": {
-        "keystroke_sleep_ms": 10
-    },
-    "gamepad": {
-        "joystick": {
-            "non_linearity": 4,
-            "pointer_speed": 80,
-            "left_purpose": "none",
-            "right_purpose": "none",
-            "x_scroll_speed": 2,
-            "y_scroll_speed": 0.5
-        }
     }
 }

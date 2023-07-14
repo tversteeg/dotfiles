@@ -32,6 +32,7 @@ exec --no-startup-id playerctld daemon
 exec --no-startup-id mate-polkit
 # Start KeePass with auto-type support
 exec --no-startup-id keepassxc -platform xcb
+exec --no-startup-id "~/.dotfiles/tv.sh"
 
 exec --no-startup-id "sh -c 'sleep 60 ; element-desktop-nightly --hidden'"
 exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
@@ -224,7 +225,7 @@ output $tablet-display disable
 # The bottom bar
 bar {
 	font pango:FiraCode Nerd Font Mono 12
-	status_command /home/thomas/.cargo/bin/i3status-rs ~/.dotfiles/i3/.config/i3status-rust/config.toml
+	status_command /home/thomas/.cargo/bin/i3status-rs
 
 	# Only show the bar on the main screen
 	output $main-display

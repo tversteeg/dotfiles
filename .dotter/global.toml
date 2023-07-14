@@ -4,7 +4,6 @@
 depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet"]
 
 [scripts.files]
-"tv.sh" = "~/.local/bin/tv"
 "k8.sh" = "~/.local/bin/k8"
 "list-fftabs.sh" = "~/.local/bin/list-fftabs"
 "forward-localhost-port.sh" = "~/.local/bin/forward-localhost-port"
@@ -12,6 +11,11 @@ depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i
 
 [scripts.files."huion.sh"]
 target = "/usr/local/bin/huion"
+type = "symbolic"
+owner = "root"
+
+[scripts.files."tv.sh"]
+target = "/usr/local/bin/tv"
 type = "symbolic"
 owner = "root"
 
@@ -70,6 +74,11 @@ zellij-layouts = "~/.config/zellij/layouts"
 
 [udev.files."udev-huion.rules"]
 target = "/etc/udev/rules.d/99-huion.rules"
+type = "symbolic"
+owner = "root"
+
+[udev.files."udev-tv.rules"]
+target = "/etc/udev/rules.d/98-tv.rules"
 type = "symbolic"
 owner = "root"
 
