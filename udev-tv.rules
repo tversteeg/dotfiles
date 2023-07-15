@@ -1,5 +1,0 @@
-SUBSYSTEM=="usb" \
-, ACTION=="add" \
-, ATTR{idProduct}=="006d" \
-, ATTR{idVendor}=="256c" \
-, RUN+="/usr/local/bin/tv start"
