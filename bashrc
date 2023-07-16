@@ -93,6 +93,9 @@ export FZF_DEFAULT_OPTS='--preview-window=:hidden --preview "bat {}"'
 # Directories for zellij files
 export ZELLIJ_LAYOUT_DIR=~/.dotfiles/zellij/.config/zellij/layouts
 
+# Godot location
+export GODOT4_BIN='/home/thomas/.steam/steam/steamapps/common/Godot\ Engine/godot.x11.opt.tools.64'
+
 # Start a new zellij session when opening a new shell
 if [[ -z "$ZELLIJ" ]] && [ "$(tty)" != "/dev/tty1" ]; then
 	 ~/.local/bin/start-zellij-session

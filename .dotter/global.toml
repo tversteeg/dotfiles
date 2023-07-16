@@ -77,11 +77,6 @@ target = "/etc/udev/rules.d/99-huion.rules"
 type = "symbolic"
 owner = "root"
 
-[udev.files."udev-tv.rules"]
-target = "/etc/udev/rules.d/98-tv.rules"
-type = "symbolic"
-owner = "root"
-
 [tablet.files]
 "input-remapper-config.json" = "~/.config/input-remapper/config.json"
 "input-remapper-tablet.json" = "~/.config/input-remapper/presets/HUION Huion Tablet_GS1331/Tablet.json"

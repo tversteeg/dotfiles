@@ -5,7 +5,7 @@ if [[ $# -ne 1 ]]; then
 	exit 1
 fi
 
-if [[ $HOSTNAME -eq 'cems' ]]; then
+if [[ "$HOSTNAME" == 'cems' ]]; then
 	OUTPUT="HDMI-1"
 	TABLET="HUION Huion Tablet_GS1331 Pad pad"
 	TOUCH="HUION Huion Tablet_GS1331 Touch Strip pad"
