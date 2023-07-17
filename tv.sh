@@ -11,15 +11,14 @@ case $1 in
 	start)
 		swaymsg workspace "tv" output "$TV"
 		swaymsg output "$TV" enable
-		sleep 1
-		swaymsg 'assign [app_id="org.jellyfin.jellyfinmediaplayer"] workspace tv'
-		sleep 3
+		# Focus to workspace
+		swaymsg workspace "tv"
 		#chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
-		#echo "$!" > /tmp/jellyfin-chromium.pid
-		jellyfinmediaplayer
+		jellyfinmediaplayer --windowed
+		# Move mouse back
+		swaymsg workspace "dev"
 		;;
 	stop)
-		#kill -15 "$(cat /tmp/jellyfin-chromium.pid)"
 		killall jellyfinmediaplayer
 		swaymsg output "$TV" disable
 		;;
