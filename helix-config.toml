@@ -13,6 +13,10 @@ true-color = true
 indent-guides = { render = true }
 # Show files starting with `.` in the file pickers
 file-picker = { hidden = false }
+# Remove the part after the cursor with completions as well
+completion-replace = true
+# Disable automatic creation of matching pair
+auto-pairs = false
 
 [editor.lsp]
 # Enable inlay hints
