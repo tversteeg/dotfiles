@@ -31,6 +31,7 @@ bash_profile = "~/.bash_profile"
 
 [git.files]
 gitconfig = "~/.gitconfig"
+"jjconfig.toml" = "~/.jjconfig.toml"
 
 [flavours.files]
 "flavours.toml" = "~/.config/flavours/config.toml"
