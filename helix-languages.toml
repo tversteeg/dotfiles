@@ -5,6 +5,8 @@ name = "rust"
 [[language]]
 name = "gdscript"
 language-servers = ["godot"] 
+formatter = { command = "gdformat", args = ["-"] }
+auto-format = true
 
 [language.debugger]
 name = "godot"
@@ -18,9 +20,39 @@ request = "launch"
 completion = [ { name = "binary", completion = "filename" } ]
 args = { mode = "exec", program = "{0}" }
 
-[language-server.rust-analyzer.config.check]
-command = "clippy"
+[language-server.rust-analyzer.config]
+check.command = "clippy"
+cargo.features = "all"
 
 [language-server.godot]
 command = "nc"
-args = [ "127.0.0.1", "6005"]
+args = [ "127.0.0.1", "6005" ]
+
+[[language]]
+name = "javascript"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "js" ] }
+auto-format = true
+
+[[language]]
+name = "json"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "json" ] }
+
+[[language]]
+name = "markdown"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "md" ] }
+auto-format = true
+
+[[language]]
+name = "typescript"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "ts" ] }
+auto-format = true
+
+[[language]]
+name = "jsx"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "jsx" ] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "tsx" ] }
+auto-format = true

@@ -50,7 +50,7 @@ if ! shopt -oq posix; then
 fi
 
 # Cache Rust build artifacts
-#export RUSTC_WRAPPER=sccache
+export RUSTC_WRAPPER=sccache
 
 # Setup rust
 source "$HOME/.cargo/env"
@@ -85,6 +85,7 @@ source <(jj util completion)
 
 # Use neovim as the default editor
 export EDITOR='hx'
+export SUDO_EDITOR='hx'
 
 # Use ripgrep as the FZF input
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs'

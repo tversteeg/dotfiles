@@ -8,6 +8,7 @@ depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i
 "list-fftabs.sh" = "~/.local/bin/list-fftabs"
 "forward-localhost-port.sh" = "~/.local/bin/forward-localhost-port"
 "start-zellij-session.sh" = "~/.local/bin/start-zellij-session"
+"git-backdate.py" = "~/.local/bin/git-backdate"
 
 [scripts.files."huion.sh"]
 target = "/usr/local/bin/huion"
