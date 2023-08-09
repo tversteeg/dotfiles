@@ -80,10 +80,10 @@ then
 elif [[ "$selected_session" == "$freq_marker"* ]]
 then
 	dir="$(echo "$selected_session" | sed "s/${freq_marker}//")"
-	subdir="$(basename "$selected_session")"
+	subdir="$(basename "$dir")"
 
 	fre --add "$dir" --store "$fre_store_file"
-	cd "$dir"
+	cd "$(echo "$dir" | sed "s/~/\/home\/thomas/")"
 	# # Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
 else
