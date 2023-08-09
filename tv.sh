@@ -11,10 +11,17 @@ case $1 in
 	start)
 		swaymsg workspace "tv" output "$TV"
 		swaymsg output "$TV" enable
+		sleep 1
 		# Focus to workspace
 		swaymsg workspace "tv"
+
+		sleep 5
+
 		#chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
 		jellyfinmediaplayer --windowed
+
+		sleep 1
+
 		# Move mouse back
 		swaymsg workspace "dev"
 		;;
