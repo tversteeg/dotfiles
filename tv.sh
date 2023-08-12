@@ -17,6 +17,15 @@ case $1 in
 
 		sleep 5
 
+		AUDIO="$(pactl list cards | awk -v RS='' '/SONY/')"
+		DEVICE="$(echo "$AUDIO" | grep 'Name:' | cut -f2 -d':' | xargs)"
+		PROFILE="$(echo "$AUDIO" | awk -v RS='Properties:' '/SONY/' | grep 'profile(s):' | grep -o 'output:[^,[:space:]]*' | grep stereo )"
+
+		pactl set-sink-profile "$DEVICE" "$PROFILE"
+
+		export PULSE_SOURCE="$(LANG=C pactl list | grep -A2 'Source #' | grep 'Name: ' | cut -d" " -f2 | grep "$DEVICE")"
+		export PULSE_SINK="$(LANG=C pactl list | grep -A2 'Sink #' | grep 'Name: ' | cut -d" " -f2 | grep "$DEVICE")"
+
 		#chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
 		jellyfinmediaplayer --windowed
 
