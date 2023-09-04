@@ -17,3 +17,7 @@ export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
 export MOZ_ENABLE_WAYLAND=1
 [ "$(tty)" = "/dev/tty1" ] && exec dbus-launch --sh-syntax --exit-with-session sway
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
