@@ -166,6 +166,7 @@ bindsym Print exec flameshot gui
 assign [class="thunderbird"] $ws2
 assign [class="firefox"] $ws1
 assign [app_id="org.jellyfin.jellyfinmediaplayer"] $ws9
+assign [app_id="Kodi"] $ws9
 
 # Show X11 applications
 for_window [shell=".*"] title_format "%title :: %shell"

@@ -11,6 +11,7 @@ repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
 "helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked"
 "dotter" = "cd ~/.dotfiles && dotter"
 "nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f -v"
+"zola" = "cd ~/r/zola/ && cargo install --path . --locked"
 
 [firmware]
 upgrade = true

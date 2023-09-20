@@ -20,6 +20,9 @@ request = "launch"
 completion = [ { name = "binary", completion = "filename" } ]
 args = { mode = "exec", program = "{0}" }
 
+[language-server.rust-analyzer]
+timeout = 60
+
 [language-server.rust-analyzer.config]
 check.command = "clippy"
 cargo.features = "all"

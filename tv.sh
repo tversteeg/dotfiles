@@ -11,31 +11,30 @@ case $1 in
 	start)
 		swaymsg workspace "tv" output "$TV"
 		swaymsg output "$TV" enable
+
+		sleep 2
+
+		# AUDIO="$(pactl list cards | awk -v RS='' '/SONY/')"
+		# DEVICE="$(echo "$AUDIO" | grep 'Name:' | cut -f2 -d':' | xargs)"
+		# PROFILE="$(echo "$AUDIO" | awk -v RS='Properties:' '/SONY/' | grep 'profile(s):' | grep -o 'output:[^,[:space:]]*' | grep stereo )"
+
+		# pactl set-sink-profile "$DEVICE" "$PROFILE"
+
+		# export PULSE_SOURCE="$(LANG=C pactl list | grep -A2 'Source #' | grep 'Name: ' | cut -d" " -f2 | grep "$DEVICE")"
+		# export PULSE_SINK="$(LANG=C pactl list | grep -A2 'Sink #' | grep 'Name: ' | cut -d" " -f2 | grep "$DEVICE")"
+
+		# sleep 1
+
+		sed -i 's/^.*videoscreen\.screenmode.*$/<setting id="videoscreen.screenmode">WINDOW<\/setting>/' ~/.kodi/userdata/guisettings.xml
+
+		kodi &
+
 		sleep 1
-		# Focus to workspace
-		swaymsg workspace "tv"
 
-		sleep 5
-
-		AUDIO="$(pactl list cards | awk -v RS='' '/SONY/')"
-		DEVICE="$(echo "$AUDIO" | grep 'Name:' | cut -f2 -d':' | xargs)"
-		PROFILE="$(echo "$AUDIO" | awk -v RS='Properties:' '/SONY/' | grep 'profile(s):' | grep -o 'output:[^,[:space:]]*' | grep stereo )"
-
-		pactl set-sink-profile "$DEVICE" "$PROFILE"
-
-		export PULSE_SOURCE="$(LANG=C pactl list | grep -A2 'Source #' | grep 'Name: ' | cut -d" " -f2 | grep "$DEVICE")"
-		export PULSE_SINK="$(LANG=C pactl list | grep -A2 'Sink #' | grep 'Name: ' | cut -d" " -f2 | grep "$DEVICE")"
-
-		#chromium --app-id=akkheaabpnkfhcaebdhneikfekamanod --start-fullscreen --ozone-platform-hint=auto &
-		jellyfinmediaplayer --windowed
-
-		sleep 1
-
-		# Move mouse back
-		swaymsg workspace "dev"
+		swaymsg '[app_id="Kodi"]' fullscreen toggle
 		;;
 	stop)
-		killall jellyfinmediaplayer
+		pkill kodi
 		swaymsg output "$TV" disable
 		;;
 	aseprite)
