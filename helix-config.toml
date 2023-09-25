@@ -45,6 +45,12 @@ space = "rotate_view"
 # Toggle inlay hints
 i = ":toggle lsp.display-inlay-hints"
 
+[keys.normal.ret]
+# Save
+ret = ":w"
+# Toggle auto-format
+a = ":toggle-option auto-format"
+
 # Jump settings
 #[editor.jump-mode]
 #dim-during-jump = false
