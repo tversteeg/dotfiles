@@ -80,9 +80,6 @@ eval "$(starship init bash)"
 # Add completions for glab if installed
 type "glab" >/dev/null 2>&1 && eval "$(glab completion)"
 
-# Jujutsu completions
-source <(jj util completion)
-
 # Use neovim as the default editor
 export EDITOR='hx'
 export SUDO_EDITOR='hx'
