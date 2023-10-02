@@ -59,3 +59,10 @@ auto-format = true
 name = "tsx"
 formatter = { command = "deno", args = ["fmt", "-", "--ext", "tsx" ] }
 auto-format = true
+
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+#language-server = { command = "helm_ls", args = "serve" }
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }

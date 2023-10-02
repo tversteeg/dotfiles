@@ -4,7 +4,7 @@ repo_dir_marker='~/r/..'
 work_dir_marker='~/w/..'
 clone_r_marker='clone GitHub repo into ~/r/'
 clone_w_marker='clone any repo into ~/w/'
-port_forward_marker='forward k8 port'
+kdash_marker='kdash'
 freq_marker='recent: '
 
 fre_store_file="/home/thomas/.cache/zellij-session-fre"
@@ -20,7 +20,7 @@ freq=$(fre --sorted --store "$fre_store_file" | head -n 10 | sed "s/^/${freq_mar
 zellij_layout_files=$(ls "$ZELLIJ_LAYOUT_DIR" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default)
 
 # Prepend our special cases
-sessions=$(printf "$freq\n$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$port_forward_marker\n")
+sessions=$(printf "$freq\n$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$kdash_marker\n")
 
 selected_session=$(echo "$sessions" | fzf $fzf_opts)
 
@@ -70,13 +70,9 @@ then
 	read -p "Enter repo SSH URL: " url
 	git clone "$url"
 	sleep 3
-elif [ "$selected_session" == "$port_forward_marker" ]
+elif [ "$selected_session" == "$kdash_marker" ]
 then
-	pod="$(kubectl get pods -o name | fzf)"
-	read -p "Enter port for '$pod': " port
-	echo $port
-	kubectl port-forward "$pod" "$port:$port"
-	sleep 3
+	kdash
 elif [[ "$selected_session" == "$freq_marker"* ]]
 then
 	dir="$(echo "$selected_session" | sed "s/${freq_marker}//")"
