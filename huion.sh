@@ -33,7 +33,7 @@ else
 
 	    sleep 3
 
-			swaymsg -s $SWAYSOCK workspace "tablet" output "$TABLET"
+			swaymsg -s $SWAYSOCK workspace 8 output "$TABLET"
 			swaymsg -s $SWAYSOCK output "$TABLET" enable
 			swaymsg -s $SWAYSOCK output "$TABLET" scale 1 pos 0 2160
 

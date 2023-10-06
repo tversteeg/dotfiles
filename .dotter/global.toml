@@ -63,6 +63,7 @@ Xresources = "~/.Xresources"
 
 [sway.files]
 swayconfig = "~/.config/sway/config"
+"workstyle.toml" = "~/.config/workstyle/config.toml"
 
 [systemd.files]
 systemd = "~/.config/systemd/user"

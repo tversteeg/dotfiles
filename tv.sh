@@ -9,7 +9,7 @@ TV=$(swaymsg -t get_outputs -r | jq '.[]|select(.make | startswith("Sony"))|.nam
 
 case $1 in
 	start)
-		swaymsg workspace "tv" output "$TV"
+		swaymsg workspace 9 output "$TV"
 		swaymsg output "$TV" enable
 
 		sleep 2
@@ -32,20 +32,15 @@ case $1 in
 		sleep 1
 
 		swaymsg '[app_id="Kodi"]' fullscreen toggle
+
+		sleep 2
+
+		# Play message so audio source can be adjusted
+		curl -H "Content-type: application/json" -d   '{"jsonrpc":"2.0","id":1,"method":"Gui.ShowNotification","params":{"title":"Sound Check","message":"","displaytime":1500}}' http://localhost:2716/jsonrpc -u kodi:kodi
 		;;
 	stop)
 		pkill kodi
 		swaymsg output "$TV" disable
-		;;
-	aseprite)
-		swaymsg create_output HEADLESS-1
-		swaymsg output HEADLESS-1 resolution 2000x1200
-		swaymsg output HEADLESS-1 enable
-		swaymsg focus output HEADLESS-1
-		swaymsg workspace steam output HEADLESS-1
-		swaymsg 'workspace steam; for_window [class="Aseprite"] fullscreen enable; exec ~/.steam/steam/steamapps/common/Aseprite/aseprite'
-		wayvnc -v -C /home/thomas/.config/wayvnc/config -o HEADLESS-1 0.0.0.0
-		swaymsg output HEADLESS-1 disable 
 		;;
 	*)
 		echo 'Expected "start" or "stop"' >&2
