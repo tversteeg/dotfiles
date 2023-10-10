@@ -49,6 +49,15 @@ if ! shopt -oq posix; then
 	fi
 fi
 
+# Throw git warning when pushing with -f
+git() {
+  if [[ $@ == 'push -f'* || $@ == 'push --force '*  ]]; then
+    echo Use --force-with-lease instead
+  else
+    command git "$@"
+  fi
+}
+
 # Cache Rust build artifacts
 export RUSTC_WRAPPER=sccache
 
