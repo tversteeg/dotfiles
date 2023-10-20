@@ -4,7 +4,7 @@ skip_notify = true
 remote_topgrades = ["cems.local"]
 
 [git]
-repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
+pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
 
 [commands]
 "i3status" = "cd ~/r/i3status-rust/ && cargo install --path . --locked && ./install.sh"

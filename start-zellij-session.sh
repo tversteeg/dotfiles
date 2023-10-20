@@ -48,6 +48,7 @@ then
 	# Create a new session for any folder inside the ~/r directory
 	subdir="$(ls ~/r | fzf $fzf_opts)"
 	fre --add "~/r/$subdir" --store "$fre_store_file"
+	echo "Adding '~/r/$dir' to frequency store"
 	cd ~/r/$subdir
 	# Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
@@ -56,6 +57,7 @@ then
 	# Create a new session for any folder inside the ~/w directory
 	subdir="$(ls ~/w | fzf $fzf_opts)"
 	fre --add "~/w/$subdir" --store "$fre_store_file"
+	echo "Adding '~/r/$dir' to frequency store"
 	cd ~/w/$subdir
 	# Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
@@ -79,6 +81,7 @@ then
 	subdir="$(basename "$dir")"
 
 	fre --add "$dir" --store "$fre_store_file"
+	echo "Adding '$dir' to frequency store"
 	cd "$(echo "$dir" | sed "s/~/\/home\/thomas/")"
 	# # Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
