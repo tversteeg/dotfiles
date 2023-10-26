@@ -78,7 +78,7 @@ alias ga='git add -A'
 alias gc='git commit -am'
 
 # Add installed cargo binaries to path, and ~/.local/bin, and the lua language server, and neovim
-export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin:/home/thomas/.local/share/neovim/bin:/home/thomas/.yarn/bin:/home/thomas/.pulumi/bin"
+export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin:/home/thomas/.local/share/neovim/bin:/home/thomas/.yarn/bin"
 
 # Expose 'z'
 eval "$(zoxide init bash)"

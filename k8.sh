@@ -2,10 +2,22 @@
 
 fzf_opts='--layout=reverse'
 
-resource="${1:-pod}"
+case $1 in
+  short)
+    namespace="$(kubectl get namespace -o name | fzf $fzf_opts)"
 
-namespace="$(kubectl get namespace -o name | fzf $fzf_opts)"
+    value="$(kubectl get "pod" -o name -n "${namespace##*/}" | fzf $fzf_opts)"
 
-value="$(kubectl get $resource -o name -n "${namespace##*/}" | fzf $fzf_opts)"
+    echo "${value##*/}"
+    ;; 
+  *)
+    fzf_opts='--layout=reverse'
 
-echo "-n ${namespace##*/} ${value##*/}"
+    resource="${1:-pod}"
+
+    namespace="$(kubectl get namespace -o name | fzf $fzf_opts)"
+
+    value="$(kubectl get $resource -o name -n "${namespace##*/}" | fzf $fzf_opts)"
+
+    echo "-n ${namespace##*/} ${value##*/}"
+esac
