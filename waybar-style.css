@@ -1,0 +1,50 @@
+window {
+  border: none;
+  border-radius: 0;
+  font-family: "FiraCode Nerd Font Mono";
+  font-size: 16px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: white;
+  color: black;
+  border-bottom: 3px solid #E0E0E0;
+}
+
+window .modules-right {
+  padding-left: 5px;
+}
+
+tooltip {
+  background: white;
+}
+
+tooltip label {
+  color: black;
+}
+
+#workspaces button {
+  padding: 0 5px;
+}
+
+#workspaces button.focused {
+  border-bottom: 4px solid #FF0086;
+}
+
+#workspaces button.urgent {
+  color: #FF0086;
+}
+
+#mode, #mpris, #wireplumber, #network, #cpu, #memory, #disk, #clock {
+  margin: 0px 8px;
+  min-width: 25px;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+#tray > .needs-attention {
+  border-bottom: 4px solid #FF0086;
+}

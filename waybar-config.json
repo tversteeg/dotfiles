@@ -1,0 +1,81 @@
+{
+  "position": "bottom",
+  "height": 24,
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["sway/window"],
+  "modules-right": ["mpris", "wireplumber", "network", "cpu", "memory", "disk", "clock", "tray"],
+  "sway/window": {
+    "icon": true,
+    "max-length": 50,
+    "rewrite": {
+      "(.*) — Ablaze Floorp": "$1",
+      "Zellij \\((.*)\\) - (.*)": "$1 - $2",
+    },
+  },
+  "mpris": {
+    "interval": 5,
+    "format": "{dynamic} {status_icon}",
+    "status-icons": {
+      "playing": "󰐊",
+      "paused": "󰏤",
+      "stopped": "󰓛",
+    },
+    "dynamic-order": [
+      "artist",
+      "title",
+      "album",
+    ],
+    "artist-len": 20,
+    "title-len": 20,
+    "album-len": 20,
+  },
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-muted": "󰸈",
+    "on-click": "helvum",
+    "max-volume": 100,
+    "scroll-step": 5,
+    "format-icons": ["󰕿", "󰖀", "󰕾"],
+  },
+  "network": {
+    "interface": "enp39s0",
+    "format-ethernet": "{ipaddr} 󰈀",
+    "format-wifi": "{essid} {icon}",
+  },
+  "clock": {
+    "interval": 60,
+    "tooltip": true,
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%Y-%m-%d}",
+  },
+  "cpu": {
+    "interval": 10,
+    "states": {
+      "warning": 60,
+      "critical": 90,
+    },
+    "format": "{}% 󰍛",
+    "max-length": 10,
+  }, 
+  "memory": {
+    "interval": 30,
+    "states": {
+      "warning": 60,
+      "critical": 90,
+    },
+    "format": "{}% ",
+  },
+  "disk": {
+    "interval": 30,
+    "states": {
+      "warning": 10,
+      "critical": 5,
+    },
+    "format": "{free} 󱘲",
+  },
+  "tray": {
+    "icon-size": 24,
+    "spacing": 4,
+    "show-passive-items": true,
+  },
+}

@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -86,3 +86,7 @@ owner = "root"
 
 [topgrade.files]
 "topgrade.toml" = "~/.config/topgrade.toml"
+
+[waybar.files]
+"waybar-config.json" = "~/.config/waybar/config"
+"waybar-style.css" = "~/.config/waybar/style.css"

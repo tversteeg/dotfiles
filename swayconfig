@@ -24,22 +24,24 @@ set $base0F #CC6633
 
 set $mod Mod4
 
-exec --no-startup-id dunst
-exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id transmission-gtk -m
-exec --no-startup-id playerctld daemon
+exec dunst
+exec kdeconnect-indicator
+exec transmission-gtk -m
+exec playerctld daemon
 # Polkit for application authentication
-exec --no-startup-id mate-polkit
+exec mate-polkit
 # Start KeePass with auto-type support
-exec --no-startup-id keepassxc -platform xcb
+exec keepassxc -platform xcb
 # Start the workstyle bar icons
-exec_always --no-startup-id workstyle &> /tmp/workstyle.log
+exec_always workstyle &> /tmp/workstyle.log
 # Launch root applications
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# Sway bar
+exec_always waybar
 
-exec --no-startup-id "sh -c 'sleep 60 ; element-desktop-nightly --hidden'"
-exec --no-startup-id "sh -c 'sleep 60 ; nextcloud --background'"
-exec --no-startup-id "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
+exec "sh -c 'sleep 60 ; element-desktop-nightly --hidden'"
+exec "sh -c 'sleep 60 ; nextcloud --background'"
+exec "sh -c 'sleep 60 ; protonmail-bridge --no-window'"
 
 # Clipboard sharing
 exec wl-paste -t text --watch clipman store --no-persist
@@ -60,7 +62,7 @@ bindsym $mod+Ctrl+Return exec /home/thomas/.cargo/bin/alacritty -e ssh -t -Y ser
 # Kill focused window
 bindsym $mod+Shift+q kill
 
-# Start wofi (a program launcher)
+# Start custom launcher
 bindsym $mod+d exec alacritty --class 'launcher' --command bash -c 'compgen -c | sort -u | fzf | xargs -r swaymsg -t command exec'
 for_window [app_id="^launcher$"] floating enable, border none, resize set width 25 ppt height 20 ppt
 
@@ -152,9 +154,9 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && dunstify -i audio-volume-high -r 2593 "Volume: +5%"
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && dunstify -i audio-volume-low -r 2593 "Volume: -5%"
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -i audio-volume-muted -r 2593 mute
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && dunstify -i audio-volume-high -r 2593 "Volume: +5%"
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && dunstify -i audio-volume-low -r 2593 "Volume: -5%"
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && dunstify -i audio-volume-muted -r 2593 mute
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -232,25 +234,25 @@ output $tablet-display disable
 #xwayland disable
 
 # The bottom bar
-bar {
-	font pango:FiraCode Nerd Font Mono 12
-	status_command /home/thomas/.cargo/bin/i3status-rs
-
-	# Only show the bar on the main screen
-	output $main-display
-
-	colors {
-		background $base00
-		separator  $base01
-		statusline $base04
-		# State             Border  BG      Text
-		focused_workspace   $base05 $base0D $base00
-		active_workspace    $base05 $base03 $base00
-		inactive_workspace  $base03 $base01 $base05
-		urgent_workspace    $base08 $base08 $base00
-		binding_mode        $base00 $base0A $base00
-	}
-}
+# bar {
+# 	font pango:FiraCode Nerd Font Mono 12
+# 	status_command /home/thomas/.cargo/bin/i3status-rs
+# 
+# 	# Only show the bar on the main screen
+# 	output $main-display
+# 
+# 	colors {
+# 		background $base00
+# 		separator  $base01
+# 		statusline $base04
+# 		# State             Border  BG      Text
+# 		focused_workspace   $base05 $base0D $base00
+# 		active_workspace    $base05 $base03 $base00
+# 		inactive_workspace  $base03 $base01 $base05
+# 		urgent_workspace    $base08 $base08 $base00
+# 		binding_mode        $base00 $base0A $base00
+# 	}
+# }
 
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
