@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -90,3 +90,9 @@ owner = "root"
 [waybar.files]
 "waybar-config.json" = "~/.config/waybar/config"
 "waybar-style.css" = "~/.config/waybar/style.css"
+
+[qmk.files]
+"qmk/" = "~/.qmk_firmware/keyboards/ferris/keymaps/tversteeg"
+
+[flameshot.files]
+"flameshot.ini" = "~/.flameshot/flameshot.ini"

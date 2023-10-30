@@ -6,5 +6,8 @@
 // Optimize layers, only allows up to 8 layers
 #define LAYER_STATE_8BIT
 
-// Allow rolling keys
-#define IGNORE_MOD_TAP_INTERRUPT
+// Flash to Sea Picro: https://joshajohnson.com/sea-picro/
+#define RP2040_FLASH_GD25Q64CS
+
+// Flashing the left
+#define MASTER_RIGHT
