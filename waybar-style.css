@@ -33,7 +33,7 @@ tooltip label {
 }
 
 #workspaces button.urgent {
-  color: #FF0086;
+  background: #FF0086;
 }
 
 #mode, #mpris, #wireplumber, #network, #cpu, #memory, #disk, #clock {

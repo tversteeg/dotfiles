@@ -10,4 +10,4 @@
 #define RP2040_FLASH_GD25Q64CS
 
 // Flashing the left
-#define MASTER_RIGHT
+#define MASTER_LEFT
