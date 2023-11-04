@@ -10,6 +10,9 @@ SPLIT_KEYBOARD=yes
 # Enable advanced caps function
 CAPS_WORD_ENABLE=yes
 
+# Allow sending strings
+SEND_STRING_ENABLE=yes
+
 # Disable unused features for smaller images
 # CONSOLE_ENABLE=no
 # COMMAND_ENABLE=no

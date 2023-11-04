@@ -1,5 +1,9 @@
 #include QMK_KEYBOARD_H
 
+#ifndef PASSWORD
+#error "PASSWORD not defined"
+#endif
+
 #define TH(key) LT(ZERO, key)
 
 enum layers {
@@ -19,9 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F, KC_G, KC_C, KC_R, KC_L,
 
 		// Left row 2
-		LGUI_T(KC_A), LALT_T(KC_O), LSFT_T(KC_E), LCTL_T(KC_U), HYPR_T(KC_I),
+		LGUI_T(KC_A), LALT_T(KC_O), LSFT_T(KC_E), LCTL_T(KC_U), KC_I,
 		// Right row 2
-		HYPR_T(KC_D), RCTL_T(KC_H), RSFT_T(KC_T), LALT_T(KC_N), RGUI_T(KC_S),
+		KC_D, RCTL_T(KC_H), RSFT_T(KC_T), LALT_T(KC_N), RGUI_T(KC_S),
 
 		// Left row 3
 		KC_SCLN, KC_Q, KC_J, KC_K, KC_X,
@@ -54,12 +58,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO, KC_NO),
 	[LA_FUNCTIONS] = LAYOUT(
 		// Left row 1
-		KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+		KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOTLOADER,
 		// Right row 1
 		KC_NO, KC_HOME, KC_PAGE_DOWN, KC_PAGE_UP, KC_END,
 
 		// Left row 2
-		KC_NO, KC_NO, KC_PRINT_SCREEN, KC_CAPS_LOCK, QK_BOOT,
+		KC_NO, KC_NO, KC_PRINT_SCREEN, KC_CAPS_LOCK, KC_NO,
 		// Right row 2
 		KC_MEDIA_PLAY_PAUSE, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,
 
