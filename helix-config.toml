@@ -38,6 +38,10 @@ tab = "all"
 [editor.soft-wrap]
 enable = true
 
+# Enable smart tab
+[editor.smart-tab]
+enable = true
+
 # Remap some keys
 [keys.normal.space]
 # Jump to the next split
