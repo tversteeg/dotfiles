@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "/tmp/password.h"
+
 #ifndef PASSWORD
 #error "PASSWORD not defined"
 #endif
@@ -60,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		// Left row 1
 		KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOTLOADER,
 		// Right row 1
-		KC_NO, KC_HOME, KC_PAGE_DOWN, KC_PAGE_UP, KC_END,
+		PB_1, KC_HOME, KC_PAGE_DOWN, KC_PAGE_UP, KC_END,
 
 		// Left row 2
 		KC_NO, KC_NO, KC_PRINT_SCREEN, KC_CAPS_LOCK, KC_NO,
@@ -176,6 +178,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 			return process_tap_or_long_press_key(record, KC_F9);
 		case TH(KC_0):
 			return process_tap_or_long_press_key(record, KC_F10);
+		case PB_1:
+			if (record->event.pressed) {
+				SEND_STRING(PASSWORD);
+			}
+			return false;
 	}
 
 	return true;
