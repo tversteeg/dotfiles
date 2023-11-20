@@ -15,6 +15,7 @@ window:
     padding:
         x: 0
         y: 0
+
 # Start flavours
 # Base16 Summerfruit Light 256 - alacritty color config
 # Christopher Corley (http://christop.club/)

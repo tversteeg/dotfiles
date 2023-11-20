@@ -12,7 +12,7 @@ import pathlib
 import lz4.block
 import json
 
-path = pathlib.Path.home().joinpath('.mozilla/firefox')
+path = pathlib.Path.home().joinpath('.floorp/')
 files = path.glob('*default*/sessionstore-backups/recovery.js*')
 
 for f in files:
