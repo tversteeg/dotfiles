@@ -12,7 +12,7 @@ pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
 "dotter" = "cd ~/.dotfiles && dotter"
 "nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f -v"
 "zola" = "cd ~/r/zola/ && cargo install --path . --locked"
-"niri" = "cd ~/r/niri/ && cargo build --release && sudo cp target/release/niri /usr/bin/ && sudo cp resources/niri-ession /usr/bin/ && sudo cp resources/niri.desktop /usr/share/wayland-sessions/ && cp resource/niri-portals.conf /usr/share/xdg-desktop-portal/ && sudo cp resources/niri.service /usr/lib/systemd/user/"
+"niri" = "cd ~/r/niri/ && cargo install --path . --locked"
 
 [firmware]
 upgrade = true
