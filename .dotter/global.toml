@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -99,3 +99,6 @@ owner = "root"
 
 [niri.files]
 "niri.kdl" = "~/.config/niri/config.kdl"
+
+[wayland.files]
+"electron25-flags.conf" = "~/.config/electron25-flags.conf"
