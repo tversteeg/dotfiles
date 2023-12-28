@@ -28,7 +28,7 @@ bash_profile = "~/.bash_profile"
 "starship.toml" = "~/.config/starship.toml"
 
 [alacritty.files]
-"alacritty.yml" = "~/.config/alacritty/alacritty.yml"
+"alacritty.toml" = "~/.config/alacritty/alacritty.toml"
 
 [git.files]
 gitconfig = "~/.gitconfig"

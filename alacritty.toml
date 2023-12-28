@@ -1,0 +1,73 @@
+[[colors.indexed_colors]]
+color = "0xFD8900"
+index = 16
+
+[[colors.indexed_colors]]
+color = "0xCC6633"
+index = 17
+
+[[colors.indexed_colors]]
+color = "0xE0E0E0"
+index = 18
+
+[[colors.indexed_colors]]
+color = "0xD0D0D0"
+index = 19
+
+[[colors.indexed_colors]]
+color = "0x000000"
+index = 20
+
+[[colors.indexed_colors]]
+color = "0x151515"
+index = 21
+
+[colors.bright]
+black = "0xB0B0B0"
+blue = "0x3777E6"
+cyan = "0x1FAAAA"
+green = "0x00C918"
+magenta = "0xAD00A1"
+red = "0xFF0086"
+white = "0x202020"
+yellow = "0xABA800"
+
+[colors.cursor]
+cursor = "0x101010"
+text = "0xFFFFFF"
+
+[colors.normal]
+black = "0xFFFFFF"
+blue = "0x3777E6"
+cyan = "0x1FAAAA"
+green = "0x00C918"
+magenta = "0xAD00A1"
+red = "0xFF0086"
+white = "0x101010"
+yellow = "0xABA800"
+
+[colors.primary]
+background = "0xFFFFFF"
+foreground = "0x101010"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 13.0
+
+[font.bold]
+family = "FiraCode Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "FiraCode Nerd Font"
+style = "Light"
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Regular"
+
+[window.padding]
+x = 0
+y = 0

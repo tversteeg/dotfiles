@@ -105,6 +105,8 @@ binds {
     // when running as a winit window.
 
     Mod+Return { spawn "alacritty"; }
+    Mod+Shift+Return { spawn "alacritty" "-e" "ssh -t -Y cems.local"; }
+    Mod+D { spawn "alacritty" "--class" "launcher" "--command" "bash -c 'eval $(compgen -c | sort -u | fzf)'"; }
     Mod+Shift+Q { close-window; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.

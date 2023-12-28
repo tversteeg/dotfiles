@@ -31,13 +31,13 @@ exec playerctld daemon
 # Polkit for application authentication
 exec mate-polkit
 # Start KeePass with auto-type support
-exec keepassxc -platform xcb
+exec keepassxc
 # Start the workstyle bar icons
 exec_always workstyle &> /tmp/workstyle.log
 # Launch root applications
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # Sway bar
-exec_always waybar
+exec waybar
 
 exec "sh -c 'sleep 60 ; element-desktop-nightly --hidden'"
 exec "sh -c 'sleep 60 ; nextcloud --background'"
@@ -57,7 +57,6 @@ floating_modifier $mod
 # Start a terminal
 bindsym $mod+Return exec /home/thomas/.cargo/bin/alacritty
 bindsym $mod+Shift+Return exec /home/thomas/.cargo/bin/alacritty -e ssh -t -Y cems.local
-bindsym $mod+Ctrl+Return exec /home/thomas/.cargo/bin/alacritty -e ssh -t -Y serv.local
 
 # Kill focused window
 bindsym $mod+Shift+q kill
@@ -121,19 +120,19 @@ set $ws9 9
 
 # Switch to workspace
 # Dev
-bindsym $mod+1 workspace $ws1
+bindsym $mod+1 workspace 1
 # Mail
-bindsym $mod+2 workspace $ws2
+bindsym $mod+2 workspace 2
 # Bg
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
 # Tablet
-bindsym $mod+8 workspace $ws8
+bindsym $mod+8 workspace 8
 # TV
-bindsym $mod+9 workspace $ws9
+bindsym $mod+9 workspace 9
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
