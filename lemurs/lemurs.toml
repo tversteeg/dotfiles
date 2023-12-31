@@ -1,0 +1,126 @@
+tty = 2
+x11_display = ":1"
+xserver_timeout_secs = 60
+main_log_path = "/var/log/lemurs.log"
+client_log_path = "/var/log/lemurs.client.log"
+xserver_log_path = "/var/log/lemurs.xorg.log"
+do_log = true
+pam_service = "lemurs"
+shell_login_flag = "short"
+focus_behaviour = "default"
+
+[background]
+show_background = false
+
+[background.style]
+color = "black"
+show_border = true
+border_color = "white"
+
+[power_controls]
+hint_margin = 2
+
+entries = []
+
+[[power_controls.base_entries]]
+hint = "Shutdown"
+hint_color = "dark gray"
+hint_modifiers = ""
+key = "F1"
+cmd = "systemctl poweroff -l"
+
+[[power_controls.base_entries]]
+hint = "Reboot"
+hint_color = "dark gray"
+hint_modifiers = ""
+key = "F2"
+cmd = "systemctl reboot -l"
+
+[environment_switcher]
+switcher_visibility = "visible"
+toggle_hint = "Switcher %key%"
+toggle_hint_color = "dark gray"
+toggle_hint_modifiers = ""
+
+include_tty_shell = true
+
+remember = true
+
+show_movers = true
+
+mover_color = "dark gray" 
+mover_modifiers = ""
+
+mover_color_focused = "orange"
+mover_modifiers_focused = "bold" 
+
+left_mover = "<"
+right_mover = ">"
+
+mover_margin = 1
+
+show_neighbours = true
+
+neighbour_color = "dark gray"
+neighbour_modifiers = ""
+
+neighbour_color_focused = "gray"
+neighbour_modifiers_focused = ""
+
+neighbour_margin = 1
+
+selected_color = "gray"
+selected_modifiers = "underlined"
+
+selected_color_focused = "white"
+selected_modifiers_focused = "bold"
+
+max_display_length = 8
+
+no_envs_text = "No environments..."
+
+no_envs_color = "white"
+no_envs_modifiers = ""
+
+no_envs_color_focused = "red"
+no_envs_modifiers_focused = ""
+
+[username_field]
+remember = true
+
+[username_field.style]
+show_title = true
+title = "Login"
+
+title_color = "white"
+content_color = "white"
+
+title_color_focused = "orange"
+content_color_focused = "orange"
+
+show_border = true
+border_color = "white"
+border_color_focused = "orange"
+
+use_max_width = true
+max_width = 48
+
+[password_field]
+content_replacement_character = "*"
+
+[password_field.style]
+show_title = true
+title = "Password"
+
+title_color = "white"
+content_color = "white"
+
+title_color_focused = "orange"
+content_color_focused = "orange"
+
+show_border = true
+border_color = "white"
+border_color_focused = "orange"
+
+use_max_width = true
+max_width = 48

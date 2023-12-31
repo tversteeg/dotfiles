@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland", "lemurs"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -102,3 +102,28 @@ owner = "root"
 
 [wayland.files]
 "electron25-flags.conf" = "~/.config/electron25-flags.conf"
+
+[lemurs.files."lemurs/lemurs.pam"]
+target = "/etc/pam.d/lemurs"
+type = "template"
+owner = "root"
+
+[lemurs.files."lemurs/lemurs.service"]
+target = "/usr/lib/systemd/system/lemurs.service"
+type = "symbolic"
+owner = "root"
+
+[lemurs.files."lemurs/lemurs.toml"]
+target = "/etc/lemurs/config.toml"
+type = "symbolic"
+owner = "root"
+
+[lemurs.files."lemurs/sway.sh"]
+target = "/etc/lemurs/wayland/sway"
+type = "symbolic"
+owner = "root"
+
+[lemurs.files."lemurs/niri.sh"]
+target = "/etc/lemurs/wayland/niri"
+type = "symbolic"
+owner = "root"
