@@ -33,6 +33,7 @@ bash_profile = "~/.bash_profile"
 [git.files]
 gitconfig = "~/.gitconfig"
 "ssh_auth_socket.conf" = "~/.config/environment.d/ssh_auth_socket.conf"
+"ssh.conf" = "~/.ssh/config"
 
 [flavours.files]
 "flavours.toml" = "~/.config/flavours/config.toml"

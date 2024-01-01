@@ -80,6 +80,9 @@ alias gc='git commit -am'
 # Add installed cargo binaries to path, and ~/.local/bin, and the lua language server, and neovim
 export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/r/lua-language-server/bin:/home/thomas/.local/share/neovim/bin:/home/thomas/.yarn/bin"
 
+# Expose the local user SSH agent which is run as a systemd service, can be enabled on new configs with `servicectl --user enable --now ssh-agent`
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+
 # Expose 'z'
 eval "$(zoxide init bash)"
 
