@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland", "lemurs"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland", "lemurs", "mako", "fuzzel"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -32,7 +32,7 @@ bash_profile = "~/.bash_profile"
 
 [git.files]
 gitconfig = "~/.gitconfig"
-"jjconfig.toml" = "~/.jjconfig.toml"
+"ssh_auth_socket.conf" = "~/.config/environment.d/ssh_auth_socket.conf"
 
 [flavours.files]
 "flavours.toml" = "~/.config/flavours/config.toml"
@@ -127,3 +127,14 @@ owner = "root"
 target = "/etc/lemurs/wayland/niri"
 type = "symbolic"
 owner = "root"
+
+[lemurs.files."lemurs/kodi.sh"]
+target = "/etc/lemurs/wayland/kodi"
+type = "symbolic"
+owner = "root"
+
+[mako.files]
+"mako.conf" = "~/.config/mako/config"
+
+[fuzzel.files]
+"fuzzel.ini" = "~/.config/fuzzel/fuzzel.ini"

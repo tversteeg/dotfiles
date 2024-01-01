@@ -1,6 +1,0 @@
-[user]
-name = "Thomas Versteeg"
-email = "t.versteeg@cemsbv.io"
-
-[alias]
-'d' = ['diff', '--git', '--config-toml=ui.pager=["delta","--line-numbers","--navigate"]']

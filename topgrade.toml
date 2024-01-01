@@ -7,7 +7,7 @@ remote_topgrades = ["cems.local"]
 pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
 
 [commands]
-"i3status" = "cd ~/r/i3status-rust/ && cargo install --path . --locked && ./install.sh"
+#"i3status" = "cd ~/r/i3status-rust/ && cargo install --path . --locked && ./install.sh"
 "helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked"
 "dotter" = "cd ~/.dotfiles && dotter"
 "nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f -v"

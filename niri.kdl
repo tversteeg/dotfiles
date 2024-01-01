@@ -23,7 +23,7 @@ input {
 
 focus-ring {
     width 3
-    active-color 127 200 255 255
+    active-color 55 119 230 255
     inactive-color 80 80 80 255
 }
 
@@ -144,12 +144,11 @@ binds {
     Mod+Shift+Ctrl+T { toggle-debug-tint; }
 }
 
-spawn-at-startup "schildichat" "--enable-features=WaylandWindowDecorations" "--ozone-platform-hint=wayland"
 spawn-at-startup "mako"
 spawn-at-startup "waybar"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "kdeconnect-indicator"
 spawn-at-startup "transmission-gtk" "-m"
-spawn-at-startup "nextcloud" "--background"
-spawn-at-startup "protonmail-bridge" "--no-window"
+// spawn-at-startup "nextcloud" "--background"
+// spawn-at-startup "protonmail-bridge" "--no-window"
 
