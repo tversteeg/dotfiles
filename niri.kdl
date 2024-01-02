@@ -11,15 +11,15 @@ input {
     disable-power-key-handling
 }
 
-/-output "DP-2" {
-    position x=0 y=0
-}
+// /-output "DP-2" {
+//     position x=0 y=0
+// }
 
-/-output "HDMI-A-1" {
-    off
+// /-output "HDMI-A-1" {
+//     off
     
-    position x=3840 y=0
-}
+//     position x=3840 y=0
+// }
 
 focus-ring {
     width 3
@@ -144,11 +144,10 @@ binds {
     Mod+Shift+Ctrl+T { toggle-debug-tint; }
 }
 
-spawn-at-startup "mako"
-spawn-at-startup "waybar"
-spawn-at-startup "playerctld" "daemon"
-spawn-at-startup "kdeconnect-indicator"
-spawn-at-startup "transmission-gtk" "-m"
+// spawn-at-startup "waybar"
+// spawn-at-startup "playerctld" "daemon"
+// spawn-at-startup "kdeconnect-indicator"
+// spawn-at-startup "transmission-gtk" "-m"
 // spawn-at-startup "nextcloud" "--background"
 // spawn-at-startup "protonmail-bridge" "--no-window"
 
