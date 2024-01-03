@@ -22,7 +22,6 @@ owner = "root"
 
 [bash.files]
 bashrc = "~/.bashrc"
-bash_profile = "~/.bash_profile"
 
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"
@@ -85,8 +84,12 @@ owner = "root"
 "input-remapper-config.json" = "~/.config/input-remapper/config.json"
 "input-remapper-tablet.json" = "~/.config/input-remapper/presets/HUION Huion Tablet_GS1331/Tablet.json"
 
-[topgrade.files]
-"topgrade.toml" = "~/.config/topgrade.toml"
+[topgrade.files."topgrade.toml"]
+target = "~/.config/topgrade.toml"
+type = "template"
+
+[topgrade.variables]
+remote_upgrades = ""
 
 [waybar.files]
 "waybar-config.json" = "~/.config/waybar/config"

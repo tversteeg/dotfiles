@@ -92,9 +92,11 @@ eval "$(starship init bash)"
 # Add completions for glab if installed
 type "glab" >/dev/null 2>&1 && eval "$(glab completion)"
 
-# Use neovim as the default editor
+# Use helix as the default editor
 export EDITOR='hx'
 export SUDO_EDITOR='hx'
+# Set helix runtime path
+export HELIX_RUNTIME=~/r/helix/runtime
 
 # Use ripgrep as the FZF input
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --no-ignore-vcs'
