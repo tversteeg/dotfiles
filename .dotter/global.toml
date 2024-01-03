@@ -22,6 +22,7 @@ owner = "root"
 
 [bash.files]
 bashrc = "~/.bashrc"
+bash_profile = "~/.bash_profile"
 
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"

@@ -49,7 +49,7 @@ screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
 binds {
     Mod+Return { spawn "alacritty"; }
-    Mod+Shift+Return { spawn "alacritty" "-e" "ssh -t -Y cems.local"; }
+    Mod+Shift+Return { spawn "alacritty" "-e" "ssh" "-t" "-Y" "cems.local"; }
     // Mod+D { spawn "alacritty" "--class" "launcher" "--command" "bash -c 'eval $(compgen -c | sort -u | fzf)'"; }
     Mod+D { spawn "fuzzel"; }
     Mod+Shift+Q { close-window; }
