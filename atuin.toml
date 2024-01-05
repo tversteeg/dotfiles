@@ -1,0 +1,16 @@
+update_check = false
+style = "compact"
+inline_height = 30
+show_preview = true
+show_help = false
+enter_accept = true
+common_subcommands = [
+  "cargo",
+  "go",
+  "git",
+  "npm",
+  "yarn",
+  "pnpm",
+  "kubectl",
+  "cemsdev",
+]

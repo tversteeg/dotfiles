@@ -64,10 +64,6 @@ export RUSTC_WRAPPER=sccache
 # Setup rust
 source "$HOME/.cargo/env"
 
-# Setup FZF
-source /usr/share/doc/fzf/examples/key-bindings.bash
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # Use better alternatives
 alias ls='lsd'
 alias tree='et'
@@ -83,6 +79,9 @@ export PATH="$PATH:/home/thomas/.cargo/bin:/home/thomas/.local/bin:/home/thomas/
 # Expose the local user SSH agent which is run as a systemd service, can be enabled on new configs with `servicectl --user enable --now ssh-agent`
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
+# Better bash line editor
+source ~/.local/share/blesh/ble.sh
+
 # Expose 'z'
 eval "$(zoxide init bash)"
 
@@ -91,6 +90,9 @@ eval "$(starship init bash)"
 
 # Add completions for glab if installed
 type "glab" >/dev/null 2>&1 && eval "$(glab completion)"
+
+# Atuin for nice history
+eval "$(atuin init bash)"
 
 # Use helix as the default editor
 export EDITOR='hx'

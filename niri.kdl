@@ -37,6 +37,8 @@ preset-column-widths {
 
 default-column-width { proportion 0.5; }
 
+center-column-on-move "no-fit"
+
 gaps 0
 
 struts {

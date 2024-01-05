@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland", "lemurs", "mako", "fuzzel"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland", "lemurs", "mako", "fuzzel", "atuin"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -143,3 +143,6 @@ owner = "root"
 
 [fuzzel.files]
 "fuzzel.ini" = "~/.config/fuzzel/fuzzel.ini"
+
+[atuin.files]
+"atuin.toml" = "~/.config/atuin/config.toml"
