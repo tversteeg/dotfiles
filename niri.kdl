@@ -50,7 +50,6 @@ screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 binds {
     Mod+Return { spawn "alacritty"; }
     Mod+Shift+Return { spawn "alacritty" "-e" "ssh" "-t" "-Y" "cems.local"; }
-    // Mod+D { spawn "alacritty" "--class" "launcher" "--command" "bash -c 'eval $(compgen -c | sort -u | fzf)'"; }
     Mod+D { spawn "fuzzel"; }
     Mod+Shift+Q { close-window; }
 
@@ -77,6 +76,15 @@ binds {
     Mod+Shift+Down  { move-window-down; }
     Mod+Shift+Up    { move-window-up; }
     Mod+Shift+Right { move-column-right; }
+
+    Mod+Shift+Ctrl+H     { move-window-to-monitor-left; }
+    Mod+Shift+Ctrl+J     { move-window-to-monitor-down; }
+    Mod+Shift+Ctrl+K     { move-window-to-monitor-up; }
+    Mod+Shift+Ctrl+L     { move-window-to-monitor-right; }
+    Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
+    Mod+Shift+Ctrl+Down  { move-window-to-monitor-down; }
+    Mod+Shift+Ctrl+Up    { move-window-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-window-to-monitor-right; }
 
     Mod+Ctrl+H     { focus-monitor-left; }
     Mod+Ctrl+J     { focus-monitor-down; }
@@ -144,10 +152,11 @@ binds {
     Mod+Shift+Ctrl+T { toggle-debug-tint; }
 }
 
-// spawn-at-startup "waybar"
-// spawn-at-startup "playerctld" "daemon"
-// spawn-at-startup "kdeconnect-indicator"
-// spawn-at-startup "transmission-gtk" "-m"
+spawn-at-startup "waybar"
+spawn-at-startup "keepassxc"
+spawn-at-startup "playerctld" "daemon"
+spawn-at-startup "kdeconnect-indicator"
+spawn-at-startup "transmission-gtk" "-m"
 // spawn-at-startup "nextcloud" "--background"
 // spawn-at-startup "protonmail-bridge" "--no-window"
 
