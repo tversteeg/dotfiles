@@ -21,31 +21,37 @@ input {
 //     position x=3840 y=0
 // }
 
-focus-ring {
-    width 3
-    active-color 55 119 230 255
-    inactive-color 80 80 80 255
+layout {
+    focus-ring {
+        width 0
+    }
+
+    border {
+        width 3
+        active-color 55 119 230 255
+        inactive-color 80 80 80 255
+    }
+
+    preset-column-widths {
+        proportion 0.333
+        proportion 0.5
+        proportion 0.667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    center-column-on-focus "no-fit"
+
+    gaps 0
+
+    struts {
+        left 32
+        right 32
+        bottom 3
+    }
 }
 
 prefer-no-csd
-
-preset-column-widths {
-    proportion 0.333
-    proportion 0.5
-    proportion 0.667
-}
-
-default-column-width { proportion 0.5; }
-
-center-column-on-move "no-fit"
-
-gaps 0
-
-struts {
-    left 32
-    right 32
-    bottom 3
-}
 
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
@@ -154,6 +160,7 @@ binds {
     Mod+Shift+Ctrl+T { toggle-debug-tint; }
 }
 
+spawn-at-startup "dunst"
 spawn-at-startup "waybar"
 spawn-at-startup "keepassxc"
 spawn-at-startup "playerctld" "daemon"
