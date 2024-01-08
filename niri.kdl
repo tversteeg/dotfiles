@@ -40,7 +40,7 @@ layout {
 
     default-column-width { proportion 0.5; }
 
-    center-column-on-focus "no-fit"
+    center-focused-column "on-overflow"
 
     gaps 0
 
