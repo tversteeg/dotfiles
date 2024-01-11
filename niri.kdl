@@ -23,11 +23,12 @@ input {
 
 layout {
     focus-ring {
-        width 0
+        width 4
+        active-color 55 119 230 255
     }
 
     border {
-        width 3
+        width 2
         active-color 55 119 230 255
         inactive-color 80 80 80 255
     }
@@ -38,15 +39,16 @@ layout {
         proportion 0.667
     }
 
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.333; }
 
     center-focused-column "on-overflow"
 
-    gaps 0
+    gaps 6
 
     struts {
         left 32
         right 32
+        top 3
         bottom 3
     }
 }

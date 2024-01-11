@@ -8,8 +8,8 @@ layout {
             plugin location="zellij:status-bar"
         }
     }
-    tab name="Code" split_direction="Vertical" {
-        pane split_direction="Vertical" {
+    tab name="Code" split_direction="Horizontal" {
+        pane split_direction="Horizontal" {
             pane command="bash" name="Helix" borderless=true {
                 args "-c" "hx"
             }

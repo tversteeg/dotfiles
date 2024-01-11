@@ -42,16 +42,16 @@ pane_frames false
 themes {
     base16 {
         fg "#101010"
-	bg "#FFFFFF"
-	red "#FF0086"
-	green "#00C918"
-	yellow "#ABA800"
+    	bg "#FFFFFF"
+    	red "#FF0086"
+    	green "#00C918"
+    	yellow "#ABA800"
         blue "#3777E6"
         magenta "#AD00A1"
         cyan "#1FAAAA"
         white "#101010"
-	black "#B0B0B0"
-	orange "#FD8900"
+    	black "#B0B0B0"
+    	orange "#FD8900"
     }
     dracula {
         fg 248 248 242
