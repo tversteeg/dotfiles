@@ -47,9 +47,9 @@ if [ "$selected_session" == "$repo_dir_marker" ]
 then
 	# Create a new session for any folder inside the ~/r directory
 	subdir="$(ls ~/r | fzf $fzf_opts)"
-	if [ "$subdir" != "~/r" ]; then
+	if [[ "$subdir" != "" ]]; then
 		fre --add "~/r/$subdir" --store "$fre_store_file"
-		notify-send "Registering zellij path" "Adding '~/r/$dir' to frequency store" --urgency=low --app-name=fre
+		notify-send "Registering zellij path" "Adding '~/r/$subdir' to frequency store" --urgency=low --app-name=fre
 	fi
 	cd ~/r/$subdir
 	# Attach to the session if it exists or otherwise create a new one
@@ -58,9 +58,9 @@ elif [ "$selected_session" == "$work_dir_marker" ]
 then
 	# Create a new session for any folder inside the ~/w directory
 	subdir="$(ls ~/w | fzf $fzf_opts)"
-	if [ "$subdir" != "~/w" ]; then
+	if [[ "$subdir" != "" ]]; then
 		fre --add "~/w/$subdir" --store "$fre_store_file"
-		notify-send "Registering zellij path" "Adding '~/r/$dir' to frequency store" --urgency=low --app-name=fre
+		notify-send "Registering zellij path" "Adding '~/w/$subdir' to frequency store" --urgency=low --app-name=fre
 	fi
 	cd ~/w/$subdir
 	# Attach to the session if it exists or otherwise create a new one
