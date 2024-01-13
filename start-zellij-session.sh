@@ -47,8 +47,10 @@ if [ "$selected_session" == "$repo_dir_marker" ]
 then
 	# Create a new session for any folder inside the ~/r directory
 	subdir="$(ls ~/r | fzf $fzf_opts)"
-	fre --add "~/r/$subdir" --store "$fre_store_file"
-	echo "Adding '~/r/$dir' to frequency store"
+	if [ "$subdir" != "~/r" ]; then
+		fre --add "~/r/$subdir" --store "$fre_store_file"
+		notify-send "Registering zellij path" "Adding '~/r/$dir' to frequency store" --urgency=low --app-name=fre
+	fi
 	cd ~/r/$subdir
 	# Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
@@ -56,8 +58,10 @@ elif [ "$selected_session" == "$work_dir_marker" ]
 then
 	# Create a new session for any folder inside the ~/w directory
 	subdir="$(ls ~/w | fzf $fzf_opts)"
-	fre --add "~/w/$subdir" --store "$fre_store_file"
-	echo "Adding '~/r/$dir' to frequency store"
+	if [ "$subdir" != "~/w" ]; then
+		fre --add "~/w/$subdir" --store "$fre_store_file"
+		notify-send "Registering zellij path" "Adding '~/r/$dir' to frequency store" --urgency=low --app-name=fre
+	fi
 	cd ~/w/$subdir
 	# Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
@@ -81,7 +85,7 @@ then
 	subdir="$(basename "$dir")"
 
 	fre --add "$dir" --store "$fre_store_file"
-	echo "Adding '$dir' to frequency store"
+	notify-send "Registering zellij path" "Adding '$dir' to frequency store" --urgency=low --app-name=fre
 	cd "$(echo "$dir" | sed "s/~/\/home\/thomas/")"
 	# # Attach to the session if it exists or otherwise create a new one
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
