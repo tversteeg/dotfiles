@@ -5,6 +5,7 @@ work_dir_marker='~/w/..'
 clone_r_marker='clone GitHub repo into ~/r/'
 clone_w_marker='clone any repo into ~/w/'
 kdash_marker='kdash'
+bore_marker='bore'
 freq_marker='recent: '
 
 fre_store_file="/home/thomas/.cache/zellij-session-fre"
@@ -17,10 +18,10 @@ ZELLIJ_LAYOUT_DIR="/home/thomas/.dotfiles/zellij-layouts"
 freq=$(fre --sorted --store "$fre_store_file" | head -n 10 | sed "s/^/${freq_marker}/")
 
 # Find all predefined zellij layout files expect default.kdl
-zellij_layout_files=$(ls "$ZELLIJ_LAYOUT_DIR" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default)
+zellij_layout_files=$(ls "$ZELLIJ_LAYOUT_DIR" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default | grep -v -w bore)
 
 # Prepend our special cases
-sessions=$(printf "$freq\n$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$kdash_marker\n")
+sessions=$(printf "$freq\n$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$kdash_marker\n$bore_marker\n")
 
 selected_session=$(echo "$sessions" | fzf $fzf_opts)
 
@@ -53,7 +54,7 @@ then
 	fi
 	cd ~/r/$subdir
 	# Attach to the session if it exists or otherwise create a new one
-	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
+	exec zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
 elif [ "$selected_session" == "$work_dir_marker" ]
 then
 	# Create a new session for any folder inside the ~/w directory
@@ -64,7 +65,7 @@ then
 	fi
 	cd ~/w/$subdir
 	# Attach to the session if it exists or otherwise create a new one
-	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
+	exec zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
 elif [ "$selected_session" == "$clone_r_marker" ]
 then
 	cd ~/r/
@@ -78,7 +79,12 @@ then
 	sleep 3
 elif [ "$selected_session" == "$kdash_marker" ]
 then
-	kdash
+	exec kdash
+elif [ "$selected_session" == "$bore_marker" ]
+then
+	read -p "Bore port to share: " BORE_PORT
+
+	BORE_PORT="$BORE_PORT" exec zellij --layout "$ZELLIJ_LAYOUT_DIR/bore.kdl" attach --create bore && exit
 elif [[ "$selected_session" == "$freq_marker"* ]]
 then
 	dir="$(echo "$selected_session" | sed "s/${freq_marker}//")"
@@ -91,6 +97,6 @@ then
 	zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create "$subdir" && exit
 else
 	# Load a defined layout
-	zellij --layout $ZELLIJ_LAYOUT_DIR/$selected_session.kdl && exit
+	exec zellij --layout $ZELLIJ_LAYOUT_DIR/$selected_session.kdl
 fi
 
