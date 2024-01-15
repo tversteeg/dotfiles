@@ -1,7 +1,6 @@
 [misc]
 no_retry = true
 skip_notify = true
-remote_topgrades = [{{remote_upgrades}}]
 
 [git]
 pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]

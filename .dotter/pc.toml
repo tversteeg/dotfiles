@@ -4,4 +4,3 @@ packages = ["default"]
 [files]
 
 [variables]
-remote_upgrades = "'cems.local'"

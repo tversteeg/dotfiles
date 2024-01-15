@@ -85,9 +85,8 @@ owner = "root"
 "input-remapper-config.json" = "~/.config/input-remapper/config.json"
 "input-remapper-tablet.json" = "~/.config/input-remapper/presets/HUION Huion Tablet_GS1331/Tablet.json"
 
-[topgrade.files."topgrade.toml"]
-target = "~/.config/topgrade.toml"
-type = "template"
+[topgrade.files]
+"topgrade.toml" = "~/.config/topgrade.toml"
 
 [topgrade.variables]
 remote_upgrades = ""
