@@ -21,7 +21,7 @@ freq=$(fre --sorted --store "$fre_store_file" | head -n 10 | sed "s/^/${freq_mar
 zellij_layout_files=$(ls "$ZELLIJ_LAYOUT_DIR" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default | grep -v -w bore)
 
 # Prepend our special cases
-sessions=$(printf "$freq\n$repo_dir_marker\n$work_dir_marker\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$kdash_marker\n$bore_marker\n")
+sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$freq\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$kdash_marker\n$bore_marker\n")
 
 selected_session=$(echo "$sessions" | fzf $fzf_opts)
 
