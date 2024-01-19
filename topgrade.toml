@@ -8,7 +8,7 @@ pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
 [commands]
 "helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked"
 "dotter" = "cd ~/.dotfiles && dotter"
-"nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f -v"
+"nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f"
 "niri" = "cd ~/r/niri/ && cargo install --path . --locked"
 "lemurs" = "cd ~/r/lemurs/ && cargo install --path . --locked"
 "ble.sh" = "cd ~/r/ble.sh/ && make install PREFIX=~/.local"
