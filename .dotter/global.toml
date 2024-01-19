@@ -103,6 +103,12 @@ remote_upgrades = ""
 
 [niri.files]
 "niri.kdl" = "~/.config/niri/config.kdl"
+"niri-portals.conf" = "~/.config/xdg-desktop-portal/portals.conf"
+
+[niri.files."niri-portals.conf"]
+target = "/usr/share/xdg-desktop-portal/niri-portals.conf"
+type = "symbolic"
+owner = "root"
 
 [wayland.files]
 "electron25-flags.conf" = "~/.config/electron25-flags.conf"

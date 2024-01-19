@@ -163,7 +163,6 @@ binds {
 }
 
 spawn-at-startup "dunst"
-spawn-at-startup "waybar"
 spawn-at-startup "keepassxc"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "kdeconnect-indicator"

@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Set the current desktop for xdg-desktop-portal
+export XDG_CURRENT_DESKTOP=sway
+
+# Ensure the session type is set to Wayland for xdg-autostart apps
+export XDG_SESSION_TYPE=wayland
+
 # Use wayland for floorp
 export MOZ_ENABLE_WAYLAND=1
 
@@ -12,5 +18,8 @@ echo "playerctld daemon" | at now
 # Run KDEconnect daemon
 echo "/usr/lib/x86_64-linux-gnu/libexec/kdeconnectd" | at now
 
+# Activate xdg-desktop portal
+dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
 # Desktop environment
-exec sway
+exec dbus-run-session sway
