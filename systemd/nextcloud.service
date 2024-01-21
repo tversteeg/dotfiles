@@ -1,0 +1,10 @@
+[Unit]
+After=keepassxc.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nextcloud --background
+ExecStartPre=/bin/sleep 60
+
+[Install]
+WantedBy=graphical-session.target

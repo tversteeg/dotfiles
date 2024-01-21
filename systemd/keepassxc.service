@@ -1,0 +1,9 @@
+[Unit]
+After=xdg-desktop-autostart.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/keepassxc
+
+[Install]
+WantedBy=graphical-session.target

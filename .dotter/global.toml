@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "flameshot", "niri", "wayland", "lemurs", "mako", "fuzzel", "atuin"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "mako", "fuzzel", "atuin"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -98,9 +98,6 @@ remote_upgrades = ""
 [qmk.files]
 "qmk/" = "~/.qmk_firmware/keyboards/ferris/keymaps/tversteeg"
 
-[flameshot.files]
-"flameshot.ini" = "~/.flameshot/flameshot.ini"
-
 [niri.files]
 "niri.kdl" = "~/.config/niri/config.kdl"
 "niri-portals.conf" = "~/.config/xdg-desktop-portal/portals.conf"
@@ -135,11 +132,6 @@ owner = "root"
 
 [lemurs.files."lemurs/niri.sh"]
 target = "/etc/lemurs/wayland/niri"
-type = "symbolic"
-owner = "root"
-
-[lemurs.files."lemurs/kodi.sh"]
-target = "/etc/lemurs/wayland/kodi"
 type = "symbolic"
 owner = "root"
 

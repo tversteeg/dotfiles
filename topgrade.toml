@@ -3,7 +3,7 @@ no_retry = true
 skip_notify = true
 
 [git]
-pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*", "~/gh/*/*"]
+pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
 
 [commands]
 "helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked"
