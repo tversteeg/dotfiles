@@ -1,9 +1,11 @@
 [misc]
+pre_sudo = true
 no_retry = true
 skip_notify = true
+cleanup = true
 
 [git]
-pull_only_repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
+repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
 
 [commands]
 "helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked"
