@@ -5,6 +5,12 @@ plugins {
     compact-bar { path "compact-bar"; }
 }
 
+keybinds {
+    normal {
+        bind "Alt n" { NewPane "Down"; }
+    }
+}
+
 // Don't use automatic sessions
 session_serialization false
 
