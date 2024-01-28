@@ -1,24 +1,12 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "searx", "udev", "tablet", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "mako", "fuzzel", "atuin"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
 "list-fftabs.sh" = "~/.local/bin/list-fftabs"
-"forward-localhost-port.sh" = "~/.local/bin/forward-localhost-port"
 "start-zellij-session.sh" = "~/.local/bin/start-zellij-session"
-"git-backdate.py" = "~/.local/bin/git-backdate"
-
-[scripts.files."huion.sh"]
-target = "/usr/local/bin/huion"
-type = "symbolic"
-owner = "root"
-
-[scripts.files."tv.sh"]
-target = "/usr/local/bin/tv"
-type = "symbolic"
-owner = "root"
 
 [bash.files]
 bashrc = "~/.bashrc"
@@ -54,13 +42,9 @@ dunstrc = "~/.config/dunst/dunstrc"
 
 [i3.files]
 i3config = "~/.config/i3/config"
-Xresources = "~/.Xresources"
 
 [i3status.files]
 "i3status.toml" = "~/.config/i3status-rust/config.toml"
-
-[searx.files]
-"searx.yml" = "~/.config/searx/settings.yml"
 
 [sway.files]
 swayconfig = "~/.config/sway/config"
@@ -75,15 +59,6 @@ wireplumber = "~/.config/wireplumber"
 [zellij.files]
 "zellij.kdl" = "~/.config/zellij/config.kdl"
 zellij-layouts = "~/.config/zellij/layouts"
-
-[udev.files."udev-huion.rules"]
-target = "/etc/udev/rules.d/99-huion.rules"
-type = "symbolic"
-owner = "root"
-
-[tablet.files]
-"input-remapper-config.json" = "~/.config/input-remapper/config.json"
-"input-remapper-tablet.json" = "~/.config/input-remapper/presets/HUION Huion Tablet_GS1331/Tablet.json"
 
 [topgrade.files]
 "topgrade.toml" = "~/.config/topgrade.toml"
@@ -134,9 +109,6 @@ owner = "root"
 target = "/etc/lemurs/wayland/niri"
 type = "symbolic"
 owner = "root"
-
-[mako.files]
-"mako.conf" = "~/.config/mako/config"
 
 [fuzzel.files]
 "fuzzel.ini" = "~/.config/fuzzel/fuzzel.ini"

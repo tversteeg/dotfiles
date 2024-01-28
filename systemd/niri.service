@@ -11,3 +11,4 @@ Before=xdg-desktop-autostart.target
 [Service]
 Type=notify
 ExecStart=/home/thomas/.cargo/bin/niri
+TimeoutStopSec=3

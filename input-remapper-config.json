@@ -1,6 +1,0 @@
-{
-    "version": "1.5.0",
-    "autoload": {
-        "HUION Huion Tablet_GS1331": "Tablet"
-    }
-}
