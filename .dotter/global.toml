@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -115,3 +115,6 @@ owner = "root"
 
 [atuin.files]
 "atuin.toml" = "~/.config/atuin/config.toml"
+
+[desktop.files]
+"desktop/helix.desktop" = "~/.local/share/applications/helix.desktop"
