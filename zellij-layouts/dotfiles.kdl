@@ -1,4 +1,6 @@
 layout {
+    cwd "/home/thomas/.dotfiles"
+
     default_tab_template {
         pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
@@ -10,10 +12,15 @@ layout {
     }
     tab split_direction="Horizontal" {
         pane split_direction="Horizontal" {
-            pane command="bash" name="Helix" borderless=true { args "-c" "cd ~/.dotfiles && hx"
+            pane name="Helix" { 
+                command "hx"
+                borderless true
+                focus true
             }
-            pane command="fish" name="CLI" size="30%" borderless=true {
-                args "-c" "cd ~/.dotfiles && exec fish"
+            pane name="CLI" {
+                command "fish"
+                borderless true
+                size "30%" 
             }
         }
     }
