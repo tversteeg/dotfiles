@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop"]
+depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop", "fish"]
 
 [scripts.files]
 "k8.sh" = "~/.local/bin/k8"
@@ -118,3 +118,6 @@ owner = "root"
 
 [desktop.files]
 "desktop/helix.desktop" = "~/.local/share/applications/helix.desktop"
+
+[fish.files]
+"config.fish" = "~/.config/fish/config.fish"

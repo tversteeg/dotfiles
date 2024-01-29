@@ -13,7 +13,7 @@ layout {
             pane command="bash" name="Helix" borderless=true {
                 args "-c" "hx"
             }
-            pane command="bash" name="cli" size="30%" borderless=true {
+            pane command="fish" name="cli" size="30%" borderless=true {
             }
         }
     }

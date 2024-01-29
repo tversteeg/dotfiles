@@ -13,6 +13,7 @@ fre_store_file="/home/thomas/.cache/zellij-session-fre"
 fzf_opts='--layout=reverse'
 
 ZELLIJ_LAYOUT_DIR="/home/thomas/.dotfiles/zellij-layouts"
+PATH="$PATH:/home/thomas/.cargo/bin"
 
 # Get all frequently accessed repos
 freq=$(fre --sorted --store "$fre_store_file" | head -n 10 | sed "s/^/${freq_marker}/")

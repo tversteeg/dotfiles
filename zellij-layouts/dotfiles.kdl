@@ -12,8 +12,8 @@ layout {
         pane split_direction="Horizontal" {
             pane command="bash" name="Helix" borderless=true { args "-c" "cd ~/.dotfiles && hx"
             }
-            pane command="bash" name="CLI" size="30%" borderless=true {
-                args "-c" "cd ~/.dotfiles && exec bash"
+            pane command="fish" name="CLI" size="30%" borderless=true {
+                args "-c" "cd ~/.dotfiles && exec fish"
             }
         }
     }
