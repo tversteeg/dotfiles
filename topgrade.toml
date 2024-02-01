@@ -13,8 +13,7 @@ repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
 "nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f"
 "niri" = "cd ~/r/niri/ && cargo install --path . --locked"
 "lemurs" = "cd ~/r/lemurs/ && cargo install --path . --locked"
-#"i3status" = "cd ~/r/i3status-rust/ && cargo install --path . --locked && ./install.sh"
-#"zola" = "cd ~/r/zola/ && cargo install --path . --locked"
+"emplace" = "cd ~/r/emplace/ && cargo install --path . --locked"
 
 [firmware]
 upgrade = true

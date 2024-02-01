@@ -198,8 +198,8 @@ binds {
     Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    T { spawn "alacritty"; }
-    D { spawn "fuzzel"; }
+    Shift+T { spawn "eog"; }
+    Shift+D { spawn "alacritty"; }
     Alt+L { spawn "swaylock"; }
 
     // You can also use a shell:
@@ -294,8 +294,8 @@ binds {
     // Alternatively, there are commands to move just a single window:
     // Ctrl+1 { move-window-to-workspace 1; }
 
-    Comma  { consume-window-into-column; }
-    Period { expel-window-from-column; }
+    Shift+Comma  { consume-window-into-column; }
+    Shift+Period { expel-window-from-column; }
 
     R { switch-preset-column-width; }
     F { maximize-column; }
@@ -325,9 +325,9 @@ binds {
     // Space       { switch-layout "next"; }
     // Shift+Space { switch-layout "prev"; }
 
-    P { screenshot; }
+    Shift+P { screenshot; }
     Ctrl+P{ screenshot-screen; }
-    Shift+P{ screenshot-window; }
+    Ctrl+Shift+P{ screenshot-window; }
 
     Shift+E { quit; }
     // Shift+P { power-off-monitors; }
