@@ -1,9 +1,18 @@
 {
   "position": "bottom",
   "height": 24,
-  "modules-left": ["sway/workspaces", "sway/mode"],
-  "modules-center": ["sway/window"],
-  "modules-right": ["mpris", "wireplumber", "network", "cpu", "memory", "disk", "clock", "tray"],
+  "modules-left": ["wlr/workspaces"],
+  "modules-center": ["wlr/taskbar"],
+  "modules-right": ["privacy", "mpris", "wireplumber", "network", "cpu", "memory", "disk", "clock", "tray"],
+  "wlr/taskbar": {
+    "format": "{icon} {name}",
+    "tooltip": "false",
+    "active-first": "true",
+    "rewrite": {
+      "Floorp Web Browser": "Floorp",
+      "Rhythmbox Music Player": "Rhythmbox",
+    }
+  },
   "sway/window": {
     "icon": true,
     "max-length": 50,

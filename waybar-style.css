@@ -3,7 +3,7 @@ window {
   border-radius: 0;
   font-family: "FiraCode Nerd Font Mono";
   font-size: 16px;
-  min-height: 0;
+  min-height: 16px;
 }
 
 window#waybar {
