@@ -11,6 +11,7 @@ timeout = 60
 [language-server.rust-analyzer.config]
 check.command = "clippy"
 cargo.features = "all"
+procMacro.ignored.leptos_macro = ["server"]
 
 [[language]]
 name = "javascript"
