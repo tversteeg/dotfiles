@@ -14,6 +14,7 @@ repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
 "niri" = "cd ~/r/niri/ && cargo install --path . --locked"
 "lemurs" = "cd ~/r/lemurs/ && cargo install --path . --locked"
 "emplace" = "cd ~/r/emplace/ && cargo install --path . --locked"
+"typos-lsp" = "cd ~/r/typos-lsp/ && cargo install --path crates/typos-lsp/ --locked --bin typos-lsp"
 
 [firmware]
 upgrade = true

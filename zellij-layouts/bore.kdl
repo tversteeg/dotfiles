@@ -14,7 +14,7 @@ layout {
                 args "server"
             }
             pane command="bash" name="Remote" borderless=true {
-                args "-c" "ssh -t -Y cems.local \"/home/thomas/.cargo/bin/bore local $BORE_PORT --to pc.local -p $BORE_PORT\"" 
+                args "-c" "ssh -t -Y cems.local \"/home/thomas/.cargo/bin/bore local $BORE_PORT --to pc -p $BORE_PORT\"" 
             }
         }
     }
