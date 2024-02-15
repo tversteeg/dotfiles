@@ -1,3 +1,5 @@
+@import "/home/thomas/.dotfiles/waybar-colors.css";
+
 window {
   border: none;
   border-radius: 0;
@@ -7,9 +9,9 @@ window {
 }
 
 window#waybar {
-  background: white;
-  color: black;
-  border-bottom: 3px solid #E0E0E0;
+  background: @base00;
+  color: @base04;
+  border-bottom: 3px solid @base01;
 }
 
 window .modules-right {
@@ -29,11 +31,11 @@ tooltip label {
 }
 
 #workspaces button.focused {
-  border-bottom: 4px solid #FF0086;
+  border-bottom: 4px solid @base08;
 }
 
 #workspaces button.urgent {
-  background: #FF0086;
+  background: @base08;
 }
 
 #mode, #mpris, #wireplumber, #network, #cpu, #memory, #disk, #clock {
@@ -46,5 +48,5 @@ tooltip label {
 }
 
 #tray > .needs-attention {
-  border-bottom: 4px solid #FF0086;
+  border-bottom: 4px solid @base08;
 }
