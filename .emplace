@@ -1,1 +1,7 @@
-([])
+([
+(
+source: Cargo(()),
+name: "flavours",
+flags: [],
+),
+])
