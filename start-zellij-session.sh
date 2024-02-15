@@ -26,25 +26,6 @@ sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$freq\n$zellij_layout_fil
 
 selected_session=$(echo "$sessions" | fzf $fzf_opts)
 
-function clone {
-		url=$(list-fftabs | rg git | fzf $fzf_opts)
-
-		re="^(https|git)(:\/\/|@)([^\/:]+)[\/:]([^\/:]+)\/(.+)(.git)*$"
-
-		if [[ $url =~ $re ]]; then    
-		    protocol=${BASH_REMATCH[1]}
-		    separator=${BASH_REMATCH[2]}
-		    hostname=${BASH_REMATCH[3]}
-		    user=${BASH_REMATCH[4]}
-		    repo=${BASH_REMATCH[5]}
-
-				git clone "git@${hostname}:${user}/${repo}.git"
-		else
-			print "Failed parsing URL ${url}"
-			exit 1
-		fi
-}
-
 if [ "$selected_session" == "$repo_dir_marker" ]
 then
 	# Create a new session for any folder inside the ~/r directory
@@ -70,7 +51,8 @@ then
 elif [ "$selected_session" == "$clone_r_marker" ]
 then
 	cd ~/r/
-	clone
+	read -p "Enter repo URL: " url
+	git clone "$url"
 	sleep 3
 elif [ "$selected_session" == "$clone_w_marker" ]
 then

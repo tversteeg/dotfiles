@@ -1,6 +1,6 @@
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer", "typos", "tailwindcss-ls"]
+language-servers = ["tailwindcss-ls", "rust-analyzer", "typos"]
 
 [language-server.tailwindcss-ls]
 config = { userLanguages = { rust = "html", "*.rs" = "html" } }
