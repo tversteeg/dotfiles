@@ -4,4 +4,9 @@ source: Cargo(()),
 name: "flavours",
 flags: [],
 ),
+(
+source: Cargo(()),
+name: "leptosfmt",
+flags: [],
+),
 ])
