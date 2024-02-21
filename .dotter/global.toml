@@ -1,16 +1,10 @@
 [helpers]
 
 [default]
-depends = ["bash", "starship", "alacritty", "git", "flavours", "dunst", "i3", "i3status", "sway", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop", "fish"]
+depends = ["starship", "alacritty", "git", "flavours", "dunst", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop", "fish"]
 
 [scripts.files]
-"k8.sh" = "~/.local/bin/k8"
-"list-fftabs.sh" = "~/.local/bin/list-fftabs"
 "start-zellij-session.sh" = "~/.local/bin/start-zellij-session"
-
-[bash.files]
-bashrc = "~/.bashrc"
-bash_profile = "~/.bash_profile"
 
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"
@@ -39,16 +33,6 @@ dunstrc = "~/.config/dunst/dunstrc"
 [helix.files]
 "helix-config.toml" = "~/.config/helix/config.toml"
 "helix-languages.toml" = "~/.config/helix/languages.toml"
-
-[i3.files]
-i3config = "~/.config/i3/config"
-
-[i3status.files]
-"i3status.toml" = "~/.config/i3status-rust/config.toml"
-
-[sway.files]
-swayconfig = "~/.config/sway/config"
-"workstyle.toml" = "~/.config/workstyle/config.toml"
 
 [systemd.files]
 systemd = "~/.config/systemd/user"
@@ -100,11 +84,6 @@ target = "/etc/lemurs/config.toml"
 type = "symbolic"
 owner = "root"
 
-[lemurs.files."lemurs/sway.sh"]
-target = "/etc/lemurs/wayland/sway"
-type = "symbolic"
-owner = "root"
-
 [lemurs.files."lemurs/niri.sh"]
 target = "/etc/lemurs/wayland/niri"
 type = "symbolic"
@@ -118,6 +97,7 @@ owner = "root"
 
 [desktop.files]
 "desktop/helix.desktop" = "~/.local/share/applications/helix.desktop"
+"desktop/aseprite.desktop" = "~/.local/share/applications/aseprite.desktop"
 
 [fish.files]
 "config.fish" = "~/.config/fish/config.fish"
