@@ -59,7 +59,7 @@ screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
 binds {
     Mod+Return { spawn "alacritty" "-e" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
-    Mod+Shift+Return { spawn "alacritty" "-e" "ssh" "-t" "-Y" "cems.local" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
+    Mod+Shift+Return { spawn "alacritty" "-e" "waypipe" "ssh" "-t" "-Y" "cems.local" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
     Mod+D { spawn "fuzzel"; }
     Mod+Shift+Q { close-window; }
 
