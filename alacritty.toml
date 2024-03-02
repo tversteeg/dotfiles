@@ -2,19 +2,10 @@
 TERM = "alacritty"
 
 [font]
-size = 13.0
-
-[font.bold]
-family = "FiraCode Nerd Font"
-style = "Bold"
-
-[font.italic]
-family = "FiraCode Nerd Font"
-style = "Light"
+size = 13.5
 
 [font.normal]
-family = "FiraCode Nerd Font"
-style = "Regular"
+family = "CommitMono Nerd Font"
 
 [window.padding]
 x = 0

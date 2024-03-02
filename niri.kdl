@@ -69,10 +69,10 @@ binds {
     XF86AudioNext { spawn "playerctl" "next"; }
     XF86AudioPrev { spawn "playerctl" "previous"; }
 
-    Mod+H     { focus-column-left; center-column; }
+    Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
-    Mod+L     { focus-column-right; center-column; }
+    Mod+L     { focus-column-right; }
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
