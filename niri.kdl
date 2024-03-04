@@ -57,9 +57,29 @@ prefer-no-csd
 
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
+animations {
+    workspace-switch {
+        duration-ms 300
+        curve "ease-out-cubic"
+    }
+
+    horizontal-view-movement {
+        duration-ms 300
+    }
+
+    window-open {
+        duration-ms 200
+    }
+}
+
+window-rule {
+    match title="Floorp"
+    default-column-width { proportion 0.5; }
+}
+
 binds {
     Mod+Return { spawn "alacritty" "-e" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
-    Mod+Shift+Return { spawn "alacritty" "-e" "waypipe" "ssh" "-t" "-Y" "cems.local" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
+    Mod+Shift+Return { spawn "alacritty" "-e" "waypipe" "ssh" "-t" "-Y" "cems.lan" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
     Mod+D { spawn "fuzzel"; }
     Mod+Shift+Q { close-window; }
 
