@@ -4,3 +4,4 @@ packages = ["default"]
 [files]
 
 [variables]
+font-size = 11.0

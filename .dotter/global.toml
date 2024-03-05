@@ -9,8 +9,9 @@ depends = ["starship", "alacritty", "git", "flavours", "dunst", "pipewire", "scr
 [starship.files]
 "starship.toml" = "~/.config/starship.toml"
 
-[alacritty.files]
-"alacritty.toml" = "~/.config/alacritty/alacritty.toml"
+[alacritty.files."alacritty.toml"]
+target = "~/.config/alacritty/alacritty.toml"
+type = "template"
 
 [git.files]
 gitconfig = "~/.gitconfig"
