@@ -23,13 +23,13 @@ input {
 
 layout {
     focus-ring {
-        width 4
-        active-color 55 119 230 255
+        width 3
+        active-gradient from="#3777E6" to="#AD00A1" angle=90
     }
 
     border {
-        width 2
-        active-color 55 119 230 255
+        width 3
+        active-gradient from="#3777E6" to="#AD00A1" angle=90
         inactive-color 80 80 80 255
     }
 

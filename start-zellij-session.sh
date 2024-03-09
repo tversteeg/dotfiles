@@ -67,6 +67,7 @@ elif [ "$selected_session" == "$bore_marker" ]
 then
 	read -p "Bore port to share: " BORE_PORT
 
+	zellij kill-session bore
 	BORE_PORT="$BORE_PORT" exec zellij --layout "$ZELLIJ_LAYOUT_DIR/bore.kdl" attach --create bore && exit
 elif [[ "$selected_session" == "$freq_marker"* ]]
 then
