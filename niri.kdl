@@ -81,7 +81,7 @@ binds {
     Mod+Return { spawn "alacritty" "-e" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
     Mod+Shift+Return { spawn "alacritty" "-e" "waypipe" "ssh" "-t" "-Y" "cems.lan" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
     Mod+D { spawn "fuzzel"; }
-    Mod+Shift+L { spawn "swaylock"; }
+    Mod+Alt+L { spawn "swaylock"; }
     Mod+Shift+Q { close-window; }
 
     XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
