@@ -1,7 +1,7 @@
 [helpers]
 
 [default]
-depends = ["starship", "alacritty", "git", "flavours", "dunst", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop", "fish"]
+depends = ["starship", "alacritty", "git", "flavours", "dunst", "pipewire", "scripts", "zellij", "helix", "systemd", "topgrade", "waybar", "qmk", "niri", "wayland", "lemurs", "fuzzel", "atuin", "desktop", "fish", "rust"]
 
 [scripts.files]
 "start-zellij-session.sh" = "~/.local/bin/start-zellij-session"
@@ -102,3 +102,6 @@ owner = "root"
 
 [fish.files]
 "config.fish" = "~/.config/fish/config.fish"
+
+[rust.files]
+"cargo.toml" = "~/.cargo/config.toml"
