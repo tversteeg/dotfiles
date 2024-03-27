@@ -1,10 +1,14 @@
 @import "/home/thomas/.dotfiles/waybar-colors.css";
 
-window {
-  border: none;
-  border-radius: 0;
+* {
   font-family: "FiraCode Nerd Font Mono";
   font-size: 16px;
+
+  border: none;
+  border-radius: 0;
+}
+
+window {
   min-height: 16px;
 }
 
@@ -19,11 +23,16 @@ window .modules-right {
 }
 
 tooltip {
-  background: white;
+  background: @base00;
 }
 
 tooltip label {
-  color: black;
+  color: @base04;
+}
+
+#taskbar button {
+  padding: 0 5px;
+  background-color: transparent;
 }
 
 #workspaces button {

@@ -37,6 +37,8 @@ dunstrc = "~/.config/dunst/dunstrc"
 
 [systemd.files]
 systemd = "~/.config/systemd/user"
+"/usr/lib/systemd/user/waybar.service" = "~/.config/systemd/user/niri.service.wants/waybar.service"
+"/usr/lib/systemd/user/dunst.service" = "~/.config/systemd/user/niri.service.wants/dunst.service"
 
 [pipewire.files]
 wireplumber = "~/.config/wireplumber"
@@ -52,8 +54,11 @@ zellij-layouts = "~/.config/zellij/layouts"
 remote_upgrades = ""
 
 [waybar.files]
-"waybar-config.json" = "~/.config/waybar/config"
 "waybar-style.css" = "~/.config/waybar/style.css"
+
+[waybar.files."waybar-config.json"]
+target = "~/.config/waybar/config"
+type = "template"
 
 [qmk.files]
 "qmk/" = "~/.qmk_firmware/keyboards/ferris/keymaps/tversteeg"

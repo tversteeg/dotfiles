@@ -5,3 +5,4 @@ packages = ["default"]
 
 [variables]
 font-size = 13.0
+right-modules = ""

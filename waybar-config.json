@@ -1,25 +1,36 @@
 {
+  "layer": "top",
   "position": "bottom",
   "height": 24,
-  "modules-left": ["wlr/workspaces"],
-  "modules-center": ["wlr/taskbar"],
-  "modules-right": ["privacy", "mpris", "wireplumber", "network", "cpu", "memory", "disk", "clock", "tray"],
-  "wlr/taskbar": {
-    "format": "{icon} {name}",
-    "tooltip": "false",
-    "active-first": "true",
-    "rewrite": {
-      "Floorp Web Browser": "Floorp",
-      "Rhythmbox Music Player": "Rhythmbox",
-    }
+
+  //"modules-left": ["wlr/workspaces"],
+  "modules-left": ["wlr/taskbar"],
+  "modules-right": ["systemd-failed-units", "privacy", "mpris", {{right-modules}} "network", "cpu", "memory", "disk", "clock", "tray"],
+
+  // Left modules
+
+  "wlr/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
   },
-  "sway/window": {
-    "icon": true,
-    "max-length": 50,
-    "rewrite": {
-      "(.*) — Ablaze Floorp": "$1",
-      "Zellij \\((.*)\\) - (.*)": "$1 - $2",
-    },
+
+  "wlr/taskbar": {
+    "format": "{icon} {title}",
+    "tooltip-format": "{app_id}",
+    "icon-size": 24,
+    "icon-theme": "Numix-Circle",
+    "active-first": true,
+    "all-outputs": false,
+    "markup": true,
+    "on-click": "activate",
+    "ignore-list": ["rhythmbox"],
+  },
+
+  // Right modules
+
+  "privacy": {
+    "icon-size": 14,
+    "spacing": 4,
   },
   "mpris": {
     "interval": 5,
@@ -29,6 +40,11 @@
       "paused": "󰏤",
       "stopped": "󰓛",
     },
+    "player-icons": {
+  		"default": "▶",
+  		"firefox": "󰈹",
+  		"floorp": "󰈹"
+  	},
     "dynamic-order": [
       "artist",
       "title",
@@ -56,6 +72,9 @@
     "tooltip": true,
     "format": "{:%H:%M}",
     "tooltip-format": "{:%Y-%m-%d}",
+    "timezones": ["Europe/Amsterdam", "Asia/Ho_Chi_Minh"],
+    "on-scroll-up": "tz-up",
+    "on-scroll-down": "tz-down",
   },
   "cpu": {
     "interval": 10,

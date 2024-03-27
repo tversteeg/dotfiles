@@ -5,3 +5,4 @@ packages = ["default"]
 
 [variables]
 font-size = 10.0
+right-modules = "\"wireplumber\","

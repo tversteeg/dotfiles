@@ -77,6 +77,17 @@ window-rule {
     default-column-width { proportion 0.5; }
 }
 
+window-rule {
+    match app-id="waybar"
+    block-out-from "screencast"
+}
+
+
+window-rule {
+    match app-id="rhythmbox"
+    block-out-from "screencast"
+}
+
 binds {
     Mod+Return { spawn "alacritty" "-e" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
     Mod+Shift+Return { spawn "alacritty" "-e" "waypipe" "ssh" "-t" "-Y" "cems.lan" "bash" "/home/thomas/.dotfiles/start-zellij-session.sh"; }
@@ -183,7 +194,6 @@ binds {
     Mod+Shift+Ctrl+T { toggle-debug-tint; }
 }
 
-spawn-at-startup "dunst"
 spawn-at-startup "keepassxc"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "kdeconnect-indicator"
