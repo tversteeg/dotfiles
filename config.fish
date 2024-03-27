@@ -5,9 +5,6 @@ if status is-interactive
     # PS1 prompt
     starship init fish | source
 
-    # Emplace
-    emplace init fish | source
-
     # Aliases
     alias ls='lsd'
     alias tree='et'

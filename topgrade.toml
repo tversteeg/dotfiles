@@ -13,7 +13,6 @@ repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
 "nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f"
 "niri" = "cd ~/r/niri/ && cargo install --path . --locked"
 "lemurs" = "cd ~/r/lemurs/ && cargo install --path . --locked"
-"emplace" = "cd ~/r/emplace/ && cargo install --path . --locked"
 "typos-lsp" = "cd ~/r/typos-lsp/ && cargo install --path crates/typos-lsp/ --locked --bin typos-lsp"
 
 [firmware]
