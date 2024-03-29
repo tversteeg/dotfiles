@@ -9,6 +9,14 @@ keybinds {
     normal {
         bind "Alt n" { NewPane "Down"; }
     }
+
+    // Allow moving between panes when Zellij is locked
+    shared {
+        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
+        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
+        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+    }
 }
 
 // Don't use automatic sessions
@@ -87,7 +95,7 @@ theme "base16"
 // Choose the mode that zellij uses when starting up.
 // Default: normal
 //
-// default_mode "locked"
+default_mode "locked"
 
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
