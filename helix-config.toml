@@ -43,6 +43,9 @@ enable = true
 enable = true
 
 # Remap some keys
+[keys.normal]
+backspace = "goto_word"
+
 [keys.normal.space]
 # Jump to the next split
 space = "rotate_view"
@@ -54,8 +57,3 @@ i = ":toggle lsp.display-inlay-hints"
 ret = ":w"
 # Toggle auto-format
 a = ":toggle-option auto-format"
-
-# Jump settings
-#[editor.jump-mode]
-#dim-during-jump = false
-#jump-keys = "uhetonaspg.c,rkmjwv"
