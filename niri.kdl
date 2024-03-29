@@ -59,16 +59,19 @@ screenshot-path "~/Pictures/Screenshots/%Y-%m-%d_%H-%M-%S.png"
 
 animations {
     workspace-switch {
-        duration-ms 300
-        curve "ease-out-cubic"
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
     }
 
     horizontal-view-movement {
-        duration-ms 300
+        spring damping-ratio=1.0 stiffness=800 epsilon=0.0001
     }
 
     window-open {
         duration-ms 200
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
     }
 }
 
