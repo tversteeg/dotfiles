@@ -75,6 +75,12 @@ animations {
     }
 }
 
+// Lower opacity for non-active windows
+window-rule {
+    match is-active=false
+    opacity 0.9
+}
+
 window-rule {
     match title="Floorp"
     default-column-width { proportion 0.5; }
