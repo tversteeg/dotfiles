@@ -91,6 +91,10 @@ window-rule {
     block-out-from "screencast"
 }
 
+window-rule {
+    match app-id="org.keepassxc.KeePassXC"
+    block-out-from "screencast"
+}
 
 window-rule {
     match app-id="rhythmbox"

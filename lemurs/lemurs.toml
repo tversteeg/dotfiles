@@ -3,11 +3,16 @@ x11_display = ":1"
 xserver_timeout_secs = 60
 main_log_path = "/var/log/lemurs.log"
 client_log_path = "/var/log/lemurs.client.log"
-xserver_log_path = "/var/log/lemurs.xorg.log"
+cache_path = "/var/cache/lemurs"
 do_log = true
 pam_service = "lemurs"
+system_shell = "/usr/bin/sh"
 shell_login_flag = "short"
 focus_behaviour = "default"
+
+[wayland]
+scripts_path = "/home/thomas/.dotfiles/lemurs/wayland"
+wayland_sessions_path = "/usr/share/wayland-sessions"
 
 [background]
 show_background = false

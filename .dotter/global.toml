@@ -90,11 +90,6 @@ target = "/etc/lemurs/config.toml"
 type = "symbolic"
 owner = "root"
 
-[lemurs.files."lemurs/niri.sh"]
-target = "/etc/lemurs/wayland/niri"
-type = "symbolic"
-owner = "root"
-
 [fuzzel.files]
 "fuzzel.ini" = "~/.config/fuzzel/fuzzel.ini"
 
