@@ -5,7 +5,7 @@
 
   //"modules-left": ["wlr/workspaces"],
   "modules-left": ["wlr/taskbar"],
-  "modules-right": ["systemd-failed-units", "privacy", "mpris", {{right-modules}} "network", "cpu", "memory", "disk", "clock", "tray"],
+  "modules-right": ["custom/todo", "systemd-failed-units", "privacy", "mpris", {{right-modules}} "network", "cpu", "memory", "disk", "clock", "tray"],
 
   // Left modules
 
@@ -28,6 +28,13 @@
 
   // Right modules
 
+  "custom/todo": {
+    "exec": "~/.dotfiles/waybar-todo.sh",
+    "return-type": "json",
+    "format": "{}  ",
+    "on-click": "/home/thomas/.cargo/bin/alacritty -e /home/thomas/.cargo/bin/hx -c /home/thomas/.config/helix/config.toml ~/todo.txt",
+    "interval": 5,
+  },
   "privacy": {
     "icon-size": 14,
     "spacing": 4,
