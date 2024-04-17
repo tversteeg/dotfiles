@@ -211,6 +211,5 @@ spawn-at-startup "keepassxc"
 spawn-at-startup "playerctld" "daemon"
 spawn-at-startup "kdeconnect-indicator"
 spawn-at-startup "transmission-gtk" "-m"
-// spawn-at-startup "nextcloud" "--background"
-// spawn-at-startup "protonmail-bridge" "--no-window"
+spawn-at-startup "dunst"
 
