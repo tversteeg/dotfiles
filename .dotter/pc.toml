@@ -4,5 +4,6 @@ packages = ["default"]
 [files]
 
 [variables]
+waybar-size = 16
 font-size = 13.0
 right-modules = ""

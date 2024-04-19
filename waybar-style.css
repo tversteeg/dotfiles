@@ -2,14 +2,14 @@
 
 * {
   font-family: "FiraCode Nerd Font Mono";
-  font-size: 16px;
+  font-size: {{waybar-size}}px;
 
   border: none;
   border-radius: 0;
 }
 
 window {
-  min-height: 16px;
+  min-height: {{waybar-size}}px;
 }
 
 window#waybar {

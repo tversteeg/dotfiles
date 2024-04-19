@@ -4,5 +4,6 @@ packages = ["default"]
 [files]
 
 [variables]
+waybar-size = 13
 font-size = 10.0
 right-modules = "\"wireplumber\","
