@@ -3,8 +3,8 @@
   "position": "bottom",
   "height": 24,
 
-  //"modules-left": ["wlr/workspaces"],
   "modules-left": ["wlr/taskbar"],
+  "modules-center": ["custom/pomodoro"],
   "modules-right": ["custom/todo", "systemd-failed-units", "privacy", "mpris", {{right-modules}} "network", "cpu", "memory", "disk", "clock", "tray"],
 
   // Left modules
@@ -24,6 +24,20 @@
     "markup": true,
     "on-click": "activate",
     "ignore-list": ["rhythmbox"],
+  },
+
+  // Center modules
+
+  "custom/pomodoro": {
+  	"format": "{} {icon}",
+  	"return-type": "json",
+  	"format-icons": {
+  		"work": "󰔟",
+  		"break": "",
+  	},
+  	"exec": "waybar-module-pomodoro",
+  	"on-click": "waybar-module-pomodoro toggle",
+  	"on-click-right": "waybar-module-pomodoro reset",
   },
 
   // Right modules
