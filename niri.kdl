@@ -75,6 +75,9 @@ animations {
     }
 }
 
+workspace "primary"
+workspace "secondary"
+
 // Lower opacity for non-active windows
 window-rule {
     match is-active=false
@@ -99,6 +102,12 @@ window-rule {
 window-rule {
     match app-id="rhythmbox"
     block-out-from "screencast"
+    open-on-workspace "secondary"
+}
+
+window-rule {
+    match app-id="thunderbird-default"
+    open-on-workspace "secondary"
 }
 
 binds {
