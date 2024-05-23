@@ -1,6 +1,4 @@
 tty = 2
-x11_display = ":1"
-xserver_timeout_secs = 60
 main_log_path = "/var/log/lemurs.log"
 client_log_path = "/var/log/lemurs.client.log"
 cache_path = "/var/cache/lemurs"
@@ -9,6 +7,10 @@ pam_service = "lemurs"
 system_shell = "/usr/bin/sh"
 shell_login_flag = "short"
 focus_behaviour = "default"
+
+[x11]
+xsetup_path = "/home/thomas/.dotfiles/lemurs/xsetup.sh"
+xserver_timeout_secs = 5
 
 [wayland]
 scripts_path = "/home/thomas/.dotfiles/lemurs/wayland"
