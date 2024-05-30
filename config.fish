@@ -59,3 +59,17 @@ if status is-interactive
 " --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
     # End flavours
 end
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/conda/bin/conda
+    eval /opt/conda/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/opt/conda/etc/fish/conf.d/conda.fish"
+        . "/opt/conda/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/opt/conda/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+

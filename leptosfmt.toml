@@ -1,2 +1,3 @@
 newline_style = "Unix"
+indentation_style = "Spaces"
 attr_value_brace_style = "WhenRequired"
