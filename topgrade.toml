@@ -8,7 +8,7 @@ cleanup = true
 repos = ["~/.dotfiles", "~/r/*", "~/w/*/*"]
 
 [commands]
-"helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked && ln -s -f ~/r/helix/runtime/ ~/.config/helix/runtime/"
+"helix" = "cd ~/r/helix/ && cargo install --path helix-term --locked && ln -s -f ~/r/helix/runtime/ ~/.config/helix/runtime"
 "dotter" = "cd ~/.dotfiles && dotter"
 "nerdfonts" = "cd ~/r/nerd-fonts && cp -R patched-fonts/* ~/.local/share/fonts/ && fc-cache -f"
 "niri" = "cd ~/r/niri/ && cargo install --path . --locked"

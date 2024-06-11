@@ -4,6 +4,7 @@ language-servers = ["tailwindcss-ls", "rust-analyzer", "typos"]
 
 [language-server.tailwindcss-ls]
 config = { userLanguages = { rust = "html", "*.rs" = "html" } }
+required-root-patterns = ["front-end/Cargo.toml"]
 
 [language-server.typos]
 command = "typos-lsp"
@@ -15,7 +16,7 @@ timeout = 60
 check.command = "clippy"
 cargo.features = "all"
 procMacro.ignored.leptos_macro = ["server"]
-# rustfmt.overrideCommand = ["leptosfmt", "--stdin", "--rustfmt", "--config-file", "/home/thomas/.dotfiles/leptosfmt.toml"]
+rustfmt.overrideCommand = ["leptosfmt", "--stdin", "--rustfmt", "--config-file", "/home/thomas/.dotfiles/leptosfmt.toml"]
 diagnostics.experimental.enable = true
 
 [[language]]

@@ -37,8 +37,6 @@ layout {
 
     default-column-width { proportion 0.333; }
 
-    center-focused-column "on-overflow"
-
     struts {
         left 0
         right 16
