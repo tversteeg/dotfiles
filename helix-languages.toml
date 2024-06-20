@@ -16,7 +16,7 @@ timeout = 60
 check.command = "clippy"
 cargo.features = "all"
 procMacro.ignored.leptos_macro = ["server"]
-rustfmt.overrideCommand = ["leptosfmt", "--stdin", "--rustfmt", "--config-file", "/home/thomas/.dotfiles/leptosfmt.toml"]
+# rustfmt.overrideCommand = ["leptosfmt", "--stdin", "--rustfmt", "--config-file", "/home/thomas/.dotfiles/leptosfmt.toml"]
 diagnostics.experimental.enable = true
 
 [[language]]

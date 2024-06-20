@@ -8,6 +8,9 @@ input {
         repeat-rate 25
     }
 
+    // Move mouse to focused window
+    warp-mouse-to-focus
+
     disable-power-key-handling
 }
 
@@ -15,11 +18,9 @@ input {
 //     position x=0 y=0
 // }
 
-// /-output "HDMI-A-1" {
-//     off
-    
-//     position x=3840 y=0
-// }
+output "HDMI-A-1" {
+    scale 1
+}
 
 layout {
     gaps 6

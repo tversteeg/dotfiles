@@ -2,8 +2,9 @@
 
 repo_dir_marker='~/r/..'
 work_dir_marker='~/w/..'
-clone_r_marker='clone GitHub repo into ~/r/'
-clone_w_marker='clone any repo into ~/w/'
+clone_r_marker='clone repo into ~/r/'
+clone_w_marker='clone repo into ~/w/'
+clone_tmp_marker='clone repo into /tmp/'
 kdash_marker='kdash'
 bore_marker='bore'
 freq_marker='recent: '
@@ -22,7 +23,7 @@ freq=$(fre --sorted --store "$fre_store_file" | head -n 10 | sed "s/^/${freq_mar
 zellij_layout_files=$(ls "$ZELLIJ_LAYOUT_DIR" | sed 's|.*/||' | sed 's|\..*||' | grep -v -w default | grep -v -w bore)
 
 # Prepend our special cases
-sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$freq\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$kdash_marker\n$bore_marker\n")
+sessions=$(printf "$repo_dir_marker\n$work_dir_marker\n$freq\n$zellij_layout_files\n$clone_r_marker\n$clone_w_marker\n$clone_tmp_marker\n$kdash_marker\n$bore_marker\n")
 
 selected_session=$(echo "$sessions" | fzf $fzf_opts)
 
@@ -60,6 +61,14 @@ then
 	read -p "Enter repo SSH URL: " url
 	git clone "$url"
 	sleep 3
+elif [ "$selected_session" == "$clone_tmp_marker" ]
+then
+	cd /tmp/
+	read -p "Enter repo SSH URL: " url
+	git clone "$url" repo
+	cd /tmp/repo
+	# Attach to the session if it exists or otherwise create a new one
+	exec zellij --layout "$ZELLIJ_LAYOUT_DIR/default.kdl" attach --create tmp && exit
 elif [ "$selected_session" == "$kdash_marker" ]
 then
 	exec kdash
