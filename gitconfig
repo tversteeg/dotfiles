@@ -24,6 +24,7 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	touch = !"f() { mkdir -p $(dirname $@) && touch $@ && git add $@; }; f"
 	mr = !"git push -u origin $(git rev-parse --abbrev-ref HEAD) -o merge_request.create -o merge_request.merge_when_pipeline_succeeds -o merge_request.remove_source_branch"
+	commit-time = !"f() { DATE=\"$(date -d \"$1\")\" shift; echo \"$DATE\"; GIT_AUTHOR_DATE=\"$DATE\" GIT_COMMITTER_DATE=\"$DATE\" git commit \"$@\"; }; f"
 [init]
 	defaultBranch = main
 [trim]
