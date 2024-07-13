@@ -1,0 +1,9 @@
+[Unit]
+After=xdg-desktop-autostart.target
+
+[Service]
+Type=simple
+ExecStart=/home/thomas/r/glance/build/glance -config /home/thomas/.dotfiles/glance.yml
+
+[Install]
+WantedBy=graphical-session.target

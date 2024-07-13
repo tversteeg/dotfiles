@@ -1,0 +1,269 @@
+pages:
+  - name: Home
+    columns:
+      - size: small
+        widgets:
+          - type: bookmarks
+            groups:
+              - links:
+                - title: GitHub
+                  url: https://github.com/
+                  icon: si:github
+                - title: Chuột
+                  url: https://tversteeg.nl/chuot/
+                  icon: si:githubpages
+                - title: Bookwyrm
+                  url: https://bookwyrm.social/
+                  icon: si:bookstack
+                - title: Buienradar
+                  url: https://www.buienradar.nl/
+                  icon: si:buienradar
+                - title: NS
+                  url: https://ns.nl/
+                  icon: si:ns
+
+              - title: Games
+                links:
+                - title: Itch
+                  url: https://itch.io/
+                  icon: si:itchdotio
+                - title: GOG
+                  url: https://gog.com/
+                  icon: si:gogdotcom
+                - title: Fanatical
+                  url: https://www.fanatical.com/en/bundle/games
+                  icon: si:fanatical
+                - title: Humble Bundle
+                  url: https://www.humblebundle.com/games
+                  icon: si:humblebundle
+
+              - title: Work
+                links:
+                - title: GitLab
+                  url: https://gitlab.com/cemsbv/servicedesk/-/issues/service_desk
+                  icon: si:gitlab
+                - title: Grafana
+                  url: https://grafana.cemsbv.io/
+                  icon: si:grafana
+                - title: Nuclei
+                  url: https://nuclei.cemsbv.io/
+                  icon: si:nuclei
+                - title: Standup
+                  url: https://meet.google.com/icx-omzx-uxb
+                  icon: si:googlemeet
+                - title: Auth0
+                  url: https://auth0.com/
+                  icon: si:auth0
+                - title: AFAS
+                  url: https://login.afasonline.com/91151/Apps
+                  icon: si:afas
+                - title: ClickUp
+                  url: https://clickup.com/
+                  icon: si:clickup
+
+          - type: releases
+            repositories:
+              - tversteeg/chuot
+              - gfx-rs/wgpu
+              - rust-windowing/winit
+
+          - type: monitor
+            cache: 1m
+            title: Services
+            sites:
+              - title: Jellyfin
+                url: http://localhost:8096
+                icon: si:jellyfin
+              - title: Nuclei
+                url: https://nuclei.cemsbv.io
+                icon: si:nuclei
+
+      - size: full
+        widgets:
+          - type: search
+            search-engine: duckduckgo
+            bangs:
+            - title: YouTube
+              shortcut: "!yt"
+              url: https://www.youtube.com/results?search_query={QUERY}
+            - title: Wikipedia
+              shortcut: "!w"
+              url: https://en.wikipedia.org/wiki/{QUERY}
+
+          - type: repository
+            repository: tversteeg/chuot
+            pull-request-limit: 5
+            issues-limit: 3
+
+          - type: videos
+            style: grid-cards
+            collapse-after-rows: 3
+            limit: 100
+            channels:
+              - UCtEwVJZABCd0tels2KIpKGQ # aarthificial
+              - UCetrzdWYUfY6n_FZra-6l4g # A leftist loudmouth
+              - UCzhsgv42h35NyQh_xfycB-Q # 2 Left Thumbs
+              - UC08QfQDLAd9D7aYPFgBUIng # AdamCYounis
+              - UCxMDrEae6H6P-5p0BgTs1lw # AfroViet TV
+              - UCMKH_yo-lhyCdj4fJlQnYjQ # 7 Pot Club
+              - UCJuR2WddXx6OcK9j1CBeUig # AnRel
+              - UCn_wgMTkq_AwR-Urfywftbw # Amatnieks
+              - UCWxiO_Br1awgEjy79VItspQ # Ant Lab
+              - UC2Xd-TjJByJyK2w1zNwY0zQ # Beyond Fireship
+              - UCqeg5vkTkH-DYxmOO9FJOHA # Ardour
+              - UCaN8DZdc8EHo5y1LsQWMiig # Big Joel
+              - UC3CO7JCZVmdnBfs46vBmuMw # blackedout01
+              - UC4gHQVTdWoU40Lm-dqhe0UQ # Chill Goblin
+              - UCP2r5IqIwxTQmBXAzi00s-Q # Bones AI
+              - UC9Z1XWw1kmnvOOFsj6Bzy2g # Blackthornprod
+              - UCZgt6AzoyjslHTC9dz0UoTw # ByteByteGo
+              - UCjREVt2ZJU8ql-NC9Gu-TJw # Code to the Moon
+              - UCC26K7LTSrJK0BPAUyyvtQg # Brandon James Greer
+              - UCepzS80JI8P5Lz6eYD0i4aA # Crackhead Barney & Friends
+              - UCs4fQRyl1TJvoeOdekW6lYA # fasterthanlime
+              - UCFU7a7OMYfcpjtIpu2j47_Q # DevOnDuty
+              - UCs1IVfuAVIX_bUumMc6Bk3g # Erin Catto
+              - UCLloRmz8n7qDOOG1gocQsfQ # Fab Socialism 
+              - UC89NzFUOsBrjRSJt4Y8s6WQ # Firebelley Games
+              - UCqJ-Xo29CKyLTjn6z2XwYAw # Game Maker's Toolkit
+              - UCgi2u-lGY-2i2ubLsUr6FbQ # F.D Signifier
+              - UCyNtlmLB73-7gtlBz00XOQQ # Folding Ideas
+              - UCsBjURrPoezykLs9EqgamOA # Fireship
+              - UCylVqS5Hk_i175AyCeYKT2w # Get Indie Gaming
+              - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
+              - UC1qBXNO9sM4xV0wKC0_SlYQ # Foreign Man in a Foreign Land
+              - UClt01z1wHHT7c5lKcU8pxRQ # hbomberguy
+              - UCWCw2Sd7RlYJ2yuNVHDWNOA # Jim Sterling
+              - UCGSGPehp0RWfca-kENgBJ9Q # JREG
+              - UCx2xTsk2RnLHU-a139MOcmA # KevinOilPainting
+              - UCjZNuiHWaxFhtaI1EAlSXlg # JohntheDuncan
+              - UCy9T075tKmceX-a-YJGrRgA # Layerwise Lectures
+              - UCtZMWqGbT2UDdw1gGqVEpRg # Let's Talk Game Design
+              - UCepkun0sH16b-mqxBN22ogA # Mexie
+              - UCN4l7I2RxGBJ3i_EFi1SzuA # Luna oi!
+              - UC4RrVM-Xck6VDNCZFWXiZUw # MicroType Engineering
+              - UCtDBBEBboF635TaZ255x1Dg # Miniboss
+              - UCMk_WSPy3EE16aK5HLzCJzw # NativLang
+              - UCoHqnZy_SFICoaC0M-iLlRg # Learn Vietnamese With Annie
+              - UCLyVUwlB_Hahir_VsKkGPIA # Mix and Jam
+              - UCtJPeNYnAXhB1-_h8xbIX_Q # Nemean
+              - UCGNm2vGRTPwbO0Q6u-X7MuA # Morphcat Games
+              - UCaoqVlqPTH78_xjTjTOMcmQ # Miziziziz
+              - UCqzB9Ks5H939XLuSuVLuPVw # Nicolas Bras
+              - UCkZFKKK-0YB0FvwoS8P7nHg # NonCompete
+              - UCAXCE0MLOSTTkkOU1HTh_IA # Noah Samsen
+              - UCOY3u8EoTo19ajFA-a4I2ag # Philosynoir
+              - UChrYe70o7NmDioL02PRVWVg # MattKC
+              - UCVHxJghKAB_kA_5LMM8MD3w # oliSUNvia
+              - UCC_u8Lk9hsUOAKx-CUJlLEg # NonCompete Highlights
+              - UCw0J5ogwPOAVXTHwKMG22ZQ # Pierre Chevalier
+              - UC0fDG3byEcMtbOqPMymDNbw # Noclip - Video Game Documentaries
+              - UC6gD8kk_Z_5bX2PcRk2fwDg # Pagefire
+              - UCjU-rielI7RsX1hqsCQdfhw # Penusbmic
+              - UCNbxzUq4EKZfmp4FdJbs9OA # Nathan Stocks
+              - UClnCLTkRd1vhQYU1t1HyivQ # Princess Weekes
+              - UCXDgzpxq0LE6wwauQr5AQmA # Phibian
+              - UCAmR0fTvNhqpxwcIIjxgFlQ # Pamphleteer
+              - UCQkyHJ50otxLAqJUY-E4qfA # Nootall
+              - UC7OO80qJzGTLOj_6-0dmOiA # Pixel Pete (Peter Milko)  
+              - UCi8C7TNs2ohrc6hnRQ5Sn2w # Programmers are also human
+              - UCK8XIGR5kRidIw2fWqwyHRA # Reducible
+              - UCMOqf8ab-42UUQIdVoKwjlQ # Practical Engineering
+              - UCGZrqXTq3GW2wNRz9M44Baw # Professor Flowers
+              - UCAfpcnw3DvpcggcHKos_mvQ # Pixel Overload
+              - UC2PA-AKmVpU6NKCGtZq_rKQ # Philosophy Tube
+              - UCMA81Gp8UghV1-5gZcTRKYA # Rappenem
+              - UCEBbylt9Rax3nOP_hyPnMPA # Prolekult
+              - UCJ6o36XL0CpYb6U5dNBiXHQ # Shaun
+              - UCrbatFmtTIvX3BCgsXOy96w # Rust Game Development
+              - UC9infsKo33_2LUoiqXGgQWg # Renegade Cut
+              - UC1AXAXqc8eY5H60qeM4lkdw # Retronator
+              - UCUmLRMERmJrmUtgnbFfknAg # Randy
+              - UCh1yxNkCcUnULB0BlGaO0mA # SudoMetalStudio
+              - UC9sLTozvg2SJme_W1in5s9Q # Rust Nederland (RustNL)
+              - UCP5tjEmvPItGyLhmjdwP7Ww # RealLifeLore
+              - UCxTdWpLJurbGlFMWOwXWG_A # Step Back
+              - UC95fKRwnEvd8RTX74Iz3TcA # The Gravel Institute
+              - UChl_NKOs1qqh_x7yJfaDpDw # Tantan
+              - UCmtyQOKKmrMVaKuRXz02jbQ # Sebastian Lague
+              - UC9TwYQOO9mAxoF4v8ZioySg # Tom Crosshill
+              - UCRT_DdZnWiUryqrOhLL7gyw # Steve Lee (Level and Game Design)
+              - UCJmlCcnfMlyPA2oSbb072QA # Sophie from Mars
+              - UCIjUIjWig0r5DIixQrt6A3A # t3ssel8r
+              - UC5UAwBUum7CPN5buc-_N1Fw # The Linux Experiment
+              - UCash6vxr1eNi5r_JsihPD_g # Tara Mooknee
+              - UC3ewEwPUnReNd_mgwxOn9aQ # strager
+              - UCcYvqQ-UuvvFsHNNfwjYEBw # WHAT IS POLITICS?
+              - UCCT8a7d6S6RJUivBgNRsiYg # Three Arrows
+              - UCRLQpier5zHuUcG2xvof_UA # The Optimistic Communist
+              - UC_0e1271DHhRyiDIuX6B6aQ # ThatGuyGlen
+              - UCZMF14eNxvuReRTceX_mbqQ # The Game Overanalyser
+              - UCjr2bPAyPV7t35MvcgT3W8Q # The Hated One
+              - UCIYIsJWfps2RwOzJlhwnoEw # Vojtěch Pröschl
+              - UC5_H0gdz1UaY3JakAeW4Jqg # Tobiah
+              - UCAYKj_peyESIMDp5LtHlH2A # unfa🇺🇦
+              - UCrr7y8rEXb7_RiVniwvzk9w # Thought Slime
+              - UCbbsW7_Esx8QZ8PgJ13pGxw # We're In Hell
+              - UCf84jI4cauYJZlVkjNB6CuA # What The Pho 
+              - UCRB6k6EBYh6V17TqbPna_Bg # Zac
+              - UCaqu5sampSjdA8_mB55UiXQ # Foklin
+              - UC_p_9arduPuxM8DHTGIuSOg # Jonas Tyroller
+              - UCQG40havu4kNpB4pxUDQhYQ # Acerola
+              - UCUzQJ3JBuQ9w-po4TXRJHiA # jdh
+              - UCMwLVepB4YOgpyo48iyg7HA # Vercidium
+              - UCnBYZ7OshtQyAOo9hHq_KMQ # Aurailus
+              - UChPtFWO8iMOBtDp1krhDlGQ # Dekirisu
+              - UCY8Ip8akvAdTVOqKOTmYmyw # Deakcor
+              - UC7M-Wz4zK8oikt6ATcoTwBA # Freya Holmér
+              - UCMX1A8WPVQtOTZmanT8YseA # Useless Game Dev
+              - UC0gQ1dLGf5-504RQu-awotA # Winterdev
+              - UC-ZRith7WAZ5UXBRJtkxuFA # AIA
+              - UCHVjLgJdm2bY91z-RJNroPw # ToffeeBun
+              - UCeZLO2VgbZHeDcongKzzfOw # 8-bit Music Theory
+              - UCTdFEO_5f4wq2qgFkxrxkOw # Eniko Fox
+              - UCTEZ0gVA5jMYq2SwjLyTUKw # PlayWithFurcifer
+              - UCONH73CdRXUjlh3-DdLGCPw # Nicco Loves Linux
+              - UCnNEI3UdreSoQ6XUNcKoUeg # Josh's Channel
+              - UCCd3jyJmOFzkJEMj5Bp89rw # Best Indie Games
+              - UC65EvSFVaQ9E9j76MzCqpSQ # the vegasian
+              - UCywPlxpmCZtuqOs6_bZEG9A # Jan Orszulik
+              - UCwOConcPgxt3lIKIfBSNrTg # Transparency Boo
+              - UCb8YYrrZRsbjGJEitdx697A # retrogameinternals
+              - UCYbK_tjZ2OrIZFBvU6CCMiA # Brackeys
+              - UCjnOClGh5RS3IB_hWCzvcPQ # Going Indie
+              - UCgQIHazUQdXEwDlN3It4XLw # Eastshade Studios
+              - UCNvdCNU9BJA2B1nQIoKLHBg # Jump Trajectory
+              - UCvFDxvCvvibNScfJD5h4oBQ # Zizaco
+              - UCL_Zrh9lwoOT7ftTRA-npvg # Kooleen
+              - UCkIccKaHDGA8lYVmUerLhag # Krita
+              - UCo0-VCHchPIG3JtJlIQnFew # DoshDoshington
+              - UCTG_vrRdKYfrpqCv_WV4eyA # Ten Minute Physics
+              - UCGwu0nbY2wSkW8N-cghnLpA # JaidenAnimations
+              - UCsh3hD01kBk3DUCiF2k6Tpg # Rakurri
+              - UCYO_jab_esuFRV4b17AJtAw # 3Blue1Brown
+              - UC8GR0g1deJB_gxWxi_vuxhA # pikuma
+              - UC0intLFzLaudFG-xAvUEO-A # Not Just Bikes
+              - UCqpg8i6CryfkIw0uqytHsow # Elliot Sang
+              - UCUNtD-UN-fQHHteLHK9HgvQ # Dr. Fatima
+
+      - size: small
+        widgets:
+          - type: clock
+            hour-format: 24h
+            timezones:
+              - timezone: Asia/Ho_Chi_Minh
+                label: Sài Gòn
+              - timezone: Europe/Amsterdam
+                label: Amsterdam
+          
+          - type: calendar
+
+          - type: weather
+            title: Weather Hilversum
+            location: Hilversum, Netherlands
+            hide-location: true
+
+          - type: weather
+            title: Weather Sài Gòn
+            location: Ho Chi Minh City, Vietnam
+            hide-location: true
